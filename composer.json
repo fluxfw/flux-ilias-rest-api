@@ -1,0 +1,32 @@
+{
+  "name": "fluxlabs/fluxiliasrestapi",
+  "description": "ILIAS Rest Api",
+  "type": "project",
+  "keywords": [
+    "api",
+    "ilias",
+    "rest"
+  ],
+  "homepage": "https://github.com/fluxapps/FluxIliasRestApi",
+  "license": "GPL-3.0-only",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fluxapps/FluxRestApi"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "fluxlabs/fluxrestapi": "dev-main"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fluxlabs\\FluxIliasRestApi\\": "src/"
+    }
+  },
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
