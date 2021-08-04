@@ -1,24 +1,24 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Route\Fetcher;
+namespace Fluxlabs\FluxIliasRestApi\Route\Collector;
 
-use Fluxlabs\FluxRestApi\Route\Fetcher\FolderRoutesFetcher;
-use Fluxlabs\FluxRestApi\Route\Fetcher\RoutesFetcher;
+use Fluxlabs\FluxRestApi\Route\Collector\FolderRouteCollector;
+use Fluxlabs\FluxRestApi\Route\Collector\RouteCollector;
 use ilPluginAdmin;
 use Throwable;
 
-class IliasPluginsRoutesFetcher implements RoutesFetcher
+class IliasPluginsRouteCollector implements RouteCollector
 {
 
     public static function new() : /*static*/ self
     {
-        $fetcher = new static();
+        $collector = new static();
 
-        return $fetcher;
+        return $collector;
     }
 
 
-    public function fetchRoutes() : array
+    public function collectRoutes() : array
     {
         return array_reduce(ilPluginAdmin::getActivePlugins(), function (array $routes, array $plugin_data) : array {
             $plugin = null;
@@ -41,10 +41,10 @@ class IliasPluginsRoutesFetcher implements RoutesFetcher
                 require_once $plugin_autoload_file;
             }
 
-            return array_merge($routes, FolderRoutesFetcher::new(
+            return array_merge($routes, FolderRouteCollector::new(
                 $plugin_routes_folder
             )
-                ->fetchRoutes());
+                ->collectRoutes());
         }, []);
     }
 }
