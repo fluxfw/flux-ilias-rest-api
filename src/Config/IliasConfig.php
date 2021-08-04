@@ -3,19 +3,19 @@
 namespace Fluxlabs\FluxIliasRestApi\Config;
 
 use Fluxlabs\FluxIliasRestApi\Authorization\IliasAuthorization;
-use Fluxlabs\FluxIliasRestApi\Route\Fetcher\IliasPluginsRoutesFetcher;
+use Fluxlabs\FluxIliasRestApi\Route\Collector\IliasPluginsRouteCollector;
 use Fluxlabs\FluxRestApi\Authorization\Authorization;
 use Fluxlabs\FluxRestApi\Config\Config;
-use Fluxlabs\FluxRestApi\Route\Fetcher\CombinedRoutesFetcher;
-use Fluxlabs\FluxRestApi\Route\Fetcher\FolderRoutesFetcher;
-use Fluxlabs\FluxRestApi\Route\Fetcher\RoutesFetcher;
+use Fluxlabs\FluxRestApi\Route\Collector\CombinedRouteCollector;
+use Fluxlabs\FluxRestApi\Route\Collector\FolderRouteCollector;
+use Fluxlabs\FluxRestApi\Route\Collector\RouteCollector;
 
 class IliasConfig implements Config
 {
 
     private static ?self $instance = null;
     private ?Authorization $authorization = null;
-    private ?RoutesFetcher $routes_fetcher = null;
+    private ?RouteCollector $route_collector = null;
 
 
     public static function new() : /*static*/ self
@@ -34,17 +34,17 @@ class IliasConfig implements Config
     }
 
 
-    public function getRoutesFetcher() : RoutesFetcher
+    public function getRouteCollector() : RouteCollector
     {
-        $this->routes_fetcher ??= CombinedRoutesFetcher::new(
+        $this->route_collector ??= CombinedRouteCollector::new(
             [
-                FolderRoutesFetcher::new(
+                FolderRouteCollector::new(
                     __DIR__ . "/../../routes"
                 ),
-                IliasPluginsRoutesFetcher::new()
+                IliasPluginsRouteCollector::new()
             ]
         );
 
-        return $this->routes_fetcher;
+        return $this->route_collector;
     }
 }
