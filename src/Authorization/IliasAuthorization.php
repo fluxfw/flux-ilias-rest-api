@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Authorization;
 
 use Exception;
 use Fluxlabs\FluxRestApi\Authorization\Authorization;
-use Fluxlabs\FluxRestApi\Authorization\HttpBasicAuthorization\HttpBasicAuthorization;
+use Fluxlabs\FluxRestApi\Authorization\HttpBasic\HttpBasicAuthorization;
 use Fluxlabs\FluxRestApi\Request\RawRequestDto;
 use ilCronStartUp;
 
