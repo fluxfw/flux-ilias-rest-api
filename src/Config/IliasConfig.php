@@ -26,7 +26,7 @@ class IliasConfig implements Config
     }
 
 
-    public function getAuthorization() : Authorization
+    public function getAuthorization() : ?Authorization
     {
         $this->authorization ??= IliasAuthorization::new();
 
