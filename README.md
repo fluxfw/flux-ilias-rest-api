@@ -4,11 +4,10 @@
 
 Start at your ILIAS root directory
 
-```bash
-cd Customizing/global
-git clone https://github.com/fluxapps/FluxIliasRestApi.git FluxIliasRestApi
-cd FluxIliasRestApi
-composer install --no-dev
+```shell
+mkdir -p Customizing/global/FluxIliasRestApi && cd Customizing/global/FluxIliasRestApi
+wget -O - https://github.com/fluxapps/FluxIliasRestApi/archive/main.tar.gz | tar -xz --strip-components=1
+composer install
 ```
 
 ## Call route
