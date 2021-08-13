@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fluxapps/FluxRestApi.git",
-                "reference": "3b07683613e8fcb715c5b89fcf265f7697d43f35"
+                "reference": "40e6a401411120132b67d6d4c90182c653406123"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fluxapps/FluxRestApi/zipball/3b07683613e8fcb715c5b89fcf265f7697d43f35",
-                "reference": "3b07683613e8fcb715c5b89fcf265f7697d43f35",
+                "url": "https://api.github.com/repos/fluxapps/FluxRestApi/zipball/40e6a401411120132b67d6d4c90182c653406123",
+                "reference": "40e6a401411120132b67d6d4c90182c653406123",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
             "support": {
                 "source": "https://github.com/fluxapps/FluxRestApi/tree/main"
             },
-            "time": "2021-08-12T07:40:27+00:00"
+            "time": "2021-08-13T06:01:07+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
