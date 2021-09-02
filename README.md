@@ -30,13 +30,13 @@ The `Authorization` header looks like (Base64 encoded)
 
 ## Permissions
 
-All ILIAS users are allowed, so each route needs to implement an access self for avoid unprivileged actions
+Only admin users can use the api
 
 ## Routes location
 
 You can either place routes in [routes](routes)
 
-And/or each ILIAS plugin can also have routes in its own `routes` root folder
+And/or each ILIAS plugin can also have routes in its own `src/Adapter/Route` folder
 
 The folders are scanned recursive
 
