@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Route\Collector;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Collector;
 
-use Fluxlabs\FluxRestApi\Route\Collector\FolderRouteCollector;
-use Fluxlabs\FluxRestApi\Route\Collector\RouteCollector;
+use Fluxlabs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
+use Fluxlabs\FluxRestApi\Collector\RouteCollector;
 use ilPluginAdmin;
 use Throwable;
 
@@ -31,7 +31,7 @@ class IliasPluginsRouteCollector implements RouteCollector
                 return $routes;
             }
 
-            $plugin_routes_folder = $plugin->getDirectory() . "/routes";
+            $plugin_routes_folder = $plugin->getDirectory() . "/src/Adapter/Route";
             if (!file_exists($plugin_routes_folder)) {
                 return $routes;
             }

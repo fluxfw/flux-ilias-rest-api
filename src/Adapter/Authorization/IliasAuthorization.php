@@ -1,11 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Authorization;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Authorization;
 
 use Exception;
+use Fluxlabs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
 use Fluxlabs\FluxRestApi\Authorization\Authorization;
-use Fluxlabs\FluxRestApi\Authorization\HttpBasic\HttpBasicAuthorization;
 use Fluxlabs\FluxRestApi\Request\RawRequestDto;
+use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use ilCronStartUp;
 
 class IliasAuthorization implements Authorization
@@ -21,11 +22,14 @@ class IliasAuthorization implements Authorization
     }
 
 
-    public function authorize(RawRequestDto $request) : void
+    public function authorize(RawRequestDto $request) : ?ResponseDto
     {
         $authorization = $this->parseHttpBasicAuthorization(
             $request
         );
+        if ($authorization instanceof ResponseDto) {
+            return $authorization;
+        }
 
         if (!str_contains($authorization->getUser(), "/")) {
             throw new Exception("Missing client and user");
@@ -39,16 +43,15 @@ class IliasAuthorization implements Authorization
             throw new Exception("Missing client or user");
         }
 
-        $this->initIlias();
-
+        chdir(__DIR__ . "/../../../../../..");
+        require_once __DIR__ . "/../../../../../../libs/composer/vendor/autoload.php";
         (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
-    }
 
+        global $DIC;
+        if (!$DIC->rbac()->review()->isAssigned($DIC->user()->getId(), SYSTEM_ROLE_ID)) {
+            throw new Exception("Only admin users are allowed");
+        }
 
-    private function initIlias() : void
-    {
-        chdir(__DIR__ . "/../../../../..");
-
-        require_once __DIR__ . "/../../../../../libs/composer/vendor/autoload.php";
+        return null;
     }
 }
