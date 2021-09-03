@@ -1,29 +1,43 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api;
+namespace Fluxlabs\FluxIliasRestApi\Channel\User\Port;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\CreateUserCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\DeleteUserCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetAvatarPathCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUserCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUsersCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\UpdateAvatarCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\UpdateUserCommand;
+use ilDBInterface;
+use ILIAS\DI\RBACServices;
 
-class Api
+class UserService
 {
 
-    private ?UserService $user = null;
+    private ilDBInterface $database;
+    private RBACServices $rbac;
 
 
-    public static function new() : /*static*/ self
+    public static function new(ilDBInterface $database, RBACServices $rbac) : /*static*/ self
     {
-        $api = new static();
+        $service = new static();
 
-        return $api;
+        $service->database = $database;
+        $service->rbac = $rbac;
+
+        return $service;
     }
 
 
     public function createUser(UserDiffDto $diff) : UserIdDto
     {
-        return $this->getUser()
+        return CreateUserCommand::new(
+            $this->rbac
+        )
             ->createUser(
                 $diff
             );
@@ -32,7 +46,9 @@ class Api
 
     public function deleteUserById(int $id) : ?UserIdDto
     {
-        return $this->getUser()
+        return DeleteUserCommand::new(
+            $this
+        )
             ->deleteUserById(
                 $id
             );
@@ -41,7 +57,9 @@ class Api
 
     public function deleteUserByImportId(string $import_id) : ?UserIdDto
     {
-        return $this->getUser()
+        return DeleteUserCommand::new(
+            $this
+        )
             ->deleteUserByImportId(
                 $import_id
             );
@@ -50,7 +68,9 @@ class Api
 
     public function getAvatarPathById(int $id) : ?string
     {
-        return $this->getUser()
+        return GetAvatarPathCommand::new(
+            $this
+        )
             ->getAvatarPathById(
                 $id
             );
@@ -59,7 +79,9 @@ class Api
 
     public function getAvatarPathByImportId(string $import_id) : ?string
     {
-        return $this->getUser()
+        return GetAvatarPathCommand::new(
+            $this
+        )
             ->getAvatarPathByImportId(
                 $import_id
             );
@@ -68,16 +90,20 @@ class Api
 
     public function getUserById(int $id) : ?UserDto
     {
-        return $this->getUser()
+        return GetUserCommand::new(
+            $this->database
+        )
             ->getUserById(
                 $id
             );
     }
 
 
-    public function getUserByImportId(string $import_id) : ?UserDto
+    public function getUserByImportId(?string $import_id) : ?UserDto
     {
-        return $this->getUser()
+        return GetUserCommand::new(
+            $this->database
+        )
             ->getUserByImportId(
                 $import_id
             );
@@ -86,7 +112,9 @@ class Api
 
     public function getUsers(bool $access_limited_object_ids = false, bool $multi_fields = false, bool $preferences = false, bool $user_defined_fields = false) : array
     {
-        return $this->getUser()
+        return GetUsersCommand::new(
+            $this->database
+        )
             ->getUsers(
                 $access_limited_object_ids,
                 $multi_fields,
@@ -98,7 +126,9 @@ class Api
 
     public function updateAvatarById(int $id, ?string $file) : ?UserIdDto
     {
-        return $this->getUser()
+        return UpdateAvatarCommand::new(
+            $this
+        )
             ->updateAvatarById(
                 $id,
                 $file
@@ -108,7 +138,9 @@ class Api
 
     public function updateAvatarByImportId(string $import_id, ?string $file) : ?UserIdDto
     {
-        return $this->getUser()
+        return UpdateAvatarCommand::new(
+            $this
+        )
             ->updateAvatarByImportId(
                 $import_id,
                 $file
@@ -118,7 +150,9 @@ class Api
 
     public function updateUserById(int $id, UserDiffDto $diff) : ?UserIdDto
     {
-        return $this->getUser()
+        return UpdateUserCommand::new(
+            $this
+        )
             ->updateUserById(
                 $id,
                 $diff
@@ -128,23 +162,12 @@ class Api
 
     public function updateUserByImportId(string $import_id, UserDiffDto $diff) : ?UserIdDto
     {
-        return $this->getUser()
+        return UpdateUserCommand::new(
+            $this
+        )
             ->updateUserByImportId(
                 $import_id,
                 $diff
             );
-    }
-
-
-    private function getUser() : UserService
-    {
-        global $DIC;
-
-        $this->user ??= UserService::new(
-            $DIC->database(),
-            $DIC->rbac()
-        );
-
-        return $this->user;
     }
 }

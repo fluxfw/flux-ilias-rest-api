@@ -1,5 +1,7 @@
 # FluxIliasRestApi
 
+Experimental Alpha Version
+
 ## Installation
 
 Start at your ILIAS root directory
@@ -32,20 +34,26 @@ The `Authorization` header looks like (Base64 encoded)
 
 Only admin users can use the api
 
-## Routes location
+## Built in routes
 
-You can either place routes in [routes](routes)
+Currently, there are some users built in routes
 
-And/or each ILIAS plugin can also have routes in its own `src/Adapter/Route` folder
+Use [Get available routes](#get-available-routes) for show
+
+## Custom routes location
+
+You can either place custom routes in [routes](routes)
+
+And/or each ILIAS plugin can also have custom routes in its own `src/Adapter/Route` folder
 
 The folders are scanned recursive
 
-## Get Routes
+## Get available routes
 
 With the follow built-in route you can get all available routes
 
 `https://%host%/Customizing/global/FluxIliasRestApi?/routes`
 
-## Example routes
+## Example routes code
 
 [examples](https://github.com/fluxapps/FluxRestApi/tree/main/examples/routes)

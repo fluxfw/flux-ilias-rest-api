@@ -1,9 +1,11 @@
 {
   "name": "fluxlabs/fluxiliasrestapi",
-  "description": "ILIAS Rest Api",
+  "description": "ILIAS Rest Api (Experimental Alpha Version)",
   "type": "project",
   "keywords": [
+    "alpha",
     "api",
+    "experimental",
     "ilias",
     "rest"
   ],
