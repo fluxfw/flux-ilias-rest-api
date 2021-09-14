@@ -124,7 +124,6 @@ class Api
     {
         return $this->getCategory()
             ->createCategoryToId(
-                $type,
                 $parent_id,
                 $diff
             );
