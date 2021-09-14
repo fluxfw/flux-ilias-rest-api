@@ -4,6 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\User\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\UserQuery;
 use ILIAS\DI\RBACServices;
 
@@ -12,14 +13,16 @@ class CreateUserCommand
 
     use UserQuery;
 
+    private ObjectService $object;
     private RBACServices $rbac;
 
 
-    public static function new(RBACServices $rbac) : /*static*/ self
+    public static function new(RBACServices $rbac, ObjectService $object) : /*static*/ self
     {
         $command = new static();
 
         $command->rbac = $rbac;
+        $command->object = $object;
 
         return $command;
     }

@@ -8,7 +8,6 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
-use ilObject;
 use ilObjUser;
 use ilUserDefinedFields;
 use LogicException;
@@ -124,12 +123,12 @@ ORDER BY login ASC";
         }
 
         if ($diff->getAccessLimitedObjectId() !== null) {
-            $ref_id = current(ilObject::_getAllReferences($diff->getAccessLimitedObjectId()));
-            if (empty($ref_id)) {
+            $object = $this->object->getObjectById($diff->getAccessLimitedObjectId());
+            if ($object === null) {
                 throw new Exception("Access limited object id " . $diff->getAccessLimitedObjectId() . " not found");
             }
 
-            $ilias_user->setTimeLimitOwner($ref_id);
+            $ilias_user->setTimeLimitOwner($object->getRefId());
         }
 
         if ($diff->getAccessLimitedObjectImportId() !== null) {
@@ -137,12 +136,12 @@ ORDER BY login ASC";
                 throw new LogicException("Can't set both access limited import id and object id");
             }
 
-            $ref_id = current(ilObject::_getAllReferences(ilObject::_getIdForImportId($diff->getAccessLimitedObjectImportId())));
-            if (empty($ref_id)) {
+            $object = $this->object->getObjectByImportId($diff->getAccessLimitedObjectImportId());
+            if ($object === null) {
                 throw new Exception("Access limited object import id " . $diff->getAccessLimitedObjectImportId() . " not found");
             }
 
-            $ilias_user->setTimeLimitOwner($ref_id);
+            $ilias_user->setTimeLimitOwner($object->getRefId());
         }
 
         if ($diff->getAccessLimitedObjectRefId() !== null) {
@@ -153,7 +152,12 @@ ORDER BY login ASC";
                 throw new LogicException("Can't set both access limited ref id and import id");
             }
 
-            $ilias_user->setTimeLimitOwner($diff->getAccessLimitedObjectId());
+            $object = $this->object->getObjectByRefId($diff->getAccessLimitedObjectRefId());
+            if ($object === null) {
+                throw new Exception("Access limited object ref id " . $diff->getAccessLimitedObjectRefId() . " not found");
+            }
+
+            $ilias_user->setTimeLimitOwner($object->getRefId());
         }
 
         if ($diff->isAccessLimitedMessage() !== null) {
