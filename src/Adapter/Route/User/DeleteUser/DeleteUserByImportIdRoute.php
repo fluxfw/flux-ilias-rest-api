@@ -41,7 +41,7 @@ class DeleteUserByImportIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::POST;
+        return Method::DELETE;
     }
 
 

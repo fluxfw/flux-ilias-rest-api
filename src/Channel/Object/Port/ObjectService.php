@@ -1,34 +1,44 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api;
+namespace Fluxlabs\FluxIliasRestApi\Channel\Object\Port;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\CloneObjectCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\CreateObjectCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\DeleteObjectCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetChildrenCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectsCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\MoveObjectCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\UpdateObjectCommand;
+use ilDBInterface;
+use ilTree;
 
-class Api
+class ObjectService
 {
 
-    private ?ObjectService $object = null;
-    private ?UserService $user = null;
+    private ilDBInterface $database;
+    private ilTree $tree;
 
 
-    public static function new() : /*static*/ self
+    public static function new(ilDBInterface $database, ilTree $tree) : /*static*/ self
     {
-        $api = new static();
+        $service = new static();
 
-        return $api;
+        $service->database = $database;
+        $service->tree = $tree;
+
+        return $service;
     }
 
 
     public function cloneObjectByIdToId(int $id, int $new_parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByIdToId(
                 $id,
                 $new_parent_id
@@ -38,7 +48,9 @@ class Api
 
     public function cloneObjectByIdToImportId(int $id, string $new_parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByIdToImportId(
                 $id,
                 $new_parent_import_id
@@ -48,7 +60,9 @@ class Api
 
     public function cloneObjectByIdToRefId(int $id, int $new_parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByIdToRefId(
                 $id,
                 $new_parent_ref_id
@@ -58,7 +72,9 @@ class Api
 
     public function cloneObjectByImportIdToId(string $import_id, int $new_parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByImportIdToId(
                 $import_id,
                 $new_parent_id
@@ -68,7 +84,9 @@ class Api
 
     public function cloneObjectByImportIdToImportId(string $import_id, string $new_parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByImportIdToImportId(
                 $import_id,
                 $new_parent_import_id
@@ -78,7 +96,9 @@ class Api
 
     public function cloneObjectByImportIdToRefId(string $import_id, int $new_parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByImportIdToRefId(
                 $import_id,
                 $new_parent_ref_id
@@ -88,7 +108,9 @@ class Api
 
     public function cloneObjectByRefIdToId(int $ref_id, int $new_parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByRefIdToId(
                 $ref_id,
                 $new_parent_id
@@ -98,7 +120,9 @@ class Api
 
     public function cloneObjectByRefIdToImportId(int $ref_id, string $new_parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByRefIdToImportId(
                 $ref_id,
                 $new_parent_import_id
@@ -108,7 +132,9 @@ class Api
 
     public function cloneObjectByRefIdToRefId(int $ref_id, int $new_parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CloneObjectCommand::new(
+            $this
+        )
             ->cloneObjectByRefIdToRefId(
                 $ref_id,
                 $new_parent_ref_id
@@ -118,7 +144,9 @@ class Api
 
     public function createObjectToId(string $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CreateObjectCommand::new(
+            $this
+        )
             ->createObjectToId(
                 $type,
                 $parent_id,
@@ -129,7 +157,9 @@ class Api
 
     public function createObjectToImportId(string $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CreateObjectCommand::new(
+            $this
+        )
             ->createObjectToImportId(
                 $type,
                 $parent_import_id,
@@ -140,7 +170,9 @@ class Api
 
     public function createObjectToRefId(string $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return CreateObjectCommand::new(
+            $this
+        )
             ->createObjectToRefId(
                 $type,
                 $parent_ref_id,
@@ -149,18 +181,11 @@ class Api
     }
 
 
-    public function createUser(UserDiffDto $diff) : UserIdDto
-    {
-        return $this->getUser()
-            ->createUser(
-                $diff
-            );
-    }
-
-
     public function deleteObjectById(int $id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return DeleteObjectCommand::new(
+            $this
+        )
             ->deleteObjectById(
                 $id
             );
@@ -169,7 +194,9 @@ class Api
 
     public function deleteObjectByImportId(string $import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return DeleteObjectCommand::new(
+            $this
+        )
             ->deleteObjectByImportId(
                 $import_id
             );
@@ -178,52 +205,21 @@ class Api
 
     public function deleteObjectByRefId(int $ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return DeleteObjectCommand::new(
+            $this
+        )
             ->deleteObjectByRefId(
                 $ref_id
             );
     }
 
 
-    public function deleteUserById(int $id) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->deleteUserById(
-                $id
-            );
-    }
-
-
-    public function deleteUserByImportId(string $import_id) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->deleteUserByImportId(
-                $import_id
-            );
-    }
-
-
-    public function getAvatarPathById(int $id) : ?string
-    {
-        return $this->getUser()
-            ->getAvatarPathById(
-                $id
-            );
-    }
-
-
-    public function getAvatarPathByImportId(string $import_id) : ?string
-    {
-        return $this->getUser()
-            ->getAvatarPathByImportId(
-                $import_id
-            );
-    }
-
-
     public function getChildrenById(int $id) : ?array
     {
-        return $this->getObject()
+        return GetChildrenCommand::new(
+            $this,
+            $this->database
+        )
             ->getChildrenById(
                 $id
             );
@@ -232,7 +228,10 @@ class Api
 
     public function getChildrenByImportId(string $import_id) : ?array
     {
-        return $this->getObject()
+        return GetChildrenCommand::new(
+            $this,
+            $this->database
+        )
             ->getChildrenByImportId(
                 $import_id
             );
@@ -241,7 +240,10 @@ class Api
 
     public function getChildrenByRefId(int $ref_id) : ?array
     {
-        return $this->getObject()
+        return GetChildrenCommand::new(
+            $this,
+            $this->database
+        )
             ->getChildrenByRefId(
                 $ref_id
             );
@@ -250,7 +252,9 @@ class Api
 
     public function getObjectById(int $id) : ?ObjectDto
     {
-        return $this->getObject()
+        return GetObjectCommand::new(
+            $this->database
+        )
             ->getObjectById(
                 $id
             );
@@ -259,7 +263,9 @@ class Api
 
     public function getObjectByImportId(string $import_id) : ?ObjectDto
     {
-        return $this->getObject()
+        return GetObjectCommand::new(
+            $this->database
+        )
             ->getObjectByImportId(
                 $import_id
             );
@@ -268,7 +274,9 @@ class Api
 
     public function getObjectByRefId(int $ref_id) : ?ObjectDto
     {
-        return $this->getObject()
+        return GetObjectCommand::new(
+            $this->database
+        )
             ->getObjectByRefId(
                 $ref_id
             );
@@ -277,46 +285,21 @@ class Api
 
     public function getObjects(string $type) : array
     {
-        return $this->getObject()
+        return GetObjectsCommand::new(
+            $this->database
+        )
             ->getObjects(
                 $type
             );
     }
 
 
-    public function getUserById(int $id) : ?UserDto
-    {
-        return $this->getUser()
-            ->getUserById(
-                $id
-            );
-    }
-
-
-    public function getUserByImportId(string $import_id) : ?UserDto
-    {
-        return $this->getUser()
-            ->getUserByImportId(
-                $import_id
-            );
-    }
-
-
-    public function getUsers(bool $access_limited_object_ids = false, bool $multi_fields = false, bool $preferences = false, bool $user_defined_fields = false) : array
-    {
-        return $this->getUser()
-            ->getUsers(
-                $access_limited_object_ids,
-                $multi_fields,
-                $preferences,
-                $user_defined_fields
-            );
-    }
-
-
     public function moveObjectByIdToId(int $id, int $new_parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByIdToId(
                 $id,
                 $new_parent_id
@@ -326,7 +309,10 @@ class Api
 
     public function moveObjectByIdToImportId(int $id, string $new_parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByIdToImportId(
                 $id,
                 $new_parent_import_id
@@ -336,7 +322,10 @@ class Api
 
     public function moveObjectByIdToRefId(int $id, int $new_parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByIdToRefId(
                 $id,
                 $new_parent_ref_id
@@ -346,7 +335,10 @@ class Api
 
     public function moveObjectByImportIdToId(string $import_id, int $new_parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByImportIdToId(
                 $import_id,
                 $new_parent_id
@@ -356,7 +348,10 @@ class Api
 
     public function moveObjectByImportIdToImportId(string $import_id, string $new_parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByImportIdToImportId(
                 $import_id,
                 $new_parent_import_id
@@ -366,7 +361,10 @@ class Api
 
     public function moveObjectByImportIdToRefId(string $import_id, int $new_parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByImportIdToRefId(
                 $import_id,
                 $new_parent_ref_id
@@ -376,7 +374,10 @@ class Api
 
     public function moveObjectByRefIdToId(int $ref_id, int $new_parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByRefIdToId(
                 $ref_id,
                 $new_parent_id
@@ -386,7 +387,10 @@ class Api
 
     public function moveObjectByRefIdToImportId(int $ref_id, string $new_parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByRefIdToImportId(
                 $ref_id,
                 $new_parent_import_id
@@ -396,7 +400,10 @@ class Api
 
     public function moveObjectByRefIdToRefId(int $ref_id, int $new_parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return MoveObjectCommand::new(
+            $this,
+            $this->tree
+        )
             ->moveObjectByRefIdToRefId(
                 $ref_id,
                 $new_parent_ref_id
@@ -404,29 +411,11 @@ class Api
     }
 
 
-    public function updateAvatarById(int $id, ?string $file) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->updateAvatarById(
-                $id,
-                $file
-            );
-    }
-
-
-    public function updateAvatarByImportId(string $import_id, ?string $file) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->updateAvatarByImportId(
-                $import_id,
-                $file
-            );
-    }
-
-
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return UpdateObjectCommand::new(
+            $this
+        )
             ->updateObjectById(
                 $id,
                 $diff
@@ -436,7 +425,9 @@ class Api
 
     public function updateObjectByImportId(string $import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return UpdateObjectCommand::new(
+            $this
+        )
             ->updateObjectByImportId(
                 $import_id,
                 $diff
@@ -446,56 +437,12 @@ class Api
 
     public function updateObjectByRefId(int $ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return UpdateObjectCommand::new(
+            $this
+        )
             ->updateObjectByRefId(
                 $ref_id,
                 $diff
             );
-    }
-
-
-    public function updateUserById(int $id, UserDiffDto $diff) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->updateUserById(
-                $id,
-                $diff
-            );
-    }
-
-
-    public function updateUserByImportId(string $import_id, UserDiffDto $diff) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->updateUserByImportId(
-                $import_id,
-                $diff
-            );
-    }
-
-
-    private function getObject() : ObjectService
-    {
-        global $DIC;
-
-        $this->object ??= ObjectService::new(
-            $DIC->database(),
-            $DIC->repositoryTree()
-        );
-
-        return $this->object;
-    }
-
-
-    private function getUser() : UserService
-    {
-        global $DIC;
-
-        $this->user ??= UserService::new(
-            $DIC->database(),
-            $DIC->rbac()
-        );
-
-        return $this->user;
     }
 }

@@ -28,17 +28,17 @@ You need to prefix the ILIAS client to the user
 
 The `Authorization` header looks like (Base64 encoded)
 
-`%client%/%user%:%password%`
+`Basic %client%/%user%:%password%`
 
 ## Permissions
 
 Only admin users can use the api
 
-## Built in routes
+## Get available routes
 
-Currently, there are some users built in routes
+With the follow route you can get all available routes
 
-Use [Get available routes](#get-available-routes) for show
+`https://%host%/Customizing/global/FluxIliasRestApi?/routes`
 
 ## Custom routes location
 
@@ -48,12 +48,12 @@ And/or each ILIAS plugin can also have custom routes in its own `src/Adapter/Rou
 
 The folders are scanned recursive
 
-## Get available routes
+## Examples
 
-With the follow built-in route you can get all available routes
-
-`https://%host%/Customizing/global/FluxIliasRestApi?/routes`
-
-## Example routes code
+### Code
 
 [examples](https://github.com/fluxapps/FluxRestApi/tree/main/examples/routes)
+
+### Request
+
+[examples](examples)
