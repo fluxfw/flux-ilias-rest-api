@@ -2,18 +2,22 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Adapter\Api;
 
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 
 class Api
 {
 
+    private ?CategoryService $category = null;
     private ?ObjectService $object = null;
     private ?UserService $user = null;
 
@@ -112,6 +116,37 @@ class Api
             ->cloneObjectByRefIdToRefId(
                 $ref_id,
                 $new_parent_ref_id
+            );
+    }
+
+
+    public function createCategoryToId(int $parent_id, CategoryDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCategory()
+            ->createCategoryToId(
+                $type,
+                $parent_id,
+                $diff
+            );
+    }
+
+
+    public function createCategoryToImportId(string $parent_import_id, CategoryDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCategory()
+            ->createCategoryToImportId(
+                $parent_import_id,
+                $diff
+            );
+    }
+
+
+    public function createCategoryToRefId(int $parent_ref_id, CategoryDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCategory()
+            ->createCategoryToRefId(
+                $parent_ref_id,
+                $diff
             );
     }
 
@@ -217,6 +252,33 @@ class Api
         return $this->getUser()
             ->getAvatarPathByImportId(
                 $import_id
+            );
+    }
+
+
+    public function getCategoryById(int $id) : ?CategoryDto
+    {
+        return $this->getCategory()
+            ->getCategoryById(
+                $id
+            );
+    }
+
+
+    public function getCategoryByImportId(string $import_id) : ?CategoryDto
+    {
+        return $this->getCategory()
+            ->getCategoryByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getCategoryByRefId(int $ref_id) : ?CategoryDto
+    {
+        return $this->getCategory()
+            ->getCategoryByRefId(
+                $ref_id
             );
     }
 
@@ -424,6 +486,36 @@ class Api
     }
 
 
+    public function updateCategoryById(int $id, CategoryDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCategory()
+            ->updateCategoryById(
+                $id,
+                $diff
+            );
+    }
+
+
+    public function updateCategoryByImportId(string $import_id, CategoryDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCategory()
+            ->updateCategoryByImportId(
+                $import_id,
+                $diff
+            );
+    }
+
+
+    public function updateCategoryByRefId(int $ref_id, CategoryDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCategory()
+            ->updateCategoryByRefId(
+                $ref_id,
+                $diff
+            );
+    }
+
+
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -474,6 +566,19 @@ class Api
     }
 
 
+    private function getCategory() : CategoryService
+    {
+        global $DIC;
+
+        $this->category ??= CategoryService::new(
+            $DIC->database(),
+            $this->getObject()
+        );
+
+        return $this->category;
+    }
+
+
     private function getObject() : ObjectService
     {
         global $DIC;
@@ -493,7 +598,8 @@ class Api
 
         $this->user ??= UserService::new(
             $DIC->database(),
-            $DIC->rbac()
+            $DIC->rbac(),
+            $this->getObject()
         );
 
         return $this->user;

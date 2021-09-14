@@ -5,6 +5,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\User\Port;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\CreateUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\DeleteUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetAvatarPathCommand;
@@ -19,15 +20,17 @@ class UserService
 {
 
     private ilDBInterface $database;
+    private ObjectService $object;
     private RBACServices $rbac;
 
 
-    public static function new(ilDBInterface $database, RBACServices $rbac) : /*static*/ self
+    public static function new(ilDBInterface $database, RBACServices $rbac, ObjectService $object) : /*static*/ self
     {
         $service = new static();
 
         $service->database = $database;
         $service->rbac = $rbac;
+        $service->object = $object;
 
         return $service;
     }
@@ -36,7 +39,8 @@ class UserService
     public function createUser(UserDiffDto $diff) : UserIdDto
     {
         return CreateUserCommand::new(
-            $this->rbac
+            $this->rbac,
+            $this->object
         )
             ->createUser(
                 $diff
@@ -151,7 +155,8 @@ class UserService
     public function updateUserById(int $id, UserDiffDto $diff) : ?UserIdDto
     {
         return UpdateUserCommand::new(
-            $this
+            $this,
+            $this->object
         )
             ->updateUserById(
                 $id,
@@ -163,7 +168,8 @@ class UserService
     public function updateUserByImportId(string $import_id, UserDiffDto $diff) : ?UserIdDto
     {
         return UpdateUserCommand::new(
-            $this
+            $this,
+            $this->object
         )
             ->updateUserByImportId(
                 $import_id,

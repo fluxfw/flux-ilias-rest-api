@@ -5,6 +5,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\User\Command;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\UserQuery;
 
@@ -13,14 +14,16 @@ class UpdateUserCommand
 
     use UserQuery;
 
+    private ObjectService $object;
     private UserService $user;
 
 
-    public static function new(UserService $user) : /*static*/ self
+    public static function new(UserService $user, ObjectService $object) : /*static*/ self
     {
         $command = new static();
 
         $command->user = $user;
+        $command->object = $object;
 
         return $command;
     }
