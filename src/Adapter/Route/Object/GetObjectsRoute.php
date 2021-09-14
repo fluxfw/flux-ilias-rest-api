@@ -1,17 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\User\DeleteUser;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\Object;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
-use Fluxlabs\FluxRestApi\Body\TextBodyDto;
 use Fluxlabs\FluxRestApi\Method\Method;
 use Fluxlabs\FluxRestApi\Request\RequestDto;
 use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
-use Fluxlabs\FluxRestApi\Status\Status;
 
-class DeleteUserByIdRoute implements Route
+class GetObjectsRoute implements Route
 {
 
     private Api $api;
@@ -41,35 +39,24 @@ class DeleteUserByIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::DELETE;
+        return Method::GET;
     }
 
 
     public function getRoute() : string
     {
-        return "/user/by-id/{id}/delete";
+        return "/objects/{type}";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->api->deleteUserById(
-            $request->getParam("id")
-        );
-
-        if ($id !== null) {
-            return ResponseDto::new(
-                JsonBodyDto::new(
-                    $id
+        return ResponseDto::new(
+            JsonBodyDto::new(
+                $this->api->getObjects(
+                    $request->getParam("type")
                 )
-            );
-        } else {
-            return ResponseDto::new(
-                TextBodyDto::new(
-                    "User not found"
-                ),
-                Status::_404
-            );
-        }
+            )
+        );
     }
 }

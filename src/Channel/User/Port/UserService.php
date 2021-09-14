@@ -99,7 +99,7 @@ class UserService
     }
 
 
-    public function getUserByImportId(?string $import_id) : ?UserDto
+    public function getUserByImportId(string $import_id) : ?UserDto
     {
         return GetUserCommand::new(
             $this->database

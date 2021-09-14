@@ -1,8 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\User\DeleteUser;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\Object\CreateObject;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
+use Fluxlabs\FluxRestApi\Body\BodyType;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
 use Fluxlabs\FluxRestApi\Body\TextBodyDto;
 use Fluxlabs\FluxRestApi\Method\Method;
@@ -11,7 +13,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class DeleteUserByIdRoute implements Route
+class CreateObjectToIdRoute implements Route
 {
 
     private Api $api;
@@ -29,7 +31,9 @@ class DeleteUserByIdRoute implements Route
 
     public function getDocuRequestBodyTypes() : ?array
     {
-        return null;
+        return [
+            BodyType::JSON
+        ];
     }
 
 
@@ -41,20 +45,36 @@ class DeleteUserByIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::DELETE;
+        return Method::POST;
     }
 
 
     public function getRoute() : string
     {
-        return "/user/by-id/{id}/delete";
+        return "/object/create/{type}/to-id/{parent_id}";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->api->deleteUserById(
-            $request->getParam("id")
+        if (!($request->getParsedBody() instanceof JsonBodyDto)) {
+            return ResponseDto::new(
+                TextBodyDto::new(
+                    "No json body"
+                ),
+                Status::_400
+            );
+        }
+
+        $id = $this->api->createObjectToId(
+            $request->getParam("type"),
+            $request->getParam("parent_id"),
+            ObjectDiffDto::new(
+                $request->getParsedBody()->getData()->import_id ?? null,
+                $request->getParsedBody()->getData()->online ?? null,
+                $request->getParsedBody()->getData()->title ?? null,
+                $request->getParsedBody()->getData()->description ?? null
+            )
         );
 
         if ($id !== null) {
@@ -66,7 +86,7 @@ class DeleteUserByIdRoute implements Route
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "User not found"
+                    "Object not found"
                 ),
                 Status::_404
             );

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\User\DeleteUser;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\Object\MoveObject;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
@@ -11,7 +11,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class DeleteUserByIdRoute implements Route
+class MoveObjectByRefIdToRefIdRoute implements Route
 {
 
     private Api $api;
@@ -41,20 +41,21 @@ class DeleteUserByIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::DELETE;
+        return Method::POST;
     }
 
 
     public function getRoute() : string
     {
-        return "/user/by-id/{id}/delete";
+        return "/object/by-ref-id/{ref_id}/move/to-ref-id/{new_parent_ref_id}";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->api->deleteUserById(
-            $request->getParam("id")
+        $id = $this->api->moveObjectByRefIdToRefId(
+            $request->getParam("ref_id"),
+            $request->getParam("new_parent_ref_id")
         );
 
         if ($id !== null) {
@@ -66,7 +67,7 @@ class DeleteUserByIdRoute implements Route
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "User not found"
+                    "Object not found"
                 ),
                 Status::_404
             );

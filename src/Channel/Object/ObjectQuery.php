@@ -1,0 +1,128 @@
+<?php
+
+namespace Fluxlabs\FluxIliasRestApi\Channel\Object;
+
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use ilDBConstants;
+use ilObject;
+use ilObjectFactory;
+
+trait ObjectQuery
+{
+
+    private function getChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
+    {
+        $wheres = [
+            "object_reference.deleted IS NULL",
+            "object_reference_child.deleted IS NULL"
+        ];
+
+        if ($id !== null) {
+            $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+        }
+
+        if ($import_id !== null) {
+            $wheres[] = "object_data.import_id=" . $this->database->quote($import_id, ilDBConstants::T_TEXT);
+        }
+
+        if ($ref_id !== null) {
+            $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
+        }
+
+        return "SELECT object_data_child.*,object_reference_child.ref_id,object_data.obj_id AS parent_obj_id,object_reference.ref_id AS parent_ref_id,object_data.import_id AS parent_import_id
+FROM object_data
+INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+INNER JOIN tree ON object_reference.ref_id=tree.parent
+INNER JOIN object_reference AS object_reference_child ON tree.child=object_reference_child.ref_id
+INNER JOIN object_data AS object_data_child ON object_reference_child.obj_id=object_data_child.obj_id
+WHERE " . implode(" AND ", $wheres) . "
+ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
+    }
+
+
+    private function getIliasObject(int $ref_id) : ?ilObject
+    {
+        return ilObjectFactory::getInstanceByRefId($ref_id, false) ?: null;
+    }
+
+
+    private function getObjectsQuery(?string $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
+    {
+        $wheres = [
+            "object_reference.deleted IS NULL"
+        ];
+
+        if ($type !== null) {
+            $wheres[] = "object_data.type=" . $this->database->quote(ObjectTypeMapping::mapExternalToInternal($type), ilDBConstants::T_TEXT);
+        }
+
+        if ($id !== null) {
+            $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+        }
+
+        if ($import_id !== null) {
+            $wheres[] = "object_data.import_id=" . $this->database->quote($import_id, ilDBConstants::T_TEXT);
+        }
+
+        if ($ref_id !== null) {
+            $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
+        }
+
+        return "SELECT object_data.*,object_reference.ref_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
+FROM object_data
+INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+INNER JOIN tree ON object_reference.ref_id=tree.child
+LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
+LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
+WHERE " . implode(" AND ", $wheres) . "
+ORDER BY object_data.title ASC,object_data.create_date ASC";
+    }
+
+
+    private function mapDiff(ObjectDiffDto $diff, ilObject $ilias_object) : void
+    {
+        if ($diff->getImportId() !== null) {
+            $ilias_object->setImportId($diff->getImportId());
+        }
+
+        if ($diff->isOnline() !== null) {
+            $ilias_object->setOfflineStatus(!$diff->isOnline());
+        }
+
+        if ($diff->getTitle() !== null) {
+            $ilias_object->setTitle($diff->getTitle());
+        }
+
+        if ($diff->getDescription() !== null) {
+            $ilias_object->setDescription($diff->getDescription());
+        }
+    }
+
+
+    private function mapDto(array $object) : ObjectDto
+    {
+        return ObjectDto::new(
+            $object["obj_id"] ?: null,
+            $object["import_id"] ?: null,
+            $object["ref_id"] ?: null,
+            ObjectTypeMapping::mapInternalToExternal($object["type"] ?? null),
+            strtotime($object["create_date"] ?? null) ?: null,
+            strtotime($object["last_update"] ?? null) ?: null,
+            $object["parent_obj_id"] ?: null,
+            $object["parent_import_id"] ?: null,
+            $object["parent_ref_id"] ?: null,
+            !($object["offline"] ?? null),
+            $object["title"] ?? "",
+            $object["description"] ?? ""
+        );
+    }
+
+
+    private function newIliasObject(string $type) : ilObject
+    {
+        $class = ilObjectFactory::getClassByType(ObjectTypeMapping::mapExternalToInternal($type));
+
+        return new $class;
+    }
+}

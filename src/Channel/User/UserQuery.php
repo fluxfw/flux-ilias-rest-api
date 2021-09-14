@@ -139,7 +139,7 @@ ORDER BY login ASC";
 
             $ref_id = current(ilObject::_getAllReferences(ilObject::_getIdForImportId($diff->getAccessLimitedObjectImportId())));
             if (empty($ref_id)) {
-                throw new Exception("Access limited object id " . $diff->getAccessLimitedObjectId() . " not found");
+                throw new Exception("Access limited object import id " . $diff->getAccessLimitedObjectImportId() . " not found");
             }
 
             $ilias_user->setTimeLimitOwner($ref_id);
@@ -153,12 +153,7 @@ ORDER BY login ASC";
                 throw new LogicException("Can't set both access limited ref id and import id");
             }
 
-            $object = $this->object->getObjectByRefId($diff->getAccessLimitedObjectRefId());
-            if ($object === null) {
-                throw new Exception("Access limited object ref id " . $diff->getAccessLimitedObjectRefId() . " not found");
-            }
-
-            $ilias_user->setTimeLimitOwner($object->getRefId());
+            $ilias_user->setTimeLimitOwner($diff->getAccessLimitedObjectId());
         }
 
         if ($diff->isAccessLimitedMessage() !== null) {
