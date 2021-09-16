@@ -54,7 +54,9 @@ class DeleteUserByIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->deleteUserById(
-            $request->getParam("id")
+            $request->getParam(
+                "id"
+            )
         );
 
         if ($id !== null) {

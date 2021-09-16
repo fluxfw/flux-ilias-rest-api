@@ -41,7 +41,7 @@ class MoveObjectByIdToRefIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::POST;
+        return Method::PUT;
     }
 
 
@@ -54,8 +54,12 @@ class MoveObjectByIdToRefIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->moveObjectByIdToRefId(
-            $request->getParam("id"),
-            $request->getParam("new_parent_ref_id")
+            $request->getParam(
+                "id"
+            ),
+            $request->getParam(
+                "new_parent_ref_id"
+            )
         );
 
         if ($id !== null) {

@@ -28,13 +28,15 @@ class GetCategoryCommand
     public function getCategoryById(int $id) : ?CategoryDto
     {
         $category = null;
-        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoriesQuery(
+        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoryQuery(
                 $id
             )))) !== null) {
             if ($category !== null) {
                 throw new LogicException("Multiple categories found with the id " . $id);
             }
-            $category = $this->mapDto($category_);
+            $category = $this->mapDto(
+                $category_
+            );
         }
 
         return $category;
@@ -44,14 +46,16 @@ class GetCategoryCommand
     public function getCategoryByImportId(string $import_id) : ?CategoryDto
     {
         $category = null;
-        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoriesQuery(
+        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoryQuery(
                 null,
                 $import_id
             )))) !== null) {
             if ($category !== null) {
                 throw new LogicException("Multiple categories found with the import id " . $import_id);
             }
-            $category = $this->mapDto($category_);
+            $category = $this->mapDto(
+                $category_
+            );
         }
 
         return $category;
@@ -61,7 +65,7 @@ class GetCategoryCommand
     public function getCategoryByRefId(int $ref_id) : ?CategoryDto
     {
         $category = null;
-        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoriesQuery(
+        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoryQuery(
                 null,
                 null,
                 $ref_id
@@ -69,7 +73,9 @@ class GetCategoryCommand
             if ($category !== null) {
                 throw new LogicException("Multiple categories found with the ref id " . $ref_id);
             }
-            $category = $this->mapDto($category_);
+            $category = $this->mapDto(
+                $category_
+            );
         }
 
         return $category;

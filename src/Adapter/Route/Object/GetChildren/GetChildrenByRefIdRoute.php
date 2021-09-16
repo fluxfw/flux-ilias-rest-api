@@ -54,7 +54,9 @@ class GetChildrenByRefIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $children = $this->api->getChildrenByRefId(
-            $request->getParam("ref_id")
+            $request->getParam(
+                "ref_id"
+            )
         );
 
         if ($children !== null) {

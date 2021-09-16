@@ -6,6 +6,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\CreateCategoryCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\GetCategoriesCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\GetCategoryCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\UpdateCategoryCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
@@ -62,6 +63,15 @@ class CategoryService
                 $parent_ref_id,
                 $diff
             );
+    }
+
+
+    public function getCategories() : array
+    {
+        return GetCategoriesCommand::new(
+            $this->database
+        )
+            ->getCategories();
     }
 
 

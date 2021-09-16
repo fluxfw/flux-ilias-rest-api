@@ -54,7 +54,9 @@ class GetCategoryByImportIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $category = $this->api->getCategoryByImportId(
-            $request->getParam("import_id")
+            $request->getParam(
+                "import_id"
+            )
         );
 
         if ($category !== null) {

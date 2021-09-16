@@ -36,33 +36,33 @@ WHERE " . $where;
     }
 
 
-    private function getMultiFieldsQuery(array $ids) : string
+    private function getMultiFieldQuery(array $ids) : string
     {
         return "SELECT usr_id,field_id,value
 FROM usr_data_multi
-WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL AND value!=''";
+WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
     }
 
 
-    private function getPreferencesQuery(array $ids) : string
+    private function getPreferenceQuery(array $ids) : string
     {
         return "SELECT usr_id,keyword,value
 FROM usr_pref
-WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL AND value!=''";
+WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
     }
 
 
-    private function getUserDefinedFieldsQuery(array $ids) : string
+    private function getUserDefinedFieldQuery(array $ids) : string
     {
         return "SELECT CASE WHEN udf_clob.usr_id IS NOT NULL THEN udf_clob.usr_id ELSE udf_text.usr_id END AS usr_id,field_name,udf_definition.field_id,CASE WHEN udf_clob.value IS NOT NULL THEN udf_clob.value ELSE udf_text.value END AS value
 FROM udf_definition
 LEFT JOIN udf_text ON udf_definition.field_id=udf_text.field_id
 LEFT JOIN udf_clob ON udf_definition.field_id=udf_clob.field_id
-HAVING " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value!=''";
+HAVING " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER);
     }
 
 
-    private function getUsersQuery(?int $id = null, ?string $import_id = null) : string
+    private function getUserQuery(?int $id = null, ?string $import_id = null) : string
     {
         $wheres = [
             "type=" . $this->database->quote(InternalObjectType::USR, ilDBConstants::T_TEXT)
@@ -95,7 +95,9 @@ ORDER BY login ASC";
         }
 
         if ($diff->getAuthenticationMode() !== null) {
-            $ilias_user->setAuthMode(UserAuthenticationModeMapping::mapExternalToInternal($diff->getAuthenticationMode()));
+            $ilias_user->setAuthMode(UserAuthenticationModeMapping::mapExternalToInternal(
+                $diff->getAuthenticationMode()
+            ));
         }
 
         if ($diff->getLogin() !== null) {
@@ -123,7 +125,9 @@ ORDER BY login ASC";
         }
 
         if ($diff->getAccessLimitedObjectId() !== null) {
-            $object = $this->object->getObjectById($diff->getAccessLimitedObjectId());
+            $object = $this->object->getObjectById(
+                $diff->getAccessLimitedObjectId()
+            );
             if ($object === null) {
                 throw new Exception("Access limited object id " . $diff->getAccessLimitedObjectId() . " not found");
             }
@@ -165,7 +169,9 @@ ORDER BY login ASC";
         }
 
         if ($diff->getGender() !== null) {
-            $ilias_user->setGender(UserGenderMapping::mapExternalToInternal($diff->getGender()));
+            $ilias_user->setGender(UserGenderMapping::mapExternalToInternal(
+                $diff->getGender()
+            ));
         }
 
         if ($diff->getFirstName() !== null) {
@@ -213,7 +219,9 @@ ORDER BY login ASC";
         }
 
         if ($diff->getSelectedCountry() !== null) {
-            $ilias_user->setSelectedCountry(UserSelectedCountryMapping::mapExternalToInternal($diff->getSelectedCountry()));
+            $ilias_user->setSelectedCountry(UserSelectedCountryMapping::mapExternalToInternal(
+                $diff->getSelectedCountry()
+            ));
         }
 
         if ($diff->getPhoneOffice() !== null) {
@@ -316,7 +324,9 @@ ORDER BY login ASC";
         }
 
         if ($diff->getLanguage() !== null) {
-            $ilias_user->setLanguage(UserLanguageMapping::mapExternalToInternal($diff->getLanguage()));
+            $ilias_user->setLanguage(UserLanguageMapping::mapExternalToInternal(
+                $diff->getLanguage()
+            ));
         }
 
         $ilias_user->setTitle($ilias_user->getFullname());
@@ -326,20 +336,23 @@ ORDER BY login ASC";
 
     private function mapDto(array $user, ?array $access_limited_object_ids = null, ?array $multi_fields = null, ?array $preferences = null, ?array $user_defined_fields = null) : UserDto
     {
-        $getAccessLimitedObjectId = fn(string $id) : ?string => $access_limited_object_ids !== null ? current(array_map(fn(array $access_limited_object_id) : ?string => $access_limited_object_id[$id]
-            ?: null, array_filter($access_limited_object_ids, fn(array $access_limited_object_id) : bool => $access_limited_object_id["ref_id"] === $user["time_limit_owner"]))) : null;
+        $getAccessLimitedObjectId = fn(string $id)/* : mixed*/ => $access_limited_object_ids !== null ? current(array_map(fn(array $access_limited_object_id
+        )/* : mixed*/ => $access_limited_object_id[$id] ?: null,
+            array_filter($access_limited_object_ids, fn(array $access_limited_object_id) : bool => $access_limited_object_id["ref_id"] === $user["time_limit_owner"]))) : null;
 
-        $getMultiField = fn(string $field) : ?array => $multi_fields !== null ? array_values(array_map(fn(array $multi_field) : string => $multi_field["value"],
+        $getMultiField = fn(string $field) : ?array => $multi_fields !== null ? array_values(array_map(fn(array $multi_field)/* : mixed*/ => $multi_field["value"],
             array_filter($multi_fields, fn(array $multi_field) : bool => $multi_field["usr_id"] === $user["usr_id"] && $multi_field["field_id"] === $field))) : null;
 
-        $getPreference = fn(string $field) : ?string => $preferences !== null ? current(array_map(fn(array $preference) : string => $preference["value"],
-            array_filter($preferences, fn(array $preference) : bool => $preference["usr_id"] === $user["usr_id"] && $preference["keyword"] === $field))) ?: null : null;
+        $getPreference = fn(string $field)/* : mixed*/ => $preferences !== null ? current(array_map(fn(array $preference)/* : mixed*/ => $preference["value"],
+            array_filter($preferences, fn(array $preference) : bool => $preference["usr_id"] === $user["usr_id"] && $preference["keyword"] === $field))) : null;
 
         return UserDto::new(
             $user["usr_id"] ?: null,
             $user["import_id"] ?: null,
             $user["ext_account"] ?: null,
-            UserAuthenticationModeMapping::mapInternalToExternal($user["auth_mode"] ?? null),
+            UserAuthenticationModeMapping::mapInternalToExternal(
+                $user["auth_mode"] ?? null
+            ),
             $user["login"] ?? "",
             strtotime($user["create_date"] ?? null) ?: null,
             strtotime($user["last_update"] ?? null) ?: null,
@@ -350,11 +363,17 @@ ORDER BY login ASC";
             $user["time_limit_unlimited"] ?? false,
             strtotime($user["time_limit_from"] ?? null) ?: null,
             strtotime($user["time_limit_until"] ?? null) ?: null,
-            $getAccessLimitedObjectId("obj_id"),
-            $getAccessLimitedObjectId("import_id"),
+            $getAccessLimitedObjectId(
+                "obj_id"
+            ),
+            $getAccessLimitedObjectId(
+                "import_id"
+            ),
             $user["time_limit_owner"] ?: null,
             $user["time_limit_message"] ?? false,
-            UserGenderMapping::mapInternalToExternal($user["gender"] ?? null),
+            UserGenderMapping::mapInternalToExternal(
+                $user["gender"] ?? null
+            ),
             $user["firstname"] ?? "",
             $user["lastname"] ?? "",
             $user["title"] ?? "",
@@ -365,7 +384,9 @@ ORDER BY login ASC";
             $user["city"] ?? "",
             $user["zipcode"] ?? "",
             $user["country"] ?? "",
-            UserSelectedCountryMapping::mapInternalToExternal($user["sel_country"] ?? null),
+            UserSelectedCountryMapping::mapInternalToExternal(
+                $user["sel_country"] ?? null
+            ),
             $user["phone_office"] ?? "",
             $user["phone_home"] ?? "",
             $user["phone_mobile"] ?? "",
@@ -374,9 +395,15 @@ ORDER BY login ASC";
             $user["second_email"] ?? "",
             $user["hobby"] ?? "",
             $user["referral_comment"] ?? "",
-            $getMultiField("interests_general"),
-            $getMultiField("interests_help_offered"),
-            $getMultiField ("interests_help_looking"),
+            $getMultiField(
+                "interests_general"
+            ),
+            $getMultiField(
+                "interests_help_offered"
+            ),
+            $getMultiField(
+                "interests_help_looking"
+            ),
             $user["matriculation"] ?? "",
             $user["client_ip"] ?? "",
             $user["latitude"] ?? "",
@@ -387,7 +414,11 @@ ORDER BY login ASC";
                 $user_defined_field["field_name"],
                 $user_defined_field["value"]
             ), array_filter($user_defined_fields, fn(array $user_defined_field) : bool => $user_defined_field["usr_id"] === $user["usr_id"]))) : null,
-            UserLanguageMapping::mapInternalToExternal($getPreference("language"))
+            UserLanguageMapping::mapInternalToExternal(
+                $getPreference(
+                    "language"
+                )
+            )
         );
     }
 

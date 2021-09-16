@@ -54,7 +54,9 @@ class GetObjectsRoute implements Route
         return ResponseDto::new(
             JsonBodyDto::new(
                 $this->api->getObjects(
-                    $request->getParam("type")
+                    $request->getParam(
+                        "type"
+                    )
                 )
             )
         );

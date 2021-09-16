@@ -4,6 +4,8 @@ namespace Fluxlabs\FluxIliasRestApi\Adapter\Api;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
@@ -11,6 +13,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
+use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 
@@ -18,6 +21,7 @@ class Api
 {
 
     private ?CategoryService $category = null;
+    private ?CourseService $course = null;
     private ?ObjectService $object = null;
     private ?UserService $user = null;
 
@@ -150,6 +154,36 @@ class Api
     }
 
 
+    public function createCourseToId(int $parent_id, CourseDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCourse()
+            ->createCourseToId(
+                $parent_id,
+                $diff
+            );
+    }
+
+
+    public function createCourseToImportId(string $parent_import_id, CourseDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCourse()
+            ->createCourseToImportId(
+                $parent_import_id,
+                $diff
+            );
+    }
+
+
+    public function createCourseToRefId(int $parent_ref_id, CourseDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCourse()
+            ->createCourseToRefId(
+                $parent_ref_id,
+                $diff
+            );
+    }
+
+
     public function createObjectToId(string $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -255,6 +289,13 @@ class Api
     }
 
 
+    public function getCategories() : array
+    {
+        return $this->getCategory()
+            ->getCategories();
+    }
+
+
     public function getCategoryById(int $id) : ?CategoryDto
     {
         return $this->getCategory()
@@ -305,6 +346,42 @@ class Api
         return $this->getObject()
             ->getChildrenByRefId(
                 $ref_id
+            );
+    }
+
+
+    public function getCourseById(int $id) : ?CourseDto
+    {
+        return $this->getCourse()
+            ->getCourseById(
+                $id
+            );
+    }
+
+
+    public function getCourseByImportId(string $import_id) : ?CourseDto
+    {
+        return $this->getCourse()
+            ->getCourseByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getCourseByRefId(int $ref_id) : ?CourseDto
+    {
+        return $this->getCourse()
+            ->getCourseByRefId(
+                $ref_id
+            );
+    }
+
+
+    public function getCourses(bool $container_settings = false) : array
+    {
+        return $this->getCourse()
+            ->getCourses(
+                $container_settings
             );
     }
 
@@ -515,6 +592,36 @@ class Api
     }
 
 
+    public function updateCourseById(int $id, CourseDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCourse()
+            ->updateCourseById(
+                $id,
+                $diff
+            );
+    }
+
+
+    public function updateCourseByImportId(string $import_id, CourseDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCourse()
+            ->updateCourseByImportId(
+                $import_id,
+                $diff
+            );
+    }
+
+
+    public function updateCourseByRefId(int $ref_id, CourseDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getCourse()
+            ->updateCourseByRefId(
+                $ref_id,
+                $diff
+            );
+    }
+
+
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -575,6 +682,19 @@ class Api
         );
 
         return $this->category;
+    }
+
+
+    private function getCourse() : CourseService
+    {
+        global $DIC;
+
+        $this->course ??= CourseService::new(
+            $DIC->database(),
+            $this->getObject()
+        );
+
+        return $this->course;
     }
 
 

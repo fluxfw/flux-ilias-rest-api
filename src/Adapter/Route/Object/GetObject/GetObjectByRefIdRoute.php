@@ -54,7 +54,9 @@ class GetObjectByRefIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $object = $this->api->getObjectByRefId(
-            $request->getParam("ref_id")
+            $request->getParam(
+                "ref_id"
+            )
         );
 
         if ($object !== null) {

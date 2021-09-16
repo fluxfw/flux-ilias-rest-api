@@ -59,10 +59,18 @@ class GetUsersRoute implements Route
         return ResponseDto::new(
             JsonBodyDto::new(
                 $this->api->getUsers(
-                    $request->getQueryParam("access_limited_object_ids") === "true",
-                    $request->getQueryParam("multi_fields") === "true",
-                    $request->getQueryParam("preferences") === "true",
-                    $request->getQueryParam("user_defined_fields") === "true"
+                    $request->getQueryParam(
+                        "access_limited_object_ids"
+                    ) === "true",
+                    $request->getQueryParam(
+                        "multi_fields"
+                    ) === "true",
+                    $request->getQueryParam(
+                        "preferences"
+                    ) === "true",
+                    $request->getQueryParam(
+                        "user_defined_fields"
+                    ) === "true"
                 )
             )
         );

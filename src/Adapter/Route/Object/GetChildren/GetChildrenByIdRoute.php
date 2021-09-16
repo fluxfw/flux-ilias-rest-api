@@ -54,7 +54,9 @@ class GetChildrenByIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $children = $this->api->getChildrenById(
-            $request->getParam("id")
+            $request->getParam(
+                "id"
+            )
         );
 
         if ($children !== null) {

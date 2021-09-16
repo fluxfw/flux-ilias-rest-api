@@ -67,13 +67,18 @@ class CreateObjectToIdRoute implements Route
         }
 
         $id = $this->api->createObjectToId(
-            $request->getParam("type"),
-            $request->getParam("parent_id"),
+            $request->getParam(
+                "type"
+            ),
+            $request->getParam(
+                "parent_id"
+            ),
             ObjectDiffDto::new(
                 $request->getParsedBody()->getData()->import_id ?? null,
                 $request->getParsedBody()->getData()->online ?? null,
                 $request->getParsedBody()->getData()->title ?? null,
-                $request->getParsedBody()->getData()->description ?? null
+                $request->getParsedBody()->getData()->description ?? null,
+                $request->getParsedBody()->getData()->didactic_template_id ?? null
             )
         );
 

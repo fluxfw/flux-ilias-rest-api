@@ -45,7 +45,7 @@ class UpdateObjectByImportIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::POST;
+        return Method::PATCH;
     }
 
 
@@ -67,12 +67,15 @@ class UpdateObjectByImportIdRoute implements Route
         }
 
         $id = $this->api->updateObjectByImportId(
-            $request->getParam("import_id"),
+            $request->getParam(
+                "import_id"
+            ),
             ObjectDiffDto::new(
                 $request->getParsedBody()->getData()->import_id ?? null,
                 $request->getParsedBody()->getData()->online ?? null,
                 $request->getParsedBody()->getData()->title ?? null,
-                $request->getParsedBody()->getData()->description ?? null
+                $request->getParsedBody()->getData()->description ?? null,
+                $request->getParsedBody()->getData()->didactic_template_id ?? null
             )
         );
 

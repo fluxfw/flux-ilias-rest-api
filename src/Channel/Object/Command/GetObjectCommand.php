@@ -28,14 +28,16 @@ class GetObjectCommand
     public function getObjectById(int $id) : ?ObjectDto
     {
         $object = null;
-        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectsQuery(
+        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
                 null,
                 $id
             )))) !== null) {
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the id " . $id);
             }
-            $object = $this->mapDto($object_);
+            $object = $this->mapDto(
+                $object_
+            );
         }
 
         return $object;
@@ -45,7 +47,7 @@ class GetObjectCommand
     public function getObjectByImportId(string $import_id) : ?ObjectDto
     {
         $object = null;
-        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectsQuery(
+        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
                 null,
                 null,
                 $import_id
@@ -53,7 +55,9 @@ class GetObjectCommand
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the import id " . $import_id);
             }
-            $object = $this->mapDto($object_);
+            $object = $this->mapDto(
+                $object_
+            );
         }
 
         return $object;
@@ -63,7 +67,7 @@ class GetObjectCommand
     public function getObjectByRefId(int $ref_id) : ?ObjectDto
     {
         $object = null;
-        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectsQuery(
+        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
                 null,
                 null,
                 null,
@@ -72,7 +76,9 @@ class GetObjectCommand
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the ref id " . $ref_id);
             }
-            $object = $this->mapDto($object_);
+            $object = $this->mapDto(
+                $object_
+            );
         }
 
         return $object;

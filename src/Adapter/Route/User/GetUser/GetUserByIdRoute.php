@@ -54,7 +54,9 @@ class GetUserByIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $user = $this->api->getUserById(
-            $request->getParam("id")
+            $request->getParam(
+                "id"
+            )
         );
 
         if ($user !== null) {

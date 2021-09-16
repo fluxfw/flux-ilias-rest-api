@@ -54,7 +54,9 @@ class GetUserByImportIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $user = $this->api->getUserByImportId(
-            $request->getParam("import_id")
+            $request->getParam(
+                "import_id"
+            )
         );
 
         if ($user !== null) {

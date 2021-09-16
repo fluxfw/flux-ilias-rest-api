@@ -25,7 +25,7 @@ class GetObjectsCommand
 
     public function getObjects(string $type) : array
     {
-        return array_map([$this, "mapDto"], $this->database->fetchAll($this->database->query($this->getObjectsQuery(
+        return array_map([$this, "mapDto"], $this->database->fetchAll($this->database->query($this->getObjectQuery(
             $type
         ))));
     }

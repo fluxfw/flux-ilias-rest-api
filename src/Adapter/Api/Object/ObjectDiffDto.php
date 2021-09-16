@@ -6,12 +6,13 @@ class ObjectDiffDto
 {
 
     private ?string $description;
+    private ?int $didactic_template_id;
     private ?string $import_id;
     private ?bool $online;
     private ?string $title;
 
 
-    public static function new(?string $import_id = null, ?bool $online = null, ?string $title = null, ?string $description = null) : /*static*/ self
+    public static function new(?string $import_id = null, ?bool $online = null, ?string $title = null, ?string $description = null, ?int $didactic_template_id = null) : /*static*/ self
     {
         $dto = new static();
 
@@ -19,6 +20,7 @@ class ObjectDiffDto
         $dto->online = $online;
         $dto->title = $title;
         $dto->description = $description;
+        $dto->didactic_template_id = $didactic_template_id;
 
         return $dto;
     }
@@ -27,6 +29,12 @@ class ObjectDiffDto
     public function getDescription() : ?string
     {
         return $this->description;
+    }
+
+
+    public function getDidacticTemplateId() : ?int
+    {
+        return $this->didactic_template_id;
     }
 
 

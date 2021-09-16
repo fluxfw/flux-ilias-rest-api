@@ -67,11 +67,14 @@ class CreateCategoryToRefIdRoute implements Route
         }
 
         $id = $this->api->createCategoryToRefId(
-            $request->getParam("parent_ref_id"),
+            $request->getParam(
+                "parent_ref_id"
+            ),
             CategoryDiffDto::new(
                 $request->getParsedBody()->getData()->import_id ?? null,
                 $request->getParsedBody()->getData()->title ?? null,
-                $request->getParsedBody()->getData()->description ?? null
+                $request->getParsedBody()->getData()->description ?? null,
+                $request->getParsedBody()->getData()->didactic_template_id ?? null
             )
         );
 

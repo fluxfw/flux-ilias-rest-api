@@ -54,8 +54,12 @@ class CloneObjectByIdToImportIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->cloneObjectByIdToImportId(
-            $request->getParam("id"),
-            $request->getParam("new_parent_import_id")
+            $request->getParam(
+                "id"
+            ),
+            $request->getParam(
+                "new_parent_import_id"
+            )
         );
 
         if ($id !== null) {
