@@ -45,7 +45,7 @@ class UpdateAvatarByIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::POST;
+        return Method::PUT;
     }
 
 
@@ -67,7 +67,9 @@ class UpdateAvatarByIdRoute implements Route
         }
 
         $id = $this->api->updateAvatarById(
-            $request->getParam("id"),
+            $request->getParam(
+                "id"
+            ),
             $request->getParsedBody()->getFiles()["file"]["tmp_name"] ?: null
         );
 

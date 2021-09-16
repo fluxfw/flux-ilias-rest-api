@@ -54,7 +54,9 @@ class GetObjectByIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $object = $this->api->getObjectById(
-            $request->getParam("id")
+            $request->getParam(
+                "id"
+            )
         );
 
         if ($object !== null) {

@@ -26,17 +26,17 @@ class GetUsersCommand
 
     public function getUsers(bool $access_limited_object_ids = false, bool $multi_fields = false, bool $preferences = false, bool $user_defined_fields = false) : array
     {
-        $users = $this->database->fetchAll($this->database->query($this->getUsersQuery()));
+        $users = $this->database->fetchAll($this->database->query($this->getUserQuery()));
         $user_ids = array_map(fn(array $user) : int => $user["usr_id"], $users);
 
         $access_limited_object_ids_ = $access_limited_object_ids ? $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter(array_map(fn(array $user
         ) : int => $user["time_limit_owner"], $users))))) : null;
 
-        $multi_fields_ = $multi_fields ? $this->database->fetchAll($this->database->query($this->getMultiFieldsQuery($user_ids))) : null;
+        $multi_fields_ = $multi_fields ? $this->database->fetchAll($this->database->query($this->getMultiFieldQuery($user_ids))) : null;
 
-        $preferences_ = $preferences ? $this->database->fetchAll($this->database->query($this->getPreferencesQuery($user_ids))) : null;
+        $preferences_ = $preferences ? $this->database->fetchAll($this->database->query($this->getPreferenceQuery($user_ids))) : null;
 
-        $user_defined_fields_ = $user_defined_fields ? $this->database->fetchAll($this->database->query($this->getUserDefinedFieldsQuery($user_ids))) : null;
+        $user_defined_fields_ = $user_defined_fields ? $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery($user_ids))) : null;
 
         return array_map(fn(array $user) : UserDto => $this->mapDto(
             $user,

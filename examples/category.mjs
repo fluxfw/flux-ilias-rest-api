@@ -5,7 +5,7 @@ const category = await (await fetch("?/category/create/to-ref-id/1", {
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        "title": `Category ${time}`
+        title: `Category ${time}`
     })
 })).json();
 
@@ -14,9 +14,10 @@ await (await fetch(`?/category/by-id/${category.id}`)).json();
 await (await fetch(`?/category/by-id/${category.id}/update`, {
     method: "POST",
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-Http-Method-Override": "PATCH"
     },
     body: JSON.stringify({
-        "description": "Some description of the category"
+        description: "Some description of the category"
     })
 })).json();

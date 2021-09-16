@@ -54,8 +54,12 @@ class CloneObjectByRefIdToRefIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->cloneObjectByRefIdToRefId(
-            $request->getParam("ref_id"),
-            $request->getParam("new_parent_ref_id")
+            $request->getParam(
+                "ref_id"
+            ),
+            $request->getParam(
+                "new_parent_ref_id"
+            )
         );
 
         if ($id !== null) {

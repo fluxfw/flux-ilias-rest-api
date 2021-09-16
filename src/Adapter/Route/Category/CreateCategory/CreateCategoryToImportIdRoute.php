@@ -67,11 +67,14 @@ class CreateCategoryToImportIdRoute implements Route
         }
 
         $id = $this->api->createCategoryToImportId(
-            $request->getParam("parent_import_id"),
+            $request->getParam(
+                "parent_import_id"
+            ),
             CategoryDiffDto::new(
                 $request->getParsedBody()->getData()->import_id ?? null,
                 $request->getParsedBody()->getData()->title ?? null,
-                $request->getParsedBody()->getData()->description ?? null
+                $request->getParsedBody()->getData()->description ?? null,
+                $request->getParsedBody()->getData()->didactic_template_id ?? null
             )
         );
 

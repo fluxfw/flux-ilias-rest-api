@@ -54,7 +54,9 @@ class DeleteObjectByIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->deleteObjectById(
-            $request->getParam("id")
+            $request->getParam(
+                "id"
+            )
         );
 
         if ($id !== null) {

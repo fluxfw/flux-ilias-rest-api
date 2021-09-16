@@ -9,6 +9,7 @@ class CategoryDto implements JsonSerializable
 
     private ?int $created;
     private ?string $description;
+    private ?int $didactic_template_id;
     private ?int $id;
     private ?string $import_id;
     private ?int $parent_id;
@@ -29,7 +30,8 @@ class CategoryDto implements JsonSerializable
         ?string $parent_import_id = null,
         ?int $parent_ref_id = null,
         ?string $title = null,
-        ?string $description = null
+        ?string $description = null,
+        ?int $didactic_template_id = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -44,6 +46,7 @@ class CategoryDto implements JsonSerializable
         $dto->parent_ref_id = $parent_ref_id;
         $dto->title = $title;
         $dto->description = $description;
+        $dto->didactic_template_id = $didactic_template_id;
 
         return $dto;
     }
@@ -58,6 +61,12 @@ class CategoryDto implements JsonSerializable
     public function getDescription() : ?string
     {
         return $this->description;
+    }
+
+
+    public function getDidacticTemplateId() : ?int
+    {
+        return $this->didactic_template_id;
     }
 
 

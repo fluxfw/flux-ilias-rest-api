@@ -54,7 +54,9 @@ class DeleteObjectByImportIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->deleteObjectByImportId(
-            $request->getParam("import_id")
+            $request->getParam(
+                "import_id"
+            )
         );
 
         if ($id !== null) {

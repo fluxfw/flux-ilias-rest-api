@@ -47,14 +47,16 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
     }
 
 
-    private function getObjectsQuery(?string $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
+    private function getObjectQuery(?string $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
             "object_reference.deleted IS NULL"
         ];
 
         if ($type !== null) {
-            $wheres[] = "object_data.type=" . $this->database->quote(ObjectTypeMapping::mapExternalToInternal($type), ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.type=" . $this->database->quote(ObjectTypeMapping::mapExternalToInternal(
+                    $type
+                ), ilDBConstants::T_TEXT);
         }
 
         if ($id !== null) {
@@ -69,9 +71,10 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
             $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
-        return "SELECT object_data.*,object_reference.ref_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
+        return "SELECT object_data.*,object_reference.ref_id,didactic_tpl_objs.tpl_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
 FROM object_data
 INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+LEFT JOIN didactic_tpl_objs ON object_data.obj_id=didactic_tpl_objs.obj_id
 INNER JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
@@ -97,6 +100,10 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
         if ($diff->getDescription() !== null) {
             $ilias_object->setDescription($diff->getDescription());
         }
+
+        if ($diff->getDidacticTemplateId() !== null) {
+            $ilias_object->applyDidacticTemplate(!$diff->getDidacticTemplateId());
+        }
     }
 
 
@@ -106,7 +113,9 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $object["obj_id"] ?: null,
             $object["import_id"] ?: null,
             $object["ref_id"] ?: null,
-            ObjectTypeMapping::mapInternalToExternal($object["type"] ?? null),
+            ObjectTypeMapping::mapInternalToExternal(
+                $object["type"] ?? null
+            ),
             strtotime($object["create_date"] ?? null) ?: null,
             strtotime($object["last_update"] ?? null) ?: null,
             $object["parent_obj_id"] ?: null,
@@ -114,14 +123,17 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $object["parent_ref_id"] ?: null,
             !($object["offline"] ?? null),
             $object["title"] ?? "",
-            $object["description"] ?? ""
+            $object["description"] ?? "",
+            $object["tpl_id"] ?: null
         );
     }
 
 
     private function newIliasObject(string $type) : ilObject
     {
-        $class = ilObjectFactory::getClassByType(ObjectTypeMapping::mapExternalToInternal($type));
+        $class = ilObjectFactory::getClassByType(ObjectTypeMapping::mapExternalToInternal(
+            $type
+        ));
 
         return new $class;
     }

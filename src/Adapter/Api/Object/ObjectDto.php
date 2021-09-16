@@ -9,6 +9,7 @@ class ObjectDto implements JsonSerializable
 
     private ?int $created;
     private ?string $description;
+    private ?int $didactic_template_id;
     private ?int $id;
     private ?string $import_id;
     private ?bool $online;
@@ -33,7 +34,8 @@ class ObjectDto implements JsonSerializable
         ?int $parent_ref_id = null,
         ?bool $online = null,
         ?string $title = null,
-        ?string $description = null
+        ?string $description = null,
+        ?int $didactic_template_id = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -50,6 +52,7 @@ class ObjectDto implements JsonSerializable
         $dto->online = $online;
         $dto->title = $title;
         $dto->description = $description;
+        $dto->didactic_template_id = $didactic_template_id;
 
         return $dto;
     }
@@ -64,6 +67,12 @@ class ObjectDto implements JsonSerializable
     public function getDescription() : ?string
     {
         return $this->description;
+    }
+
+
+    public function getDidacticTemplateId() : ?int
+    {
+        return $this->didactic_template_id;
     }
 
 

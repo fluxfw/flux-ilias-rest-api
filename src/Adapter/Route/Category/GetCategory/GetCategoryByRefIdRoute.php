@@ -54,7 +54,9 @@ class GetCategoryByRefIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $category = $this->api->getCategoryByRefId(
-            $request->getParam("ref_id")
+            $request->getParam(
+                "ref_id"
+            )
         );
 
         if ($category !== null) {

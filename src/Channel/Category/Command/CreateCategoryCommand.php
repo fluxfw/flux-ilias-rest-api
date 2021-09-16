@@ -67,14 +67,18 @@ class CreateCategoryCommand
 
         $ilias_category = $this->newIliasCategory();
 
+        $ilias_category->setTitle("");
+
+        $ilias_category->create();
+        $ilias_category->createReference();
+        $ilias_category->putInTree($parent_object->getRefId());
+
         $this->mapDiff(
             $diff,
             $ilias_category
         );
 
-        $ilias_category->create();
-        $ilias_category->createReference();
-        $ilias_category->putInTree($parent_object->getRefId());
+        $ilias_category->update();
 
         return ObjectIdDto::new(
             $ilias_category->getId() ?: null,

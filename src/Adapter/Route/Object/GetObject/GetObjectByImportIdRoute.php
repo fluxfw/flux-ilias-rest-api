@@ -54,7 +54,9 @@ class GetObjectByImportIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $object = $this->api->getObjectByImportId(
-            $request->getParam("import_id")
+            $request->getParam(
+                "import_id"
+            )
         );
 
         if ($object !== null) {

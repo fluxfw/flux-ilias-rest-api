@@ -28,7 +28,7 @@ class GetUserCommand
     public function getUserById(int $id) : ?UserDto
     {
         $user = null;
-        while (($user_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getUsersQuery(
+        while (($user_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getUserQuery(
                 $id
             )))) !== null) {
             if ($user !== null) {
@@ -37,9 +37,9 @@ class GetUserCommand
             $user = $this->mapDto(
                 $user_,
                 $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
-                $this->database->fetchAll($this->database->query($this->getMultiFieldsQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getPreferencesQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getUserDefinedFieldsQuery([$user_["usr_id"]])))
+                $this->database->fetchAll($this->database->query($this->getMultiFieldQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getPreferenceQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
             );
         }
 
@@ -50,7 +50,7 @@ class GetUserCommand
     public function getUserByImportId(string $import_id) : ?UserDto
     {
         $user = null;
-        while (($user_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getUsersQuery(
+        while (($user_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getUserQuery(
                 null,
                 $import_id
             )))) !== null) {
@@ -60,9 +60,9 @@ class GetUserCommand
             $user = $this->mapDto(
                 $user_,
                 $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
-                $this->database->fetchAll($this->database->query($this->getMultiFieldsQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getPreferencesQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getUserDefinedFieldsQuery([$user_["usr_id"]])))
+                $this->database->fetchAll($this->database->query($this->getMultiFieldQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getPreferenceQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
             );
         }
 

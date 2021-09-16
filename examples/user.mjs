@@ -1,5 +1,7 @@
 await (await fetch("?/users")).json();
 
+await (await fetch(`?/user/current`)).json();
+
 const time = Date.now();
 const user = await (await fetch("?/user/create", {
     method: "POST",
@@ -7,11 +9,11 @@ const user = await (await fetch("?/user/create", {
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        "email": `user_${time}@${location.host}`,
-        "first_name": `User ${time}`,
-        "last_name": `User ${time}`,
-        "login": `user_${time}`,
-        "password": time
+        email: `user_${time}@${location.host}`,
+        first_name: `User ${time}`,
+        last_name: `User ${time}`,
+        login: `user_${time}`,
+        password: time
     })
 })).json();
 
@@ -20,12 +22,13 @@ await (await fetch(`?/user/by-id/${user.id}`)).json();
 await (await fetch(`?/user/by-id/${user.id}/update`, {
     method: "POST",
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-Http-Method-Override": "PATCH"
     },
     body: JSON.stringify({
-        "first_name": "User",
-        "last_name": time,
-        "gender": "male"
+        first_name: "User",
+        last_name: time,
+        gender: "male"
     })
 })).json();
 
@@ -41,6 +44,9 @@ await (await fetch(`?/user/by-id/${user.id}/update`, {
             data.set("file", selector.files[0]);
             console.log(await (await fetch(`?/user/by-id/${user.id}/update/avatar`, {
                 method: "POST",
+                headers: {
+                    "X-Http-Method-Override": "PUT"
+                },
                 body: data
             })).json());
         });
@@ -57,6 +63,9 @@ await (await fetch(`?/user/by-id/${user.id}/update`, {
 
 await (await fetch(`?/user/by-id/${user.id}/update/avatar`, {
     method: "POST",
+    headers: {
+        "X-Http-Method-Override": "PUT"
+    },
     body: new FormData()
 })).json();
 

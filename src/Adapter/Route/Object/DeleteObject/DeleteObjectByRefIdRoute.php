@@ -54,7 +54,9 @@ class DeleteObjectByRefIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->deleteObjectByRefId(
-            $request->getParam("ref_id")
+            $request->getParam(
+                "ref_id"
+            )
         );
 
         if ($id !== null) {

@@ -47,7 +47,7 @@ class UpdateUserByImportIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::POST;
+        return Method::PATCH;
     }
 
 
@@ -69,7 +69,9 @@ class UpdateUserByImportIdRoute implements Route
         }
 
         $id = $this->api->updateUserByImportId(
-            $request->getParam("import_id"),
+            $request->getParam(
+                "import_id"
+            ),
             UserDiffDto::new(
                 $request->getParsedBody()->getData()->import_id ?? null,
                 $request->getParsedBody()->getData()->external_account ?? null,

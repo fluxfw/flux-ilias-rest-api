@@ -56,7 +56,9 @@ class GetAvatarByIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $avatar = $this->api->getAvatarPathById(
-            $request->getParam("id")
+            $request->getParam(
+                "id"
+            )
         );
 
         if ($avatar !== null) {
@@ -65,7 +67,10 @@ class GetAvatarByIdRoute implements Route
                 null,
                 null,
                 null,
-                $this->sendfileIliasDataDir($request, $avatar)
+                $this->sendfileIliasDataDir(
+                    $request,
+                    $avatar
+                )
             );
         } else {
             return ResponseDto::new(

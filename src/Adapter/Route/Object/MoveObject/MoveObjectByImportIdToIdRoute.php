@@ -41,7 +41,7 @@ class MoveObjectByImportIdToIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::POST;
+        return Method::PUT;
     }
 
 
@@ -54,8 +54,12 @@ class MoveObjectByImportIdToIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $id = $this->api->moveObjectByImportIdToId(
-            $request->getParam("import_id"),
-            $request->getParam("new_parent_id")
+            $request->getParam(
+                "import_id"
+            ),
+            $request->getParam(
+                "new_parent_id"
+            )
         );
 
         if ($id !== null) {

@@ -54,7 +54,9 @@ class GetChildrenByImportIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $children = $this->api->getChildrenByImportId(
-            $request->getParam("import_id")
+            $request->getParam(
+                "import_id"
+            )
         );
 
         if ($children !== null) {

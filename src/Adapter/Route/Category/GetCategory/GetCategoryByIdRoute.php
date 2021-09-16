@@ -54,7 +54,9 @@ class GetCategoryByIdRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $category = $this->api->getCategoryById(
-            $request->getParam("id")
+            $request->getParam(
+                "id"
+            )
         );
 
         if ($category !== null) {

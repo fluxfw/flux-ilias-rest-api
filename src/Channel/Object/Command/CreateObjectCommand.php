@@ -72,14 +72,18 @@ class CreateObjectCommand
             $type
         );
 
+        $ilias_object->setTitle("");
+
+        $ilias_object->create();
+        $ilias_object->createReference();
+        $ilias_object->putInTree($parent_object->getRefId());
+
         $this->mapDiff(
             $diff,
             $ilias_object
         );
 
-        $ilias_object->create();
-        $ilias_object->createReference();
-        $ilias_object->putInTree($parent_object->getRefId());
+        $ilias_object->update();
 
         return ObjectIdDto::new(
             $ilias_object->getId() ?: null,
