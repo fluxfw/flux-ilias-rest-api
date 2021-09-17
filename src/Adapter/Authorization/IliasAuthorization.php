@@ -43,6 +43,8 @@ class IliasAuthorization implements Authorization
             throw new Exception("Missing client or user");
         }
 
+        ini_set("session.use_cookies", 0);
+
         chdir(__DIR__ . "/../../../../../..");
         require_once __DIR__ . "/../../../../../../libs/composer/vendor/autoload.php";
         (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
