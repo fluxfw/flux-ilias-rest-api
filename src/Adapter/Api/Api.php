@@ -6,6 +6,9 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
@@ -14,6 +17,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
+use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 
@@ -22,6 +26,7 @@ class Api
 
     private ?CategoryService $category = null;
     private ?CourseService $course = null;
+    private ?CourseMemberService $course_member = null;
     private ?ObjectService $object = null;
     private ?UserService $user = null;
 
@@ -31,6 +36,72 @@ class Api
         $api = new static();
 
         return $api;
+    }
+
+
+    public function addCourseMemberByIdByUserId(int $id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->addCourseMemberByIdByUserId(
+                $id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function addCourseMemberByIdByUserImportId(int $id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->addCourseMemberByIdByUserImportId(
+                $id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function addCourseMemberByImportIdByUserId(string $import_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->addCourseMemberByImportIdByUserId(
+                $import_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function addCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->addCourseMemberByImportIdByUserImportId(
+                $import_id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function addCourseMemberByRefIdByUserId(int $ref_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->addCourseMemberByRefIdByUserId(
+                $ref_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function addCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->addCourseMemberByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id,
+                $diff
+            );
     }
 
 
@@ -377,6 +448,93 @@ class Api
     }
 
 
+    public function getCourseMemberByIdByUserId(int $id, int $user_id) : ?MemberDto
+    {
+        return $this->getCourseMember()
+            ->getCourseMemberByIdByUserId(
+                $id,
+                $user_id
+            );
+    }
+
+
+    public function getCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?MemberDto
+    {
+        return $this->getCourseMember()
+            ->getCourseMemberByIdByUserImportId(
+                $id,
+                $user_import_id
+            );
+    }
+
+
+    public function getCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?MemberDto
+    {
+        return $this->getCourseMember()
+            ->getCourseMemberByImportIdByUserId(
+                $import_id,
+                $user_id
+            );
+    }
+
+
+    public function getCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?MemberDto
+    {
+        return $this->getCourseMember()
+            ->getCourseMemberByImportIdByUserImportId(
+                $import_id,
+                $user_import_id
+            );
+    }
+
+
+    public function getCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?MemberDto
+    {
+        return $this->getCourseMember()
+            ->getCourseMemberByRefIdByUserId(
+                $ref_id,
+                $user_id
+            );
+    }
+
+
+    public function getCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?MemberDto
+    {
+        return $this->getCourseMember()
+            ->getCourseMemberByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id
+            );
+    }
+
+
+    public function getCourseMembersById(int $id) : ?array
+    {
+        return $this->getCourseMember()
+            ->getCourseMembersById(
+                $id
+            );
+    }
+
+
+    public function getCourseMembersByImportId(string $import_id) : ?array
+    {
+        return $this->getCourseMember()
+            ->getCourseMembersByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getCourseMembersByRefId(int $ref_id) : ?array
+    {
+        return $this->getCourseMember()
+            ->getCourseMembersByRefId(
+                $ref_id
+            );
+    }
+
+
     public function getCourses(bool $container_settings = false) : array
     {
         return $this->getCourse()
@@ -561,6 +719,66 @@ class Api
     }
 
 
+    public function removeCourseMemberByIdByUserId(int $id, int $user_id) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->removeCourseMemberByIdByUserId(
+                $id,
+                $user_id
+            );
+    }
+
+
+    public function removeCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->removeCourseMemberByIdByUserImportId(
+                $id,
+                $user_import_id
+            );
+    }
+
+
+    public function removeCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->removeCourseMemberByImportIdByUserId(
+                $import_id,
+                $user_id
+            );
+    }
+
+
+    public function removeCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->removeCourseMemberByImportIdByUserImportId(
+                $import_id,
+                $user_import_id
+            );
+    }
+
+
+    public function removeCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->removeCourseMemberByRefIdByUserId(
+                $ref_id,
+                $user_id
+            );
+    }
+
+
+    public function removeCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->removeCourseMemberByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id
+            );
+    }
+
+
     public function updateAvatarById(int $id, ?string $file) : ?UserIdDto
     {
         return $this->getUser()
@@ -641,6 +859,72 @@ class Api
     }
 
 
+    public function updateCourseMemberByIdByUserId(int $id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->updateCourseMemberByIdByUserId(
+                $id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function updateCourseMemberByIdByUserImportId(int $id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->updateCourseMemberByIdByUserImportId(
+                $id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function updateCourseMemberByImportIdByUserId(string $import_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->updateCourseMemberByImportIdByUserId(
+                $import_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function updateCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->updateCourseMemberByImportIdByUserImportId(
+                $import_id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function updateCourseMemberByRefIdByUserId(int $ref_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->updateCourseMemberByRefIdByUserId(
+                $ref_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function updateCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    {
+        return $this->getCourseMember()
+            ->updateCourseMemberByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -714,6 +998,20 @@ class Api
         );
 
         return $this->course;
+    }
+
+
+    private function getCourseMember() : CourseMemberService
+    {
+        global $DIC;
+
+        $this->course_member ??= CourseMemberService::new(
+            $DIC->database(),
+            $this->getCourse(),
+            $this->getUser()
+        );
+
+        return $this->course_member;
     }
 
 
