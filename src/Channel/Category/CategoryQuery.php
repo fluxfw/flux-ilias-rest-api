@@ -48,7 +48,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function mapDiff(CategoryDiffDto $diff, ilObjCategory $ilias_category) : void
+    private function mapCategoryDiff(CategoryDiffDto $diff, ilObjCategory $ilias_category) : void
     {
         if ($diff->getImportId() !== null) {
             $ilias_category->setImportId($diff->getImportId());
@@ -68,7 +68,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function mapDto(array $category) : CategoryDto
+    private function mapCategoryDto(array $category) : CategoryDto
     {
         return CategoryDto::new(
             $category["obj_id"] ?: null,

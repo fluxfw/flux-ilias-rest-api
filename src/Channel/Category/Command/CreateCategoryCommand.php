@@ -73,7 +73,7 @@ class CreateCategoryCommand
         $ilias_category->createReference();
         $ilias_category->putInTree($parent_object->getRefId());
 
-        $this->mapDiff(
+        $this->mapCategoryDiff(
             $diff,
             $ilias_category
         );

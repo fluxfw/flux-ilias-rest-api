@@ -25,6 +25,6 @@ class GetCategoriesCommand
 
     public function getCategories() : array
     {
-        return array_map([$this, "mapDto"], $this->database->fetchAll($this->database->query($this->getCategoryQuery())));
+        return array_map([$this, "mapCategoryDto"], $this->database->fetchAll($this->database->query($this->getCategoryQuery())));
     }
 }

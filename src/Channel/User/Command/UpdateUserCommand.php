@@ -64,7 +64,7 @@ class UpdateUserCommand
             return null;
         }
 
-        $this->mapDiff(
+        $this->mapUserDiff(
             $diff,
             $ilias_user
         );

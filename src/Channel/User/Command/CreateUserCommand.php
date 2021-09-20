@@ -35,7 +35,7 @@ class CreateUserCommand
         $ilias_user->setActive(true);
         $ilias_user->setTimeLimitUnlimited(true);
 
-        $this->mapDiff(
+        $this->mapUserDiff(
             $diff,
             $ilias_user
         );

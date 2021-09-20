@@ -1,10 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\User\UpdateUser;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\User\GetCurrentUser;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
-use Fluxlabs\FluxRestApi\Body\BodyType;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
 use Fluxlabs\FluxRestApi\Body\TextBodyDto;
 use Fluxlabs\FluxRestApi\Method\Method;
@@ -13,7 +11,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class UpdateUserByImportIdRoute implements Route
+class GetCurrentWebUserRoute implements Route
 {
 
     private Api $api;
@@ -31,9 +29,7 @@ class UpdateUserByImportIdRoute implements Route
 
     public function getDocuRequestBodyTypes() : ?array
     {
-        return [
-            BodyType::JSON
-        ];
+        return null;
     }
 
 
@@ -45,48 +41,36 @@ class UpdateUserByImportIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::PATCH;
+        return Method::GET;
     }
 
 
     public function getRoute() : string
     {
-        return "/user/by-import-id/{import_id}/update";
+        return "/user/current/web";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        if (!($request->getParsedBody() instanceof JsonBodyDto)) {
-            return ResponseDto::new(
-                TextBodyDto::new(
-                    "No json body"
-                ),
-                Status::_400
-            );
-        }
-
-        $id = $this->api->updateUserByImportId(
-            $request->getParam(
-                "import_id"
-            ),
-            UserDiffDto::newFromData(
-                $request->getParsedBody()->getData()
+        $user = $this->api->getCurrentWebUser(
+            $request->getCookie(
+                session_name()
             )
         );
 
-        if ($id !== null) {
+        if ($user !== null) {
             return ResponseDto::new(
                 JsonBodyDto::new(
-                    $id
+                    $user
                 )
             );
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "User not found"
+                    "Invalid authorization"
                 ),
-                Status::_404
+                Status::_403
             );
         }
     }

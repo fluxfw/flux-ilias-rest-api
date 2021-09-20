@@ -73,7 +73,7 @@ class CreateCourseCommand
         $ilias_course->createReference();
         $ilias_course->putInTree($parent_object->getRefId());
 
-        $this->mapDiff(
+        $this->mapCourseDiff(
             $diff,
             $ilias_course
         );

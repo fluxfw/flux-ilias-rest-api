@@ -31,7 +31,7 @@ class GetCoursesCommand
 
         $container_settings_ = $container_settings ? $this->database->fetchAll($this->database->query($this->getContainerSettingQuery($course_ids))) : null;
 
-        return array_map(fn(array $course) : CourseDto => $this->mapDto(
+        return array_map(fn(array $course) : CourseDto => $this->mapCourseDto(
             $course,
             $container_settings_
         ), $courses);

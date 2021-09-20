@@ -386,6 +386,25 @@ class Api
     }
 
 
+    public function getCurrentApiUser() : ?UserDto
+    {
+        global $DIC;
+
+        return $this->getUserById(
+            $DIC->user()->getId()
+        );
+    }
+
+
+    public function getCurrentWebUser(?string $session_id) : ?UserDto
+    {
+        return $this->getUser()
+            ->getCurrentWebUser(
+                $session_id
+            );
+    }
+
+
     public function getObjectById(int $id) : ?ObjectDto
     {
         return $this->getObject()

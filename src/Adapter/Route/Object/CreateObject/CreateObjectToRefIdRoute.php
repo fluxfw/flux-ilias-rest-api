@@ -73,12 +73,8 @@ class CreateObjectToRefIdRoute implements Route
             $request->getParam(
                 "parent_ref_id"
             ),
-            ObjectDiffDto::new(
-                $request->getParsedBody()->getData()->import_id ?? null,
-                $request->getParsedBody()->getData()->online ?? null,
-                $request->getParsedBody()->getData()->title ?? null,
-                $request->getParsedBody()->getData()->description ?? null,
-                $request->getParsedBody()->getData()->didactic_template_id ?? null
+            ObjectDiffDto::newFromData(
+                $request->getParsedBody()->getData()
             )
         );
 

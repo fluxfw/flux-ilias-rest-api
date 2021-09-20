@@ -9,6 +9,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\CreateUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\DeleteUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetAvatarPathCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetCurrentUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUsersCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\UpdateAvatarCommand;
@@ -88,6 +89,18 @@ class UserService
         )
             ->getAvatarPathByImportId(
                 $import_id
+            );
+    }
+
+
+    public function getCurrentWebUser(?string $session_id) : ?UserDto
+    {
+        return GetCurrentUserCommand::new(
+            $this->database,
+            $this
+        )
+            ->getCurrentWebUser(
+                $session_id
             );
     }
 

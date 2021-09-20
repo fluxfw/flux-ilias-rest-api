@@ -41,7 +41,48 @@ class CourseDiffDto
     private ?string $title;
 
 
-    public static function new(
+    public static function newFromData(object $data) : /*static*/ self
+    {
+        return static::new(
+            $data->import_id ?? null,
+            $data->title ?? null,
+            $data->description ?? null,
+            $data->period_start ?? null,
+            $data->period_end ?? null,
+            $data->period_unset ?? null,
+            $data->period_time_indication ?? null,
+            $data->online ?? null,
+            $data->availability_start ?? null,
+            $data->availability_end ?? null,
+            $data->availability_always_visible ?? null,
+            $data->calendar ?? null,
+            $data->calendar_block ?? null,
+            $data->news ?? null,
+            $data->custom_metadata ?? null,
+            $data->tag_cloud ?? null,
+            $data->default_object_rating ?? null,
+            $data->badges ?? null,
+            $data->resources ?? null,
+            $data->mail_subject_prefix ?? null,
+            $data->show_members ?? null,
+            $data->show_members_participants_list ?? null,
+            $data->mail_to_members_type ?? null,
+            $data->send_welcome_email ?? null,
+            $data->add_to_favourites ?? null,
+            $data->important_information ?? null,
+            $data->syllabus ?? null,
+            $data->target_group ?? null,
+            $data->contact_name ?? null,
+            $data->contact_responsibility ?? null,
+            $data->contact_phone ?? null,
+            $data->contact_email ?? null,
+            $data->contact_consultation ?? null,
+            $data->didactic_template_id ?? null
+        );
+    }
+
+
+    private static function new(
         ?string $import_id = null,
         ?string $title = null,
         ?string $description = null,
