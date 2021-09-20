@@ -14,7 +14,6 @@ class UserDiffDto
     private ?bool $access_unlimited;
     private ?bool $active;
     private ?string $authentication_mode;
-    private ?string $avatar;
     private ?string $birthday;
     private ?string $city;
     private ?string $client_ip;
@@ -51,7 +50,62 @@ class UserDiffDto
     private ?string $zip_code;
 
 
-    public static function new(
+    public static function newFromData(object $data) : /*static*/ self
+    {
+        return static::new(
+            $data->import_id ?? null,
+            $data->external_account ?? null,
+            $data->authentication_mode ?? null,
+            $data->login ?? null,
+            $data->password ?? null,
+            $data->active ?? null,
+            $data->access_unlimited ?? null,
+            $data->access_limited_from ?? null,
+            $data->access_limited_until ?? null,
+            $data->access_limited_object_id ?? null,
+            $data->access_limited_object_import_id ?? null,
+            $data->access_limited_object_ref_id ?? null,
+            $data->access_limited_message ?? null,
+            $data->gender ?? null,
+            $data->first_name ?? null,
+            $data->last_name ?? null,
+            $data->title ?? null,
+            $data->birthday ?? null,
+            $data->institution ?? null,
+            $data->department ?? null,
+            $data->street ?? null,
+            $data->city ?? null,
+            $data->zip_code ?? null,
+            $data->country ?? null,
+            $data->selected_country ?? null,
+            $data->phone_office ?? null,
+            $data->phone_home ?? null,
+            $data->phone_mobile ?? null,
+            $data->fax ?? null,
+            $data->email ?? null,
+            $data->second_email ?? null,
+            $data->hobbies ?? null,
+            $data->heard_about_ilias ?? null,
+            $data->general_interests ?? null,
+            $data->offering_helps ?? null,
+            $data->looking_for_helps ?? null,
+            $data->matriculation_number ?? null,
+            $data->client_ip ?? null,
+            $data->location_latitude ?? null,
+            $data->location_longitude ?? null,
+            $data->location_zoom ?? null,
+            ($user_defined_fields = $data->user_defined_fields ?? null) !== null ? array_map(fn(object $user_defined_field
+            ) : UserDefinedFieldDto => UserDefinedFieldDto::new(
+                $user_defined_field->id ?? null,
+                $user_defined_field->name ?? null,
+                $user_defined_field->value ?? null
+            ), $user_defined_fields) : null,
+            $data->language ?? null
+        );
+    }
+
+
+    private static function new(
         ?string $import_id = null,
         ?string $external_account = null,
         ?string $authentication_mode = null,
@@ -69,7 +123,6 @@ class UserDiffDto
         ?string $first_name = null,
         ?string $last_name = null,
         ?string $title = null,
-        ?string $avatar = null,
         ?string $birthday = null,
         ?string $institution = null,
         ?string $department = null,
@@ -117,7 +170,6 @@ class UserDiffDto
         $dto->first_name = $first_name;
         $dto->last_name = $last_name;
         $dto->title = $title;
-        $dto->avatar = $avatar;
         $dto->birthday = $birthday;
         $dto->institution = $institution;
         $dto->department = $department;
@@ -182,12 +234,6 @@ class UserDiffDto
     public function getAuthenticationMode() : ?string
     {
         return $this->authentication_mode;
-    }
-
-
-    public function getAvatar() : ?string
-    {
-        return $this->avatar;
     }
 
 

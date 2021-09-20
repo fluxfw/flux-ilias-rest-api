@@ -35,7 +35,7 @@ class GetChildrenCommand
             return null;
         }
 
-        return array_map([$this, "mapDto"], $this->database->fetchAll($this->database->query($this->getChildrenQuery(
+        return array_map([$this, "mapObjectDto"], $this->database->fetchAll($this->database->query($this->getChildrenQuery(
             $object->getId()
         ))));
     }
@@ -50,7 +50,7 @@ class GetChildrenCommand
             return null;
         }
 
-        return array_map([$this, "mapDto"], $this->database->fetchAll($this->database->query($this->getChildrenQuery(
+        return array_map([$this, "mapObjectDto"], $this->database->fetchAll($this->database->query($this->getChildrenQuery(
             null,
             $object->getImportId()
         ))));
@@ -66,7 +66,7 @@ class GetChildrenCommand
             return null;
         }
 
-        return array_map([$this, "mapDto"], $this->database->fetchAll($this->database->query($this->getChildrenQuery(
+        return array_map([$this, "mapObjectDto"], $this->database->fetchAll($this->database->query($this->getChildrenQuery(
             null,
             null,
             $object->getRefId()

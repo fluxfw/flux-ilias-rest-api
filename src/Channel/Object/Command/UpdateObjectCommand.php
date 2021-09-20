@@ -72,7 +72,7 @@ class UpdateObjectCommand
             return null;
         }
 
-        $this->mapDiff(
+        $this->mapObjectDiff(
             $diff,
             $ilias_object
         );

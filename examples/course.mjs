@@ -1,3 +1,5 @@
+await (await fetch("?/courses")).json();
+
 const time = Date.now();
 const course = await (await fetch("?/course/create/to-ref-id/1", {
     method: "POST",

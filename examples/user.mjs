@@ -1,5 +1,9 @@
 await (await fetch("?/users")).json();
 
+await (await fetch("?/user/current/api")).json();
+
+await (await fetch("?/user/current/web")).json();
+
 const time = Date.now();
 const user = await (await fetch("?/user/create", {
     method: "POST",

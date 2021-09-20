@@ -34,7 +34,7 @@ class GetUserCommand
             if ($user !== null) {
                 throw new LogicException("Multiple users found with the id " . $id);
             }
-            $user = $this->mapDto(
+            $user = $this->mapUserDto(
                 $user_,
                 $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
                 $this->database->fetchAll($this->database->query($this->getMultiFieldQuery([$user_["usr_id"]]))),
@@ -57,7 +57,7 @@ class GetUserCommand
             if ($user !== null) {
                 throw new LogicException("Multiple users found with the import id " . $import_id);
             }
-            $user = $this->mapDto(
+            $user = $this->mapUserDto(
                 $user_,
                 $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
                 $this->database->fetchAll($this->database->query($this->getMultiFieldQuery([$user_["usr_id"]]))),

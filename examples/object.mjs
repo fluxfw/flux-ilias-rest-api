@@ -1,3 +1,5 @@
+await (await fetch("?/objects/category")).json();
+
 const time = Date.now();
 const object = await (await fetch("?/object/create/category/to-ref-id/1", {
     method: "POST",
@@ -10,6 +12,8 @@ const object = await (await fetch("?/object/create/category/to-ref-id/1", {
 })).json();
 
 await (await fetch(`?/object/by-id/${object.id}`)).json();
+
+await (await fetch("?/children/by-ref-id/1")).json();
 
 await (await fetch(`?/object/by-id/${object.id}/update`, {
     method: "POST",
@@ -32,10 +36,6 @@ const moved_object = await (await fetch(`?/object/by-id/${cloned_object.id}/move
         "X-Http-Method-Override": "PUT"
     }
 })).json();
-
-await (await fetch("?/children/by-ref-id/1")).json();
-
-await (await fetch("?/objects/category")).json();
 
 await (await fetch(`?/object/by-id/${object.id}/delete`, {
     method: "POST",

@@ -72,7 +72,7 @@ class UpdateCategoryCommand
             return null;
         }
 
-        $this->mapDiff(
+        $this->mapCategoryDiff(
             $diff,
             $ilias_category
         );

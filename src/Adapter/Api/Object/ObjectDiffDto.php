@@ -12,7 +12,19 @@ class ObjectDiffDto
     private ?string $title;
 
 
-    public static function new(?string $import_id = null, ?bool $online = null, ?string $title = null, ?string $description = null, ?int $didactic_template_id = null) : /*static*/ self
+    public static function newFromData(object $data) : /*static*/ self
+    {
+        return static::new(
+            $data->import_id ?? null,
+            $data->online ?? null,
+            $data->title ?? null,
+            $data->description ?? null,
+            $data->didactic_template_id ?? null
+        );
+    }
+
+
+    private static function new(?string $import_id = null, ?bool $online = null, ?string $title = null, ?string $description = null, ?int $didactic_template_id = null) : /*static*/ self
     {
         $dto = new static();
 

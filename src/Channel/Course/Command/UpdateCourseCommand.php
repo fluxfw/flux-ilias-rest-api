@@ -72,7 +72,7 @@ class UpdateCourseCommand
             return null;
         }
 
-        $this->mapDiff(
+        $this->mapCourseDiff(
             $diff,
             $ilias_course
         );

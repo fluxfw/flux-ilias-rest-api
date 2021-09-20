@@ -34,7 +34,7 @@ class GetCategoryCommand
             if ($category !== null) {
                 throw new LogicException("Multiple categories found with the id " . $id);
             }
-            $category = $this->mapDto(
+            $category = $this->mapCategoryDto(
                 $category_
             );
         }
@@ -53,7 +53,7 @@ class GetCategoryCommand
             if ($category !== null) {
                 throw new LogicException("Multiple categories found with the import id " . $import_id);
             }
-            $category = $this->mapDto(
+            $category = $this->mapCategoryDto(
                 $category_
             );
         }
@@ -73,7 +73,7 @@ class GetCategoryCommand
             if ($category !== null) {
                 throw new LogicException("Multiple categories found with the ref id " . $ref_id);
             }
-            $category = $this->mapDto(
+            $category = $this->mapCategoryDto(
                 $category_
             );
         }

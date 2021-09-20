@@ -38,7 +38,7 @@ class GetUsersCommand
 
         $user_defined_fields_ = $user_defined_fields ? $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery($user_ids))) : null;
 
-        return array_map(fn(array $user) : UserDto => $this->mapDto(
+        return array_map(fn(array $user) : UserDto => $this->mapUserDto(
             $user,
             $access_limited_object_ids_,
             $multi_fields_,

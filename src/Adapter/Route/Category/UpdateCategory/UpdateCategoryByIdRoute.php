@@ -70,11 +70,8 @@ class UpdateCategoryByIdRoute implements Route
             $request->getParam(
                 "id"
             ),
-            CategoryDiffDto::new(
-                $request->getParsedBody()->getData()->import_id ?? null,
-                $request->getParsedBody()->getData()->title ?? null,
-                $request->getParsedBody()->getData()->description ?? null,
-                $request->getParsedBody()->getData()->didactic_template_id ?? null
+            CategoryDiffDto::newFromData(
+                $request->getParsedBody()->getData()
             )
         );
 

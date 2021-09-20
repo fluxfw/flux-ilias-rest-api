@@ -1,3 +1,5 @@
+await (await fetch("?/categories")).json();
+
 const time = Date.now();
 const category = await (await fetch("?/category/create/to-ref-id/1", {
     method: "POST",

@@ -34,7 +34,7 @@ class GetCourseCommand
             if ($course !== null) {
                 throw new LogicException("Multiple courses found with the id " . $id);
             }
-            $course = $this->mapDto(
+            $course = $this->mapCourseDto(
                 $course_,
                 $this->database->fetchAll($this->database->query($this->getContainerSettingQuery([$course_["obj_id"]])))
             );
@@ -54,7 +54,7 @@ class GetCourseCommand
             if ($course !== null) {
                 throw new LogicException("Multiple courses found with the import id " . $import_id);
             }
-            $course = $this->mapDto(
+            $course = $this->mapCourseDto(
                 $course_,
                 $this->database->fetchAll($this->database->query($this->getContainerSettingQuery([$course_["obj_id"]])))
             );
@@ -75,7 +75,7 @@ class GetCourseCommand
             if ($course !== null) {
                 throw new LogicException("Multiple courses found with the ref id " . $ref_id);
             }
-            $course = $this->mapDto(
+            $course = $this->mapCourseDto(
                 $course_,
                 $this->database->fetchAll($this->database->query($this->getContainerSettingQuery([$course_["obj_id"]])))
             );

@@ -35,7 +35,7 @@ class GetObjectCommand
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the id " . $id);
             }
-            $object = $this->mapDto(
+            $object = $this->mapObjectDto(
                 $object_
             );
         }
@@ -55,7 +55,7 @@ class GetObjectCommand
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the import id " . $import_id);
             }
-            $object = $this->mapDto(
+            $object = $this->mapObjectDto(
                 $object_
             );
         }
@@ -76,7 +76,7 @@ class GetObjectCommand
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the ref id " . $ref_id);
             }
-            $object = $this->mapDto(
+            $object = $this->mapObjectDto(
                 $object_
             );
         }

@@ -52,6 +52,15 @@ WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) .
     }
 
 
+    private function getSessionQuery(string $session_id) : string
+    {
+        return "SELECT user_id
+FROM usr_session
+WHERE session_id=" . $this->database->quote($session_id,
+                ilDBConstants::T_TEXT);
+    }
+
+
     private function getUserDefinedFieldQuery(array $ids) : string
     {
         return "SELECT CASE WHEN udf_clob.usr_id IS NOT NULL THEN udf_clob.usr_id ELSE udf_text.usr_id END AS usr_id,field_name,udf_definition.field_id,CASE WHEN udf_clob.value IS NOT NULL THEN udf_clob.value ELSE udf_text.value END AS value
@@ -84,7 +93,7 @@ ORDER BY login ASC";
     }
 
 
-    private function mapDiff(UserDiffDto $diff, ilObjUser $ilias_user) : void
+    private function mapUserDiff(UserDiffDto $diff, ilObjUser $ilias_user) : void
     {
         if ($diff->getImportId() !== null) {
             $ilias_user->setImportId($diff->getImportId());
@@ -185,10 +194,6 @@ ORDER BY login ASC";
         if ($diff->getTitle() !== null) {
             $ilias_user->setUTitle($diff->getTitle());
         }
-
-        /*if ($diff->getAvatar() !== null) {
-            $ilias_user->setAvatar($diff->getAvatar());
-        }*/
 
         if ($diff->getBirthday() !== null) {
             $ilias_user->setBirthday($diff->getBirthday());
@@ -334,7 +339,7 @@ ORDER BY login ASC";
     }
 
 
-    private function mapDto(array $user, ?array $access_limited_object_ids = null, ?array $multi_fields = null, ?array $preferences = null, ?array $user_defined_fields = null) : UserDto
+    private function mapUserDto(array $user, ?array $access_limited_object_ids = null, ?array $multi_fields = null, ?array $preferences = null, ?array $user_defined_fields = null) : UserDto
     {
         $getAccessLimitedObjectId = fn(string $id)/* : mixed*/ => $access_limited_object_ids !== null ? current(array_map(fn(array $access_limited_object_id
         )/* : mixed*/ => $access_limited_object_id[$id] ?: null,

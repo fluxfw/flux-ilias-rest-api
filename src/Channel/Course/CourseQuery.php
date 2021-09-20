@@ -62,7 +62,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function mapDiff(CourseDiffDto $diff, ilObjCourse $ilias_course) : void
+    private function mapCourseDiff(CourseDiffDto $diff, ilObjCourse $ilias_course) : void
     {
         if ($diff->getImportId() !== null) {
             $ilias_course->setImportId($diff->getImportId());
@@ -207,7 +207,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function mapDto(array $course, ?array $container_settings = null) : CourseDto
+    private function mapCourseDto(array $course, ?array $container_settings = null) : CourseDto
     {
         $getContainerSetting = fn(string $field, /*mixed*/ $null_default_value = null)/* : mixed*/ => $container_settings !== null ? current(array_map(fn(array $container_setting
         )/* : mixed*/ => $container_setting["value"] ?? $null_default_value,

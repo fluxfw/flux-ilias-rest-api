@@ -83,7 +83,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function mapDiff(ObjectDiffDto $diff, ilObject $ilias_object) : void
+    private function mapObjectDiff(ObjectDiffDto $diff, ilObject $ilias_object) : void
     {
         if ($diff->getImportId() !== null) {
             $ilias_object->setImportId($diff->getImportId());
@@ -107,7 +107,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function mapDto(array $object) : ObjectDto
+    private function mapObjectDto(array $object) : ObjectDto
     {
         return ObjectDto::new(
             $object["obj_id"] ?: null,

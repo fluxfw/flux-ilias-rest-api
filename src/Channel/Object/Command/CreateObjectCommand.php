@@ -78,7 +78,7 @@ class CreateObjectCommand
         $ilias_object->createReference();
         $ilias_object->putInTree($parent_object->getRefId());
 
-        $this->mapDiff(
+        $this->mapObjectDiff(
             $diff,
             $ilias_object
         );
