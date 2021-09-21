@@ -7,6 +7,7 @@ class MemberDiffDto
 
     private ?bool $access_refused;
     private ?bool $administrator_role;
+    private ?string $learning_progress;
     private ?bool $member_role;
     private ?bool $notification;
     private ?bool $passed;
@@ -20,6 +21,7 @@ class MemberDiffDto
             $data->member_role ?? null,
             $data->tutor_role ?? null,
             $data->administrator_role ?? null,
+            $data->learning_progress ?? null,
             $data->passed ?? null,
             $data->access_refused ?? null,
             $data->tutorial_support ?? null,
@@ -32,6 +34,7 @@ class MemberDiffDto
         ?bool $member_role = null,
         ?bool $tutor_role = null,
         ?bool $administrator_role = null,
+        ?string $learning_progress = null,
         ?bool $passed = null,
         ?bool $access_refused = null,
         ?bool $tutorial_support = null,
@@ -43,12 +46,19 @@ class MemberDiffDto
         $dto->member_role = $member_role;
         $dto->tutor_role = $tutor_role;
         $dto->administrator_role = $administrator_role;
+        $dto->learning_progress = $learning_progress;
         $dto->passed = $passed;
         $dto->access_refused = $access_refused;
         $dto->tutorial_support = $tutorial_support;
         $dto->notification = $notification;
 
         return $dto;
+    }
+
+
+    public function getLearningProgress() : ?string
+    {
+        return $this->learning_progress;
     }
 
 

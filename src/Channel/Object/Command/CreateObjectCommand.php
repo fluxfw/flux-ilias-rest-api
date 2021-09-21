@@ -77,6 +77,7 @@ class CreateObjectCommand
         $ilias_object->create();
         $ilias_object->createReference();
         $ilias_object->putInTree($parent_object->getRefId());
+        $ilias_object->setPermissions($parent_object->getRefId());
 
         $this->mapObjectDiff(
             $diff,

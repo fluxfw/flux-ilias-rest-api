@@ -12,6 +12,7 @@ class MemberDto implements JsonSerializable
     private ?int $course_id;
     private ?string $course_import_id;
     private ?int $course_ref_id;
+    private ?string $learning_progress;
     private ?bool $member_role;
     private ?bool $notification;
     private ?bool $passed;
@@ -30,6 +31,7 @@ class MemberDto implements JsonSerializable
         ?bool $member_role = null,
         ?bool $tutor_role = null,
         ?bool $administrator_role = null,
+        ?string $learning_progress = null,
         ?bool $passed = null,
         ?bool $access_refused = null,
         ?bool $tutorial_support = null,
@@ -46,6 +48,7 @@ class MemberDto implements JsonSerializable
         $dto->member_role = $member_role;
         $dto->tutor_role = $tutor_role;
         $dto->administrator_role = $administrator_role;
+        $dto->learning_progress = $learning_progress;
         $dto->passed = $passed;
         $dto->access_refused = $access_refused;
         $dto->tutorial_support = $tutorial_support;
@@ -70,6 +73,12 @@ class MemberDto implements JsonSerializable
     public function getCourseRefId() : ?int
     {
         return $this->course_ref_id;
+    }
+
+
+    public function getLearningProgress() : ?string
+    {
+        return $this->learning_progress;
     }
 
 
