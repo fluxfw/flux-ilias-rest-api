@@ -17,16 +17,10 @@ trait UserQuery
 
     private function getAccessLimitedObjects(array $ref_ids) : string
     {
-        if (!empty($ref_ids)) {
-            $where = $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
-        } else {
-            $where = "1!=1";
-        }
-
         return "SELECT object_data.obj_id,import_id,object_reference.ref_id
 FROM object_data
 INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
-WHERE " . $where;
+WHERE " . $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
     }
 
 
