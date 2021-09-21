@@ -24,6 +24,17 @@ await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`,
         tutor_role: true
     })
 })).json();
+await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "X-Http-Method-Override": "PATCH"
+    },
+    body: JSON.stringify({
+        learning_progress: "completed",
+        passed: true
+    })
+})).json();
 
 await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/remove`, {
     method: "POST",
