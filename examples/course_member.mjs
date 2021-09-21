@@ -24,6 +24,7 @@ await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`,
         tutor_role: true
     })
 })).json();
+
 await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`, {
     method: "POST",
     headers: {
