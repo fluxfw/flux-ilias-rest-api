@@ -7,7 +7,17 @@ use Fluxlabs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
 use Fluxlabs\FluxRestApi\Authorization\Authorization;
 use Fluxlabs\FluxRestApi\Request\RawRequestDto;
 use Fluxlabs\FluxRestApi\Response\ResponseDto;
+use ilBrowser;
 use ilCronStartUp;
+use ilHelpGUI;
+use ILIAS\DI\Container;
+use ilLocatorGUI;
+use ilMainMenuGUI;
+use ilNavigationHistory;
+use ilStyleDefinition;
+use ilTabsGUI;
+use ilTemplate;
+use ilToolbarGUI;
 
 class IliasAuthorization implements Authorization
 {
@@ -54,6 +64,39 @@ class IliasAuthorization implements Authorization
             throw new Exception("Only admin users are allowed");
         }
 
+        $this->fixDicUI(
+            $DIC
+        );
+
         return null;
+    }
+
+
+    private function fixDicUI(Container $dic) : void
+    {
+        foreach (
+            [
+                "ilBrowser"           => ilBrowser::class,
+                "ilHelp"              => ilHelpGUI::class,
+                "ilLocator"           => ilLocatorGUI::class,
+                "ilMainMenu"          => ilMainMenuGUI::class,
+                "ilNavigationHistory" => ilNavigationHistory::class,
+                "ilTabs"              => ilTabsGUI::class,
+                "ilToolbar"           => ilToolbarGUI::class,
+                "styleDefinition"     => ilStyleDefinition::class,
+                "tpl"                 => ilTemplate::class
+            ] as $key => $class
+        ) {
+            if ($dic->offsetExists($key)) {
+                if (!isset($GLOBALS[$key])) {
+                    $GLOBALS[$key] = $dic->offsetGet($key);
+                }
+            } else {
+                if (!isset($GLOBALS[$key])) {
+                    $GLOBALS[$key] = eval('return new class() extends ' . $class . ' { public function __construct() {} };');
+                }
+                $dic->offsetSet($key, $GLOBALS[$key]);
+            }
+        }
     }
 }
