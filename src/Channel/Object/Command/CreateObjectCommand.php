@@ -72,7 +72,7 @@ class CreateObjectCommand
             $type
         );
 
-        $ilias_object->setTitle("");
+        $ilias_object->setTitle($diff->getTitle() ?? "");
 
         $ilias_object->create();
         $ilias_object->createReference();

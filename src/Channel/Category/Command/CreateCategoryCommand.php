@@ -67,7 +67,7 @@ class CreateCategoryCommand
 
         $ilias_category = $this->newIliasCategory();
 
-        $ilias_category->setTitle("");
+        $ilias_category->setTitle($diff->getTitle() ?? "");
 
         $ilias_category->create();
         $ilias_category->createReference();

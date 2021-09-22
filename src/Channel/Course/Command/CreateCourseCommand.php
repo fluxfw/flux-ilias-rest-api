@@ -67,7 +67,7 @@ class CreateCourseCommand
 
         $ilias_course = $this->newIliasCourse();
 
-        $ilias_course->setTitle("");
+        $ilias_course->setTitle($diff->getTitle() ?? "");
 
         $ilias_course->create();
         $ilias_course->createReference();
