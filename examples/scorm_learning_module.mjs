@@ -1,7 +1,7 @@
 await (await fetch("?/scorm-learning-modules")).json();
 
 const time = Date.now();
-const scorm_learning_module = await (await fetch("?/scorm-learning-module/create/to-ref-id/1", {
+const scorm_learning_module = await (await fetch(`?/scorm-learning-module/create/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"

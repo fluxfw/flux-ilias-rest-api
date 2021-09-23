@@ -11,6 +11,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\DeleteObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetChildrenCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectsCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetRootObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\MoveObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\UpdateObjectCommand;
 use ilDBInterface;
@@ -291,6 +292,15 @@ class ObjectService
             ->getObjects(
                 $type
             );
+    }
+
+
+    public function getRootObject() : ?ObjectDto
+    {
+        return GetRootObjectCommand::new(
+            $this
+        )
+            ->getRootObject();
     }
 
 
