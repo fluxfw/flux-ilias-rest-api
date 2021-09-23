@@ -12,6 +12,8 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
@@ -19,6 +21,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 
 class Api
@@ -28,6 +31,7 @@ class Api
     private ?CourseService $course = null;
     private ?CourseMemberService $course_member = null;
     private ?ObjectService $object = null;
+    private ?ScormLearningModuleService $scorm_learning_module = null;
     private ?UserService $user = null;
 
 
@@ -282,6 +286,36 @@ class Api
         return $this->getObject()
             ->createObjectToRefId(
                 $type,
+                $parent_ref_id,
+                $diff
+            );
+    }
+
+
+    public function createScormLearningModuleToId(int $parent_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->createScormLearningModuleToId(
+                $parent_id,
+                $diff
+            );
+    }
+
+
+    public function createScormLearningModuleToImportId(string $parent_import_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->createScormLearningModuleToImportId(
+                $parent_import_id,
+                $diff
+            );
+    }
+
+
+    public function createScormLearningModuleToRefId(int $parent_ref_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->createScormLearningModuleToRefId(
                 $parent_ref_id,
                 $diff
             );
@@ -596,6 +630,40 @@ class Api
             ->getObjects(
                 $type
             );
+    }
+
+
+    public function getScormLearningModuleById(int $id) : ?ScormLearningModuleDto
+    {
+        return $this->getScormLearningModule()
+            ->getScormLearningModuleById(
+                $id
+            );
+    }
+
+
+    public function getScormLearningModuleByImportId(string $import_id) : ?ScormLearningModuleDto
+    {
+        return $this->getScormLearningModule()
+            ->getScormLearningModuleByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getScormLearningModuleByRefId(int $ref_id) : ?ScormLearningModuleDto
+    {
+        return $this->getScormLearningModule()
+            ->getScormLearningModuleByRefId(
+                $ref_id
+            );
+    }
+
+
+    public function getScormLearningModules() : array
+    {
+        return $this->getScormLearningModule()
+            ->getScormLearningModules();
     }
 
 
@@ -955,6 +1023,36 @@ class Api
     }
 
 
+    public function updateScormLearningModuleById(int $id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->updateScormLearningModuleById(
+                $id,
+                $diff
+            );
+    }
+
+
+    public function updateScormLearningModuleByImportId(string $import_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->updateScormLearningModuleByImportId(
+                $import_id,
+                $diff
+            );
+    }
+
+
+    public function updateScormLearningModuleByRefId(int $ref_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->updateScormLearningModuleByRefId(
+                $ref_id,
+                $diff
+            );
+    }
+
+
     public function updateUserById(int $id, UserDiffDto $diff) : ?UserIdDto
     {
         return $this->getUser()
@@ -971,6 +1069,36 @@ class Api
             ->updateUserByImportId(
                 $import_id,
                 $diff
+            );
+    }
+
+
+    public function uploadScormLearningModuleById(int $id, string $file) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->uploadScormLearningModuleById(
+                $id,
+                $file
+            );
+    }
+
+
+    public function uploadScormLearningModuleByImportId(string $import_id, string $file) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->uploadScormLearningModuleByImportId(
+                $import_id,
+                $file
+            );
+    }
+
+
+    public function uploadScormLearningModuleByRefId(int $ref_id, string $file) : ?ObjectIdDto
+    {
+        return $this->getScormLearningModule()
+            ->uploadScormLearningModuleByRefId(
+                $ref_id,
+                $file
             );
     }
 
@@ -1025,6 +1153,19 @@ class Api
         );
 
         return $this->object;
+    }
+
+
+    private function getScormLearningModule() : ScormLearningModuleService
+    {
+        global $DIC;
+
+        $this->scorm_learning_module ??= ScormLearningModuleService::new(
+            $DIC->database(),
+            $this->getObject()
+        );
+
+        return $this->scorm_learning_module;
     }
 
 
