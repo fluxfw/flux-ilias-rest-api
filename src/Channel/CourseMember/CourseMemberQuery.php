@@ -44,7 +44,7 @@ trait CourseMemberQuery
 
         return "SELECT object_data.obj_id,object_data.import_id,object_reference.ref_id,object_data_user.obj_id AS usr_id,object_data_user.import_id,admin,tutor,member,passed,blocked,contact,notification,status
 FROM object_data
-INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
 INNER JOIN obj_members ON object_data.obj_id=obj_members.obj_id
 INNER JOIN object_data AS object_data_user ON obj_members.usr_id=object_data_user.obj_id
 LEFT JOIN ut_lp_marks ON ut_lp_marks.obj_id=object_data.obj_id AND ut_lp_marks.usr_id=object_data_user.obj_id

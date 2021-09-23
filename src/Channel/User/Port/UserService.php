@@ -7,7 +7,6 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\CreateUserCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\DeleteUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetAvatarPathCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetCurrentUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUserCommand;
@@ -45,28 +44,6 @@ class UserService
         )
             ->createUser(
                 $diff
-            );
-    }
-
-
-    public function deleteUserById(int $id) : ?UserIdDto
-    {
-        return DeleteUserCommand::new(
-            $this
-        )
-            ->deleteUserById(
-                $id
-            );
-    }
-
-
-    public function deleteUserByImportId(string $import_id) : ?UserIdDto
-    {
-        return DeleteUserCommand::new(
-            $this
-        )
-            ->deleteUserByImportId(
-                $import_id
             );
     }
 

@@ -66,6 +66,7 @@ class UpdateCourseCommand
         }
 
         $ilias_course = $this->getIliasCourse(
+            $course->getId(),
             $course->getRefId()
         );
         if ($ilias_course === null) {

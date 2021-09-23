@@ -154,6 +154,7 @@ class CloneObjectCommand
         }
 
         $ilias_object = $this->getIliasObject(
+            $object->getId(),
             $object->getRefId()
         );
         if ($ilias_object === null) {

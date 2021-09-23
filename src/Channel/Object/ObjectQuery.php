@@ -41,9 +41,13 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
     }
 
 
-    private function getIliasObject(int $ref_id) : ?ilObject
+    private function getIliasObject(int $id, ?int $ref_id = null) : ?ilObject
     {
-        return ilObjectFactory::getInstanceByRefId($ref_id, false) ?: null;
+        if ($ref_id !== null) {
+            return ilObjectFactory::getInstanceByRefId($ref_id, false) ?: null;
+        } else {
+            return ilObjectFactory::getInstanceByObjId($id, false) ?: null;
+        }
     }
 
 
@@ -73,9 +77,9 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
 
         return "SELECT object_data.*,object_reference.ref_id,didactic_tpl_objs.tpl_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
 FROM object_data
-INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
 LEFT JOIN didactic_tpl_objs ON object_data.obj_id=didactic_tpl_objs.obj_id
-INNER JOIN tree ON object_reference.ref_id=tree.child
+LEFT JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
 WHERE " . implode(" AND ", $wheres) . "

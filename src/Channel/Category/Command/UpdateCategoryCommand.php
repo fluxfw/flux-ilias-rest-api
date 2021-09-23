@@ -66,6 +66,7 @@ class UpdateCategoryCommand
         }
 
         $ilias_category = $this->getIliasCategory(
+            $category->getId(),
             $category->getRefId()
         );
         if ($ilias_category === null) {

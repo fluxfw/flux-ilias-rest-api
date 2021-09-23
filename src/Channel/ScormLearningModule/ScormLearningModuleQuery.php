@@ -15,12 +15,14 @@ use LogicException;
 trait ScormLearningModuleQuery
 {
 
-    private function getIliasScormLearningModule(int $ref_id, int $id) : ?ilObjSCORMLearningModule
+    private function getIliasScormLearningModule(int $id, ?int $ref_id = null) : ?ilObjSCORMLearningModule
     {
-        if (ilObjSAHSLearningModule::_lookupSubType($id) === InternalScormLearningModuleType::SCORM_2004) {
-            return new ilObjSCORM2004LearningModule($ref_id);
+        $class = ilObjSAHSLearningModule::_lookupSubType($id) === InternalScormLearningModuleType::SCORM_2004 ? ilObjSCORM2004LearningModule::class : ilObjSCORMLearningModule::class;
+
+        if ($ref_id !== null) {
+            return new $class($ref_id, true);
         } else {
-            return new ilObjSCORMLearningModule($ref_id);
+            return new $class($id, false);
         }
     }
 
@@ -46,10 +48,10 @@ trait ScormLearningModuleQuery
 
         return "SELECT object_data.*,object_reference.ref_id,didactic_tpl_objs.tpl_id,sahs_lm.*,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
 FROM object_data
-INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
 LEFT JOIN didactic_tpl_objs ON object_data.obj_id=didactic_tpl_objs.obj_id
 LEFT JOIN sahs_lm ON object_data.obj_id=sahs_lm.id
-INNER JOIN tree ON object_reference.ref_id=tree.child
+LEFT JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
 WHERE " . implode(" AND ", $wheres) . "
@@ -124,7 +126,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function newIliasScormLearningModule(?string $type) : ilObjSCORMLearningModule
+    private function newIliasScormLearningModule(?string $type = null) : ilObjSCORMLearningModule
     {
         if ($type === ScormLearningModuleType::SCORM_2004) {
             return new ilObjSCORM2004LearningModule();
