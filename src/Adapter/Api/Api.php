@@ -633,6 +633,13 @@ class Api
     }
 
 
+    public function getRootObject() : ?ObjectDto
+    {
+        return $this->getObject()
+            ->getRootObject();
+    }
+
+
     public function getScormLearningModuleById(int $id) : ?ScormLearningModuleDto
     {
         return $this->getScormLearningModule()

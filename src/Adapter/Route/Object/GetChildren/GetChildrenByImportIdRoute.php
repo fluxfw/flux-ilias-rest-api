@@ -47,7 +47,7 @@ class GetChildrenByImportIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/children/by-import-id/{import_id}";
+        return "/object/children/by-import-id/{import_id}";
     }
 
 

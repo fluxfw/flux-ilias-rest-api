@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\Object\GetChildren;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\Object;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
@@ -11,7 +11,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class GetChildrenByRefIdRoute implements Route
+class GetRootObjectRoute implements Route
 {
 
     private Api $api;
@@ -47,22 +47,18 @@ class GetChildrenByRefIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/object/children/by-ref-id/{ref_id}";
+        return "/object/root";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $children = $this->api->getChildrenByRefId(
-            $request->getParam(
-                "ref_id"
-            )
-        );
+        $object = $this->api->getRootObject();
 
-        if ($children !== null) {
+        if ($object !== null) {
             return ResponseDto::new(
                 JsonBodyDto::new(
-                    $children
+                    $object
                 )
             );
         } else {

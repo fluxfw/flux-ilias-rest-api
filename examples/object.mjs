@@ -1,7 +1,9 @@
+const root = await (await fetch("?/object/root")).json();
+
 await (await fetch("?/objects/category")).json();
 
 const time = Date.now();
-const object = await (await fetch("?/object/create/category/to-ref-id/1", {
+const object = await (await fetch(`?/object/create/category/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -13,7 +15,7 @@ const object = await (await fetch("?/object/create/category/to-ref-id/1", {
 
 await (await fetch(`?/object/by-id/${object.id}`)).json();
 
-await (await fetch("?/children/by-ref-id/1")).json();
+await (await fetch(`?/object/children/by-ref-id/${root.ref_id}`)).json();
 
 await (await fetch(`?/object/by-id/${object.id}/update`, {
     method: "POST",
@@ -26,7 +28,7 @@ await (await fetch(`?/object/by-id/${object.id}/update`, {
     })
 })).json();
 
-const cloned_object = await (await fetch(`?/object/by-id/${object.id}/clone/to-ref-id/1`, {
+const cloned_object = await (await fetch(`?/object/by-id/${object.id}/clone/to-ref-id/${root.ref_id}`, {
     method: "POST"
 })).json();
 

@@ -1,7 +1,7 @@
 await (await fetch("?/categories")).json();
 
 const time = Date.now();
-const category = await (await fetch("?/category/create/to-ref-id/1", {
+const category = await (await fetch(`?/category/create/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"

@@ -47,7 +47,7 @@ class GetChildrenByIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/children/by-id/{id}";
+        return "/object/children/by-id/{id}";
     }
 
 
