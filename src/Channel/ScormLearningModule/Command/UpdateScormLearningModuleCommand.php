@@ -66,8 +66,8 @@ class UpdateScormLearningModuleCommand
         }
 
         $ilias_scorm_learning_module = $this->getIliasScormLearningModule(
-            $scorm_learning_module->getRefId(),
-            $scorm_learning_module->getId()
+            $scorm_learning_module->getId(),
+            $scorm_learning_module->getRefId()
         );
         if ($ilias_scorm_learning_module === null) {
             return null;

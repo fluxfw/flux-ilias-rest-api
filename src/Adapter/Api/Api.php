@@ -358,24 +358,6 @@ class Api
     }
 
 
-    public function deleteUserById(int $id) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->deleteUserById(
-                $id
-            );
-    }
-
-
-    public function deleteUserByImportId(string $import_id) : ?UserIdDto
-    {
-        return $this->getUser()
-            ->deleteUserByImportId(
-                $import_id
-            );
-    }
-
-
     public function getAvatarPathById(int $id) : ?string
     {
         return $this->getUser()

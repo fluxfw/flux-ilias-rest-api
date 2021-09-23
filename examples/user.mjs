@@ -70,10 +70,3 @@ await (await fetch(`?/user/by-id/${user.id}/update/avatar`, {
     },
     body: new FormData()
 })).json();
-
-await (await fetch(`?/user/by-id/${user.id}/delete`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
-})).json();
