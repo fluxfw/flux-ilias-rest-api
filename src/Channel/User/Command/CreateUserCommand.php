@@ -46,7 +46,7 @@ class CreateUserCommand
         $this->rbac->admin()->assignUser(SYSTEM_USER_ID, $ilias_user->getId());
 
         return UserIdDto::new(
-            $ilias_user->getId(),
+            $ilias_user->getId() ?: null,
             $diff->getImportId()
         );
     }
