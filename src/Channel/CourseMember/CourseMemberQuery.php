@@ -42,10 +42,10 @@ trait CourseMemberQuery
             $wheres[] = "object_data_user.import_id=" . $this->database->quote($user_import_id, ilDBConstants::T_TEXT);
         }
 
-        return "SELECT object_data.obj_id,object_data.import_id,object_reference.ref_id,object_data_user.obj_id AS usr_id,object_data_user.import_id,admin,tutor,member,passed,blocked,contact,notification,status
-FROM object_data
+        return "SELECT obj_members.*,object_data.obj_id,object_data.import_id,object_reference.ref_id,object_data_user.obj_id AS usr_id,object_data_user.import_id AS user_import_id,status
+FROM obj_members
+INNER JOIN object_data ON obj_members.obj_id=object_data.obj_id
 LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
-INNER JOIN obj_members ON object_data.obj_id=obj_members.obj_id
 INNER JOIN object_data AS object_data_user ON obj_members.usr_id=object_data_user.obj_id
 LEFT JOIN ut_lp_marks ON ut_lp_marks.obj_id=object_data.obj_id AND ut_lp_marks.usr_id=object_data_user.obj_id
 WHERE " . implode(" AND ", $wheres) . "
@@ -107,7 +107,7 @@ ORDER BY object_data_user.obj_id ASC";
             $course_member["import_id"] ?: null,
             $course_member["ref_id"] ?: null,
             $course_member["usr_id"] ?: null,
-            $course_member["import_id"] ?: null,
+            $course_member["user_import_id"] ?: null,
             $course_member["member"] ?? false,
             $course_member["tutor"] ?? false,
             $course_member["admin"] ?? false,

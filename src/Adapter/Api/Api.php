@@ -12,6 +12,9 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
@@ -21,6 +24,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
 use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 
@@ -31,6 +35,7 @@ class Api
     private ?CourseService $course = null;
     private ?CourseMemberService $course_member = null;
     private ?ObjectService $object = null;
+    private ?OrganisationalUnitService $organisational_unit = null;
     private ?ScormLearningModuleService $scorm_learning_module = null;
     private ?UserService $user = null;
 
@@ -286,6 +291,36 @@ class Api
         return $this->getObject()
             ->createObjectToRefId(
                 $type,
+                $parent_ref_id,
+                $diff
+            );
+    }
+
+
+    public function createOrganisationalUnitToExternalId(string $parent_external_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
+    {
+        return $this->getOrganisationalUnit()
+            ->createOrganisationalUnitToExternalId(
+                $parent_external_id,
+                $diff
+            );
+    }
+
+
+    public function createOrganisationalUnitToId(int $parent_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
+    {
+        return $this->getOrganisationalUnit()
+            ->createOrganisationalUnitToId(
+                $parent_id,
+                $diff
+            );
+    }
+
+
+    public function createOrganisationalUnitToRefId(int $parent_ref_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
+    {
+        return $this->getOrganisationalUnit()
+            ->createOrganisationalUnitToRefId(
                 $parent_ref_id,
                 $diff
             );
@@ -612,6 +647,47 @@ class Api
             ->getObjects(
                 $type
             );
+    }
+
+
+    public function getOrganisationalUnitByExternalId(string $external_id) : ?OrganisationalUnitDto
+    {
+        return $this->getOrganisationalUnit()
+            ->getOrganisationalUnitByExternalId(
+                $external_id
+            );
+    }
+
+
+    public function getOrganisationalUnitById(int $id) : ?OrganisationalUnitDto
+    {
+        return $this->getOrganisationalUnit()
+            ->getOrganisationalUnitById(
+                $id
+            );
+    }
+
+
+    public function getOrganisationalUnitByRefId(int $ref_id) : ?OrganisationalUnitDto
+    {
+        return $this->getOrganisationalUnit()
+            ->getOrganisationalUnitByRefId(
+                $ref_id
+            );
+    }
+
+
+    public function getOrganisationalUnitRoot() : ?OrganisationalUnitDto
+    {
+        return $this->getOrganisationalUnit()
+            ->getOrganisationalUnitRoot();
+    }
+
+
+    public function getOrganisationalUnits() : array
+    {
+        return $this->getOrganisationalUnit()
+            ->getOrganisationalUnits();
     }
 
 
@@ -1012,6 +1088,36 @@ class Api
     }
 
 
+    public function updateOrganisationalUnitByExternalId(string $external_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
+    {
+        return $this->getOrganisationalUnit()
+            ->updateOrganisationalUnitByExternalId(
+                $external_id,
+                $diff
+            );
+    }
+
+
+    public function updateOrganisationalUnitById(int $id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
+    {
+        return $this->getOrganisationalUnit()
+            ->updateOrganisationalUnitById(
+                $id,
+                $diff
+            );
+    }
+
+
+    public function updateOrganisationalUnitByRefId(int $ref_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
+    {
+        return $this->getOrganisationalUnit()
+            ->updateOrganisationalUnitByRefId(
+                $ref_id,
+                $diff
+            );
+    }
+
+
     public function updateScormLearningModuleById(int $id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getScormLearningModule()
@@ -1142,6 +1248,18 @@ class Api
         );
 
         return $this->object;
+    }
+
+
+    private function getOrganisationalUnit() : OrganisationalUnitService
+    {
+        global $DIC;
+
+        $this->organisational_unit ??= OrganisationalUnitService::new(
+            $DIC->database()
+        );
+
+        return $this->organisational_unit;
     }
 
 
