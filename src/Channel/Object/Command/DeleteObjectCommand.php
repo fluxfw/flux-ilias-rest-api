@@ -6,6 +6,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use ilObjOrgUnit;
 use ilObjUser;
 use ilRepUtil;
 
@@ -71,7 +72,7 @@ class DeleteObjectCommand
             return null;
         }
 
-        if ($object->getRefId() === null || $object->getParentRefId() === null || $ilias_object instanceof ilObjUser) {
+        if ($object->getRefId() === null || $object->getParentRefId() === null || $ilias_object instanceof ilObjOrgUnit || $ilias_object instanceof ilObjUser) {
             $ilias_object->delete();
         } else {
             ilRepUtil::deleteObjects($object->getParentRefId(), [$object->getRefId()]);
