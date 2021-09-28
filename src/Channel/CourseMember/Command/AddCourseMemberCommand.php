@@ -2,7 +2,6 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command;
 
-use Exception;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
@@ -134,15 +133,13 @@ class AddCourseMemberCommand
             return null;
         }
 
-        if ($ilias_course->getMembersObject()->isAssigned($user->getId())) {
-            throw new Exception("Member is already assigned");
+        if (!$ilias_course->getMembersObject()->isAssigned($user->getId())) {
+            $this->mapCourseMemberDiff(
+                $diff,
+                $user->getId(),
+                $ilias_course
+            );
         }
-
-        $this->mapCourseMemberDiff(
-            $diff,
-            $user->getId(),
-            $ilias_course
-        );
 
         return MemberIdDto::new(
             $course->getId(),

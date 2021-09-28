@@ -47,7 +47,7 @@ class RemoveCourseMemberByImportIdByUserIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/course/by-import-id/{import_id}/member/by-id/{user_id}/remove";
+        return "/course/by-import-id/{import_id}/remove-member/by-id/{user_id}";
     }
 
 
