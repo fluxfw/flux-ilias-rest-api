@@ -14,6 +14,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\StaffIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
@@ -24,6 +25,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
+use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port\OrganisationalUnitStaffService;
 use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 
@@ -35,6 +37,7 @@ class Api
     private ?CourseMemberService $course_member = null;
     private ?ObjectService $object = null;
     private ?OrganisationalUnitService $organisational_unit = null;
+    private ?OrganisationalUnitStaffService $organisational_unit_staff = null;
     private ?ScormLearningModuleService $scorm_learning_module = null;
     private ?UserService $user = null;
 
@@ -109,6 +112,72 @@ class Api
                 $ref_id,
                 $user_import_id,
                 $diff
+            );
+    }
+
+
+    public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->addOrganisationalUnitStaffByExternalIdByUserId(
+                $external_id,
+                $user_id,
+                $position_id
+            );
+    }
+
+
+    public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->addOrganisationalUnitStaffByExternalIdByUserImportId(
+                $external_id,
+                $user_import_id,
+                $position_id
+            );
+    }
+
+
+    public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->addOrganisationalUnitStaffByIdByUserId(
+                $id,
+                $user_id,
+                $position_id
+            );
+    }
+
+
+    public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->addOrganisationalUnitStaffByIdByUserImportId(
+                $id,
+                $user_import_id,
+                $position_id
+            );
+    }
+
+
+    public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->addOrganisationalUnitStaffByRefIdByUserId(
+                $ref_id,
+                $user_id,
+                $position_id
+            );
+    }
+
+
+    public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->addOrganisationalUnitStaffByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id,
+                $position_id
             );
     }
 
@@ -630,6 +699,26 @@ class Api
     }
 
 
+    public function getOrganisationalUnitStaff(
+        ?int $organisational_unit_id = null,
+        ?string $organisational_unit_external_id = null,
+        ?int $organisational_unit_ref_id = null,
+        ?int $user_id = null,
+        ?string $user_import_id = null,
+        ?int $position_id = null
+    ) : array {
+        return $this->getOrganisationalUnitStaff_()
+            ->getOrganisationalUnitStaff(
+                $organisational_unit_id,
+                $organisational_unit_external_id,
+                $organisational_unit_ref_id,
+                $user_id,
+                $user_import_id,
+                $position_id
+            );
+    }
+
+
     public function getOrganisationalUnits() : array
     {
         return $this->getOrganisationalUnit()
@@ -854,6 +943,72 @@ class Api
             ->removeCourseMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id
+            );
+    }
+
+
+    public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->removeOrganisationalUnitStaffByExternalIdByUserId(
+                $external_id,
+                $user_id,
+                $position_id
+            );
+    }
+
+
+    public function removeOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->removeOrganisationalUnitStaffByExternalIdByUserImportId(
+                $external_id,
+                $user_import_id,
+                $position_id
+            );
+    }
+
+
+    public function removeOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->removeOrganisationalUnitStaffByIdByUserId(
+                $id,
+                $user_id,
+                $position_id
+            );
+    }
+
+
+    public function removeOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->removeOrganisationalUnitStaffByIdByUserImportId(
+                $id,
+                $user_import_id,
+                $position_id
+            );
+    }
+
+
+    public function removeOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->removeOrganisationalUnitStaffByRefIdByUserId(
+                $ref_id,
+                $user_id,
+                $position_id
+            );
+    }
+
+
+    public function removeOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?StaffIdDto
+    {
+        return $this->getOrganisationalUnitStaff_()
+            ->removeOrganisationalUnitStaffByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id,
+                $position_id
             );
     }
 
@@ -1206,6 +1361,20 @@ class Api
         );
 
         return $this->organisational_unit;
+    }
+
+
+    private function getOrganisationalUnitStaff_() : OrganisationalUnitStaffService
+    {
+        global $DIC;
+
+        $this->organisational_unit_staff ??= OrganisationalUnitStaffService::new(
+            $DIC->database(),
+            $this->getOrganisationalUnit(),
+            $this->getUser()
+        );
+
+        return $this->organisational_unit_staff;
     }
 
 
