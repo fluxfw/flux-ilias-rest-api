@@ -1,6 +1,4 @@
-await (await fetch(`?/course/by-id/${course.id}/members`)).json();
-
-await (await fetch(`?/course/by-id/${course.id}/member/add/by-id/${user.id}`, {
+await (await fetch(`?/course/by-id/${course.id}/add-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -10,9 +8,9 @@ await (await fetch(`?/course/by-id/${course.id}/member/add/by-id/${user.id}`, {
     })
 })).json();
 
-await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}`)).json();
+await (await fetch(`?/course-members&course_id=${course.id}&user_id=${user.id}`)).json();
 
-await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`, {
+await (await fetch(`?/course/by-id/${course.id}/update-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -25,7 +23,7 @@ await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`,
     })
 })).json();
 
-await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`, {
+await (await fetch(`?/course/by-id/${course.id}/update-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -37,7 +35,7 @@ await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/update`,
     })
 })).json();
 
-await (await fetch(`?/course/by-id/${course.id}/member/by-id/${user.id}/remove`, {
+await (await fetch(`?/course/by-id/${course.id}/remove-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "X-Http-Method-Override": "DELETE"

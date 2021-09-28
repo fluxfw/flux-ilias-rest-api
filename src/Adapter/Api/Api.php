@@ -7,7 +7,6 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
@@ -499,89 +498,36 @@ class Api
     }
 
 
-    public function getCourseMemberByIdByUserId(int $id, int $user_id) : ?MemberDto
-    {
+    public function getCourseMembers(
+        ?int $course_id = null,
+        ?string $course_import_id = null,
+        ?int $course_ref_id = null,
+        ?int $user_id = null,
+        ?string $user_import_id = null,
+        ?bool $member_role = null,
+        ?bool $tutor_role = null,
+        ?bool $administrator_role = null,
+        ?string $learning_progress = null,
+        ?bool $passed = null,
+        ?bool $access_refused = null,
+        ?bool $tutorial_support = null,
+        ?bool $notification = null
+    ) : array {
         return $this->getCourseMember()
-            ->getCourseMemberByIdByUserId(
-                $id,
-                $user_id
-            );
-    }
-
-
-    public function getCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?MemberDto
-    {
-        return $this->getCourseMember()
-            ->getCourseMemberByIdByUserImportId(
-                $id,
-                $user_import_id
-            );
-    }
-
-
-    public function getCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?MemberDto
-    {
-        return $this->getCourseMember()
-            ->getCourseMemberByImportIdByUserId(
-                $import_id,
-                $user_id
-            );
-    }
-
-
-    public function getCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?MemberDto
-    {
-        return $this->getCourseMember()
-            ->getCourseMemberByImportIdByUserImportId(
-                $import_id,
-                $user_import_id
-            );
-    }
-
-
-    public function getCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?MemberDto
-    {
-        return $this->getCourseMember()
-            ->getCourseMemberByRefIdByUserId(
-                $ref_id,
-                $user_id
-            );
-    }
-
-
-    public function getCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?MemberDto
-    {
-        return $this->getCourseMember()
-            ->getCourseMemberByRefIdByUserImportId(
-                $ref_id,
-                $user_import_id
-            );
-    }
-
-
-    public function getCourseMembersById(int $id) : ?array
-    {
-        return $this->getCourseMember()
-            ->getCourseMembersById(
-                $id
-            );
-    }
-
-
-    public function getCourseMembersByImportId(string $import_id) : ?array
-    {
-        return $this->getCourseMember()
-            ->getCourseMembersByImportId(
-                $import_id
-            );
-    }
-
-
-    public function getCourseMembersByRefId(int $ref_id) : ?array
-    {
-        return $this->getCourseMember()
-            ->getCourseMembersByRefId(
-                $ref_id
+            ->getCourseMembers(
+                $course_id,
+                $course_import_id,
+                $course_ref_id,
+                $user_id,
+                $user_import_id,
+                $member_role,
+                $tutor_role,
+                $administrator_role,
+                $learning_progress,
+                $passed,
+                $access_refused,
+                $tutorial_support,
+                $notification
             );
     }
 

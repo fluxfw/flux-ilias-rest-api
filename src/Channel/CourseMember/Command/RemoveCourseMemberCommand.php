@@ -2,10 +2,12 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
+use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
+use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use ilDBInterface;
 
 class RemoveCourseMemberCommand
@@ -13,16 +15,18 @@ class RemoveCourseMemberCommand
 
     use CourseQuery;
 
-    private CourseMemberService $course_member;
+    private CourseService $course;
     private ilDBInterface $database;
+    private UserService $user;
 
 
-    public static function new(ilDBInterface $database, CourseMemberService $course_member) : /*static*/ self
+    public static function new(ilDBInterface $database, CourseService $course, UserService $user) : /*static*/ self
     {
         $command = new static();
 
         $command->database = $database;
-        $command->course_member = $course_member;
+        $command->course = $course;
+        $command->user = $user;
 
         return $command;
     }
@@ -31,8 +35,10 @@ class RemoveCourseMemberCommand
     public function removeCourseMemberByIdByUserId(int $id, int $user_id) : ?MemberIdDto
     {
         return $this->removeCourseMember(
-            $this->course_member->getCourseMemberByIdByUserId(
-                $id,
+            $this->course->getCourseById(
+                $id
+            ),
+            $this->user->getUserById(
                 $user_id
             )
         );
@@ -42,8 +48,10 @@ class RemoveCourseMemberCommand
     public function removeCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?MemberIdDto
     {
         return $this->removeCourseMember(
-            $this->course_member->getCourseMemberByIdByUserImportId(
-                $id,
+            $this->course->getCourseById(
+                $id
+            ),
+            $this->user->getUserByImportId(
                 $user_import_id
             )
         );
@@ -53,8 +61,10 @@ class RemoveCourseMemberCommand
     public function removeCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?MemberIdDto
     {
         return $this->removeCourseMember(
-            $this->course_member->getCourseMemberByImportIdByUserId(
-                $import_id,
+            $this->course->getCourseByImportId(
+                $import_id
+            ),
+            $this->user->getUserById(
                 $user_id
             )
         );
@@ -64,8 +74,10 @@ class RemoveCourseMemberCommand
     public function removeCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?MemberIdDto
     {
         return $this->removeCourseMember(
-            $this->course_member->getCourseMemberByImportIdByUserImportId(
-                $import_id,
+            $this->course->getCourseByImportId(
+                $import_id
+            ),
+            $this->user->getUserByImportId(
                 $user_import_id
             )
         );
@@ -75,8 +87,10 @@ class RemoveCourseMemberCommand
     public function removeCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?MemberIdDto
     {
         return $this->removeCourseMember(
-            $this->course_member->getCourseMemberByRefIdByUserId(
-                $ref_id,
+            $this->course->getCourseByRefId(
+                $ref_id
+            ),
+            $this->user->getUserById(
                 $user_id
             )
         );
@@ -86,40 +100,40 @@ class RemoveCourseMemberCommand
     public function removeCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?MemberIdDto
     {
         return $this->removeCourseMember(
-            $this->course_member->getCourseMemberByRefIdByUserImportId(
-                $ref_id,
+            $this->course->getCourseByRefId(
+                $ref_id
+            ),
+            $this->user->getUserByImportId(
                 $user_import_id
             )
         );
     }
 
 
-    private function removeCourseMember(?MemberDto $course_member) : ?MemberIdDto
+    private function removeCourseMember(?CourseDto $course, ?UserDto $user) : ?MemberIdDto
     {
-        if ($course_member === null) {
+        if ($course === null || $user === null) {
             return null;
         }
 
         $ilias_course = $this->getIliasCourse(
-            $course_member->getCourseId(),
-            $course_member->getCourseRefId()
+            $course->getId(),
+            $course->getRefId()
         );
         if ($ilias_course === null) {
             return null;
         }
 
-        if (!$ilias_course->getMembersObject()->isAssigned($course_member->getUserId())) {
-            return null;
+        if ($ilias_course->getMembersObject()->isAssigned($user->getId())) {
+            $ilias_course->getMembersObject()->delete($user->getId());
         }
 
-        $ilias_course->getMembersObject()->delete($course_member->getUserId());
-
         return MemberIdDto::new(
-            $course_member->getCourseId(),
-            $course_member->getCourseImportId(),
-            $course_member->getCourseRefId(),
-            $course_member->getUserId(),
-            $course_member->getUserImportId()
+            $course->getId(),
+            $course->getImportId(),
+            $course->getRefId(),
+            $user->getId(),
+            $user->getImportId()
         );
     }
 }

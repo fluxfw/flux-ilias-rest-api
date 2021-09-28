@@ -4,6 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\CourseMember\AddCourseMember;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
+use Fluxlabs\FluxRestApi\Body\BodyType;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
 use Fluxlabs\FluxRestApi\Body\TextBodyDto;
 use Fluxlabs\FluxRestApi\Method\Method;
@@ -30,7 +31,9 @@ class AddCourseMemberByRefIdByUserIdRoute implements Route
 
     public function getDocuRequestBodyTypes() : ?array
     {
-        return null;
+        return [
+            BodyType::JSON
+        ];
     }
 
 
@@ -48,7 +51,7 @@ class AddCourseMemberByRefIdByUserIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/course/by-ref-id/{ref_id}/member/add/by-id/{user_id}";
+        return "/course/by-ref-id/{ref_id}/add-member/by-id/{user_id}";
     }
 
 
