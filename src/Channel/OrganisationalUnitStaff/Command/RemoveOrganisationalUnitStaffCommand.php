@@ -7,14 +7,15 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\StaffIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\OrganisationalUnitQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
+use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\OrganisationalUnitStaffQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use ilDBInterface;
-use ilOrgUnitUserAssignment;
 
 class RemoveOrganisationalUnitStaffCommand
 {
 
     use OrganisationalUnitQuery;
+    use OrganisationalUnitStaffQuery;
 
     private ilDBInterface $database;
     private OrganisationalUnitService $organisational_unit;
@@ -131,11 +132,11 @@ class RemoveOrganisationalUnitStaffCommand
             return null;
         }
 
-        $assignment = ilOrgUnitUserAssignment::where([
-            "orgu_id"     => $organisational_unit->getRefId(),
-            "user_id"     => $user->getId(),
-            "position_id" => $position_id
-        ])->first();
+        $assignment = $this->getIliasOrganisationalUnitStaff(
+            $organisational_unit->getRefId(),
+            $user->getId(),
+            $position_id
+        );
         if ($assignment !== null) {
             $assignment->delete();
         }

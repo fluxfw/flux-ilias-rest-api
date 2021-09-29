@@ -5,9 +5,20 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\StaffDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
+use ilOrgUnitUserAssignment;
 
 trait OrganisationalUnitStaffQuery
 {
+
+    private function getIliasOrganisationalUnitStaff(int $organisational_unit_ref_id, int $user_id, int $position_id) : ?ilOrgUnitUserAssignment
+    {
+        return ilOrgUnitUserAssignment::where([
+            "orgu_id"     => $organisational_unit_ref_id,
+            "user_id"     => $user_id,
+            "position_id" => $position_id
+        ])->first();
+    }
+
 
     private function getOrganisationalUnitStaffQuery(
         ?int $organisational_unit_id = null,
@@ -67,5 +78,11 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,position_id ASC";
             $organisational_unit_staff["user_import_id"] ?: null,
             $organisational_unit_staff["position_id"] ?: null
         );
+    }
+
+
+    private function newIliasOrganisationalUnitStaff() : ilOrgUnitUserAssignment
+    {
+        return new ilOrgUnitUserAssignment();
     }
 }
