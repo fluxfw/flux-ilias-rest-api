@@ -2,6 +2,7 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Command;
 
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\OrganisationalUnitPositionQuery;
 use ilDBInterface;
 
@@ -23,8 +24,16 @@ class GetOrganisationalUnitPositionsCommand
     }
 
 
-    public function getOrganisationalUnitPositions() : array
+    public function getOrganisationalUnitPositions(bool $authorities = false) : array
     {
-        return array_map([$this, "mapOrganisationalUnitPositionDto"], $this->database->fetchAll($this->database->query($this->getOrganisationalUnitPositionQuery())));
+        $organisational_unit_positions = $this->database->fetchAll($this->database->query($this->getOrganisationalUnitPositionQuery()));
+        $position_ids = array_map(fn(array $position) : int => $position["id"], $organisational_unit_positions);
+
+        $authorities_ = $authorities ? $this->database->fetchAll($this->database->query($this->getOrganisationalUnitPositionAuthorityQuery($position_ids))) : null;
+
+        return array_map(fn(array $organisational_unit_position) : OrganisationalUnitPositionDto => $this->mapOrganisationalUnitPositionDto(
+            $organisational_unit_position,
+            $authorities_
+        ), $organisational_unit_positions);
     }
 }

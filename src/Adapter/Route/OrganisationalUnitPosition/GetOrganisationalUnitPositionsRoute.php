@@ -33,7 +33,9 @@ class GetOrganisationalUnitPositionsRoute implements Route
 
     public function getDocuRequestQueryParams() : ?array
     {
-        return null;
+        return [
+            "authorities"
+        ];
     }
 
 
@@ -53,7 +55,11 @@ class GetOrganisationalUnitPositionsRoute implements Route
     {
         return ResponseDto::new(
             JsonBodyDto::new(
-                $this->api->getOrganisationalUnitPositions()
+                $this->api->getOrganisationalUnitPositions(
+                    $request->getQueryParam(
+                        "authorities"
+                    ) === "true"
+                )
             )
         );
     }

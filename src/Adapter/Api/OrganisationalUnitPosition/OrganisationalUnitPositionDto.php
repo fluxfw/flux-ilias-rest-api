@@ -7,6 +7,7 @@ use JsonSerializable;
 class OrganisationalUnitPositionDto implements JsonSerializable
 {
 
+    private ?array $authorities;
     private ?string $core_identifier;
     private ?bool $core_position;
     private ?string $description;
@@ -14,7 +15,14 @@ class OrganisationalUnitPositionDto implements JsonSerializable
     private ?string $title;
 
 
-    public static function new(?int $id = null, ?bool $core_position = null, ?string $core_identifier = null, ?string $title = null, ?string $description = null) : /*static*/ self
+    public static function new(
+        ?int $id = null,
+        ?bool $core_position = null,
+        ?string $core_identifier = null,
+        ?string $title = null,
+        ?string $description = null,
+        ?array $authorities = null
+    ) : /*static*/ self
     {
         $dto = new static();
 
@@ -23,8 +31,15 @@ class OrganisationalUnitPositionDto implements JsonSerializable
         $dto->core_identifier = $core_identifier;
         $dto->title = $title;
         $dto->description = $description;
+        $dto->authorities = $authorities;
 
         return $dto;
+    }
+
+
+    public function getAuthorities() : ?array
+    {
+        return $this->authorities;
     }
 
 

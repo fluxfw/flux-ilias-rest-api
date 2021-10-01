@@ -2,10 +2,14 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
+use Exception;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionAuthorityDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
 use ilDBConstants;
+use ilOrgUnitAuthority;
 use ilOrgUnitPosition;
+use LogicException;
 
 trait OrganisationalUnitPositionQuery
 {
@@ -13,6 +17,20 @@ trait OrganisationalUnitPositionQuery
     private function getIliasOrganisationalUnitPosition(int $id) : ?ilOrgUnitPosition
     {
         return ilOrgUnitPosition::find($id);
+    }
+
+
+    private function getIliasOrganisationalUnitPositionAuthority(int $id) : ?ilOrgUnitAuthority
+    {
+        return ilOrgUnitAuthority::find($id);
+    }
+
+
+    private function getOrganisationalUnitPositionAuthorityQuery(array $position_ids) : string
+    {
+        return "SELECT *
+FROM il_orgu_authority
+WHERE " . $this->database->in("position_id", $position_ids, false, ilDBConstants::T_INTEGER);
     }
 
 
@@ -46,10 +64,47 @@ ORDER BY title ASC";
         if ($diff->getDescription() !== null) {
             $ilias_organisational_unit_position->setDescription($diff->getDescription());
         }
+
+        if ($diff->getAuthorities() !== null) {
+            $ilias_authorities = [];
+            foreach ($diff->getAuthorities() as $authority) {
+                if ($authority->getId() !== null) {
+                    $ilias_authority = $this->getIliasOrganisationalUnitPositionAuthority(
+                        $authority->getId()
+                    );
+                    if ($ilias_authority === null) {
+                        throw new Exception("Authority id " . $authority->getId() . " does not exists");
+                    }
+
+                    if ($ilias_authority->getPositionId() !== $ilias_organisational_unit_position->getId()) {
+                        throw new LogicException("Authority id " . $authority->getId() . " is not of the organisational unit position");
+                    }
+
+                    if ($authority->getOverPositionId() === null && $authority->getScopeIn() === null) {
+                        continue;
+                    }
+                } else {
+                    $ilias_authority = $this->newIliasOrganisationalUnitPositionAuthority();
+                }
+
+                if ($authority->getOverPositionId() !== null) {
+                    $ilias_authority->setOver($authority->getOverPositionId());
+                }
+
+                if ($authority->getScopeIn() !== null) {
+                    $ilias_authority->setScope(OrganisationalUnitPositionAuthorityScopeInMapping::mapExternalToInternal(
+                        $authority->getScopeIn()
+                    ));
+                }
+
+                $ilias_authorities[] = $ilias_authority;
+            }
+            $ilias_organisational_unit_position->setAuthorities($ilias_authorities);
+        }
     }
 
 
-    private function mapOrganisationalUnitPositionDto(array $organisational_unit_position) : OrganisationalUnitPositionDto
+    private function mapOrganisationalUnitPositionDto(array $organisational_unit_position, ?array $authorities = null) : OrganisationalUnitPositionDto
     {
         return OrganisationalUnitPositionDto::new(
             $organisational_unit_position["id"] ?: null,
@@ -58,7 +113,14 @@ ORDER BY title ASC";
                 $organisational_unit_position["core_identifier"] ?: null
             ),
             $organisational_unit_position["title"] ?? "",
-            $organisational_unit_position["description"] ?? ""
+            $organisational_unit_position["description"] ?? "",
+            $authorities !== null ? array_values(array_map(fn(array $authority) : OrganisationalUnitPositionAuthorityDto => OrganisationalUnitPositionAuthorityDto::new(
+                $authority["id"] ?: null,
+                $authority["over"] ?: null,
+                OrganisationalUnitPositionAuthorityScopeInMapping::mapInternalToExternal(
+                    $authority["scope"] ?? null
+                )
+            ), array_filter($authorities, fn(array $authority) : bool => $authority["position_id"] === $organisational_unit_position["id"]))) : null,
         );
     }
 
@@ -66,5 +128,11 @@ ORDER BY title ASC";
     private function newIliasOrganisationalUnitPosition() : ilOrgUnitPosition
     {
         return new ilOrgUnitPosition();
+    }
+
+
+    private function newIliasOrganisationalUnitPositionAuthority() : ilOrgUnitAuthority
+    {
+        return new ilOrgUnitAuthority();
     }
 }

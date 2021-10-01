@@ -54,7 +54,8 @@ class GetOrganisationalUnitPositionCommand
                 throw new LogicException("Multiple organisational units found with the id " . $id);
             }
             $organisational_unit_position = $this->mapOrganisationalUnitPositionDto(
-                $organisational_unit_position_
+                $organisational_unit_position_,
+                $this->database->fetchAll($this->database->query($this->getOrganisationalUnitPositionAuthorityQuery(array_filter([$organisational_unit_position_["id"]]))))
             );
         }
 

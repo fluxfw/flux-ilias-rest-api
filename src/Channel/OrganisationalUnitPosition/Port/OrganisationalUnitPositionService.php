@@ -70,12 +70,14 @@ class OrganisationalUnitPositionService
     }
 
 
-    public function getOrganisationalUnitPositions() : array
+    public function getOrganisationalUnitPositions(bool $authorities = false) : array
     {
         return GetOrganisationalUnitPositionsCommand::new(
             $this->database
         )
-            ->getOrganisationalUnitPositions();
+            ->getOrganisationalUnitPositions(
+                $authorities
+            );
     }
 
 
