@@ -733,10 +733,12 @@ class Api
     }
 
 
-    public function getOrganisationalUnitPositions() : array
+    public function getOrganisationalUnitPositions(bool $authorities = false) : array
     {
         return $this->getOrganisationalUnitPosition()
-            ->getOrganisationalUnitPositions();
+            ->getOrganisationalUnitPositions(
+                $authorities
+            );
     }
 
 

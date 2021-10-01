@@ -409,9 +409,9 @@ ORDER BY login ASC";
             $user["longitude"] ?? "",
             $user["loc_zoom"] ?? 0,
             $user_defined_fields !== null ? array_values(array_map(fn(array $user_defined_field) : UserDefinedFieldDto => UserDefinedFieldDto::new(
-                $user_defined_field["field_id"],
-                $user_defined_field["field_name"],
-                $user_defined_field["value"]
+                $user_defined_field["field_id"] ?: null,
+                $user_defined_field["field_name"] ?? null,
+                $user_defined_field["value"] ?? null
             ), array_filter($user_defined_fields, fn(array $user_defined_field) : bool => $user_defined_field["usr_id"] === $user["usr_id"]))) : null,
             UserLanguageMapping::mapInternalToExternal(
                 $getPreference(

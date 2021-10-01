@@ -7,6 +7,12 @@ const organisational_unit_position = await (await fetch("?/organisational-unit-p
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
+        authorities: [
+            {
+                over_position_id: (await (await fetch("?/organisational-unit-position/by-core-identifier/employee")).json()).id,
+                scope_in: "same_and_subsequent"
+            }
+        ],
         title: `Organisational unit position ${time}`
     })
 })).json();
