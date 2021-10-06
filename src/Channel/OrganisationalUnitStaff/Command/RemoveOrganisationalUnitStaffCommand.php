@@ -10,29 +10,21 @@ use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnit
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\OrganisationalUnitStaffQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use ilDBInterface;
 
 class RemoveOrganisationalUnitStaffCommand
 {
 
     use OrganisationalUnitStaffQuery;
 
-    private ilDBInterface $database;
     private OrganisationalUnitService $organisational_unit;
     private OrganisationalUnitPositionService $organisational_unit_position;
     private UserService $user;
 
 
-    public static function new(
-        ilDBInterface $database,
-        OrganisationalUnitService $organisational_unit,
-        UserService $user,
-        OrganisationalUnitPositionService $organisational_unit_position
-    ) : /*static*/ self
+    public static function new(OrganisationalUnitService $organisational_unit, UserService $user, OrganisationalUnitPositionService $organisational_unit_position) : /*static*/ self
     {
         $command = new static();
 
-        $command->database = $database;
         $command->organisational_unit = $organisational_unit;
         $command->user = $user;
         $command->organisational_unit_position = $organisational_unit_position;

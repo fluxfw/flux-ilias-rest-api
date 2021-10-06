@@ -41,7 +41,6 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?StaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -57,7 +56,6 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?StaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -73,7 +71,6 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?StaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -89,7 +86,6 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?StaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -105,7 +101,6 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?StaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -121,7 +116,6 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?StaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -159,7 +153,6 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?StaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -175,7 +168,6 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?StaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -191,7 +183,6 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?StaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -207,7 +198,6 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?StaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -223,7 +213,6 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?StaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position
@@ -239,7 +228,6 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?StaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->database,
             $this->organisational_unit,
             $this->user,
             $this->organisational_unit_position

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff\RemoveOrganisationalUnitStaff;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff\AddOrganisationalUnitStaff;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
@@ -11,7 +11,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class RemoveOrganisationalUnitStaffByImportIdByUserImportIdRoute implements Route
+class AddOrganisationalUnitStaffByExternalIdByUserImportIdRoute implements Route
 {
 
     private Api $api;
@@ -41,19 +41,19 @@ class RemoveOrganisationalUnitStaffByImportIdByUserImportIdRoute implements Rout
 
     public function getMethod() : string
     {
-        return Method::DELETE;
+        return Method::POST;
     }
 
 
     public function getRoute() : string
     {
-        return "/organisational-unit/by-external-id/{external_id}/remove-staff/by-import-id/{user_import_id}/{position_id}";
+        return "/organisational-unit/by-external-id/{external_id}/add-staff/by-import-id/{user_import_id}/{position_id}";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->api->removeOrganisationalUnitStaffByExternalIdByUserImportId(
+        $id = $this->api->addOrganisationalUnitStaffByExternalIdByUserImportId(
             $request->getParam(
                 "external_id"
             ),
