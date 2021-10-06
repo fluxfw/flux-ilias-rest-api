@@ -10,7 +10,6 @@ use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\CourseMemberQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use ilDBInterface;
 
 class UpdateCourseMemberCommand
 {
@@ -19,15 +18,13 @@ class UpdateCourseMemberCommand
     use CourseMemberQuery;
 
     private CourseService $course;
-    private ilDBInterface $database;
     private UserService $user;
 
 
-    public static function new(ilDBInterface $database, CourseService $course, UserService $user) : /*static*/ self
+    public static function new(CourseService $course, UserService $user) : /*static*/ self
     {
         $command = new static();
 
-        $command->database = $database;
         $command->course = $course;
         $command->user = $user;
 

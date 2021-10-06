@@ -11,7 +11,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class AddOrganisationalUnitStaffByImportIdByUserImportIdRoute implements Route
+class AddOrganisationalUnitStaffByExternalIdByUserIdRoute implements Route
 {
 
     private Api $api;
@@ -47,18 +47,18 @@ class AddOrganisationalUnitStaffByImportIdByUserImportIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/organisational-unit/by-external-id/{external_id}/add-staff/by-import-id/{user_import_id}/{position_id}";
+        return "/organisational-unit/by-external-id/{external_id}/add-staff/by-id/{user_id}/{position_id}";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->api->addOrganisationalUnitStaffByExternalIdByUserImportId(
+        $id = $this->api->addOrganisationalUnitStaffByExternalIdByUserId(
             $request->getParam(
                 "external_id"
             ),
             $request->getParam(
-                "user_import_id"
+                "user_id"
             ),
             $request->getParam(
                 "position_id"

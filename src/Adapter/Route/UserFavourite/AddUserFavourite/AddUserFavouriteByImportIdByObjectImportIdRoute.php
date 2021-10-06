@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff\RemoveOrganisationalUnitStaff;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\UserFavourite\AddUserFavourite;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
@@ -11,7 +11,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class RemoveOrganisationalUnitStaffByImportIdByUserImportIdRoute implements Route
+class AddUserFavouriteByImportIdByObjectImportIdRoute implements Route
 {
 
     private Api $api;
@@ -41,27 +41,24 @@ class RemoveOrganisationalUnitStaffByImportIdByUserImportIdRoute implements Rout
 
     public function getMethod() : string
     {
-        return Method::DELETE;
+        return Method::POST;
     }
 
 
     public function getRoute() : string
     {
-        return "/organisational-unit/by-external-id/{external_id}/remove-staff/by-import-id/{user_import_id}/{position_id}";
+        return "/user/by-import-id/{import_id}/add-favourite/by-import-id/{object_import_id}";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->api->removeOrganisationalUnitStaffByExternalIdByUserImportId(
+        $id = $this->api->addUserFavouriteByImportIdByObjectImportId(
             $request->getParam(
-                "external_id"
+                "import_id"
             ),
             $request->getParam(
-                "user_import_id"
-            ),
-            $request->getParam(
-                "position_id"
+                "object_import_id"
             )
         );
 
@@ -74,7 +71,7 @@ class RemoveOrganisationalUnitStaffByImportIdByUserImportIdRoute implements Rout
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "Staff not found"
+                    "Favourite not found"
                 ),
                 Status::_404
             );

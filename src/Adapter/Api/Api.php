@@ -23,6 +23,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModul
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\FavouriteDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
@@ -32,6 +33,8 @@ use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\Organisati
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port\OrganisationalUnitStaffService;
 use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Port\UserFavouriteService;
+use ilFavouritesDBRepository;
 
 class Api
 {
@@ -45,6 +48,7 @@ class Api
     private ?OrganisationalUnitStaffService $organisational_unit_staff = null;
     private ?ScormLearningModuleService $scorm_learning_module = null;
     private ?UserService $user = null;
+    private ?UserFavouriteService $user_favourite = null;
 
 
     public static function new() : /*static*/ self
@@ -183,6 +187,66 @@ class Api
                 $ref_id,
                 $user_import_id,
                 $position_id
+            );
+    }
+
+
+    public function addUserFavouriteByIdByObjectId(int $id, int $object_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->addUserFavouriteByIdByObjectId(
+                $id,
+                $object_id
+            );
+    }
+
+
+    public function addUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->addUserFavouriteByIdByObjectImportId(
+                $id,
+                $object_import_id
+            );
+    }
+
+
+    public function addUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->addUserFavouriteByIdByObjectRefId(
+                $id,
+                $object_ref_id
+            );
+    }
+
+
+    public function addUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->addUserFavouriteByImportIdByObjectId(
+                $import_id,
+                $object_id
+            );
+    }
+
+
+    public function addUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->addUserFavouriteByImportIdByObjectImportId(
+                $import_id,
+                $object_import_id
+            );
+    }
+
+
+    public function addUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->addUserFavouriteByImportIdByObjectRefId(
+                $import_id,
+                $object_ref_id
             );
     }
 
@@ -835,6 +899,19 @@ class Api
     }
 
 
+    public function getUserFavourites(?int $user_id = null, ?string $user_import_id = null, ?int $object_id = null, ?string $object_import_id = null, ?int $object_ref_id = null) : array
+    {
+        return $this->getUserFavourite()
+            ->getUserFavourites(
+                $user_id,
+                $user_import_id,
+                $object_id,
+                $object_import_id,
+                $object_ref_id
+            );
+    }
+
+
     public function getUsers(bool $access_limited_object_ids = false, bool $multi_fields = false, bool $preferences = false, bool $user_defined_fields = false) : array
     {
         return $this->getUser()
@@ -1059,6 +1136,66 @@ class Api
                 $ref_id,
                 $user_import_id,
                 $position_id
+            );
+    }
+
+
+    public function removeUserFavouriteByIdByObjectId(int $id, int $object_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->removeUserFavouriteByIdByObjectId(
+                $id,
+                $object_id
+            );
+    }
+
+
+    public function removeUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->removeUserFavouriteByIdByObjectImportId(
+                $id,
+                $object_import_id
+            );
+    }
+
+
+    public function removeUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->removeUserFavouriteByIdByObjectRefId(
+                $id,
+                $object_ref_id
+            );
+    }
+
+
+    public function removeUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->removeUserFavouriteByImportIdByObjectId(
+                $import_id,
+                $object_id
+            );
+    }
+
+
+    public function removeUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->removeUserFavouriteByImportIdByObjectImportId(
+                $import_id,
+                $object_import_id
+            );
+    }
+
+
+    public function removeUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?FavouriteDto
+    {
+        return $this->getUserFavourite()
+            ->removeUserFavouriteByImportIdByObjectRefId(
+                $import_id,
+                $object_ref_id
             );
     }
 
@@ -1475,5 +1612,20 @@ class Api
         );
 
         return $this->user;
+    }
+
+
+    private function getUserFavourite() : UserFavouriteService
+    {
+        global $DIC;
+
+        $this->user_favourite ??= UserFavouriteService::new(
+            $DIC->database(),
+            $this->getUser(),
+            $this->getObject(),
+            new ilFavouritesDBRepository()
+        );
+
+        return $this->user_favourite;
     }
 }

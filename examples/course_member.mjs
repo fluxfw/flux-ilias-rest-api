@@ -8,7 +8,9 @@ await (await fetch(`?/course/by-id/${course.id}/add-member/by-id/${user.id}`, {
     })
 })).json();
 
-await (await fetch(`?/course-members&course_id=${course.id}&user_id=${user.id}`)).json();
+await (await fetch(`?/course-members&course_id=${course.id}`)).json();
+
+await (await fetch(`?/course-members&user_id=${user.id}`)).json();
 
 await (await fetch(`?/course/by-id/${course.id}/update-member/by-id/${user.id}`, {
     method: "POST",

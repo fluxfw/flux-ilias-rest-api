@@ -8,7 +8,6 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use ilDBInterface;
 
 class RemoveCourseMemberCommand
 {
@@ -16,15 +15,13 @@ class RemoveCourseMemberCommand
     use CourseQuery;
 
     private CourseService $course;
-    private ilDBInterface $database;
     private UserService $user;
 
 
-    public static function new(ilDBInterface $database, CourseService $course, UserService $user) : /*static*/ self
+    public static function new(CourseService $course, UserService $user) : /*static*/ self
     {
         $command = new static();
 
-        $command->database = $database;
         $command->course = $course;
         $command->user = $user;
 
