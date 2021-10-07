@@ -7,6 +7,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModul
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleType;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
+use ilLink;
 use ilObjSAHSLearningModule;
 use ilObjSCORM2004LearningModule;
 use ilObjSCORMLearningModule;
@@ -112,6 +113,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $scorm_learning_module["parent_obj_id"] ?: null,
             $scorm_learning_module["parent_import_id"] ?: null,
             $scorm_learning_module["parent_ref_id"] ?: null,
+            ilLink::_getStaticLink($scorm_learning_module["ref_id"] ?: null),
             $scorm_learning_module["title"] ?? "",
             $scorm_learning_module["description"] ?? "",
             ScormLearningModuleTypeMapping::mapInternalToExternal(

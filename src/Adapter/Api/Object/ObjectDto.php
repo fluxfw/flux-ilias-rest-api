@@ -20,6 +20,7 @@ class ObjectDto implements JsonSerializable
     private ?string $title;
     private ?string $type;
     private ?int $updated;
+    private ?string $url;
 
 
     public static function new(
@@ -32,6 +33,7 @@ class ObjectDto implements JsonSerializable
         ?int $parent_id = null,
         ?string $parent_import_id = null,
         ?int $parent_ref_id = null,
+        ?string $url = null,
         ?bool $online = null,
         ?string $title = null,
         ?string $description = null,
@@ -49,6 +51,7 @@ class ObjectDto implements JsonSerializable
         $dto->parent_id = $parent_id;
         $dto->parent_import_id = $parent_import_id;
         $dto->parent_ref_id = $parent_ref_id;
+        $dto->url = $url;
         $dto->online = $online;
         $dto->title = $title;
         $dto->description = $description;
@@ -127,6 +130,12 @@ class ObjectDto implements JsonSerializable
     public function getUpdated() : ?int
     {
         return $this->updated;
+    }
+
+
+    public function getUrl() : ?string
+    {
+        return $this->url;
     }
 
 

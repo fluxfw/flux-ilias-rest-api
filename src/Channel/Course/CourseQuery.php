@@ -8,6 +8,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDate;
 use ilDateTime;
 use ilDBConstants;
+use ilLink;
 use ilObjCourse;
 use ilObjectServiceSettingsGUI;
 use LogicException;
@@ -226,6 +227,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $course["parent_obj_id"] ?: null,
             $course["parent_import_id"] ?: null,
             $course["parent_ref_id"] ?: null,
+            ilLink::_getStaticLink($course["ref_id"] ?: null),
             $course["title"] ?? "",
             $course["description"] ?? "",
             strtotime($course["period_start"]) ?: null,

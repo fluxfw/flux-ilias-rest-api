@@ -47,6 +47,7 @@ class CourseDto implements JsonSerializable
     private ?string $target_group;
     private ?string $title;
     private ?int $updated;
+    private ?string $url;
 
 
     public static function new(
@@ -58,6 +59,7 @@ class CourseDto implements JsonSerializable
         ?int $parent_id = null,
         ?string $parent_import_id = null,
         ?int $parent_ref_id = null,
+        ?string $url = null,
         ?string $title = null,
         ?string $description = null,
         ?int $period_start = null,
@@ -102,6 +104,7 @@ class CourseDto implements JsonSerializable
         $dto->parent_id = $parent_id;
         $dto->parent_import_id = $parent_import_id;
         $dto->parent_ref_id = $parent_ref_id;
+        $dto->url = $url;
         $dto->title = $title;
         $dto->description = $description;
         $dto->period_start = $period_start;
@@ -286,6 +289,12 @@ class CourseDto implements JsonSerializable
     public function getUpdated() : ?int
     {
         return $this->updated;
+    }
+
+
+    public function getUrl() : ?string
+    {
+        return $this->url;
     }
 
 
