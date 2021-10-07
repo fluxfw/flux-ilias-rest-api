@@ -34,6 +34,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port\Organisationa
 use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Port\UserFavouriteService;
+use Fluxlabs\FluxIliasRestApi\Channel\UserMail\Port\UserMailService;
 use ilFavouritesDBRepository;
 
 class Api
@@ -49,6 +50,7 @@ class Api
     private ?ScormLearningModuleService $scorm_learning_module = null;
     private ?UserService $user = null;
     private ?UserFavouriteService $user_favourite = null;
+    private ?UserMailService $user_mail = null;
 
 
     public static function new() : /*static*/ self
@@ -881,6 +883,24 @@ class Api
     }
 
 
+    public function getUnreadMailsCountById(int $id) : ?int
+    {
+        return $this->getUserMail()
+            ->getUnreadMailsCountById(
+                $id
+            );
+    }
+
+
+    public function getUnreadMailsCountByImportId(string $import_id) : ?int
+    {
+        return $this->getUserMail()
+            ->getUnreadMailsCountByImportId(
+                $import_id
+            );
+    }
+
+
     public function getUserById(int $id) : ?UserDto
     {
         return $this->getUser()
@@ -1627,5 +1647,18 @@ class Api
         );
 
         return $this->user_favourite;
+    }
+
+
+    private function getUserMail() : UserMailService
+    {
+        global $DIC;
+
+        $this->user_mail ??= UserMailService::new(
+            $DIC->database(),
+            $this->getUser()
+        );
+
+        return $this->user_mail;
     }
 }
