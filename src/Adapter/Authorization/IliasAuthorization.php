@@ -18,6 +18,7 @@ use ilStyleDefinition;
 use ilTabsGUI;
 use ilTemplate;
 use ilToolbarGUI;
+use ilUtil;
 
 class IliasAuthorization implements Authorization
 {
@@ -68,6 +69,8 @@ class IliasAuthorization implements Authorization
             $DIC
         );
 
+        $this->fixHttpPath();
+
         return null;
     }
 
@@ -97,6 +100,14 @@ class IliasAuthorization implements Authorization
                 }
                 $dic->offsetSet($key, $GLOBALS[$key]);
             }
+        }
+    }
+
+
+    private function fixHttpPath() : void
+    {
+        if (!defined("ILIAS_HTTP_PATH")) {
+            define("ILIAS_HTTP_PATH", ilUtil::_getHttpPath());
         }
     }
 }

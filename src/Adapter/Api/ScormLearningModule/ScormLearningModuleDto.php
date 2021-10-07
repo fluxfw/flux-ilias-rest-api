@@ -22,6 +22,7 @@ class ScormLearningModuleDto implements JsonSerializable
     private ?string $title;
     private ?string $type;
     private ?int $updated;
+    private ?string $url;
     private ?int $version;
 
 
@@ -34,6 +35,7 @@ class ScormLearningModuleDto implements JsonSerializable
         ?int $parent_id = null,
         ?string $parent_import_id = null,
         ?int $parent_ref_id = null,
+        ?string $url = null,
         ?string $title = null,
         ?string $description = null,
         ?string $type = null,
@@ -54,6 +56,7 @@ class ScormLearningModuleDto implements JsonSerializable
         $dto->parent_id = $parent_id;
         $dto->parent_import_id = $parent_import_id;
         $dto->parent_ref_id = $parent_ref_id;
+        $dto->url = $url;
         $dto->title = $title;
         $dto->description = $description;
         $dto->type = $type;
@@ -136,6 +139,12 @@ class ScormLearningModuleDto implements JsonSerializable
     public function getUpdated() : ?int
     {
         return $this->updated;
+    }
+
+
+    public function getUrl() : ?string
+    {
+        return $this->url;
     }
 
 

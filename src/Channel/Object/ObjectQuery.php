@@ -5,6 +5,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\Object;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use ilDBConstants;
+use ilLink;
 use ilObject;
 use ilObjectFactory;
 
@@ -125,6 +126,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $object["parent_obj_id"] ?: null,
             $object["parent_import_id"] ?: null,
             $object["parent_ref_id"] ?: null,
+            ilLink::_getStaticLink($object["ref_id"] ?: null),
             !($object["offline"] ?? null),
             $object["title"] ?? "",
             $object["description"] ?? "",

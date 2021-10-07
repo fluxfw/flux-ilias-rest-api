@@ -19,6 +19,7 @@ class OrganisationalUnitDto implements JsonSerializable
     private ?string $title;
     private ?int $type_id;
     private ?int $updated;
+    private ?string $url;
 
 
     public static function new(
@@ -29,6 +30,7 @@ class OrganisationalUnitDto implements JsonSerializable
         ?int $parent_id = null,
         ?string $parent_external_id = null,
         ?int $parent_ref_id = null,
+        ?string $url = null,
         ?string $title = null,
         ?string $description = null,
         ?int $type_id = null,
@@ -45,6 +47,7 @@ class OrganisationalUnitDto implements JsonSerializable
         $dto->parent_id = $parent_id;
         $dto->parent_external_id = $parent_external_id;
         $dto->parent_ref_id = $parent_ref_id;
+        $dto->url = $url;
         $dto->title = $title;
         $dto->description = $description;
         $dto->type_id = $type_id;
@@ -124,6 +127,12 @@ class OrganisationalUnitDto implements JsonSerializable
     public function getUpdated() : ?int
     {
         return $this->updated;
+    }
+
+
+    public function getUrl() : ?string
+    {
+        return $this->url;
     }
 
 
