@@ -3,6 +3,7 @@
 namespace Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\ScormLearningModuleQuery;
 use ilDBInterface;
 use LogicException;
@@ -10,6 +11,7 @@ use LogicException;
 class GetScormLearningModuleCommand
 {
 
+    use ObjectQuery;
     use ScormLearningModuleQuery;
 
     private ilDBInterface $database;

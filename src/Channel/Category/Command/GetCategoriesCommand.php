@@ -3,12 +3,14 @@
 namespace Fluxlabs\FluxIliasRestApi\Channel\Category\Command;
 
 use Fluxlabs\FluxIliasRestApi\Channel\Category\CategoryQuery;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 
 class GetCategoriesCommand
 {
 
     use CategoryQuery;
+    use ObjectQuery;
 
     private ilDBInterface $database;
 

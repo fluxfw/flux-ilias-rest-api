@@ -4,12 +4,14 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\Course\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 
 class GetCoursesCommand
 {
 
     use CourseQuery;
+    use ObjectQuery;
 
     private ilDBInterface $database;
 

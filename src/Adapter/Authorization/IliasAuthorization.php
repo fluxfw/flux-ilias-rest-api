@@ -96,7 +96,14 @@ class IliasAuthorization implements Authorization
                 }
             } else {
                 if (!isset($GLOBALS[$key])) {
-                    $GLOBALS[$key] = eval('return new class() extends ' . $class . ' { public function __construct() {} };');
+                    switch ($class) {
+                        case ilStyleDefinition::class:
+                            $GLOBALS[$key] = new ilStyleDefinition();
+                            break;
+                        default:
+                            $GLOBALS[$key] = eval('return new class() extends ' . $class . ' { public function __construct() {} };');
+                            break;
+                    }
                 }
                 $dic->offsetSet($key, $GLOBALS[$key]);
             }

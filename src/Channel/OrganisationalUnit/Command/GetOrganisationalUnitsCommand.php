@@ -2,12 +2,14 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command;
 
+use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\OrganisationalUnitQuery;
 use ilDBInterface;
 
 class GetOrganisationalUnitsCommand
 {
 
+    use ObjectQuery;
     use OrganisationalUnitQuery;
 
     private ilDBInterface $database;

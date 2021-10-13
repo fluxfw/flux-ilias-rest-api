@@ -3,6 +3,7 @@
 namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\OrganisationalUnitQuery;
 use ilDBInterface;
 use LogicException;
@@ -10,6 +11,7 @@ use LogicException;
 class GetOrganisationalUnitCommand
 {
 
+    use ObjectQuery;
     use OrganisationalUnitQuery;
 
     private ilDBInterface $database;

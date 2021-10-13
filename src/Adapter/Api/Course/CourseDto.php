@@ -24,6 +24,7 @@ class CourseDto implements JsonSerializable
     private ?bool $default_object_rating;
     private ?string $description;
     private ?int $didactic_template_id;
+    private ?string $icon_url;
     private ?int $id;
     private ?string $import_id;
     private ?string $important_information;
@@ -60,6 +61,7 @@ class CourseDto implements JsonSerializable
         ?string $parent_import_id = null,
         ?int $parent_ref_id = null,
         ?string $url = null,
+        ?string $icon_url = null,
         ?string $title = null,
         ?string $description = null,
         ?int $period_start = null,
@@ -105,6 +107,7 @@ class CourseDto implements JsonSerializable
         $dto->parent_import_id = $parent_import_id;
         $dto->parent_ref_id = $parent_ref_id;
         $dto->url = $url;
+        $dto->icon_url = $icon_url;
         $dto->title = $title;
         $dto->description = $description;
         $dto->period_start = $period_start;
@@ -199,6 +202,12 @@ class CourseDto implements JsonSerializable
     public function getDidacticTemplateId() : ?int
     {
         return $this->didactic_template_id;
+    }
+
+
+    public function getIconUrl() : ?string
+    {
+        return $this->icon_url;
     }
 
 
