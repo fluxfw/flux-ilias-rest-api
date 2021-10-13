@@ -52,7 +52,7 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
     }
 
 
-    private function getObjectQuery(?string $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
+    private function getObjectQuery(?string $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $ref_ids = null) : string
     {
         $wheres = [
             "object_reference.deleted IS NULL"
@@ -76,6 +76,10 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
             $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
+        if ($ref_ids !== null) {
+            $wheres[] = $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
+        }
+
         return "SELECT object_data.*,object_reference.ref_id,didactic_tpl_objs.tpl_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
 FROM object_data
 LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
@@ -84,7 +88,7 @@ LEFT JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
 WHERE " . implode(" AND ", $wheres) . "
-ORDER BY object_data.title ASC,object_data.create_date ASC";
+ORDER BY " . ($ref_ids !== null ? "object_reference.ref_id ASC" : "object_data.title ASC,object_data.create_date ASC");
     }
 
 
