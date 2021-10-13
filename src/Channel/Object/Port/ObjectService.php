@@ -300,6 +300,7 @@ class ObjectService
     {
         return GetPathCommand::new(
             $this,
+            $this->database,
             $this->tree
         )
             ->getPathById(
@@ -312,6 +313,7 @@ class ObjectService
     {
         return GetPathCommand::new(
             $this,
+            $this->database,
             $this->tree
         )
             ->getPathByImportId(
@@ -324,6 +326,7 @@ class ObjectService
     {
         return GetPathCommand::new(
             $this,
+            $this->database,
             $this->tree
         )
             ->getPathByRefId(
