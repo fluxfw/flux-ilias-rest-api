@@ -8,6 +8,8 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
@@ -27,6 +29,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\FavouriteDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
+use Fluxlabs\FluxIliasRestApi\Channel\File\Port\FileService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
@@ -43,6 +46,7 @@ class Api
     private ?CategoryService $category = null;
     private ?CourseService $course = null;
     private ?CourseMemberService $course_member = null;
+    private ?FileService $file = null;
     private ?ObjectService $object = null;
     private ?OrganisationalUnitService $organisational_unit = null;
     private ?OrganisationalUnitPositionService $organisational_unit_position = null;
@@ -403,6 +407,36 @@ class Api
     }
 
 
+    public function createFileToId(int $parent_id, FileDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->createFileToId(
+                $parent_id,
+                $diff
+            );
+    }
+
+
+    public function createFileToImportId(string $parent_import_id, FileDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->createFileToImportId(
+                $parent_import_id,
+                $diff
+            );
+    }
+
+
+    public function createFileToRefId(int $parent_ref_id, FileDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->createFileToRefId(
+                $parent_ref_id,
+                $diff
+            );
+    }
+
+
     public function createObjectToId(string $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -715,6 +749,40 @@ class Api
             ->getCurrentWebUser(
                 $session_id
             );
+    }
+
+
+    public function getFileById(int $id) : ?FileDto
+    {
+        return $this->getFile()
+            ->getFileById(
+                $id
+            );
+    }
+
+
+    public function getFileByImportId(string $import_id) : ?FileDto
+    {
+        return $this->getFile()
+            ->getFileByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getFileByRefId(int $ref_id) : ?FileDto
+    {
+        return $this->getFile()
+            ->getFileByRefId(
+                $ref_id
+            );
+    }
+
+
+    public function getFiles() : array
+    {
+        return $this->getFile()
+            ->getFiles();
     }
 
 
@@ -1393,6 +1461,36 @@ class Api
     }
 
 
+    public function updateFileById(int $id, FileDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->updateFileById(
+                $id,
+                $diff
+            );
+    }
+
+
+    public function updateFileByImportId(string $import_id, FileDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->updateFileByImportId(
+                $import_id,
+                $diff
+            );
+    }
+
+
+    public function updateFileByRefId(int $ref_id, FileDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->updateFileByRefId(
+                $ref_id,
+                $diff
+            );
+    }
+
+
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -1513,6 +1611,39 @@ class Api
     }
 
 
+    public function uploadFileById(int $id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->uploadFileById(
+                $id,
+                $title,
+                $replace
+            );
+    }
+
+
+    public function uploadFileByImportId(string $import_id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->uploadFileByImportId(
+                $import_id,
+                $title,
+                $replace
+            );
+    }
+
+
+    public function uploadFileByRefId(int $ref_id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
+    {
+        return $this->getFile()
+            ->uploadFileByRefId(
+                $ref_id,
+                $title,
+                $replace
+            );
+    }
+
+
     public function uploadScormLearningModuleById(int $id, string $file) : ?ObjectIdDto
     {
         return $this->getScormLearningModule()
@@ -1580,6 +1711,20 @@ class Api
         );
 
         return $this->course_member;
+    }
+
+
+    private function getFile() : FileService
+    {
+        global $DIC;
+
+        $this->file ??= FileService::new(
+            $DIC->database(),
+            $DIC->upload(),
+            $this->getObject()
+        );
+
+        return $this->file;
     }
 
 
