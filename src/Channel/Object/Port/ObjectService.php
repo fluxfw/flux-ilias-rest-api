@@ -11,6 +11,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\DeleteObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetChildrenCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectsCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetPathCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetRootObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\MoveObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\UpdateObjectCommand;
@@ -291,6 +292,42 @@ class ObjectService
         )
             ->getObjects(
                 $type
+            );
+    }
+
+
+    public function getPathById(int $id) : ?array
+    {
+        return GetPathCommand::new(
+            $this,
+            $this->tree
+        )
+            ->getPathById(
+                $id
+            );
+    }
+
+
+    public function getPathByImportId(string $import_id) : ?array
+    {
+        return GetPathCommand::new(
+            $this,
+            $this->tree
+        )
+            ->getPathByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getPathByRefId(int $ref_id) : ?array
+    {
+        return GetPathCommand::new(
+            $this,
+            $this->tree
+        )
+            ->getPathByRefId(
+                $ref_id
             );
     }
 
