@@ -88,7 +88,7 @@ LEFT JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
 WHERE " . implode(" AND ", $wheres) . "
-ORDER BY " . ($ref_ids !== null ? "object_reference.ref_id ASC" : "object_data.title ASC,object_data.create_date ASC");
+ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 

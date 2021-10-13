@@ -62,16 +62,20 @@ class GetPathCommand
 
     private function getPath(?ObjectDto $object) : ?array
     {
-        if ($object === null) {
+        if ($object === null || $object->getRefId() === null) {
             return null;
         }
 
-        return array_map([$this, "mapObjectDto"], $this->database->fetchAll($this->database->query($this->getObjectQuery(
+        $ref_ids = $this->tree->getPathId($object->getRefId());
+        $objects = $this->database->fetchAll($this->database->query($this->getObjectQuery(
             null,
             null,
             null,
             null,
-            $this->tree->getPathId($object->getRefId())
-        ))));
+            $ref_ids
+        )));
+        usort($objects, fn(array $object1, array $object2) : int => array_search($object1["ref_id"], $ref_ids) - array_search($object2["ref_id"], $ref_ids));
+
+        return array_map([$this, "mapObjectDto"], $objects);
     }
 }
