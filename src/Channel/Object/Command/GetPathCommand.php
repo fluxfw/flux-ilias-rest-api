@@ -74,7 +74,7 @@ class GetPathCommand
             null,
             $ref_ids
         )));
-        usort($objects, fn(array $object1, array $object2) : int => array_search($object1["ref_id"], $ref_ids) - array_search($object2["ref_id"], $ref_ids));
+        usort($objects, fn(array $object1, array $object2) : int => array_search($object1["ref_id"] ?: null, $ref_ids) - array_search($object2["ref_id"] ?: null, $ref_ids));
 
         return array_map([$this, "mapObjectDto"], $objects);
     }

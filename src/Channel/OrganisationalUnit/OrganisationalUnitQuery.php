@@ -6,7 +6,6 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitD
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
-use ilLink;
 use ilObjOrgUnit;
 
 trait OrganisationalUnitQuery
@@ -87,7 +86,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $organisational_unit["parent_obj_id"] ?: null,
             $organisational_unit["parent_external_id"] ?? "",
             $organisational_unit["parent_ref_id"] ?: null,
-            ilLink::_getStaticLink($organisational_unit["ref_id"] ?: null),
+            $this->getObjectUrl($organisational_unit["ref_id"] ?: null, $organisational_unit["type"] ?: null),
             $organisational_unit["title"] ?? "",
             $organisational_unit["description"] ?? "",
             $organisational_unit["orgu_type_id"] ?: null,

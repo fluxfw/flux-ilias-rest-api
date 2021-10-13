@@ -52,6 +52,12 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
     }
 
 
+    private function getObjectIconUrl(int $id, ?string $type = null) : string
+    {
+        return ILIAS_HTTP_PATH . "/" . ilObject::_getIcon($id, "big", $type ?? "");
+    }
+
+
     private function getObjectQuery(?string $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $ref_ids = null) : string
     {
         $wheres = [
@@ -89,6 +95,12 @@ LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_refe
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
 WHERE " . implode(" AND ", $wheres) . "
 ORDER BY object_data.title ASC,object_data.create_date ASC";
+    }
+
+
+    private function getObjectUrl(int $ref_id, ?string $type = null) : string
+    {
+        return ilLink::_getStaticLink($ref_id, $type ?? "");
     }
 
 
@@ -130,7 +142,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $object["parent_obj_id"] ?: null,
             $object["parent_import_id"] ?: null,
             $object["parent_ref_id"] ?: null,
-            ilLink::_getStaticLink($object["ref_id"] ?: null),
+            $this->getObjectUrl($object["ref_id"] ?: null, $object["type"] ?: null),
+            $this->getObjectIconUrl($object["obj_id"] ?: null, $object["type"] ?: null),
             !($object["offline"] ?? null),
             $object["title"] ?? "",
             $object["description"] ?? "",

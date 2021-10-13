@@ -6,7 +6,6 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
-use ilLink;
 use ilObjCategory;
 
 trait CategoryQuery
@@ -84,7 +83,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $category["parent_obj_id"] ?: null,
             $category["parent_import_id"] ?: null,
             $category["parent_ref_id"] ?: null,
-            ilLink::_getStaticLink($category["ref_id"] ?: null),
+            $this->getObjectUrl($category["ref_id"] ?: null, $category["type"] ?: null),
+            $this->getObjectIconUrl($category["obj_id"] ?: null, $category["type"] ?: null),
             $category["title"] ?? "",
             $category["description"] ?? "",
             $category["tpl_id"] ?: null
