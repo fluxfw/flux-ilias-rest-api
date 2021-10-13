@@ -17,6 +17,8 @@ await (await fetch(`?/object/by-id/${object.id}`)).json();
 
 await (await fetch(`?/object/children/by-ref-id/${root.ref_id}`)).json();
 
+await (await fetch(`?/object/path/by-ref-id/${object.ref_id}`)).json();
+
 await (await fetch(`?/object/by-id/${object.id}/update`, {
     method: "POST",
     headers: {
