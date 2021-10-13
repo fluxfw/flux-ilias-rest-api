@@ -842,6 +842,33 @@ class Api
     }
 
 
+    public function getPathById(int $id) : ?array
+    {
+        return $this->getObject()
+            ->getPathById(
+                $id
+            );
+    }
+
+
+    public function getPathByImportId(string $import_id) : ?array
+    {
+        return $this->getObject()
+            ->getPathByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getPathByRefId(int $ref_id) : ?array
+    {
+        return $this->getObject()
+            ->getPathByRefId(
+                $ref_id
+            );
+    }
+
+
     public function getRootObject() : ?ObjectDto
     {
         return $this->getObject()
