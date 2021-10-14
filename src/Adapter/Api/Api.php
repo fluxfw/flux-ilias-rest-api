@@ -13,6 +13,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitIdDto;
@@ -31,6 +32,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\File\Port\FileService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Port\ObjectLearningProgressService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port\OrganisationalUnitStaffService;
@@ -48,6 +50,7 @@ class Api
     private ?CourseMemberService $course_member = null;
     private ?FileService $file = null;
     private ?ObjectService $object = null;
+    private ?ObjectLearningProgressService $object_learning_progress = null;
     private ?OrganisationalUnitService $organisational_unit = null;
     private ?OrganisationalUnitPositionService $organisational_unit_position = null;
     private ?OrganisationalUnitStaffService $organisational_unit_staff = null;
@@ -795,6 +798,26 @@ class Api
     }
 
 
+    public function getObjectLearningProgress(
+        ?int $object_id = null,
+        ?string $object_import_id = null,
+        ?int $object_ref_id = null,
+        ?int $user_id = null,
+        ?string $user_import_id = null,
+        ?string $learning_progress = null
+    ) : array {
+        return $this->getObjectLearningProgress_()
+            ->getObjectLearningProgress(
+                $object_id,
+                $object_import_id,
+                $object_ref_id,
+                $user_id,
+                $user_import_id,
+                $learning_progress
+            );
+    }
+
+
     public function getObjects(string $type) : array
     {
         return $this->getObject()
@@ -1503,6 +1526,72 @@ class Api
     }
 
 
+    public function updateObjectLearningProgressByIdByUserId(int $id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    {
+        return $this->getObjectLearningProgress_()
+            ->updateObjectLearningProgressByIdByUserId(
+                $id,
+                $user_id,
+                $learning_progress
+            );
+    }
+
+
+    public function updateObjectLearningProgressByIdByUserImportId(int $id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    {
+        return $this->getObjectLearningProgress_()
+            ->updateObjectLearningProgressByIdByUserImportId(
+                $id,
+                $user_import_id,
+                $learning_progress
+            );
+    }
+
+
+    public function updateObjectLearningProgressByImportIdByUserId(string $import_id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    {
+        return $this->getObjectLearningProgress_()
+            ->updateObjectLearningProgressByImportIdByUserId(
+                $import_id,
+                $user_id,
+                $learning_progress
+            );
+    }
+
+
+    public function updateObjectLearningProgressByImportIdByUserImportId(string $import_id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    {
+        return $this->getObjectLearningProgress_()
+            ->updateObjectLearningProgressByImportIdByUserImportId(
+                $import_id,
+                $user_import_id,
+                $learning_progress
+            );
+    }
+
+
+    public function updateObjectLearningProgressByRefIdByUserId(int $ref_id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    {
+        return $this->getObjectLearningProgress_()
+            ->updateObjectLearningProgressByRefIdByUserId(
+                $ref_id,
+                $user_id,
+                $learning_progress
+            );
+    }
+
+
+    public function updateObjectLearningProgressByRefIdByUserImportId(int $ref_id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    {
+        return $this->getObjectLearningProgress_()
+            ->updateObjectLearningProgressByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id,
+                $learning_progress
+            );
+    }
+
+
     public function updateOrganisationalUnitByExternalId(string $external_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
         return $this->getOrganisationalUnit()
@@ -1720,6 +1809,20 @@ class Api
         );
 
         return $this->object;
+    }
+
+
+    private function getObjectLearningProgress_() : ObjectLearningProgressService
+    {
+        global $DIC;
+
+        $this->object_learning_progress ??= ObjectLearningProgressService::new(
+            $DIC->database(),
+            $this->getObject(),
+            $this->getUser()
+        );
+
+        return $this->object_learning_progress;
     }
 
 

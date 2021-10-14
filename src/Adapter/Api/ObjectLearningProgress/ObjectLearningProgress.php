@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\Object;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\ObjectLearningProgress;
 
 final class ObjectLearningProgress
 {
