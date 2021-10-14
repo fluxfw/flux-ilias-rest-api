@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Object;
+namespace Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress;
 
 use ilLPStatus;
 

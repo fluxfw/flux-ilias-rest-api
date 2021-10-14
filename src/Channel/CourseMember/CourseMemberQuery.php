@@ -5,7 +5,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectLearningProgressMapping;
+use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
 use ilDBConstants;
 use ilLPStatus;
 use ilObjCourse;
