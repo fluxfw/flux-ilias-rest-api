@@ -18,6 +18,7 @@ class UserDto implements JsonSerializable
     private ?int $agreed_on;
     private ?int $approved_on;
     private ?string $authentication_mode;
+    private ?string $avatar_url;
     private ?string $birthday;
     private ?string $city;
     private ?string $client_ip;
@@ -80,6 +81,7 @@ class UserDto implements JsonSerializable
         ?string $first_name = null,
         ?string $last_name = null,
         ?string $title = null,
+        ?string $avatar_url = null,
         ?string $birthday = null,
         ?string $institution = null,
         ?string $department = null,
@@ -132,6 +134,7 @@ class UserDto implements JsonSerializable
         $dto->first_name = $first_name;
         $dto->last_name = $last_name;
         $dto->title = $title;
+        $dto->avatar_url = $avatar_url;
         $dto->birthday = $birthday;
         $dto->institution = $institution;
         $dto->department = $department;
@@ -208,6 +211,12 @@ class UserDto implements JsonSerializable
     public function getAuthenticationMode() : ?string
     {
         return $this->authentication_mode;
+    }
+
+
+    public function getAvatarUrl() : ?string
+    {
+        return $this->avatar_url;
     }
 
 

@@ -55,6 +55,16 @@ WHERE session_id=" . $this->database->quote($session_id,
     }
 
 
+    private function getUserAvatarUrl(?string $profile_image) : ?string
+    {
+        if (empty($profile_image)) {
+            return null;
+        }
+
+        return ILIAS_HTTP_PATH . "/" . ILIAS_WEB_DIR . "/" . CLIENT_ID . "/usr_images/" . $profile_image;
+    }
+
+
     private function getUserDefinedFieldQuery(array $ids) : string
     {
         return "SELECT CASE WHEN udf_clob.usr_id IS NOT NULL THEN udf_clob.usr_id ELSE udf_text.usr_id END AS usr_id,field_name,udf_definition.field_id,CASE WHEN udf_clob.value IS NOT NULL THEN udf_clob.value ELSE udf_text.value END AS value
@@ -376,6 +386,11 @@ ORDER BY login ASC";
             $user["firstname"] ?? "",
             $user["lastname"] ?? "",
             $user["title"] ?? "",
+            $this->getUserAvatarUrl(
+                $getPreference(
+                    "profile_image"
+                )
+            ),
             strtotime($user["birthday"] ?? null) ?: null,
             $user["institution"] ?? "",
             $user["department"] ?? "",

@@ -584,24 +584,6 @@ class Api
     }
 
 
-    public function getAvatarPathById(int $id) : ?string
-    {
-        return $this->getUser()
-            ->getAvatarPathById(
-                $id
-            );
-    }
-
-
-    public function getAvatarPathByImportId(string $import_id) : ?string
-    {
-        return $this->getUser()
-            ->getAvatarPathByImportId(
-                $import_id
-            );
-    }
-
-
     public function getCategories() : array
     {
         return $this->getCategory()
