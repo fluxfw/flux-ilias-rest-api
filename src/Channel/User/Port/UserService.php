@@ -7,7 +7,6 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\CreateUserCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetAvatarPathCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetCurrentUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUserCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUsersCommand;
@@ -44,28 +43,6 @@ class UserService
         )
             ->createUser(
                 $diff
-            );
-    }
-
-
-    public function getAvatarPathById(int $id) : ?string
-    {
-        return GetAvatarPathCommand::new(
-            $this
-        )
-            ->getAvatarPathById(
-                $id
-            );
-    }
-
-
-    public function getAvatarPathByImportId(string $import_id) : ?string
-    {
-        return GetAvatarPathCommand::new(
-            $this
-        )
-            ->getAvatarPathByImportId(
-                $import_id
             );
     }
 
