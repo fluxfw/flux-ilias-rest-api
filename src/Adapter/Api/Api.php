@@ -10,6 +10,8 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
@@ -31,6 +33,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\File\Port\FileService;
+use Fluxlabs\FluxIliasRestApi\Channel\Group\Port\GroupService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Port\ObjectLearningProgressService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
@@ -49,6 +52,7 @@ class Api
     private ?CourseService $course = null;
     private ?CourseMemberService $course_member = null;
     private ?FileService $file = null;
+    private ?GroupService $group = null;
     private ?ObjectService $object = null;
     private ?ObjectLearningProgressService $object_learning_progress = null;
     private ?OrganisationalUnitService $organisational_unit = null;
@@ -440,6 +444,36 @@ class Api
     }
 
 
+    public function createGroupToId(int $parent_id, GroupDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getGroup()
+            ->createGroupToId(
+                $parent_id,
+                $diff
+            );
+    }
+
+
+    public function createGroupToImportId(string $parent_import_id, GroupDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getGroup()
+            ->createGroupToImportId(
+                $parent_import_id,
+                $diff
+            );
+    }
+
+
+    public function createGroupToRefId(int $parent_ref_id, GroupDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getGroup()
+            ->createGroupToRefId(
+                $parent_ref_id,
+                $diff
+            );
+    }
+
+
     public function createObjectToId(string $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -768,6 +802,40 @@ class Api
     {
         return $this->getFile()
             ->getFiles();
+    }
+
+
+    public function getGroupById(int $id) : ?GroupDto
+    {
+        return $this->getGroup()
+            ->getGroupById(
+                $id
+            );
+    }
+
+
+    public function getGroupByImportId(string $import_id) : ?GroupDto
+    {
+        return $this->getGroup()
+            ->getGroupByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getGroupByRefId(int $ref_id) : ?GroupDto
+    {
+        return $this->getGroup()
+            ->getGroupByRefId(
+                $ref_id
+            );
+    }
+
+
+    public function getGroups() : array
+    {
+        return $this->getGroup()
+            ->getGroups();
     }
 
 
@@ -1496,6 +1564,36 @@ class Api
     }
 
 
+    public function updateGroupById(int $id, GroupDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getGroup()
+            ->updateGroupById(
+                $id,
+                $diff
+            );
+    }
+
+
+    public function updateGroupByImportId(string $import_id, GroupDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getGroup()
+            ->updateGroupByImportId(
+                $import_id,
+                $diff
+            );
+    }
+
+
+    public function updateGroupByRefId(int $ref_id, GroupDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getGroup()
+            ->updateGroupByRefId(
+                $ref_id,
+                $diff
+            );
+    }
+
+
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -1796,6 +1894,19 @@ class Api
         );
 
         return $this->file;
+    }
+
+
+    private function getGroup() : GroupService
+    {
+        global $DIC;
+
+        $this->group ??= GroupService::new(
+            $DIC->database(),
+            $this->getObject()
+        );
+
+        return $this->group;
     }
 
 
