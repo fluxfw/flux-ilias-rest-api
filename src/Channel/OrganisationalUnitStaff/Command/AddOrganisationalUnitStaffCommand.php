@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\StaffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
@@ -33,7 +33,7 @@ class AddOrganisationalUnitStaffCommand
     }
 
 
-    public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->addOrganisationalUnitStaff(
             $this->organisational_unit->getOrganisationalUnitByExternalId(
@@ -49,7 +49,7 @@ class AddOrganisationalUnitStaffCommand
     }
 
 
-    public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->addOrganisationalUnitStaff(
             $this->organisational_unit->getOrganisationalUnitByExternalId(
@@ -65,7 +65,7 @@ class AddOrganisationalUnitStaffCommand
     }
 
 
-    public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->addOrganisationalUnitStaff(
             $this->organisational_unit->getOrganisationalUnitById(
@@ -81,7 +81,7 @@ class AddOrganisationalUnitStaffCommand
     }
 
 
-    public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->addOrganisationalUnitStaff(
             $this->organisational_unit->getOrganisationalUnitById(
@@ -97,7 +97,7 @@ class AddOrganisationalUnitStaffCommand
     }
 
 
-    public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->addOrganisationalUnitStaff(
             $this->organisational_unit->getOrganisationalUnitByRefId(
@@ -113,7 +113,7 @@ class AddOrganisationalUnitStaffCommand
     }
 
 
-    public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->addOrganisationalUnitStaff(
             $this->organisational_unit->getOrganisationalUnitByRefId(
@@ -129,7 +129,7 @@ class AddOrganisationalUnitStaffCommand
     }
 
 
-    private function addOrganisationalUnitStaff(?OrganisationalUnitDto $organisational_unit, ?UserDto $user, ?OrganisationalUnitPositionDto $organisational_unit_position) : ?StaffDto
+    private function addOrganisationalUnitStaff(?OrganisationalUnitDto $organisational_unit, ?UserDto $user, ?OrganisationalUnitPositionDto $organisational_unit_position) : ?OrganisationalUnitStaffDto
     {
         if ($organisational_unit === null || $user === null || $organisational_unit_position === null) {
             return null;
@@ -148,7 +148,7 @@ class AddOrganisationalUnitStaffCommand
             $ilias_organisational_unit_staff->store();
         }
 
-        return StaffDto::new(
+        return OrganisationalUnitStaffDto::new(
             $organisational_unit->getId(),
             $organisational_unit->getExternalId(),
             $organisational_unit->getRefId(),

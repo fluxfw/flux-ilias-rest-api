@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember;
 
 use JsonSerializable;
 
-class MemberDto implements JsonSerializable
+class CourseMemberDto implements JsonSerializable
 {
 
     private ?bool $access_refused;

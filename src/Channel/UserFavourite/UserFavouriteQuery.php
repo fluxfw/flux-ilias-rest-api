@@ -2,7 +2,7 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\UserFavourite;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\FavouriteDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 
@@ -46,9 +46,9 @@ ORDER BY object_data_user.obj_id ASC,object_data.obj_id ASC";
     }
 
 
-    private function mapUserFavouriteDto(array $user_favourite) : FavouriteDto
+    private function mapUserFavouriteDto(array $user_favourite) : UserFavouriteDto
     {
-        return FavouriteDto::new(
+        return UserFavouriteDto::new(
             $user_favourite["usr_id"] ?: null,
             $user_favourite["user_import_id"] ?: null,
             $user_favourite["obj_id"] ?: null,

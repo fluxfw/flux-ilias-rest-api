@@ -2,7 +2,7 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\Course;
 
-final class MailToMembersType
+final class CourseMailToMembersType
 {
 
     const ALL = "all";

@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\FavouriteDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use ilFavouritesDBRepository;
@@ -29,7 +29,7 @@ class RemoveUserFavouriteCommand
     }
 
 
-    public function removeUserFavouriteByIdByObjectId(int $id, int $object_id) : ?FavouriteDto
+    public function removeUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
         return $this->removeUserFavourite(
             $this->user->getUserById(
@@ -42,7 +42,7 @@ class RemoveUserFavouriteCommand
     }
 
 
-    public function removeUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?FavouriteDto
+    public function removeUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->removeUserFavourite(
             $this->user->getUserById(
@@ -55,7 +55,7 @@ class RemoveUserFavouriteCommand
     }
 
 
-    public function removeUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?FavouriteDto
+    public function removeUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->removeUserFavourite(
             $this->user->getUserById(
@@ -68,7 +68,7 @@ class RemoveUserFavouriteCommand
     }
 
 
-    public function removeUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?FavouriteDto
+    public function removeUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
         return $this->removeUserFavourite(
             $this->user->getUserByImportId(
@@ -81,7 +81,7 @@ class RemoveUserFavouriteCommand
     }
 
 
-    public function removeUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?FavouriteDto
+    public function removeUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->removeUserFavourite(
             $this->user->getUserByImportId(
@@ -94,7 +94,7 @@ class RemoveUserFavouriteCommand
     }
 
 
-    public function removeUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?FavouriteDto
+    public function removeUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->removeUserFavourite(
             $this->user->getUserByImportId(
@@ -107,7 +107,7 @@ class RemoveUserFavouriteCommand
     }
 
 
-    private function removeUserFavourite(?UserDto $user, ?ObjectDto $object) : ?FavouriteDto
+    private function removeUserFavourite(?UserDto $user, ?ObjectDto $object) : ?UserFavouriteDto
     {
         if ($user === null || $object === null) {
             return null;
@@ -117,7 +117,7 @@ class RemoveUserFavouriteCommand
             $this->favourite->remove($user->getId(), $object->getRefId());
         }
 
-        return FavouriteDto::new(
+        return UserFavouriteDto::new(
             $user->getId(),
             $user->getImportId(),
             $object->getId(),

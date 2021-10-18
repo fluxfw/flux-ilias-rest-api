@@ -160,7 +160,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
         }
 
         if ($diff->getMailToMembersType() !== null) {
-            $ilias_course->setMailToMembersType(MailToMembersTypeMapping::mapExternalToInternal(
+            $ilias_course->setMailToMembersType(CourseMailToMembersTypeMapping::mapExternalToInternal(
                 $diff->getMailToMembersType()
             ));
         }
@@ -275,7 +275,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             ),
             $course["show_members"] ?? false,
             $course["show_members_export"] ?? false,
-            MailToMembersTypeMapping::mapInternalToExternal(
+            CourseMailToMembersTypeMapping::mapInternalToExternal(
                 $course["mail_members_type"] ?? null
             ),
             $course["auto_notification"] ?? false,

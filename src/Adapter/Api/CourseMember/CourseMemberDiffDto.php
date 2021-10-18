@@ -2,7 +2,7 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember;
 
-class MemberDiffDto
+class CourseMemberDiffDto
 {
 
     private ?bool $access_refused;

@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\FavouriteDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use ilFavouritesDBRepository;
@@ -29,7 +29,7 @@ class AddUserFavouriteCommand
     }
 
 
-    public function addUserFavouriteByIdByObjectId(int $id, int $object_id) : ?FavouriteDto
+    public function addUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
         return $this->addUserFavourite(
             $this->user->getUserById(
@@ -42,7 +42,7 @@ class AddUserFavouriteCommand
     }
 
 
-    public function addUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?FavouriteDto
+    public function addUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->addUserFavourite(
             $this->user->getUserById(
@@ -55,7 +55,7 @@ class AddUserFavouriteCommand
     }
 
 
-    public function addUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?FavouriteDto
+    public function addUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->addUserFavourite(
             $this->user->getUserById(
@@ -68,7 +68,7 @@ class AddUserFavouriteCommand
     }
 
 
-    public function addUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?FavouriteDto
+    public function addUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
         return $this->addUserFavourite(
             $this->user->getUserByImportId(
@@ -81,7 +81,7 @@ class AddUserFavouriteCommand
     }
 
 
-    public function addUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?FavouriteDto
+    public function addUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->addUserFavourite(
             $this->user->getUserByImportId(
@@ -94,7 +94,7 @@ class AddUserFavouriteCommand
     }
 
 
-    public function addUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?FavouriteDto
+    public function addUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->addUserFavourite(
             $this->user->getUserByImportId(
@@ -107,7 +107,7 @@ class AddUserFavouriteCommand
     }
 
 
-    private function addUserFavourite(?UserDto $user, ?ObjectDto $object) : ?FavouriteDto
+    private function addUserFavourite(?UserDto $user, ?ObjectDto $object) : ?UserFavouriteDto
     {
         if ($user === null || $object === null) {
             return null;
@@ -117,7 +117,7 @@ class AddUserFavouriteCommand
             $this->favourite->add($user->getId(), $object->getRefId());
         }
 
-        return FavouriteDto::new(
+        return UserFavouriteDto::new(
             $user->getId(),
             $user->getImportId(),
             $object->getId(),

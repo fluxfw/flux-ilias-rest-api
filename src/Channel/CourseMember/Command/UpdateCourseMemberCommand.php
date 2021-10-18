@@ -3,8 +3,8 @@
 namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
@@ -32,7 +32,7 @@ class UpdateCourseMemberCommand
     }
 
 
-    public function updateCourseMemberByIdByUserId(int $id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->updateCourseMember(
             $this->course->getCourseById(
@@ -46,7 +46,7 @@ class UpdateCourseMemberCommand
     }
 
 
-    public function updateCourseMemberByIdByUserImportId(int $id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->updateCourseMember(
             $this->course->getCourseById(
@@ -60,7 +60,7 @@ class UpdateCourseMemberCommand
     }
 
 
-    public function updateCourseMemberByImportIdByUserId(string $import_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->updateCourseMember(
             $this->course->getCourseByImportId(
@@ -74,7 +74,7 @@ class UpdateCourseMemberCommand
     }
 
 
-    public function updateCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->updateCourseMember(
             $this->course->getCourseByImportId(
@@ -88,7 +88,7 @@ class UpdateCourseMemberCommand
     }
 
 
-    public function updateCourseMemberByRefIdByUserId(int $ref_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->updateCourseMember(
             $this->course->getCourseByRefId(
@@ -102,7 +102,7 @@ class UpdateCourseMemberCommand
     }
 
 
-    public function updateCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->updateCourseMember(
             $this->course->getCourseByRefId(
@@ -116,7 +116,7 @@ class UpdateCourseMemberCommand
     }
 
 
-    private function updateCourseMember(?CourseDto $course, ?UserDto $user, MemberDiffDto $diff) : ?MemberIdDto
+    private function updateCourseMember(?CourseDto $course, ?UserDto $user, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         if ($course === null || $user === null) {
             return null;
@@ -140,7 +140,7 @@ class UpdateCourseMemberCommand
             $ilias_course
         );
 
-        return MemberIdDto::new(
+        return CourseMemberIdDto::new(
             $course->getId(),
             $course->getImportId(),
             $course->getRefId(),

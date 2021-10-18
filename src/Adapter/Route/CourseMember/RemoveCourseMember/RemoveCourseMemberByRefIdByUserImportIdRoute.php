@@ -71,7 +71,7 @@ class RemoveCourseMemberByRefIdByUserImportIdRoute implements Route
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "Member not found"
+                    "Course member not found"
                 ),
                 Status::_404
             );

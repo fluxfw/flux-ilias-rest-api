@@ -3,7 +3,7 @@
 namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\CourseMember\UpdateCourseMember;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
 use Fluxlabs\FluxRestApi\Body\BodyType;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
 use Fluxlabs\FluxRestApi\Body\TextBodyDto;
@@ -73,7 +73,7 @@ class UpdateCourseMemberByIdByUserIdRoute implements Route
             $request->getParam(
                 "user_id"
             ),
-            MemberDiffDto::newFromData(
+            CourseMemberDiffDto::newFromData(
                 $request->getParsedBody()->getData()
             )
         );
@@ -87,7 +87,7 @@ class UpdateCourseMemberByIdByUserIdRoute implements Route
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "Member not found"
+                    "Course member not found"
                 ),
                 Status::_404
             );

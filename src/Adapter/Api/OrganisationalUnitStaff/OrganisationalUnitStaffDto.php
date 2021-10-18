@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff;
 
 use JsonSerializable;
 
-class StaffDto implements JsonSerializable
+class OrganisationalUnitStaffDto implements JsonSerializable
 {
 
     private ?string $organisational_unit_external_id;
