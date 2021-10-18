@@ -104,15 +104,15 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
         }
 
         if ($diff->getAvailabilityStart() !== null) {
-            $ilias_course->setActivationStart(!$diff->getAvailabilityStart());
+            $ilias_course->setActivationStart($diff->getAvailabilityStart());
         }
 
         if ($diff->getAvailabilityEnd() !== null) {
-            $ilias_course->setActivationEnd(!$diff->getAvailabilityEnd());
+            $ilias_course->setActivationEnd($diff->getAvailabilityEnd());
         }
 
         if ($diff->isAvailabilityAlwaysVisible() !== null) {
-            $ilias_course->setActivationVisibility(!$diff->isAvailabilityAlwaysVisible());
+            $ilias_course->setActivationVisibility($diff->isAvailabilityAlwaysVisible());
         }
 
         if ($diff->isCalendar() !== null) {
@@ -152,11 +152,11 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
         }
 
         if ($diff->isShowMembers() !== null) {
-            $ilias_course->setShowMembers(!$diff->isShowMembers());
+            $ilias_course->setShowMembers($diff->isShowMembers());
         }
 
         if ($diff->isShowMembersParticipantsList() !== null) {
-            $ilias_course->setShowMembersExport(!$diff->isShowMembersParticipantsList());
+            $ilias_course->setShowMembersExport($diff->isShowMembersParticipantsList());
         }
 
         if ($diff->getMailToMembersType() !== null) {
@@ -166,47 +166,47 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
         }
 
         if ($diff->isSendWelcomeEmail() !== null) {
-            $ilias_course->setAutoNotification(!$diff->isSendWelcomeEmail());
+            $ilias_course->setAutoNotification($diff->isSendWelcomeEmail());
         }
 
         if ($diff->isAddToFavourites() !== null) {
-            $ilias_course->setAboStatus(!$diff->isAddToFavourites());
+            $ilias_course->setAboStatus($diff->isAddToFavourites());
         }
 
         if ($diff->getImportantInformation() !== null) {
-            $ilias_course->setImportantInformation(!$diff->getImportantInformation());
+            $ilias_course->setImportantInformation($diff->getImportantInformation());
         }
 
         if ($diff->getSyllabus() !== null) {
-            $ilias_course->setSyllabus(!$diff->getSyllabus());
+            $ilias_course->setSyllabus($diff->getSyllabus());
         }
 
         if ($diff->getTargetGroup() !== null) {
-            $ilias_course->setTargetGroup(!$diff->getTargetGroup());
+            $ilias_course->setTargetGroup($diff->getTargetGroup());
         }
 
         if ($diff->getContactName() !== null) {
-            $ilias_course->setContactName(!$diff->getContactName());
+            $ilias_course->setContactName($diff->getContactName());
         }
 
         if ($diff->getContactResponsibility() !== null) {
-            $ilias_course->setContactResponsibility(!$diff->getContactResponsibility());
+            $ilias_course->setContactResponsibility($diff->getContactResponsibility());
         }
 
         if ($diff->getContactPhone() !== null) {
-            $ilias_course->setContactPhone(!$diff->getContactPhone());
+            $ilias_course->setContactPhone($diff->getContactPhone());
         }
 
         if ($diff->getContactEmail() !== null) {
-            $ilias_course->setContactEmail(!$diff->getContactEmail());
+            $ilias_course->setContactEmail($diff->getContactEmail());
         }
 
         if ($diff->getContactConsultation() !== null) {
-            $ilias_course->setContactConsultation(!$diff->getContactConsultation());
+            $ilias_course->setContactConsultation($diff->getContactConsultation());
         }
 
         if ($diff->getDidacticTemplateId() !== null) {
-            $ilias_course->applyDidacticTemplate(!$diff->getDidacticTemplateId());
+            $ilias_course->applyDidacticTemplate($diff->getDidacticTemplateId());
         }
     }
 

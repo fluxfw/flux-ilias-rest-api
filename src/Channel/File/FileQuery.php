@@ -75,7 +75,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
         }
 
         if ($diff->getDidacticTemplateId() !== null) {
-            $ilias_file->applyDidacticTemplate(!$diff->getDidacticTemplateId());
+            $ilias_file->applyDidacticTemplate($diff->getDidacticTemplateId());
         }
     }
 
