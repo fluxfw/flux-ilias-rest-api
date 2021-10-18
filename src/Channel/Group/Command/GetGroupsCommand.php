@@ -1,0 +1,32 @@
+<?php
+
+namespace Fluxlabs\FluxIliasRestApi\Channel\Group\Command;
+
+use Fluxlabs\FluxIliasRestApi\Channel\Group\GroupQuery;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
+use ilDBInterface;
+
+class GetGroupsCommand
+{
+
+    use GroupQuery;
+    use ObjectQuery;
+
+    private ilDBInterface $database;
+
+
+    public static function new(ilDBInterface $database) : /*static*/ self
+    {
+        $command = new static();
+
+        $command->database = $database;
+
+        return $command;
+    }
+
+
+    public function getGroups() : array
+    {
+        return array_map([$this, "mapGroupDto"], $this->database->fetchAll($this->database->query($this->getGroupQuery())));
+    }
+}
