@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\Course;
 
 use ilCourseConstants;
 
-final class InternalMailToMembersType
+final class InternalCourseMailToMembersType
 {
 
     const ALL = ilCourseConstants::MAIL_ALLOWED_ALL;

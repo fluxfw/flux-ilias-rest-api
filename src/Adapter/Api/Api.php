@@ -6,8 +6,8 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberIdDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
@@ -22,13 +22,13 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitI
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\StaffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\FavouriteDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
@@ -72,7 +72,7 @@ class Api
     }
 
 
-    public function addCourseMemberByIdByUserId(int $id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function addCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->addCourseMemberByIdByUserId(
@@ -83,7 +83,7 @@ class Api
     }
 
 
-    public function addCourseMemberByIdByUserImportId(int $id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function addCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->addCourseMemberByIdByUserImportId(
@@ -94,7 +94,7 @@ class Api
     }
 
 
-    public function addCourseMemberByImportIdByUserId(string $import_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function addCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->addCourseMemberByImportIdByUserId(
@@ -105,7 +105,7 @@ class Api
     }
 
 
-    public function addCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function addCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->addCourseMemberByImportIdByUserImportId(
@@ -116,7 +116,7 @@ class Api
     }
 
 
-    public function addCourseMemberByRefIdByUserId(int $ref_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function addCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->addCourseMemberByRefIdByUserId(
@@ -127,7 +127,7 @@ class Api
     }
 
 
-    public function addCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function addCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->addCourseMemberByRefIdByUserImportId(
@@ -138,7 +138,7 @@ class Api
     }
 
 
-    public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->addOrganisationalUnitStaffByExternalIdByUserId(
@@ -149,7 +149,7 @@ class Api
     }
 
 
-    public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->addOrganisationalUnitStaffByExternalIdByUserImportId(
@@ -160,7 +160,7 @@ class Api
     }
 
 
-    public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->addOrganisationalUnitStaffByIdByUserId(
@@ -171,7 +171,7 @@ class Api
     }
 
 
-    public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->addOrganisationalUnitStaffByIdByUserImportId(
@@ -182,7 +182,7 @@ class Api
     }
 
 
-    public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->addOrganisationalUnitStaffByRefIdByUserId(
@@ -193,7 +193,7 @@ class Api
     }
 
 
-    public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?StaffDto
+    public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->addOrganisationalUnitStaffByRefIdByUserImportId(
@@ -204,7 +204,7 @@ class Api
     }
 
 
-    public function addUserFavouriteByIdByObjectId(int $id, int $object_id) : ?FavouriteDto
+    public function addUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->addUserFavouriteByIdByObjectId(
@@ -214,7 +214,7 @@ class Api
     }
 
 
-    public function addUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?FavouriteDto
+    public function addUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->addUserFavouriteByIdByObjectImportId(
@@ -224,7 +224,7 @@ class Api
     }
 
 
-    public function addUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?FavouriteDto
+    public function addUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->addUserFavouriteByIdByObjectRefId(
@@ -234,7 +234,7 @@ class Api
     }
 
 
-    public function addUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?FavouriteDto
+    public function addUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->addUserFavouriteByImportIdByObjectId(
@@ -244,7 +244,7 @@ class Api
     }
 
 
-    public function addUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?FavouriteDto
+    public function addUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->addUserFavouriteByImportIdByObjectImportId(
@@ -254,7 +254,7 @@ class Api
     }
 
 
-    public function addUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?FavouriteDto
+    public function addUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->addUserFavouriteByImportIdByObjectRefId(
@@ -1202,7 +1202,7 @@ class Api
     }
 
 
-    public function removeCourseMemberByIdByUserId(int $id, int $user_id) : ?MemberIdDto
+    public function removeCourseMemberByIdByUserId(int $id, int $user_id) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->removeCourseMemberByIdByUserId(
@@ -1212,7 +1212,7 @@ class Api
     }
 
 
-    public function removeCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?MemberIdDto
+    public function removeCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->removeCourseMemberByIdByUserImportId(
@@ -1222,7 +1222,7 @@ class Api
     }
 
 
-    public function removeCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?MemberIdDto
+    public function removeCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->removeCourseMemberByImportIdByUserId(
@@ -1232,7 +1232,7 @@ class Api
     }
 
 
-    public function removeCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?MemberIdDto
+    public function removeCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->removeCourseMemberByImportIdByUserImportId(
@@ -1242,7 +1242,7 @@ class Api
     }
 
 
-    public function removeCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?MemberIdDto
+    public function removeCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->removeCourseMemberByRefIdByUserId(
@@ -1252,7 +1252,7 @@ class Api
     }
 
 
-    public function removeCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?MemberIdDto
+    public function removeCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->removeCourseMemberByRefIdByUserImportId(
@@ -1262,7 +1262,7 @@ class Api
     }
 
 
-    public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?StaffDto
+    public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->removeOrganisationalUnitStaffByExternalIdByUserId(
@@ -1273,7 +1273,7 @@ class Api
     }
 
 
-    public function removeOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?StaffDto
+    public function removeOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->removeOrganisationalUnitStaffByExternalIdByUserImportId(
@@ -1284,7 +1284,7 @@ class Api
     }
 
 
-    public function removeOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?StaffDto
+    public function removeOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->removeOrganisationalUnitStaffByIdByUserId(
@@ -1295,7 +1295,7 @@ class Api
     }
 
 
-    public function removeOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?StaffDto
+    public function removeOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->removeOrganisationalUnitStaffByIdByUserImportId(
@@ -1306,7 +1306,7 @@ class Api
     }
 
 
-    public function removeOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?StaffDto
+    public function removeOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->removeOrganisationalUnitStaffByRefIdByUserId(
@@ -1317,7 +1317,7 @@ class Api
     }
 
 
-    public function removeOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?StaffDto
+    public function removeOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
             ->removeOrganisationalUnitStaffByRefIdByUserImportId(
@@ -1328,7 +1328,7 @@ class Api
     }
 
 
-    public function removeUserFavouriteByIdByObjectId(int $id, int $object_id) : ?FavouriteDto
+    public function removeUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->removeUserFavouriteByIdByObjectId(
@@ -1338,7 +1338,7 @@ class Api
     }
 
 
-    public function removeUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?FavouriteDto
+    public function removeUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->removeUserFavouriteByIdByObjectImportId(
@@ -1348,7 +1348,7 @@ class Api
     }
 
 
-    public function removeUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?FavouriteDto
+    public function removeUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->removeUserFavouriteByIdByObjectRefId(
@@ -1358,7 +1358,7 @@ class Api
     }
 
 
-    public function removeUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?FavouriteDto
+    public function removeUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->removeUserFavouriteByImportIdByObjectId(
@@ -1368,7 +1368,7 @@ class Api
     }
 
 
-    public function removeUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?FavouriteDto
+    public function removeUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->removeUserFavouriteByImportIdByObjectImportId(
@@ -1378,7 +1378,7 @@ class Api
     }
 
 
-    public function removeUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?FavouriteDto
+    public function removeUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
         return $this->getUserFavourite()
             ->removeUserFavouriteByImportIdByObjectRefId(
@@ -1468,7 +1468,7 @@ class Api
     }
 
 
-    public function updateCourseMemberByIdByUserId(int $id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->updateCourseMemberByIdByUserId(
@@ -1479,7 +1479,7 @@ class Api
     }
 
 
-    public function updateCourseMemberByIdByUserImportId(int $id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->updateCourseMemberByIdByUserImportId(
@@ -1490,7 +1490,7 @@ class Api
     }
 
 
-    public function updateCourseMemberByImportIdByUserId(string $import_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->updateCourseMemberByImportIdByUserId(
@@ -1501,7 +1501,7 @@ class Api
     }
 
 
-    public function updateCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->updateCourseMemberByImportIdByUserImportId(
@@ -1512,7 +1512,7 @@ class Api
     }
 
 
-    public function updateCourseMemberByRefIdByUserId(int $ref_id, int $user_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->updateCourseMemberByRefIdByUserId(
@@ -1523,7 +1523,7 @@ class Api
     }
 
 
-    public function updateCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, MemberDiffDto $diff) : ?MemberIdDto
+    public function updateCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->getCourseMember()
             ->updateCourseMemberByRefIdByUserImportId(

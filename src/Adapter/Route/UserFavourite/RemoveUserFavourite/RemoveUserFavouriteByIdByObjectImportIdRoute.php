@@ -71,7 +71,7 @@ class RemoveUserFavouriteByIdByObjectImportIdRoute implements Route
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "Favourite not found"
+                    "User favourite not found"
                 ),
                 Status::_404
             );

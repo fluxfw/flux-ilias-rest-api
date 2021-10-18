@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite;
 
 use JsonSerializable;
 
-class FavouriteDto implements JsonSerializable
+class UserFavouriteDto implements JsonSerializable
 {
 
     private ?int $object_id;

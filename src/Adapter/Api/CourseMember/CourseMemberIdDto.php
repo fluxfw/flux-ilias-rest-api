@@ -4,7 +4,7 @@ namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember;
 
 use JsonSerializable;
 
-class MemberIdDto implements JsonSerializable
+class CourseMemberIdDto implements JsonSerializable
 {
 
     private ?int $course_id;

@@ -2,7 +2,7 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\StaffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilOrgUnitUserAssignment;
@@ -68,9 +68,9 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,position_id ASC";
     }
 
 
-    private function mapOrganisationalUnitStaffDto(array $organisational_unit_staff) : StaffDto
+    private function mapOrganisationalUnitStaffDto(array $organisational_unit_staff) : OrganisationalUnitStaffDto
     {
-        return StaffDto::new(
+        return OrganisationalUnitStaffDto::new(
             $organisational_unit_staff["obj_id"] ?: null,
             $organisational_unit_staff["import_id"] ?? "",
             $organisational_unit_staff["ref_id"] ?: null,

@@ -74,7 +74,7 @@ class RemoveOrganisationalUnitStaffByIdByUserImportIdRoute implements Route
         } else {
             return ResponseDto::new(
                 TextBodyDto::new(
-                    "Staff not found"
+                    "Organisational unit staff not found"
                 ),
                 Status::_404
             );

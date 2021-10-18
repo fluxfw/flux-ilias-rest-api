@@ -2,8 +2,8 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\MemberDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
 use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
 use ilDBConstants;
@@ -100,7 +100,7 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC";
     }
 
 
-    private function mapCourseMemberDiff(MemberDiffDto $diff, int $user_id, ilObjCourse $ilias_course) : void
+    private function mapCourseMemberDiff(CourseMemberDiffDto $diff, int $user_id, ilObjCourse $ilias_course) : void
     {
         $roles = [
             InternalCourseMemberType::ADMINISTRATOR => $diff->isAdministratorRole() !== null ? $diff->isAdministratorRole() : $ilias_course->getMembersObject()->isAdmin($user_id),
@@ -108,7 +108,7 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC";
             InternalCourseMemberType::MEMBER        => $diff->isMemberRole() !== null ? $diff->isMemberRole() : $ilias_course->getMembersObject()->isMember($user_id)
         ];
         if (empty($roles = array_filter($roles))) {
-            throw new LogicException("Member must have at least one role");
+            throw new LogicException("Course member must have at least one role");
         }
         if (!$ilias_course->getMembersObject()->isAssigned($user_id)) {
             $ilias_course->getMembersObject()->add($user_id, array_key_first($roles));
@@ -133,7 +133,7 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC";
         if ($roles[InternalCourseMemberType::ADMINISTRATOR] || $roles[InternalCourseMemberType::TUTOR]) {
             $ilias_course->getMembersObject()->updateBlocked($user_id, false);
 
-            $ilias_course->getMembersObject()->updateContact($user_id, $diff->isAccessRefused() !== null ? $diff->isAccessRefused() : $ilias_course->getMembersObject()->isContact($user_id));
+            $ilias_course->getMembersObject()->updateContact($user_id, $diff->isTutorialSupport() !== null ? $diff->isTutorialSupport() : $ilias_course->getMembersObject()->isContact($user_id));
 
             $ilias_course->getMembersObject()
                 ->updateNotification($user_id, $diff->isNotification() !== null ? $diff->isNotification() : $ilias_course->getMembersObject()->isNotificationEnabled($user_id));
@@ -147,9 +147,9 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC";
     }
 
 
-    private function mapCourseMemberDto(array $course_member) : MemberDto
+    private function mapCourseMemberDto(array $course_member) : CourseMemberDto
     {
-        return MemberDto::new(
+        return CourseMemberDto::new(
             $course_member["obj_id"] ?: null,
             $course_member["import_id"] ?: null,
             $course_member["ref_id"] ?: null,
