@@ -12,6 +12,8 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
@@ -34,6 +36,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\File\Port\FileService;
 use Fluxlabs\FluxIliasRestApi\Channel\Group\Port\GroupService;
+use Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Port\GroupMemberService;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Port\ObjectLearningProgressService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
@@ -53,6 +56,7 @@ class Api
     private ?CourseMemberService $course_member = null;
     private ?FileService $file = null;
     private ?GroupService $group = null;
+    private ?GroupMemberService $group_member = null;
     private ?ObjectService $object = null;
     private ?ObjectLearningProgressService $object_learning_progress = null;
     private ?OrganisationalUnitService $organisational_unit = null;
@@ -131,6 +135,72 @@ class Api
     {
         return $this->getCourseMember()
             ->addCourseMemberByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function addGroupMemberByIdByUserId(int $id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->addGroupMemberByIdByUserId(
+                $id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function addGroupMemberByIdByUserImportId(int $id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->addGroupMemberByIdByUserImportId(
+                $id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function addGroupMemberByImportIdByUserId(string $import_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->addGroupMemberByImportIdByUserId(
+                $import_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function addGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->addGroupMemberByImportIdByUserImportId(
+                $import_id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function addGroupMemberByRefIdByUserId(int $ref_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->addGroupMemberByRefIdByUserId(
+                $ref_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function addGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->addGroupMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
                 $diff
@@ -832,6 +902,34 @@ class Api
     }
 
 
+    public function getGroupMembers(
+        ?int $group_id = null,
+        ?string $group_import_id = null,
+        ?int $group_ref_id = null,
+        ?int $user_id = null,
+        ?string $user_import_id = null,
+        ?bool $member_role = null,
+        ?bool $administrator_role = null,
+        ?string $learning_progress = null,
+        ?bool $tutorial_support = null,
+        ?bool $notification = null
+    ) : array {
+        return $this->getGroupMember()
+            ->getGroupMembers(
+                $group_id,
+                $group_import_id,
+                $group_ref_id,
+                $user_id,
+                $user_import_id,
+                $member_role,
+                $administrator_role,
+                $learning_progress,
+                $tutorial_support,
+                $notification
+            );
+    }
+
+
     public function getGroups() : array
     {
         return $this->getGroup()
@@ -1262,6 +1360,66 @@ class Api
     }
 
 
+    public function removeGroupMemberByIdByUserId(int $id, int $user_id) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->removeGroupMemberByIdByUserId(
+                $id,
+                $user_id
+            );
+    }
+
+
+    public function removeGroupMemberByIdByUserImportId(int $id, string $user_import_id) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->removeGroupMemberByIdByUserImportId(
+                $id,
+                $user_import_id
+            );
+    }
+
+
+    public function removeGroupMemberByImportIdByUserId(string $import_id, int $user_id) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->removeGroupMemberByImportIdByUserId(
+                $import_id,
+                $user_id
+            );
+    }
+
+
+    public function removeGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->removeGroupMemberByImportIdByUserImportId(
+                $import_id,
+                $user_import_id
+            );
+    }
+
+
+    public function removeGroupMemberByRefIdByUserId(int $ref_id, int $user_id) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->removeGroupMemberByRefIdByUserId(
+                $ref_id,
+                $user_id
+            );
+    }
+
+
+    public function removeGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->removeGroupMemberByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id
+            );
+    }
+
+
     public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->getOrganisationalUnitStaff_()
@@ -1594,6 +1752,72 @@ class Api
     }
 
 
+    public function updateGroupMemberByIdByUserId(int $id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->updateGroupMemberByIdByUserId(
+                $id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function updateGroupMemberByIdByUserImportId(int $id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->updateGroupMemberByIdByUserImportId(
+                $id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function updateGroupMemberByImportIdByUserId(string $import_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->updateGroupMemberByImportIdByUserId(
+                $import_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function updateGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->updateGroupMemberByImportIdByUserImportId(
+                $import_id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
+    public function updateGroupMemberByRefIdByUserId(int $ref_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->updateGroupMemberByRefIdByUserId(
+                $ref_id,
+                $user_id,
+                $diff
+            );
+    }
+
+
+    public function updateGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
+    {
+        return $this->getGroupMember()
+            ->updateGroupMemberByRefIdByUserImportId(
+                $ref_id,
+                $user_import_id,
+                $diff
+            );
+    }
+
+
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
@@ -1907,6 +2131,20 @@ class Api
         );
 
         return $this->group;
+    }
+
+
+    private function getGroupMember() : GroupMemberService
+    {
+        global $DIC;
+
+        $this->group_member ??= GroupMemberService::new(
+            $DIC->database(),
+            $this->getGroup(),
+            $this->getUser()
+        );
+
+        return $this->group_member;
     }
 
 
