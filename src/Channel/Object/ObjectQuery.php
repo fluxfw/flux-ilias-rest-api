@@ -54,7 +54,13 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
 
     private function getObjectIconUrl(int $id, ?string $type = null) : string
     {
-        return ILIAS_HTTP_PATH . "/" . ilObject::_getIcon($id, "big", $type ?? "");
+        $icon = ilObject::_getIcon($id, "big", $type ?? "");
+
+        if (str_starts_with($icon, "./")) {
+            $icon = substr($icon, 2);
+        }
+
+        return ILIAS_HTTP_PATH . "/" . $icon;
     }
 
 
