@@ -33,6 +33,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
 use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
@@ -49,6 +50,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModu
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Port\UserFavouriteService;
 use Fluxlabs\FluxIliasRestApi\Channel\UserMail\Port\UserMailService;
+use Fluxlabs\FluxIliasRestApi\Channel\UserRole\Port\UserRoleService;
 use ilFavouritesDBRepository;
 
 class Api
@@ -70,6 +72,7 @@ class Api
     private ?UserService $user = null;
     private ?UserFavouriteService $user_favourite = null;
     private ?UserMailService $user_mail = null;
+    private ?UserRoleService $user_role = null;
 
 
     public static function new() : /*static*/ self
@@ -334,6 +337,46 @@ class Api
             ->addUserFavouriteByImportIdByObjectRefId(
                 $import_id,
                 $object_ref_id
+            );
+    }
+
+
+    public function addUserRoleByIdByRoleId(int $id, int $role_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->addUserRoleByIdByRoleId(
+                $id,
+                $role_id
+            );
+    }
+
+
+    public function addUserRoleByIdByRoleImportId(int $id, string $role_import_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->addUserRoleByIdByRoleImportId(
+                $id,
+                $role_import_id
+            );
+    }
+
+
+    public function addUserRoleByImportIdByRoleId(string $import_id, int $role_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->addUserRoleByImportIdByRoleId(
+                $import_id,
+                $role_id
+            );
+    }
+
+
+    public function addUserRoleByImportIdByRoleImportId(string $import_id, string $role_import_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->addUserRoleByImportIdByRoleImportId(
+                $import_id,
+                $role_import_id
             );
     }
 
@@ -1264,6 +1307,18 @@ class Api
     }
 
 
+    public function getUserRoles(?int $user_id = null, ?string $user_import_id = null, ?int $role_id = null, ?string $role_import_id = null) : array
+    {
+        return $this->getUserRole()
+            ->getUserRoles(
+                $user_id,
+                $user_import_id,
+                $role_id,
+                $role_import_id
+            );
+    }
+
+
     public function getUsers(bool $access_limited_object_ids = false, bool $multi_fields = false, bool $preferences = false, bool $user_defined_fields = false) : array
     {
         return $this->getUser()
@@ -1608,6 +1663,46 @@ class Api
             ->removeUserFavouriteByImportIdByObjectRefId(
                 $import_id,
                 $object_ref_id
+            );
+    }
+
+
+    public function removeUserRoleByIdByRoleId(int $id, int $role_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->removeUserRoleByIdByRoleId(
+                $id,
+                $role_id
+            );
+    }
+
+
+    public function removeUserRoleByIdByRoleImportId(int $id, string $role_import_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->removeUserRoleByIdByRoleImportId(
+                $id,
+                $role_import_id
+            );
+    }
+
+
+    public function removeUserRoleByImportIdByRoleId(string $import_id, int $role_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->removeUserRoleByImportIdByRoleId(
+                $import_id,
+                $role_id
+            );
+    }
+
+
+    public function removeUserRoleByImportIdByRoleImportId(string $import_id, string $role_import_id) : ?UserRoleDto
+    {
+        return $this->getUserRole()
+            ->removeUserRoleByImportIdByRoleImportId(
+                $import_id,
+                $role_import_id
             );
     }
 
@@ -2366,5 +2461,20 @@ class Api
         );
 
         return $this->user_mail;
+    }
+
+
+    private function getUserRole() : UserRoleService
+    {
+        global $DIC;
+
+        $this->user_role ??= UserRoleService::new(
+            $DIC->database(),
+            $this->getUser(),
+            $this->getRole(),
+            $DIC->rbac()
+        );
+
+        return $this->user_role;
     }
 }
