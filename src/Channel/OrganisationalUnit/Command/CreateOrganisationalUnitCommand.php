@@ -61,7 +61,7 @@ class CreateOrganisationalUnitCommand
 
     private function createOrganisationalUnit(?OrganisationalUnitDto $parent_organisational_unit, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
-        if ($parent_organisational_unit === null) {
+        if ($parent_organisational_unit === null || $parent_organisational_unit->getRefId() === null) {
             return null;
         }
 

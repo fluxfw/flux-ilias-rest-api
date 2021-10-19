@@ -61,7 +61,7 @@ class CreateCategoryCommand
 
     private function createCategory(?ObjectDto $parent_object, CategoryDiffDto $diff) : ?ObjectIdDto
     {
-        if ($parent_object === null) {
+        if ($parent_object === null || $parent_object->getRefId() === null) {
             return null;
         }
 

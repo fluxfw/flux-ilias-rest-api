@@ -25,6 +25,8 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\Organisatio
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionIdDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
@@ -42,6 +44,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Port\ObjectLearning
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
 use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port\OrganisationalUnitStaffService;
+use Fluxlabs\FluxIliasRestApi\Channel\Role\Port\RoleService;
 use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
 use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
 use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Port\UserFavouriteService;
@@ -62,6 +65,7 @@ class Api
     private ?OrganisationalUnitService $organisational_unit = null;
     private ?OrganisationalUnitPositionService $organisational_unit_position = null;
     private ?OrganisationalUnitStaffService $organisational_unit_staff = null;
+    private ?RoleService $role = null;
     private ?ScormLearningModuleService $scorm_learning_module = null;
     private ?UserService $user = null;
     private ?UserFavouriteService $user_favourite = null;
@@ -616,6 +620,36 @@ class Api
     }
 
 
+    public function createRoleToId(int $parent_id, RoleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getRole()
+            ->createRoleToId(
+                $parent_id,
+                $diff
+            );
+    }
+
+
+    public function createRoleToImportId(string $parent_import_id, RoleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getRole()
+            ->createRoleToImportId(
+                $parent_import_id,
+                $diff
+            );
+    }
+
+
+    public function createRoleToRefId(int $parent_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getRole()
+            ->createRoleToRefId(
+                $parent_ref_id,
+                $diff
+            );
+    }
+
+
     public function createScormLearningModuleToId(int $parent_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getScormLearningModule()
@@ -875,6 +909,13 @@ class Api
     }
 
 
+    public function getGlobalRoleObject() : ?ObjectDto
+    {
+        return $this->getRole()
+            ->getGlobalRoleObject();
+    }
+
+
     public function getGroupById(int $id) : ?GroupDto
     {
         return $this->getGroup()
@@ -1105,6 +1146,31 @@ class Api
             ->getPathByRefId(
                 $ref_id
             );
+    }
+
+
+    public function getRoleById(int $id) : ?RoleDto
+    {
+        return $this->getRole()
+            ->getRoleById(
+                $id
+            );
+    }
+
+
+    public function getRoleByImportId(string $import_id) : ?RoleDto
+    {
+        return $this->getRole()
+            ->getRoleByImportId(
+                $import_id
+            );
+    }
+
+
+    public function getRoles() : array
+    {
+        return $this->getRole()
+            ->getRoles();
     }
 
 
@@ -1954,6 +2020,26 @@ class Api
     }
 
 
+    public function updateRoleById(int $id, RoleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getRole()
+            ->updateRoleById(
+                $id,
+                $diff
+            );
+    }
+
+
+    public function updateRoleByImportId(string $import_id, RoleDiffDto $diff) : ?ObjectIdDto
+    {
+        return $this->getRole()
+            ->updateRoleByImportId(
+                $import_id,
+                $diff
+            );
+    }
+
+
     public function updateScormLearningModuleById(int $id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getScormLearningModule()
@@ -2211,6 +2297,20 @@ class Api
         );
 
         return $this->organisational_unit_staff;
+    }
+
+
+    private function getRole() : RoleService
+    {
+        global $DIC;
+
+        $this->role ??= RoleService::new(
+            $DIC->database(),
+            $this->getObject(),
+            $DIC->rbac()
+        );
+
+        return $this->role;
     }
 
 

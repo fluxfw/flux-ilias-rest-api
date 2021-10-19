@@ -64,7 +64,7 @@ class CreateObjectCommand
 
     private function createObject(string $type, ?ObjectDto $parent_object, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        if ($parent_object === null) {
+        if ($parent_object === null || $parent_object->getRefId() === null) {
             return null;
         }
 

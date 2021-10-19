@@ -39,6 +39,7 @@ final class InternalObjectType
     const PRGR = "prgr";
     const PRTT = "prtt";
     const QPL = "qpl";
+    const ROLE = "role";
     const ROOT = "root";
     const SAHS = "sahs";
     const SESS = "sess";
