@@ -61,7 +61,7 @@ class CreateGroupCommand
 
     private function createGroup(?ObjectDto $parent_object, GroupDiffDto $diff) : ?ObjectIdDto
     {
-        if ($parent_object === null) {
+        if ($parent_object === null || $parent_object->getRefId() === null) {
             return null;
         }
 

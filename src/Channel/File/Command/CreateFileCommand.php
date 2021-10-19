@@ -61,7 +61,7 @@ class CreateFileCommand
 
     private function createFile(?ObjectDto $parent_object, FileDiffDto $diff) : ?ObjectIdDto
     {
-        if ($parent_object === null) {
+        if ($parent_object === null || $parent_object->getRefId() === null) {
             return null;
         }
 

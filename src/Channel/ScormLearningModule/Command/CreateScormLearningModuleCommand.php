@@ -62,7 +62,7 @@ class CreateScormLearningModuleCommand
 
     private function createScormLearningModule(?ObjectDto $parent_object, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
-        if ($parent_object === null) {
+        if ($parent_object === null || $parent_object->getRefId() === null) {
             return null;
         }
 

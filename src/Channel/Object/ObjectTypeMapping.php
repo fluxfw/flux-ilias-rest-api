@@ -43,6 +43,7 @@ final class ObjectTypeMapping
             InternalObjectType::PRGR => ObjectType::LINK_TO_STUDY_PROGRAMME,
             InternalObjectType::PRTT => ObjectType::PORTFOLIO_TEMPLATE,
             InternalObjectType::QPL  => ObjectType::QUESTION_POOL_TEST,
+            InternalObjectType::ROLE => ObjectType::ROLE,
             InternalObjectType::ROOT => ObjectType::ROOT,
             InternalObjectType::SAHS => ObjectType::SCORM_LEARNING_MODULE,
             InternalObjectType::SESS => ObjectType::SESSION,

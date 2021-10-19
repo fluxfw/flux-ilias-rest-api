@@ -37,6 +37,7 @@ final class ObjectType
     const PORTFOLIO_TEMPLATE = "portfolio_template";
     const QUESTION_POOL_SURVEY = "question_pool_survey";
     const QUESTION_POOL_TEST = "question_pool_test";
+    const ROLE = "role";
     const ROOT = "root";
     const SCORM_LEARNING_MODULE = "scorm_learning_module";
     const SESSION = "session";

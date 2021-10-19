@@ -61,7 +61,7 @@ class CreateCourseCommand
 
     private function createCourse(?ObjectDto $parent_object, CourseDiffDto $diff) : ?ObjectIdDto
     {
-        if ($parent_object === null) {
+        if ($parent_object === null || $parent_object->getRefId() === null) {
             return null;
         }
 
