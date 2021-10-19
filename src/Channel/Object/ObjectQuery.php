@@ -104,8 +104,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function getObjectUrl(int $ref_id, ?string $type = null) : string
+    private function getObjectUrl(?int $ref_id, ?string $type = null) : ?string
     {
+        if ($ref_id === null) {
+            return null;
+        }
+
         return ilLink::_getStaticLink($ref_id, $type ?? "");
     }
 
