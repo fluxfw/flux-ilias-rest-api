@@ -15,43 +15,18 @@ use LogicException;
 trait UserQuery
 {
 
-    private function getAccessLimitedObjects(array $ref_ids) : string
-    {
-        return "SELECT object_data.obj_id,import_id,object_reference.ref_id
-FROM object_data
-INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
-WHERE " . $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
-    }
-
-
     private function getIliasUser(int $id) : ?ilObjUser
     {
         return new ilObjUser($id);
     }
 
 
-    private function getMultiFieldQuery(array $ids) : string
+    private function getUserAccessLimitedObjects(array $ref_ids) : string
     {
-        return "SELECT usr_id,field_id,value
-FROM usr_data_multi
-WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
-    }
-
-
-    private function getPreferenceQuery(array $ids) : string
-    {
-        return "SELECT usr_id,keyword,value
-FROM usr_pref
-WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
-    }
-
-
-    private function getSessionQuery(string $session_id) : string
-    {
-        return "SELECT user_id
-FROM usr_session
-WHERE session_id=" . $this->database->quote($session_id,
-                ilDBConstants::T_TEXT);
+        return "SELECT object_data.obj_id,import_id,object_reference.ref_id
+FROM object_data
+INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+WHERE " . $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
     }
 
 
@@ -75,6 +50,22 @@ HAVING " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER);
     }
 
 
+    private function getUserMultiFieldQuery(array $ids) : string
+    {
+        return "SELECT usr_id,field_id,value
+FROM usr_data_multi
+WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
+    }
+
+
+    private function getUserPreferenceQuery(array $ids) : string
+    {
+        return "SELECT usr_id,keyword,value
+FROM usr_pref
+WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
+    }
+
+
     private function getUserQuery(?int $id = null, ?string $import_id = null) : string
     {
         $wheres = [
@@ -94,6 +85,15 @@ FROM usr_data
 INNER JOIN object_data ON usr_data.usr_id=object_data.obj_id
 WHERE " . implode(" AND ", $wheres) . "
 ORDER BY login ASC";
+    }
+
+
+    private function getUserSessionQuery(string $session_id) : string
+    {
+        return "SELECT user_id
+FROM usr_session
+WHERE session_id=" . $this->database->quote($session_id,
+                ilDBConstants::T_TEXT);
     }
 
 
@@ -345,14 +345,14 @@ ORDER BY login ASC";
 
     private function mapUserDto(array $user, ?array $access_limited_object_ids = null, ?array $multi_fields = null, ?array $preferences = null, ?array $user_defined_fields = null) : UserDto
     {
-        $getAccessLimitedObjectId = fn(string $id)/* : mixed*/ => $access_limited_object_ids !== null ? current(array_map(fn(array $access_limited_object_id
+        $getUserAccessLimitedObjectId = fn(string $id)/* : mixed*/ => $access_limited_object_ids !== null ? current(array_map(fn(array $access_limited_object_id
         )/* : mixed*/ => $access_limited_object_id[$id] ?: null,
             array_filter($access_limited_object_ids, fn(array $access_limited_object_id) : bool => $access_limited_object_id["ref_id"] === $user["time_limit_owner"]))) : null;
 
-        $getMultiField = fn(string $field) : ?array => $multi_fields !== null ? array_values(array_map(fn(array $multi_field)/* : mixed*/ => $multi_field["value"],
+        $getUserMultiField = fn(string $field) : ?array => $multi_fields !== null ? array_values(array_map(fn(array $multi_field)/* : mixed*/ => $multi_field["value"],
             array_filter($multi_fields, fn(array $multi_field) : bool => $multi_field["usr_id"] === $user["usr_id"] && $multi_field["field_id"] === $field))) : null;
 
-        $getPreference = fn(string $field)/* : mixed*/ => $preferences !== null ? current(array_map(fn(array $preference)/* : mixed*/ => $preference["value"],
+        $getUserPreference = fn(string $field)/* : mixed*/ => $preferences !== null ? current(array_map(fn(array $preference)/* : mixed*/ => $preference["value"],
             array_filter($preferences, fn(array $preference) : bool => $preference["usr_id"] === $user["usr_id"] && $preference["keyword"] === $field))) : null;
 
         return UserDto::new(
@@ -372,10 +372,10 @@ ORDER BY login ASC";
             $user["time_limit_unlimited"] ?? false,
             strtotime($user["time_limit_from"] ?? null) ?: null,
             strtotime($user["time_limit_until"] ?? null) ?: null,
-            $getAccessLimitedObjectId(
+            $getUserAccessLimitedObjectId(
                 "obj_id"
             ),
-            $getAccessLimitedObjectId(
+            $getUserAccessLimitedObjectId(
                 "import_id"
             ),
             $user["time_limit_owner"] ?: null,
@@ -387,7 +387,7 @@ ORDER BY login ASC";
             $user["lastname"] ?? "",
             $user["title"] ?? "",
             $this->getUserAvatarUrl(
-                $getPreference(
+                $getUserPreference(
                     "profile_image"
                 )
             ),
@@ -409,13 +409,13 @@ ORDER BY login ASC";
             $user["second_email"] ?? "",
             $user["hobby"] ?? "",
             $user["referral_comment"] ?? "",
-            $getMultiField(
+            $getUserMultiField(
                 "interests_general"
             ),
-            $getMultiField(
+            $getUserMultiField(
                 "interests_help_offered"
             ),
-            $getMultiField(
+            $getUserMultiField(
                 "interests_help_looking"
             ),
             $user["matriculation"] ?? "",
@@ -429,7 +429,7 @@ ORDER BY login ASC";
                 $user_defined_field["value"] ?? null
             ), array_filter($user_defined_fields, fn(array $user_defined_field) : bool => $user_defined_field["usr_id"] === $user["usr_id"]))) : null,
             UserLanguageMapping::mapInternalToExternal(
-                $getPreference(
+                $getUserPreference(
                     "language"
                 )
             )

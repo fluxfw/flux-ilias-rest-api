@@ -20,7 +20,7 @@ class OrganisationalUnitPositionDiffDto
                 $authority->id ?? null,
                 $authority->over_position_id ?? null,
                 $authority->scope_in ?? null
-            ), $authorities) : null,
+            ), $authorities) : null
         );
     }
 

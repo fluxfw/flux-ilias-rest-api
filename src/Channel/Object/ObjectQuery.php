@@ -12,7 +12,17 @@ use ilObjectFactory;
 trait ObjectQuery
 {
 
-    private function getChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
+    private function getIliasObject(int $id, ?int $ref_id = null) : ?ilObject
+    {
+        if ($ref_id !== null) {
+            return ilObjectFactory::getInstanceByRefId($ref_id, false) ?: null;
+        } else {
+            return ilObjectFactory::getInstanceByObjId($id, false) ?: null;
+        }
+    }
+
+
+    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
             "object_reference.deleted IS NULL",
@@ -38,17 +48,8 @@ INNER JOIN tree ON object_reference.ref_id=tree.parent
 INNER JOIN object_reference AS object_reference_child ON tree.child=object_reference_child.ref_id
 INNER JOIN object_data AS object_data_child ON object_reference_child.obj_id=object_data_child.obj_id
 WHERE " . implode(" AND ", $wheres) . "
-ORDER BY object_data_child.title ASC,object_data_child.create_date ASC";
-    }
-
-
-    private function getIliasObject(int $id, ?int $ref_id = null) : ?ilObject
-    {
-        if ($ref_id !== null) {
-            return ilObjectFactory::getInstanceByRefId($ref_id, false) ?: null;
-        } else {
-            return ilObjectFactory::getInstanceByObjId($id, false) ?: null;
-        }
+GROUP BY object_data_child.obj_id
+ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_reference_child.ref_id ASC";
     }
 
 
@@ -100,7 +101,18 @@ LEFT JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
 WHERE " . implode(" AND ", $wheres) . "
-ORDER BY object_data.title ASC,object_data.create_date ASC";
+GROUP BY object_data.obj_id
+ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_id ASC";
+    }
+
+
+    private function getObjectRefIdsQuery(array $ids) : string
+    {
+        return "SELECT object_data.obj_id,object_reference.ref_id
+FROM object_data
+INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
+WHERE " . $this->database->in("object_data.obj_id", $ids, false, ilDBConstants::T_INTEGER) . "
+ORDER BY object_reference.ref_id ASC";
     }
 
 
@@ -138,12 +150,14 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
     }
 
 
-    private function mapObjectDto(array $object) : ObjectDto
+    private function mapObjectDto(array $object, ?array $ref_ids = null) : ObjectDto
     {
         return ObjectDto::new(
             $object["obj_id"] ?: null,
             $object["import_id"] ?: null,
             $object["ref_id"] ?: null,
+            $ref_ids !== null ? array_values(array_map(fn(array $object_ref_id) : int => $object_ref_id["ref_id"] ?: null,
+                array_filter($ref_ids, fn(array $object_ref_id) : bool => $object_ref_id["obj_id"] === $object["obj_id"]))) : null,
             ObjectTypeMapping::mapInternalToExternal(
                 $object["type"] ?? null
             ),
@@ -168,6 +182,6 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $type
         ));
 
-        return new $class;
+        return new $class();
     }
 }

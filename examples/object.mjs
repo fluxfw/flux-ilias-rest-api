@@ -41,6 +41,10 @@ const moved_object = await (await fetch(`?/object/by-id/${cloned_object.id}/move
     }
 })).json();
 
+const linked_object = await (await fetch(`?/object/by-id/${cloned_object.id}/link/to-ref-id/${root.ref_id}`, {
+    method: "POST"
+})).json();
+
 await (await fetch(`?/object/by-id/${object.id}/delete`, {
     method: "POST",
     headers: {

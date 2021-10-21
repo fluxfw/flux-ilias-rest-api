@@ -120,7 +120,7 @@ ORDER BY title ASC";
                 OrganisationalUnitPositionAuthorityScopeInMapping::mapInternalToExternal(
                     $authority["scope"] ?? null
                 )
-            ), array_filter($authorities, fn(array $authority) : bool => $authority["position_id"] === $organisational_unit_position["id"]))) : null,
+            ), array_filter($authorities, fn(array $authority) : bool => $authority["position_id"] === $organisational_unit_position["id"]))) : null
         );
     }
 

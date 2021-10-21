@@ -13,6 +13,7 @@ use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectsCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetPathCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetRootObjectCommand;
+use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\LinkObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\MoveObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\UpdateObjectCommand;
 use ilDBInterface;
@@ -36,110 +37,110 @@ class ObjectService
     }
 
 
-    public function cloneObjectByIdToId(int $id, int $new_parent_id) : ?ObjectIdDto
+    public function cloneObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByIdToId(
                 $id,
-                $new_parent_id
+                $parent_id
             );
     }
 
 
-    public function cloneObjectByIdToImportId(int $id, string $new_parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByIdToImportId(
                 $id,
-                $new_parent_import_id
+                $parent_import_id
             );
     }
 
 
-    public function cloneObjectByIdToRefId(int $id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByIdToRefId(
                 $id,
-                $new_parent_ref_id
+                $parent_ref_id
             );
     }
 
 
-    public function cloneObjectByImportIdToId(string $import_id, int $new_parent_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByImportIdToId(
                 $import_id,
-                $new_parent_id
+                $parent_id
             );
     }
 
 
-    public function cloneObjectByImportIdToImportId(string $import_id, string $new_parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByImportIdToImportId(
                 $import_id,
-                $new_parent_import_id
+                $parent_import_id
             );
     }
 
 
-    public function cloneObjectByImportIdToRefId(string $import_id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByImportIdToRefId(
                 $import_id,
-                $new_parent_ref_id
+                $parent_ref_id
             );
     }
 
 
-    public function cloneObjectByRefIdToId(int $ref_id, int $new_parent_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByRefIdToId(
                 $ref_id,
-                $new_parent_id
+                $parent_id
             );
     }
 
 
-    public function cloneObjectByRefIdToImportId(int $ref_id, string $new_parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByRefIdToImportId(
                 $ref_id,
-                $new_parent_import_id
+                $parent_import_id
             );
     }
 
 
-    public function cloneObjectByRefIdToRefId(int $ref_id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
             $this
         )
             ->cloneObjectByRefIdToRefId(
                 $ref_id,
-                $new_parent_ref_id
+                $parent_ref_id
             );
     }
 
@@ -216,38 +217,41 @@ class ObjectService
     }
 
 
-    public function getChildrenById(int $id) : ?array
+    public function getChildrenById(int $id, bool $ref_ids = false) : ?array
     {
         return GetChildrenCommand::new(
             $this,
             $this->database
         )
             ->getChildrenById(
-                $id
+                $id,
+                $ref_ids
             );
     }
 
 
-    public function getChildrenByImportId(string $import_id) : ?array
+    public function getChildrenByImportId(string $import_id, bool $ref_ids = false) : ?array
     {
         return GetChildrenCommand::new(
             $this,
             $this->database
         )
             ->getChildrenByImportId(
-                $import_id
+                $import_id,
+                $ref_ids
             );
     }
 
 
-    public function getChildrenByRefId(int $ref_id) : ?array
+    public function getChildrenByRefId(int $ref_id, bool $ref_ids = false) : ?array
     {
         return GetChildrenCommand::new(
             $this,
             $this->database
         )
             ->getChildrenByRefId(
-                $ref_id
+                $ref_id,
+                $ref_ids
             );
     }
 
@@ -285,18 +289,19 @@ class ObjectService
     }
 
 
-    public function getObjects(string $type) : array
+    public function getObjects(string $type, bool $ref_ids = false) : array
     {
         return GetObjectsCommand::new(
             $this->database
         )
             ->getObjects(
-                $type
+                $type,
+                $ref_ids
             );
     }
 
 
-    public function getPathById(int $id) : ?array
+    public function getPathById(int $id, bool $ref_ids = false) : ?array
     {
         return GetPathCommand::new(
             $this,
@@ -304,12 +309,13 @@ class ObjectService
             $this->tree
         )
             ->getPathById(
-                $id
+                $id,
+                $ref_ids
             );
     }
 
 
-    public function getPathByImportId(string $import_id) : ?array
+    public function getPathByImportId(string $import_id, bool $ref_ids = false) : ?array
     {
         return GetPathCommand::new(
             $this,
@@ -317,12 +323,13 @@ class ObjectService
             $this->tree
         )
             ->getPathByImportId(
-                $import_id
+                $import_id,
+                $ref_ids
             );
     }
 
 
-    public function getPathByRefId(int $ref_id) : ?array
+    public function getPathByRefId(int $ref_id, bool $ref_ids = false) : ?array
     {
         return GetPathCommand::new(
             $this,
@@ -330,7 +337,8 @@ class ObjectService
             $this->tree
         )
             ->getPathByRefId(
-                $ref_id
+                $ref_id,
+                $ref_ids
             );
     }
 
@@ -344,7 +352,115 @@ class ObjectService
     }
 
 
-    public function moveObjectByIdToId(int $id, int $new_parent_id) : ?ObjectIdDto
+    public function linkObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByIdToId(
+                $id,
+                $parent_id
+            );
+    }
+
+
+    public function linkObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByIdToImportId(
+                $id,
+                $parent_import_id
+            );
+    }
+
+
+    public function linkObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByIdToRefId(
+                $id,
+                $parent_ref_id
+            );
+    }
+
+
+    public function linkObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByImportIdToId(
+                $import_id,
+                $parent_id
+            );
+    }
+
+
+    public function linkObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByImportIdToImportId(
+                $import_id,
+                $parent_import_id
+            );
+    }
+
+
+    public function linkObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByImportIdToRefId(
+                $import_id,
+                $parent_ref_id
+            );
+    }
+
+
+    public function linkObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByRefIdToId(
+                $ref_id,
+                $parent_id
+            );
+    }
+
+
+    public function linkObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByRefIdToImportId(
+                $ref_id,
+                $parent_import_id
+            );
+    }
+
+
+    public function linkObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
+    {
+        return LinkObjectCommand::new(
+            $this
+        )
+            ->linkObjectByRefIdToRefId(
+                $ref_id,
+                $parent_ref_id
+            );
+    }
+
+
+    public function moveObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -352,12 +468,12 @@ class ObjectService
         )
             ->moveObjectByIdToId(
                 $id,
-                $new_parent_id
+                $parent_id
             );
     }
 
 
-    public function moveObjectByIdToImportId(int $id, string $new_parent_import_id) : ?ObjectIdDto
+    public function moveObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -365,12 +481,12 @@ class ObjectService
         )
             ->moveObjectByIdToImportId(
                 $id,
-                $new_parent_import_id
+                $parent_import_id
             );
     }
 
 
-    public function moveObjectByIdToRefId(int $id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function moveObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -378,12 +494,12 @@ class ObjectService
         )
             ->moveObjectByIdToRefId(
                 $id,
-                $new_parent_ref_id
+                $parent_ref_id
             );
     }
 
 
-    public function moveObjectByImportIdToId(string $import_id, int $new_parent_id) : ?ObjectIdDto
+    public function moveObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -391,12 +507,12 @@ class ObjectService
         )
             ->moveObjectByImportIdToId(
                 $import_id,
-                $new_parent_id
+                $parent_id
             );
     }
 
 
-    public function moveObjectByImportIdToImportId(string $import_id, string $new_parent_import_id) : ?ObjectIdDto
+    public function moveObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -404,12 +520,12 @@ class ObjectService
         )
             ->moveObjectByImportIdToImportId(
                 $import_id,
-                $new_parent_import_id
+                $parent_import_id
             );
     }
 
 
-    public function moveObjectByImportIdToRefId(string $import_id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function moveObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -417,12 +533,12 @@ class ObjectService
         )
             ->moveObjectByImportIdToRefId(
                 $import_id,
-                $new_parent_ref_id
+                $parent_ref_id
             );
     }
 
 
-    public function moveObjectByRefIdToId(int $ref_id, int $new_parent_id) : ?ObjectIdDto
+    public function moveObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -430,12 +546,12 @@ class ObjectService
         )
             ->moveObjectByRefIdToId(
                 $ref_id,
-                $new_parent_id
+                $parent_id
             );
     }
 
 
-    public function moveObjectByRefIdToImportId(int $ref_id, string $new_parent_import_id) : ?ObjectIdDto
+    public function moveObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -443,12 +559,12 @@ class ObjectService
         )
             ->moveObjectByRefIdToImportId(
                 $ref_id,
-                $new_parent_import_id
+                $parent_import_id
             );
     }
 
 
-    public function moveObjectByRefIdToRefId(int $ref_id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function moveObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return MoveObjectCommand::new(
             $this,
@@ -456,7 +572,7 @@ class ObjectService
         )
             ->moveObjectByRefIdToRefId(
                 $ref_id,
-                $new_parent_ref_id
+                $parent_ref_id
             );
     }
 

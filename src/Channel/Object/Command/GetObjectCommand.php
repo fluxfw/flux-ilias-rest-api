@@ -36,7 +36,8 @@ class GetObjectCommand
                 throw new LogicException("Multiple objects found with the id " . $id);
             }
             $object = $this->mapObjectDto(
-                $object_
+                $object_,
+                $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
             );
         }
 
@@ -56,7 +57,8 @@ class GetObjectCommand
                 throw new LogicException("Multiple objects found with the import id " . $import_id);
             }
             $object = $this->mapObjectDto(
-                $object_
+                $object_,
+                $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
             );
         }
 
@@ -77,7 +79,8 @@ class GetObjectCommand
                 throw new LogicException("Multiple objects found with the ref id " . $ref_id);
             }
             $object = $this->mapObjectDto(
-                $object_
+                $object_,
+                $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
             );
         }
 

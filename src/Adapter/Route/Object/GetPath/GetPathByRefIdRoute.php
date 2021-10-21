@@ -35,7 +35,9 @@ class GetPathByRefIdRoute implements Route
 
     public function getDocuRequestQueryParams() : ?array
     {
-        return null;
+        return [
+            "ref_ids"
+        ];
     }
 
 
@@ -56,7 +58,10 @@ class GetPathByRefIdRoute implements Route
         $path = $this->api->getPathByRefId(
             $request->getParam(
                 "ref_id"
-            )
+            ),
+            $request->getQueryParam(
+                "ref_ids"
+            ) === "true"
         );
 
         if ($path !== null) {

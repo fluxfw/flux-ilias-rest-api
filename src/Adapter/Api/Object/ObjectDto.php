@@ -18,6 +18,7 @@ class ObjectDto implements JsonSerializable
     private ?string $parent_import_id;
     private ?int $parent_ref_id;
     private ?int $ref_id;
+    private ?array $ref_ids;
     private ?string $title;
     private ?string $type;
     private ?int $updated;
@@ -28,6 +29,7 @@ class ObjectDto implements JsonSerializable
         ?int $id = null,
         ?string $import_id = null,
         ?int $ref_id = null,
+        ?array $ref_ids = null,
         ?string $type = null,
         ?int $created = null,
         ?int $updated = null,
@@ -47,6 +49,7 @@ class ObjectDto implements JsonSerializable
         $dto->id = $id;
         $dto->import_id = $import_id;
         $dto->ref_id = $ref_id;
+        $dto->ref_ids = $ref_ids;
         $dto->type = $type;
         $dto->created = $created;
         $dto->updated = $updated;
@@ -121,6 +124,12 @@ class ObjectDto implements JsonSerializable
     public function getRefId() : ?int
     {
         return $this->ref_id;
+    }
+
+
+    public function getRefIds() : ?array
+    {
+        return $this->ref_ids;
     }
 
 

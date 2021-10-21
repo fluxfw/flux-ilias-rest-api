@@ -9,8 +9,8 @@ use ilDBInterface;
 class GetRolesCommand
 {
 
-    use RoleQuery;
     use ObjectQuery;
+    use RoleQuery;
 
     private ilDBInterface $database;
 

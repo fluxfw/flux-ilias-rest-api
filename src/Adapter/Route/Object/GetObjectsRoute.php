@@ -33,7 +33,9 @@ class GetObjectsRoute implements Route
 
     public function getDocuRequestQueryParams() : ?array
     {
-        return null;
+        return [
+            "ref_ids"
+        ];
     }
 
 
@@ -56,7 +58,10 @@ class GetObjectsRoute implements Route
                 $this->api->getObjects(
                     $request->getParam(
                         "type"
-                    )
+                    ),
+                    $request->getQueryParam(
+                        "ref_ids"
+                    ) === "true"
                 )
             )
         );

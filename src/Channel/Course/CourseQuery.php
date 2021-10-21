@@ -15,7 +15,7 @@ use LogicException;
 trait CourseQuery
 {
 
-    private function getContainerSettingQuery(array $ids) : string
+    private function getCourseContainerSettingQuery(array $ids) : string
     {
         return "SELECT id,keyword,value
 FROM container_settings
@@ -52,7 +52,8 @@ LEFT JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
 WHERE " . implode(" AND ", $wheres) . "
-ORDER BY object_data.title ASC,object_data.create_date ASC";
+GROUP BY object_data.obj_id
+ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_id ASC";
     }
 
 
@@ -213,7 +214,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
 
     private function mapCourseDto(array $course, ?array $container_settings = null) : CourseDto
     {
-        $getContainerSetting = fn(string $field, /*mixed*/ $null_default_value = null)/* : mixed*/ => $container_settings !== null ? current(array_map(fn(array $container_setting
+        $getCourseContainerSetting = fn(string $field, /*mixed*/ $null_default_value = null)/* : mixed*/ => $container_settings !== null ? current(array_map(fn(array $container_setting
         )/* : mixed*/ => $container_setting["value"] ?? $null_default_value,
             array_filter($container_settings, fn(array $container_setting) : bool => $container_setting["id"] === $course["obj_id"] && $container_setting["keyword"] === $field))) : null;
 
@@ -237,39 +238,39 @@ ORDER BY object_data.title ASC,object_data.create_date ASC";
             $course["timing_start"] ?: null,
             $course["timing_end"] ?: null,
             $course["timing_visible"] ?? false,
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::CALENDAR_ACTIVATION,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::CALENDAR_VISIBILITY,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::USE_NEWS,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::CUSTOM_METADATA,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::TAG_CLOUD,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::AUTO_RATING_NEW_OBJECTS,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::BADGES,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::BOOKING,
                 false
             ),
-            $getContainerSetting(
+            $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::EXTERNAL_MAIL_PREFIX,
                 ""
             ),

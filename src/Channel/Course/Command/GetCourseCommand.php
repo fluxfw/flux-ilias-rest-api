@@ -38,7 +38,7 @@ class GetCourseCommand
             }
             $course = $this->mapCourseDto(
                 $course_,
-                $this->database->fetchAll($this->database->query($this->getContainerSettingQuery([$course_["obj_id"]])))
+                $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
             );
         }
 
@@ -58,7 +58,7 @@ class GetCourseCommand
             }
             $course = $this->mapCourseDto(
                 $course_,
-                $this->database->fetchAll($this->database->query($this->getContainerSettingQuery([$course_["obj_id"]])))
+                $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
             );
         }
 
@@ -79,7 +79,7 @@ class GetCourseCommand
             }
             $course = $this->mapCourseDto(
                 $course_,
-                $this->database->fetchAll($this->database->query($this->getContainerSettingQuery([$course_["obj_id"]])))
+                $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
             );
         }
 

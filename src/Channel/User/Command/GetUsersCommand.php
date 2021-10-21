@@ -29,12 +29,12 @@ class GetUsersCommand
         $users = $this->database->fetchAll($this->database->query($this->getUserQuery()));
         $user_ids = array_map(fn(array $user) : int => $user["usr_id"], $users);
 
-        $access_limited_object_ids_ = $access_limited_object_ids ? $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter(array_map(fn(array $user
+        $access_limited_object_ids_ = $access_limited_object_ids ? $this->database->fetchAll($this->database->query($this->getUserAccessLimitedObjects(array_filter(array_map(fn(array $user
         ) : int => $user["time_limit_owner"], $users))))) : null;
 
-        $multi_fields_ = $multi_fields ? $this->database->fetchAll($this->database->query($this->getMultiFieldQuery($user_ids))) : null;
+        $multi_fields_ = $multi_fields ? $this->database->fetchAll($this->database->query($this->getUserMultiFieldQuery($user_ids))) : null;
 
-        $preferences_ = $preferences ? $this->database->fetchAll($this->database->query($this->getPreferenceQuery($user_ids))) : null;
+        $preferences_ = $preferences ? $this->database->fetchAll($this->database->query($this->getUserPreferenceQuery($user_ids))) : null;
 
         $user_defined_fields_ = $user_defined_fields ? $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery($user_ids))) : null;
 
