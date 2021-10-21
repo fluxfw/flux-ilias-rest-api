@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\Object\MoveObject;
+namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\Object\LinkObject;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
 use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
@@ -11,7 +11,7 @@ use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
 use Fluxlabs\FluxRestApi\Status\Status;
 
-class MoveObjectByIdToIdRoute implements Route
+class LinkObjectByIdToImportIdRoute implements Route
 {
 
     private Api $api;
@@ -41,24 +41,24 @@ class MoveObjectByIdToIdRoute implements Route
 
     public function getMethod() : string
     {
-        return Method::PUT;
+        return Method::POST;
     }
 
 
     public function getRoute() : string
     {
-        return "/object/by-id/{id}/move/to-id/{parent_id}";
+        return "/object/by-id/{id}/link/to-import-id/{parent_import_id}";
     }
 
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->api->moveObjectByIdToId(
+        $id = $this->api->linkObjectByIdToImportId(
             $request->getParam(
                 "id"
             ),
             $request->getParam(
-                "parent_id"
+                "parent_import_id"
             )
         );
 

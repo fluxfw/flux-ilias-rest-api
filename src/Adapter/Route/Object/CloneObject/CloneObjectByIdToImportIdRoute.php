@@ -47,7 +47,7 @@ class CloneObjectByIdToImportIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/object/by-id/{id}/clone/to-import-id/{new_parent_import_id}";
+        return "/object/by-id/{id}/clone/to-import-id/{parent_import_id}";
     }
 
 
@@ -58,7 +58,7 @@ class CloneObjectByIdToImportIdRoute implements Route
                 "id"
             ),
             $request->getParam(
-                "new_parent_import_id"
+                "parent_import_id"
             )
         );
 

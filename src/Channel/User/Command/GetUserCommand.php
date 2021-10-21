@@ -36,9 +36,9 @@ class GetUserCommand
             }
             $user = $this->mapUserDto(
                 $user_,
-                $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
-                $this->database->fetchAll($this->database->query($this->getMultiFieldQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getPreferenceQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getUserAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
+                $this->database->fetchAll($this->database->query($this->getUserMultiFieldQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getUserPreferenceQuery([$user_["usr_id"]]))),
                 $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
             );
         }
@@ -59,9 +59,9 @@ class GetUserCommand
             }
             $user = $this->mapUserDto(
                 $user_,
-                $this->database->fetchAll($this->database->query($this->getAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
-                $this->database->fetchAll($this->database->query($this->getMultiFieldQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getPreferenceQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getUserAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
+                $this->database->fetchAll($this->database->query($this->getUserMultiFieldQuery([$user_["usr_id"]]))),
+                $this->database->fetchAll($this->database->query($this->getUserPreferenceQuery([$user_["usr_id"]]))),
                 $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
             );
         }

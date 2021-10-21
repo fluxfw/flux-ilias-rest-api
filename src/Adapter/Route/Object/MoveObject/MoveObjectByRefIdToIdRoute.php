@@ -47,7 +47,7 @@ class MoveObjectByRefIdToIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/object/by-ref-id/{ref_id}/move/to-id/{new_parent_id}";
+        return "/object/by-ref-id/{ref_id}/move/to-id/{parent_id}";
     }
 
 
@@ -58,7 +58,7 @@ class MoveObjectByRefIdToIdRoute implements Route
                 "ref_id"
             ),
             $request->getParam(
-                "new_parent_id"
+                "parent_id"
             )
         );
 

@@ -2,6 +2,7 @@
 
 namespace Fluxlabs\FluxIliasRestApi\Channel\Object\Command;
 
+use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 
@@ -23,10 +24,18 @@ class GetObjectsCommand
     }
 
 
-    public function getObjects(string $type) : array
+    public function getObjects(string $type, bool $ref_ids = false) : array
     {
-        return array_map([$this, "mapObjectDto"], $this->database->fetchAll($this->database->query($this->getObjectQuery(
+        $objects = $this->database->fetchAll($this->database->query($this->getObjectQuery(
             $type
-        ))));
+        )));
+        $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);
+
+        $ref_ids_ = $ref_ids ? $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery($object_ids))) : null;
+
+        return array_map(fn(array $object) : ObjectDto => $this->mapObjectDto(
+            $object,
+            $ref_ids_
+        ), $objects);
     }
 }

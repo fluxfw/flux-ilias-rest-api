@@ -35,7 +35,7 @@ class GetCurrentUserCommand
         }
 
         $user_id = null;
-        while (($session = $this->database->fetchAssoc($result ??= $this->database->query($this->getSessionQuery(
+        while (($session = $this->database->fetchAssoc($result ??= $this->database->query($this->getUserSessionQuery(
                 $session_id
             )))) !== null) {
             if ($user_id !== null) {

@@ -35,7 +35,9 @@ class GetChildrenByImportIdRoute implements Route
 
     public function getDocuRequestQueryParams() : ?array
     {
-        return null;
+        return [
+            "ref_ids"
+        ];
     }
 
 
@@ -56,7 +58,10 @@ class GetChildrenByImportIdRoute implements Route
         $children = $this->api->getChildrenByImportId(
             $request->getParam(
                 "import_id"
-            )
+            ),
+            $request->getQueryParam(
+                "ref_ids"
+            ) === "true"
         );
 
         if ($children !== null) {

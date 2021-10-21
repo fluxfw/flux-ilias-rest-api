@@ -64,7 +64,8 @@ INNER JOIN object_reference ON il_orgu_ua.orgu_id=object_reference.ref_id
 INNER JOIN object_data ON object_reference.obj_id=object_data.obj_id
 INNER JOIN object_data AS object_data_user ON il_orgu_ua.user_id=object_data_user.obj_id
 WHERE " . implode(" AND ", $wheres) . "
-ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,position_id ASC";
+GROUP BY object_data.obj_id
+ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,position_id ASC,object_reference.ref_id ASC";
     }
 
 

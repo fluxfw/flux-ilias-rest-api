@@ -11,8 +11,8 @@ use LogicException;
 class GetRoleCommand
 {
 
-    use RoleQuery;
     use ObjectQuery;
+    use RoleQuery;
 
     private ilDBInterface $database;
 

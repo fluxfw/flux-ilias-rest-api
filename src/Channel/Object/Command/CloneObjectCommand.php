@@ -26,130 +26,130 @@ class CloneObjectCommand
     }
 
 
-    public function cloneObjectByIdToId(int $id, int $new_parent_id) : ?ObjectIdDto
+    public function cloneObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectById(
                 $id
             ),
             $this->object->getObjectById(
-                $new_parent_id
+                $parent_id
             )
         );
     }
 
 
-    public function cloneObjectByIdToImportId(int $id, string $new_parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectById(
                 $id
             ),
             $this->object->getObjectByImportId(
-                $new_parent_import_id
+                $parent_import_id
             )
         );
     }
 
 
-    public function cloneObjectByIdToRefId(int $id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectById(
                 $id
             ),
             $this->object->getObjectByRefId(
-                $new_parent_ref_id
+                $parent_ref_id
             )
         );
     }
 
 
-    public function cloneObjectByImportIdToId(string $import_id, int $new_parent_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectByImportId(
                 $import_id
             ),
             $this->object->getObjectById(
-                $new_parent_id
+                $parent_id
             )
         );
     }
 
 
-    public function cloneObjectByImportIdToImportId(string $import_id, string $new_parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectByImportId(
                 $import_id
             ),
             $this->object->getObjectByImportId(
-                $new_parent_import_id
+                $parent_import_id
             )
         );
     }
 
 
-    public function cloneObjectByImportIdToRefId(string $import_id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectByImportId(
                 $import_id
             ),
             $this->object->getObjectByRefId(
-                $new_parent_ref_id
+                $parent_ref_id
             )
         );
     }
 
 
-    public function cloneObjectByRefIdToId(int $ref_id, int $new_parent_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectByRefId(
                 $ref_id
             ),
             $this->object->getObjectById(
-                $new_parent_id
+                $parent_id
             )
         );
     }
 
 
-    public function cloneObjectByRefIdToImportId(int $ref_id, string $new_parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectByRefId(
                 $ref_id
             ),
             $this->object->getObjectByImportId(
-                $new_parent_import_id
+                $parent_import_id
             )
         );
     }
 
 
-    public function cloneObjectByRefIdToRefId(int $ref_id, int $new_parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->cloneObject(
             $this->object->getObjectByRefId(
                 $ref_id
             ),
             $this->object->getObjectByRefId(
-                $new_parent_ref_id
+                $parent_ref_id
             )
         );
     }
 
 
-    private function cloneObject(?ObjectDto $object, ?ObjectDto $new_parent_object) : ?ObjectIdDto
+    private function cloneObject(?ObjectDto $object, ?ObjectDto $parent_object) : ?ObjectIdDto
     {
-        if ($object === null || $new_parent_object === null) {
+        if ($object === null || $parent_object === null || $parent_object->getRefId() === null) {
             return null;
         }
 
-        if ($object->getId() === $new_parent_object->getId()) {
+        if ($object->getId() === $parent_object->getId()) {
             throw new LogicException("Can't clone to its self");
         }
 
@@ -161,7 +161,7 @@ class CloneObjectCommand
             return null;
         }
 
-        $new_ilias_object = $ilias_object->cloneObject($new_parent_object->getRefId());
+        $new_ilias_object = $ilias_object->cloneObject($parent_object->getRefId());
 
         return ObjectIdDto::new(
             $new_ilias_object->getId() ?: null,

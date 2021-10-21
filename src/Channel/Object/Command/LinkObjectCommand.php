@@ -6,32 +6,29 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use ilTree;
 use LogicException;
 
-class MoveObjectCommand
+class LinkObjectCommand
 {
 
     use ObjectQuery;
 
     private ObjectService $object;
-    private ilTree $tree;
 
 
-    public static function new(ObjectService $object, ilTree $tree) : /*static*/ self
+    public static function new(ObjectService $object) : /*static*/ self
     {
         $command = new static();
 
         $command->object = $object;
-        $command->tree = $tree;
 
         return $command;
     }
 
 
-    public function moveObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
+    public function linkObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectById(
                 $id
             ),
@@ -42,9 +39,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
+    public function linkObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectById(
                 $id
             ),
@@ -55,9 +52,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
+    public function linkObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectById(
                 $id
             ),
@@ -68,9 +65,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
+    public function linkObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectByImportId(
                 $import_id
             ),
@@ -81,9 +78,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
+    public function linkObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectByImportId(
                 $import_id
             ),
@@ -94,9 +91,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
+    public function linkObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectByImportId(
                 $import_id
             ),
@@ -107,9 +104,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
+    public function linkObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectByRefId(
                 $ref_id
             ),
@@ -120,9 +117,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
+    public function linkObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectByRefId(
                 $ref_id
             ),
@@ -133,9 +130,9 @@ class MoveObjectCommand
     }
 
 
-    public function moveObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
+    public function linkObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->moveObject(
+        return $this->linkObject(
             $this->object->getObjectByRefId(
                 $ref_id
             ),
@@ -146,24 +143,32 @@ class MoveObjectCommand
     }
 
 
-    private function moveObject(?ObjectDto $object, ?ObjectDto $parent_object) : ?ObjectIdDto
+    private function linkObject(?ObjectDto $object, ?ObjectDto $parent_object) : ?ObjectIdDto
     {
-        if ($object === null || $parent_object === null || $parent_object->getRefId() === null) {
+        if ($object === null || $parent_object === null || $object->getRefId() === null || $parent_object->getRefId() === null) {
             return null;
         }
 
         if ($object->getId() === $parent_object->getId()) {
-            throw new LogicException("Can't move to its self");
+            throw new LogicException("Can't link to its self");
         }
 
-        if ($object->getParentRefId() !== $parent_object->getRefId()) {
-            $this->tree->moveTree($object->getRefId(), $parent_object->getRefId());
+        $ilias_object = $this->getIliasObject(
+            $object->getId(),
+            $object->getRefId()
+        );
+        if ($ilias_object === null) {
+            return null;
         }
+
+        $ilias_object->createReference();
+        $ilias_object->putInTree($parent_object->getRefId());
+        $ilias_object->setPermissions($parent_object->getRefId());
 
         return ObjectIdDto::new(
-            $parent_object->getId(),
-            $parent_object->getImportId(),
-            $parent_object->getRefId()
+            $object->getId(),
+            $object->getImportId(),
+            $ilias_object->getRefId() ?: null
         );
     }
 }

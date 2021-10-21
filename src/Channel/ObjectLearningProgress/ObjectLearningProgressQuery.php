@@ -54,7 +54,8 @@ INNER JOIN object_data ON ut_lp_marks.obj_id=object_data.obj_id
 LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
 INNER JOIN object_data AS object_data_user ON ut_lp_marks.usr_id=object_data_user.obj_id
 WHERE " . implode(" AND ", $wheres) . "
-ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC";
+GROUP BY object_data.obj_id
+ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,object_reference.ref_id ASC";
     }
 
 

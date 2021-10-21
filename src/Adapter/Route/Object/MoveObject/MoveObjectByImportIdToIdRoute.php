@@ -47,7 +47,7 @@ class MoveObjectByImportIdToIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/object/by-import-id/{import_id}/move/to-id/{new_parent_id}";
+        return "/object/by-import-id/{import_id}/move/to-id/{parent_id}";
     }
 
 
@@ -58,7 +58,7 @@ class MoveObjectByImportIdToIdRoute implements Route
                 "import_id"
             ),
             $request->getParam(
-                "new_parent_id"
+                "parent_id"
             )
         );
 
