@@ -4,13 +4,69 @@ namespace Fluxlabs\FluxIliasRestApi\Channel\Object;
 
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use ilCopyWizardOptions;
 use ilDBConstants;
 use ilLink;
 use ilObject;
 use ilObjectFactory;
+use ilSession;
+use ilSoapFunctions;
 
 trait ObjectQuery
 {
+
+    private function cloneIliasObject(ilObject $ilias_object, ObjectDto $parent_object, bool $link = false, bool $prefer_link = false) : ?ilObject
+    {
+        if (!$this->object_definition->allowCopy($ilias_object->getType())) {
+            return null;
+        }
+
+        $wizard_options = ilCopyWizardOptions::_getInstance(ilCopyWizardOptions::_allocateCopyId());
+
+        $wizard_options->saveOwner($this->ilias_user->getId());
+        $wizard_options->saveRoot($ilias_object->getRefId());
+
+        $wizard_options->initContainer($ilias_object->getRefId(), $parent_object->getRefId());
+        foreach ($this->tree->getSubTree($this->tree->getNodeData($ilias_object->getRefId())) as $child) {
+            if (intval($child["ref_id"]) === intval($ilias_object->getRefId())) {
+                continue;
+            }
+
+            $copy_types = [];
+            if ($this->object_definition->allowCopy($child["type"])) {
+                $copy_types[] = ilCopyWizardOptions::COPY_WIZARD_COPY;
+            }
+
+            if ($link && $this->object_definition->allowLink($child["type"])) {
+                $copy_types[] = ilCopyWizardOptions::COPY_WIZARD_LINK;
+            }
+            if (empty($copy_types)) {
+                continue;
+            }
+
+            if ($prefer_link) {
+                $copy_types = array_reverse($copy_types);
+            }
+
+            $wizard_options->addEntry($child["ref_id"], ["type" => current($copy_types)]);
+        }
+        $wizard_options->read();
+        $wizard_options->storeTree($ilias_object->getRefId());
+
+        $wizard_options->disableSOAP();
+        $wizard_options->read();
+
+        $new_ref_id = ilSoapFunctions::ilClone(ilSession::_duplicate(session_id()) . "::" . CLIENT_ID, $wizard_options->getCopyId());
+        if (empty($new_ref_id)) {
+            return null;
+        }
+
+        return $this->getIliasObject(
+            0,
+            $new_ref_id
+        );
+    }
+
 
     private function getIliasObject(int $id, ?int $ref_id = null) : ?ilObject
     {

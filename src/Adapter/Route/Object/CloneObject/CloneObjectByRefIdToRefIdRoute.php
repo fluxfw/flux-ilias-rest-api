@@ -35,7 +35,10 @@ class CloneObjectByRefIdToRefIdRoute implements Route
 
     public function getDocuRequestQueryParams() : ?array
     {
-        return null;
+        return [
+            "link",
+            "prefer_link"
+        ];
     }
 
 
@@ -59,7 +62,13 @@ class CloneObjectByRefIdToRefIdRoute implements Route
             ),
             $request->getParam(
                 "parent_ref_id"
-            )
+            ),
+            $request->getQueryParam(
+                "link"
+            ) === "true",
+            $request->getQueryParam(
+                "prefer_link"
+            ) === "true"
         );
 
         if ($id !== null) {
