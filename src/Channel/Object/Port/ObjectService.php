@@ -406,7 +406,8 @@ class ObjectService
     public function linkObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByIdToId(
                 $id,
@@ -418,7 +419,8 @@ class ObjectService
     public function linkObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByIdToImportId(
                 $id,
@@ -430,7 +432,8 @@ class ObjectService
     public function linkObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByIdToRefId(
                 $id,
@@ -442,7 +445,8 @@ class ObjectService
     public function linkObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByImportIdToId(
                 $import_id,
@@ -454,7 +458,8 @@ class ObjectService
     public function linkObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByImportIdToImportId(
                 $import_id,
@@ -466,7 +471,8 @@ class ObjectService
     public function linkObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByImportIdToRefId(
                 $import_id,
@@ -478,7 +484,8 @@ class ObjectService
     public function linkObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByRefIdToId(
                 $ref_id,
@@ -490,7 +497,8 @@ class ObjectService
     public function linkObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByRefIdToImportId(
                 $ref_id,
@@ -502,7 +510,8 @@ class ObjectService
     public function linkObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return LinkObjectCommand::new(
-            $this
+            $this,
+            $this->object_definition
         )
             ->linkObjectByRefIdToRefId(
                 $ref_id,

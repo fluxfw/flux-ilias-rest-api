@@ -6,6 +6,7 @@ use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use ilObjectDefinition;
 use LogicException;
 
 class LinkObjectCommand
@@ -14,13 +15,15 @@ class LinkObjectCommand
     use ObjectQuery;
 
     private ObjectService $object;
+    private ilObjectDefinition $object_definition;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    public static function new(ObjectService $object, ilObjectDefinition $object_definition) : /*static*/ self
     {
         $command = new static();
 
         $command->object = $object;
+        $command->object_definition = $object_definition;
 
         return $command;
     }
@@ -159,6 +162,10 @@ class LinkObjectCommand
         );
         if ($ilias_object === null) {
             return null;
+        }
+
+        if (!$this->object_definition->allowLink($ilias_object->getType())) {
+            throw new LogicException("Can't link object type " . $ilias_object->getType());
         }
 
         $ilias_object->createReference();
