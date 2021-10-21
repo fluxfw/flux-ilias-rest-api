@@ -381,92 +381,110 @@ class Api
     }
 
 
-    public function cloneObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
+    public function cloneObjectByIdToId(int $id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByIdToId(
                 $id,
-                $parent_id
+                $parent_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByIdToImportId(int $id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByIdToImportId(
                 $id,
-                $parent_import_id
+                $parent_import_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByIdToRefId(int $id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByIdToRefId(
                 $id,
-                $parent_ref_id
+                $parent_ref_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToId(string $import_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByImportIdToId(
                 $import_id,
-                $parent_id
+                $parent_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByImportIdToImportId(
                 $import_id,
-                $parent_import_id
+                $parent_import_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByImportIdToRefId(
                 $import_id,
-                $parent_ref_id
+                $parent_ref_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToId(int $ref_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByRefIdToId(
                 $ref_id,
-                $parent_id
+                $parent_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByRefIdToImportId(
                 $ref_id,
-                $parent_import_id
+                $parent_import_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->cloneObjectByRefIdToRefId(
                 $ref_id,
-                $parent_ref_id
+                $parent_ref_id,
+                $link,
+                $prefer_link
             );
     }
 
@@ -2432,7 +2450,9 @@ class Api
 
         $this->object ??= ObjectService::new(
             $DIC->database(),
-            $DIC->repositoryTree()
+            $DIC->repositoryTree(),
+            $DIC->user(),
+            $DIC["objDefinition"]
         );
 
         return $this->object;

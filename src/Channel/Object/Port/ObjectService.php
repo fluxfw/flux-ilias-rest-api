@@ -17,130 +17,181 @@ use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\LinkObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\MoveObjectCommand;
 use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\UpdateObjectCommand;
 use ilDBInterface;
+use ilObjectDefinition;
+use ilObjUser;
 use ilTree;
 
 class ObjectService
 {
 
     private ilDBInterface $database;
+    private ilObjUser $ilias_user;
+    private ilObjectDefinition $object_definition;
     private ilTree $tree;
 
 
-    public static function new(ilDBInterface $database, ilTree $tree) : /*static*/ self
+    public static function new(ilDBInterface $database, ilTree $tree, ilObjUser $ilias_user, ilObjectDefinition $object_definition) : /*static*/ self
     {
         $service = new static();
 
         $service->database = $database;
         $service->tree = $tree;
+        $service->ilias_user = $ilias_user;
+        $service->object_definition = $object_definition;
 
         return $service;
     }
 
 
-    public function cloneObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
+    public function cloneObjectByIdToId(int $id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByIdToId(
                 $id,
-                $parent_id
+                $parent_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByIdToImportId(int $id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByIdToImportId(
                 $id,
-                $parent_import_id
+                $parent_import_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByIdToRefId(int $id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByIdToRefId(
                 $id,
-                $parent_ref_id
+                $parent_ref_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToId(string $import_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByImportIdToId(
                 $import_id,
-                $parent_id
+                $parent_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByImportIdToImportId(
                 $import_id,
-                $parent_import_id
+                $parent_import_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByImportIdToRefId(
                 $import_id,
-                $parent_ref_id
+                $parent_ref_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToId(int $ref_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByRefIdToId(
                 $ref_id,
-                $parent_id
+                $parent_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByRefIdToImportId(
                 $ref_id,
-                $parent_import_id
+                $parent_import_id,
+                $link,
+                $prefer_link
             );
     }
 
 
-    public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
+    public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return CloneObjectCommand::new(
-            $this
+            $this,
+            $this->tree,
+            $this->ilias_user,
+            $this->object_definition
         )
             ->cloneObjectByRefIdToRefId(
                 $ref_id,
-                $parent_ref_id
+                $parent_ref_id,
+                $link,
+                $prefer_link
             );
     }
 

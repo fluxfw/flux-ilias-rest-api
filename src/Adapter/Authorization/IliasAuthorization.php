@@ -58,6 +58,7 @@ class IliasAuthorization implements Authorization
 
         chdir(__DIR__ . "/../../../../../..");
         require_once __DIR__ . "/../../../../../../libs/composer/vendor/autoload.php";
+        require_once __DIR__ . "/../../../../../../webservice/soap/include/inc.soap_functions.php";
         (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
 
         global $DIC;
