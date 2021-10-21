@@ -11,6 +11,7 @@ use ilObject;
 use ilObjectFactory;
 use ilSession;
 use ilSoapFunctions;
+use LogicException;
 
 trait ObjectQuery
 {
@@ -18,7 +19,7 @@ trait ObjectQuery
     private function cloneIliasObject(ilObject $ilias_object, ObjectDto $parent_object, bool $link = false, bool $prefer_link = false) : ?ilObject
     {
         if (!$this->object_definition->allowCopy($ilias_object->getType())) {
-            return null;
+            throw new LogicException("Can't clone object type " . $ilias_object->getType());
         }
 
         $wizard_options = ilCopyWizardOptions::_getInstance(ilCopyWizardOptions::_allocateCopyId());
