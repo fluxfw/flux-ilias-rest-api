@@ -1,3 +1,11 @@
-.idea
-routes
-vendor
+*
+!examples
+!examples/**
+!src
+!src/**
+!.gitignore
+!.gitlab-ci.yml
+!composer.json
+!composer.lock
+!index.php
+!README.md
