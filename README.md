@@ -4,12 +4,10 @@ Experimental Alpha Version
 
 ## Installation
 
-Start at your ILIAS root directory
+In [FluxIlias](https://github.com/fluxapps/FluxIlias)
 
-```shell
-mkdir -p Customizing/global/FluxIliasRestApi && cd Customizing/global/FluxIliasRestApi
-wget -O - https://github.com/fluxapps/FluxIliasRestApi/archive/main.tar.gz | tar -xz --strip-components=1
-composer install
+```dockerfile
+RUN (mkdir -p "$ILIAS_WEB_DIR/Customizing/global/FluxIliasRestApi" && cd "$ILIAS_WEB_DIR/Customizing/global/FluxIliasRestApi" && wget -O - https://github.com/fluxapps/FluxIliasRestApi/archive/main.tar.gz | tar -xz --strip-components=1 && ./bin/build.sh)
 ```
 
 ## Call route
