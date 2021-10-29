@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\File\Command;
+namespace FluxIliasRestApi\Channel\File\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\File\FileQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\File\Port\FileService;
+use FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
+use FluxIliasRestApi\Adapter\Api\File\FileDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\File\FileQuery;
+use FluxIliasRestApi\Channel\File\Port\FileService;
 
 class UpdateFileCommand
 {

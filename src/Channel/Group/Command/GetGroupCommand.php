@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Group\Command;
+namespace FluxIliasRestApi\Channel\Group\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\GroupQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Adapter\Api\Group\GroupDto;
+use FluxIliasRestApi\Channel\Group\GroupQuery;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 use LogicException;
 

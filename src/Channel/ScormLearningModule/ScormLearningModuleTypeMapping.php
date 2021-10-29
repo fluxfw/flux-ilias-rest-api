@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule;
+namespace FluxIliasRestApi\Channel\ScormLearningModule;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleType;
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleType;
 
 final class ScormLearningModuleTypeMapping
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\File;
+namespace FluxIliasRestApi\Channel\File;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
+use FluxIliasRestApi\Adapter\Api\File\FileDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilObjFile;
 use ilObjFileAccess;

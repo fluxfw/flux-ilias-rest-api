@@ -1,16 +1,16 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Port;
+namespace FluxIliasRestApi\Channel\ScormLearningModule\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Command\CreateScormLearningModuleCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Command\GetScormLearningModuleCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Command\GetScormLearningModulesCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Command\UpdateScormLearningModuleCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Command\UploadScormLearningModuleCommand;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\ScormLearningModule\Command\CreateScormLearningModuleCommand;
+use FluxIliasRestApi\Channel\ScormLearningModule\Command\GetScormLearningModuleCommand;
+use FluxIliasRestApi\Channel\ScormLearningModule\Command\GetScormLearningModulesCommand;
+use FluxIliasRestApi\Channel\ScormLearningModule\Command\UpdateScormLearningModuleCommand;
+use FluxIliasRestApi\Channel\ScormLearningModule\Command\UploadScormLearningModuleCommand;
 use ilDBInterface;
 
 class ScormLearningModuleService

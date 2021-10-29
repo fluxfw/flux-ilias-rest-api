@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition;
+namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
 use ilOrgUnitAuthority;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Port;
+namespace FluxIliasRestApi\Channel\ObjectLearningProgress\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Command\GetObjectLearningProgressCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Command\UpdateObjectLearningProgressCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressIdDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\ObjectLearningProgress\Command\GetObjectLearningProgressCommand;
+use FluxIliasRestApi\Channel\ObjectLearningProgress\Command\UpdateObjectLearningProgressCommand;
+use FluxIliasRestApi\Channel\User\Port\UserService;
 use ilDBInterface;
 
 class ObjectLearningProgressService

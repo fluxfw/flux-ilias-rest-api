@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command;
+namespace FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\OrganisationalUnitStaffQuery;
+use FluxIliasRestApi\Channel\OrganisationalUnitStaff\OrganisationalUnitStaffQuery;
 use ilDBInterface;
 
 class GetOrganisationalUnitStaffCommand

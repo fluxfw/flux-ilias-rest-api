@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition;
+namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
 
 final class OrganisationalUnitPositionCoreIdentifierMapping
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Role\Command;
+namespace FluxIliasRestApi\Channel\Role\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\RoleQuery;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Channel\Role\RoleQuery;
 use ilDBInterface;
 use LogicException;
 

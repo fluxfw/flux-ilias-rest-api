@@ -1,17 +1,17 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Role\Port;
+namespace FluxIliasRestApi\Channel\Role\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\Command\CreateRoleCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\Command\GetGlobalRoleObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\Command\GetRoleCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\Command\GetRolesCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\Command\UpdateRoleCommand;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\Role\Command\CreateRoleCommand;
+use FluxIliasRestApi\Channel\Role\Command\GetGlobalRoleObjectCommand;
+use FluxIliasRestApi\Channel\Role\Command\GetRoleCommand;
+use FluxIliasRestApi\Channel\Role\Command\GetRolesCommand;
+use FluxIliasRestApi\Channel\Role\Command\UpdateRoleCommand;
 use ilDBInterface;
 use ILIAS\DI\RBACServices;
 

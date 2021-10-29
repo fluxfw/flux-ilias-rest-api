@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\User\Command;
+namespace FluxIliasRestApi\Channel\User\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\UserQuery;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Channel\User\UserQuery;
 use ilDBInterface;
 use LogicException;
 

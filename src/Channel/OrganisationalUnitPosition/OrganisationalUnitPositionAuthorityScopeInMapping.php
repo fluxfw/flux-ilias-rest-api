@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition;
+namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionAuthorityScopeIn;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionAuthorityScopeIn;
 
 final class OrganisationalUnitPositionAuthorityScopeInMapping
 {

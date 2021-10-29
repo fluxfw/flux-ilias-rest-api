@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserMail;
+namespace FluxIliasRestApi\Channel\UserMail;
 
 use ilDBConstants;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Category\Command;
+namespace FluxIliasRestApi\Channel\Category\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\CategoryQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Category\CategoryQuery;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 
 class CreateCategoryCommand
 {

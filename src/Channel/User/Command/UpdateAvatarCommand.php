@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\User\Command;
+namespace FluxIliasRestApi\Channel\User\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\UserQuery;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Channel\User\UserQuery;
 use ilObjUser;
 
 class UpdateAvatarCommand

@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\User\Command;
+namespace FluxIliasRestApi\Channel\User\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\UserQuery;
+use FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
+use FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\User\UserQuery;
 use ILIAS\DI\RBACServices;
 
 class CreateUserCommand

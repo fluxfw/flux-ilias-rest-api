@@ -1,17 +1,17 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\User\Port;
+namespace FluxIliasRestApi\Channel\User\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\CreateUserCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetCurrentUserCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUserCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\GetUsersCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\UpdateAvatarCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Command\UpdateUserCommand;
+use FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\User\Command\CreateUserCommand;
+use FluxIliasRestApi\Channel\User\Command\GetCurrentUserCommand;
+use FluxIliasRestApi\Channel\User\Command\GetUserCommand;
+use FluxIliasRestApi\Channel\User\Command\GetUsersCommand;
+use FluxIliasRestApi\Channel\User\Command\UpdateAvatarCommand;
+use FluxIliasRestApi\Channel\User\Command\UpdateUserCommand;
 use ilDBInterface;
 use ILIAS\DI\RBACServices;
 

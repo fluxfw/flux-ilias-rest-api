@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Course;
+namespace FluxIliasRestApi\Channel\Course;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDate;
 use ilDateTime;
 use ilDBConstants;

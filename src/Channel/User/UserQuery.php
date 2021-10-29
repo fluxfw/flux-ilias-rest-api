@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\User;
+namespace FluxIliasRestApi\Channel\User;
 
 use Exception;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDefinedFieldDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\User\UserDefinedFieldDto;
+use FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilObjUser;
 use ilUserDefinedFields;

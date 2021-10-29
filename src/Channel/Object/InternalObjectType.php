@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Object;
+namespace FluxIliasRestApi\Channel\Object;
 
 final class InternalObjectType
 {

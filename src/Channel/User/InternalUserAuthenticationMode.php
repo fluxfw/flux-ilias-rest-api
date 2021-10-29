@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\User;
+namespace FluxIliasRestApi\Channel\User;
 
 final class InternalUserAuthenticationMode
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Object;
+namespace FluxIliasRestApi\Channel\Object;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use ilCopyWizardOptions;
 use ilDBConstants;
 use ilLink;

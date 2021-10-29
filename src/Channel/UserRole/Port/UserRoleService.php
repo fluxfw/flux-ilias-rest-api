@@ -1,13 +1,13 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserRole\Port;
+namespace FluxIliasRestApi\Channel\UserRole\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\Port\RoleService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use Fluxlabs\FluxIliasRestApi\Channel\UserRole\Command\AddUserRoleCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\UserRole\Command\GetUserRolesCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\UserRole\Command\RemoveUserRoleCommand;
+use FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
+use FluxIliasRestApi\Channel\Role\Port\RoleService;
+use FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Channel\UserRole\Command\AddUserRoleCommand;
+use FluxIliasRestApi\Channel\UserRole\Command\GetUserRolesCommand;
+use FluxIliasRestApi\Channel\UserRole\Command\RemoveUserRoleCommand;
 use ilDBInterface;
 use ILIAS\DI\RBACServices;
 

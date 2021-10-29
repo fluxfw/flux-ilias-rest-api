@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command;
+namespace FluxIliasRestApi\Channel\CourseMember\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\CourseMemberQuery;
+use FluxIliasRestApi\Channel\CourseMember\CourseMemberQuery;
 use ilDBInterface;
 
 class GetCourseMembersCommand

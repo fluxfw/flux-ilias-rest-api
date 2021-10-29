@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\GroupMember;
+namespace FluxIliasRestApi\Channel\GroupMember;
 
 final class InternalGroupMemberType
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Collector;
+namespace FluxIliasRestApi\Adapter\Collector;
 
-use Fluxlabs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
-use Fluxlabs\FluxRestApi\Collector\RouteCollector;
+use FluxRestApi\Adapter\Collector\FolderRouteCollector;
+use FluxRestApi\Collector\RouteCollector;
 use ilPluginAdmin;
 use Throwable;
 

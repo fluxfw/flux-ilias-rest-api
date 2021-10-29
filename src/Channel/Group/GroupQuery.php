@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Group;
+namespace FluxIliasRestApi\Channel\Group;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
+use FluxIliasRestApi\Adapter\Api\Group\GroupDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilObjGroup;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserRole\Command;
+namespace FluxIliasRestApi\Channel\UserRole\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\UserRole\UserRoleQuery;
+use FluxIliasRestApi\Channel\UserRole\UserRoleQuery;
 use ilDBInterface;
 
 class GetUserRolesCommand

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\File\Command;
+namespace FluxIliasRestApi\Channel\File\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
-use Fluxlabs\FluxIliasRestApi\Channel\File\FileQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Adapter\Api\File\FileDto;
+use FluxIliasRestApi\Channel\File\FileQuery;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 use LogicException;
 

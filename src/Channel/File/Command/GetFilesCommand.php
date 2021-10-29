@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\File\Command;
+namespace FluxIliasRestApi\Channel\File\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\File\FileQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Channel\File\FileQuery;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 
 class GetFilesCommand

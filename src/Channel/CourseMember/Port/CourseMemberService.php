@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Port;
+namespace FluxIliasRestApi\Channel\CourseMember\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
-use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command\AddCourseMemberCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command\GetCourseMembersCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command\RemoveCourseMemberCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command\UpdateCourseMemberCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
+use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberIdDto;
+use FluxIliasRestApi\Channel\Course\Port\CourseService;
+use FluxIliasRestApi\Channel\CourseMember\Command\AddCourseMemberCommand;
+use FluxIliasRestApi\Channel\CourseMember\Command\GetCourseMembersCommand;
+use FluxIliasRestApi\Channel\CourseMember\Command\RemoveCourseMemberCommand;
+use FluxIliasRestApi\Channel\CourseMember\Command\UpdateCourseMemberCommand;
+use FluxIliasRestApi\Channel\User\Port\UserService;
 use ilDBInterface;
 
 class CourseMemberService

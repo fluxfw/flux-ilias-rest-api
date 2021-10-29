@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule;
+namespace FluxIliasRestApi\Channel\ScormLearningModule;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleType;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleType;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilObjSAHSLearningModule;
 use ilObjSCORM2004LearningModule;

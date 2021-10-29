@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Group\Port;
+namespace FluxIliasRestApi\Channel\Group\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\Command\CreateGroupCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\Command\GetGroupCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\Command\GetGroupsCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\Command\UpdateGroupCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
+use FluxIliasRestApi\Adapter\Api\Group\GroupDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Group\Command\CreateGroupCommand;
+use FluxIliasRestApi\Channel\Group\Command\GetGroupCommand;
+use FluxIliasRestApi\Channel\Group\Command\GetGroupsCommand;
+use FluxIliasRestApi\Channel\Group\Command\UpdateGroupCommand;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use ilDBInterface;
 
 class GroupService

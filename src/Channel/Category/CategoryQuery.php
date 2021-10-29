@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Category;
+namespace FluxIliasRestApi\Channel\Category;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilObjCategory;
 

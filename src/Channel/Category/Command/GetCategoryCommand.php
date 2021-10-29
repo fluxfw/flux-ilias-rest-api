@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Category\Command;
+namespace FluxIliasRestApi\Channel\Category\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\CategoryQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
+use FluxIliasRestApi\Channel\Category\CategoryQuery;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 use LogicException;
 

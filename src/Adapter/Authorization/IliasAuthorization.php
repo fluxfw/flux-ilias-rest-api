@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Authorization;
+namespace FluxIliasRestApi\Adapter\Authorization;
 
 use Exception;
-use Fluxlabs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
-use Fluxlabs\FluxRestApi\Authorization\Authorization;
-use Fluxlabs\FluxRestApi\Request\RawRequestDto;
-use Fluxlabs\FluxRestApi\Response\ResponseDto;
+use FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
+use FluxRestApi\Authorization\Authorization;
+use FluxRestApi\Request\RawRequestDto;
+use FluxRestApi\Response\ResponseDto;
 use ilBrowser;
 use ilCronStartUp;
 use ilHelpGUI;
