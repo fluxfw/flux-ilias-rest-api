@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\Command;
+namespace FluxIliasRestApi\Channel\ScormLearningModule\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\ScormLearningModule\ScormLearningModuleQuery;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Channel\ScormLearningModule\ScormLearningModuleQuery;
 use ilDBInterface;
 
 class GetScormLearningModulesCommand

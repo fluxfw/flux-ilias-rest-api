@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress;
+namespace FluxIliasRestApi\Channel\ObjectLearningProgress;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 
 trait ObjectLearningProgressQuery

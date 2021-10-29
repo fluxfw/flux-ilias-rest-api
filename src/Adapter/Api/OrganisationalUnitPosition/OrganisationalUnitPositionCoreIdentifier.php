@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition;
+namespace FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition;
 
 final class OrganisationalUnitPositionCoreIdentifier
 {

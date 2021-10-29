@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff\AddOrganisationalUnitStaff;
+namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff\AddOrganisationalUnitStaff;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
-use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
-use Fluxlabs\FluxRestApi\Body\TextBodyDto;
-use Fluxlabs\FluxRestApi\Method\Method;
-use Fluxlabs\FluxRestApi\Request\RequestDto;
-use Fluxlabs\FluxRestApi\Response\ResponseDto;
-use Fluxlabs\FluxRestApi\Route\Route;
-use Fluxlabs\FluxRestApi\Status\Status;
+use FluxIliasRestApi\Adapter\Api\Api;
+use FluxRestApi\Body\JsonBodyDto;
+use FluxRestApi\Body\TextBodyDto;
+use FluxRestApi\Method\Method;
+use FluxRestApi\Request\RequestDto;
+use FluxRestApi\Response\ResponseDto;
+use FluxRestApi\Route\Route;
+use FluxRestApi\Status\Status;
 
 class AddOrganisationalUnitStaffByRefIdByUserIdRoute implements Route
 {

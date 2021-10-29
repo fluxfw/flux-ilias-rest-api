@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\File\Command;
+namespace FluxIliasRestApi\Channel\File\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\File\FileQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\File\FileQuery;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 
 class CreateFileCommand
 {

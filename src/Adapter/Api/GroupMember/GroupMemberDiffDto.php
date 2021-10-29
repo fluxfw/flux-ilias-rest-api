@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember;
+namespace FluxIliasRestApi\Adapter\Api\GroupMember;
 
 class GroupMemberDiffDto
 {

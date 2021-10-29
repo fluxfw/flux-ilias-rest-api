@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Command;
+namespace FluxIliasRestApi\Channel\UserFavourite\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\User\Port\UserService;
 use ilFavouritesDBRepository;
 
 class AddUserFavouriteCommand

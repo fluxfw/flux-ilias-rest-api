@@ -1,13 +1,13 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Command;
+namespace FluxIliasRestApi\Channel\GroupMember\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\GroupQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\Port\GroupService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Adapter\Api\Group\GroupDto;
+use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberIdDto;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Channel\Group\GroupQuery;
+use FluxIliasRestApi\Channel\Group\Port\GroupService;
+use FluxIliasRestApi\Channel\User\Port\UserService;
 
 class RemoveGroupMemberCommand
 {

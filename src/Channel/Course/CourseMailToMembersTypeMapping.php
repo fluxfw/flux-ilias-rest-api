@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Course;
+namespace FluxIliasRestApi\Channel\Course;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseMailToMembersType;
+use FluxIliasRestApi\Adapter\Api\Course\CourseMailToMembersType;
 
 final class CourseMailToMembersTypeMapping
 {

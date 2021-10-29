@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Command;
+namespace FluxIliasRestApi\Channel\GroupMember\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\GroupMember\GroupMemberQuery;
+use FluxIliasRestApi\Channel\GroupMember\GroupMemberQuery;
 use ilDBInterface;
 
 class GetGroupMembersCommand

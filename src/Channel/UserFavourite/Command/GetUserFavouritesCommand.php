@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Command;
+namespace FluxIliasRestApi\Channel\UserFavourite\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\UserFavouriteQuery;
+use FluxIliasRestApi\Channel\UserFavourite\UserFavouriteQuery;
 use ilDBInterface;
 
 class GetUserFavouritesCommand

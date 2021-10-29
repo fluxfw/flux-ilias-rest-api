@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\ScormLearningModule;
+namespace FluxIliasRestApi\Adapter\Api\ScormLearningModule;
 
 use JsonSerializable;
 

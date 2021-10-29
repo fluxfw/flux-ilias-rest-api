@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\User;
+namespace FluxIliasRestApi\Channel\User;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserGender;
+use FluxIliasRestApi\Adapter\Api\User\UserGender;
 
 final class UserGenderMapping
 {

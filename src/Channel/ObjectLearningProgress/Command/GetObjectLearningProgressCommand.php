@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\Command;
+namespace FluxIliasRestApi\Channel\ObjectLearningProgress\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressQuery;
+use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressQuery;
 use ilDBInterface;
 
 class GetObjectLearningProgressCommand

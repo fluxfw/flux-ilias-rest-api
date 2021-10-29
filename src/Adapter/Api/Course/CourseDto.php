@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\Course;
+namespace FluxIliasRestApi\Adapter\Api\Course;
 
 use JsonSerializable;
 

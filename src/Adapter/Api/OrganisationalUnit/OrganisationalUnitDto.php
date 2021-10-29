@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit;
+namespace FluxIliasRestApi\Adapter\Api\OrganisationalUnit;
 
 use JsonSerializable;
 

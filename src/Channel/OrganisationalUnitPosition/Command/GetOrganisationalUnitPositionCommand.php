@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Command;
+namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\OrganisationalUnitPositionQuery;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
+use FluxIliasRestApi\Channel\OrganisationalUnitPosition\OrganisationalUnitPositionQuery;
 use ilDBInterface;
 use LogicException;
 

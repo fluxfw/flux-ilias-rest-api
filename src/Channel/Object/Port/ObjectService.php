@@ -1,21 +1,21 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Object\Port;
+namespace FluxIliasRestApi\Channel\Object\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\CloneObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\CreateObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\DeleteObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetChildrenCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetObjectsCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetPathCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\GetRootObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\LinkObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\MoveObjectCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Command\UpdateObjectCommand;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Object\Command\CloneObjectCommand;
+use FluxIliasRestApi\Channel\Object\Command\CreateObjectCommand;
+use FluxIliasRestApi\Channel\Object\Command\DeleteObjectCommand;
+use FluxIliasRestApi\Channel\Object\Command\GetChildrenCommand;
+use FluxIliasRestApi\Channel\Object\Command\GetObjectCommand;
+use FluxIliasRestApi\Channel\Object\Command\GetObjectsCommand;
+use FluxIliasRestApi\Channel\Object\Command\GetPathCommand;
+use FluxIliasRestApi\Channel\Object\Command\GetRootObjectCommand;
+use FluxIliasRestApi\Channel\Object\Command\LinkObjectCommand;
+use FluxIliasRestApi\Channel\Object\Command\MoveObjectCommand;
+use FluxIliasRestApi\Channel\Object\Command\UpdateObjectCommand;
 use ilDBInterface;
 use ilObjectDefinition;
 use ilObjUser;

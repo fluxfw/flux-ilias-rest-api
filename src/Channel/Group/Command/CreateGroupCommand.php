@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Group\Command;
+namespace FluxIliasRestApi\Channel\Group\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\GroupQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Group\GroupQuery;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 
 class CreateGroupCommand
 {

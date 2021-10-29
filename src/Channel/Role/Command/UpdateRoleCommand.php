@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Role\Command;
+namespace FluxIliasRestApi\Channel\Role\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\Port\RoleService;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\RoleQuery;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
+use FluxIliasRestApi\Channel\Role\Port\RoleService;
+use FluxIliasRestApi\Channel\Role\RoleQuery;
 
 class UpdateRoleCommand
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Authorization;
+namespace FluxIliasRestApi\Adapter\Authorization;
 
 use Exception;
-use Fluxlabs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
-use Fluxlabs\FluxRestApi\Authorization\Authorization;
-use Fluxlabs\FluxRestApi\Request\RawRequestDto;
-use Fluxlabs\FluxRestApi\Response\ResponseDto;
+use FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
+use FluxRestApi\Authorization\Authorization;
+use FluxRestApi\Request\RawRequestDto;
+use FluxRestApi\Response\ResponseDto;
 use ilBrowser;
 use ilCronStartUp;
 use ilHelpGUI;
@@ -23,6 +23,7 @@ use ilUtil;
 class IliasAuthorization implements Authorization
 {
 
+    const SPLIT_CLIENT_USER = "/";
     use HttpBasicAuthorization;
 
     public static function new() : /*static*/ self
@@ -42,13 +43,13 @@ class IliasAuthorization implements Authorization
             return $authorization;
         }
 
-        if (!str_contains($authorization->getUser(), "/")) {
+        if (!str_contains($authorization->getUser(), static::SPLIT_CLIENT_USER)) {
             throw new Exception("Missing client and user");
         }
 
-        $user = explode("/", $authorization->getUser());
+        $user = explode(static::SPLIT_CLIENT_USER, $authorization->getUser());
         $client = array_shift($user);
-        $user = implode("/", $user);
+        $user = implode(static::SPLIT_CLIENT_USER, $user);
 
         if (empty($client) || empty($user)) {
             throw new Exception("Missing client or user");

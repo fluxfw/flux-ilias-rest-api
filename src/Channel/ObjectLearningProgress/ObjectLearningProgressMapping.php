@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress;
+namespace FluxIliasRestApi\Channel\ObjectLearningProgress;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgress;
 
 final class ObjectLearningProgressMapping
 {

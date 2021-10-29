@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command;
+namespace FluxIliasRestApi\Channel\OrganisationalUnit\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\OrganisationalUnitQuery;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Channel\OrganisationalUnit\OrganisationalUnitQuery;
 use ilDBInterface;
 use LogicException;
 

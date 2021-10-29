@@ -2,12 +2,12 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
-use Fluxlabs\FluxIliasRestApi\Adapter\Authorization\IliasAuthorization;
-use Fluxlabs\FluxIliasRestApi\Adapter\Collector\IliasPluginsRouteCollector;
-use Fluxlabs\FluxRestApi\Adapter\Collector\CombinedRouteCollector;
-use Fluxlabs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
-use Fluxlabs\FluxRestApi\Adapter\Handler\DefaultHandler;
+use FluxIliasRestApi\Adapter\Api\Api;
+use FluxIliasRestApi\Adapter\Authorization\IliasAuthorization;
+use FluxIliasRestApi\Adapter\Collector\IliasPluginsRouteCollector;
+use FluxRestApi\Adapter\Collector\CombinedRouteCollector;
+use FluxRestApi\Adapter\Collector\FolderRouteCollector;
+use FluxRestApi\Adapter\Handler\DefaultHandler;
 
 DefaultHandler::new(
     CombinedRouteCollector::new(

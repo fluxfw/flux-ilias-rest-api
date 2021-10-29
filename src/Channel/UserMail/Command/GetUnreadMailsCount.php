@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserMail\Command;
+namespace FluxIliasRestApi\Channel\UserMail\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use Fluxlabs\FluxIliasRestApi\Channel\UserMail\InternalMailStatus;
-use Fluxlabs\FluxIliasRestApi\Channel\UserMail\UserMailQuery;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Channel\UserMail\InternalMailStatus;
+use FluxIliasRestApi\Channel\UserMail\UserMailQuery;
 use ilDBInterface;
 
 class GetUnreadMailsCount

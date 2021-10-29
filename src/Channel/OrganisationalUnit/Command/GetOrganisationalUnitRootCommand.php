@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command;
+namespace FluxIliasRestApi\Channel\OrganisationalUnit\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
 use ilObjOrgUnit;
 
 class GetOrganisationalUnitRootCommand

@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Role\Command;
+namespace FluxIliasRestApi\Channel\Role\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\Role\RoleQuery;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\Role\RoleQuery;
 use ILIAS\DI\RBACServices;
 
 class CreateRoleCommand

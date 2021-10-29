@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff;
+namespace FluxIliasRestApi\Channel\OrganisationalUnitStaff;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilOrgUnitUserAssignment;
 

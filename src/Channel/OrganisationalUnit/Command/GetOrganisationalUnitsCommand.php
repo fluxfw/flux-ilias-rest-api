@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command;
+namespace FluxIliasRestApi\Channel\OrganisationalUnit\Command;
 
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\OrganisationalUnitQuery;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Channel\OrganisationalUnit\OrganisationalUnitQuery;
 use ilDBInterface;
 
 class GetOrganisationalUnitsCommand

@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port;
+namespace FluxIliasRestApi\Channel\OrganisationalUnit\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command\CreateOrganisationalUnitCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command\GetOrganisationalUnitCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command\GetOrganisationalUnitRootCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command\GetOrganisationalUnitsCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Command\UpdateOrganisationalUnitCommand;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDiffDto;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitIdDto;
+use FluxIliasRestApi\Channel\OrganisationalUnit\Command\CreateOrganisationalUnitCommand;
+use FluxIliasRestApi\Channel\OrganisationalUnit\Command\GetOrganisationalUnitCommand;
+use FluxIliasRestApi\Channel\OrganisationalUnit\Command\GetOrganisationalUnitRootCommand;
+use FluxIliasRestApi\Channel\OrganisationalUnit\Command\GetOrganisationalUnitsCommand;
+use FluxIliasRestApi\Channel\OrganisationalUnit\Command\UpdateOrganisationalUnitCommand;
 use ilDBInterface;
 
 class OrganisationalUnitService

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\ObjectLearningProgress;
+namespace FluxIliasRestApi\Adapter\Api\ObjectLearningProgress;
 
 use JsonSerializable;
 

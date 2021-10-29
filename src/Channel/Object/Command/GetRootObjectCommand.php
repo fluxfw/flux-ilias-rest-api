@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Object\Command;
+namespace FluxIliasRestApi\Channel\Object\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 
 class GetRootObjectCommand
 {

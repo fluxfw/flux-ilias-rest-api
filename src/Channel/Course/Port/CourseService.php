@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Course\Port;
+namespace FluxIliasRestApi\Channel\Course\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\Command\CreateCourseCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\Command\GetCourseCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\Command\GetCoursesCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\Command\UpdateCourseCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Course\Command\CreateCourseCommand;
+use FluxIliasRestApi\Channel\Course\Command\GetCourseCommand;
+use FluxIliasRestApi\Channel\Course\Command\GetCoursesCommand;
+use FluxIliasRestApi\Channel\Course\Command\UpdateCourseCommand;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use ilDBInterface;
 
 class CourseService

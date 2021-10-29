@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Course\Command;
+namespace FluxIliasRestApi\Channel\Course\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Course\CourseQuery;
+use FluxIliasRestApi\Channel\Course\Port\CourseService;
 
 class UpdateCourseCommand
 {

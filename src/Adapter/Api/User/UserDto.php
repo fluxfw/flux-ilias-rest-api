@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\User;
+namespace FluxIliasRestApi\Adapter\Api\User;
 
 use JsonSerializable;
 

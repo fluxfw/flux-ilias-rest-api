@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Role;
+namespace FluxIliasRestApi\Channel\Role;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Role\RoleDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 use ilObjRole;
 

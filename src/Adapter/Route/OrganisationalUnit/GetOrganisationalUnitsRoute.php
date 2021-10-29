@@ -1,13 +1,13 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Route\OrganisationalUnit;
+namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnit;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Api;
-use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
-use Fluxlabs\FluxRestApi\Method\Method;
-use Fluxlabs\FluxRestApi\Request\RequestDto;
-use Fluxlabs\FluxRestApi\Response\ResponseDto;
-use Fluxlabs\FluxRestApi\Route\Route;
+use FluxIliasRestApi\Adapter\Api\Api;
+use FluxRestApi\Body\JsonBodyDto;
+use FluxRestApi\Method\Method;
+use FluxRestApi\Request\RequestDto;
+use FluxRestApi\Response\ResponseDto;
+use FluxRestApi\Route\Route;
 
 class GetOrganisationalUnitsRoute implements Route
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserMail\Port;
+namespace FluxIliasRestApi\Channel\UserMail\Port;
 
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use Fluxlabs\FluxIliasRestApi\Channel\UserMail\Command\GetUnreadMailsCount;
+use FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Channel\UserMail\Command\GetUnreadMailsCount;
 use ilDBInterface;
 
 class UserMailService

@@ -1,14 +1,14 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port;
+namespace FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command\AddOrganisationalUnitStaffCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command\GetOrganisationalUnitStaffCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command\RemoveOrganisationalUnitStaffCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use FluxIliasRestApi\Channel\OrganisationalUnit\Port\OrganisationalUnitService;
+use FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
+use FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command\AddOrganisationalUnitStaffCommand;
+use FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command\GetOrganisationalUnitStaffCommand;
+use FluxIliasRestApi\Channel\OrganisationalUnitStaff\Command\RemoveOrganisationalUnitStaffCommand;
+use FluxIliasRestApi\Channel\User\Port\UserService;
 use ilDBInterface;
 
 class OrganisationalUnitStaffService

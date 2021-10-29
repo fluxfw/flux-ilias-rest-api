@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember\Command;
+namespace FluxIliasRestApi\Channel\CourseMember\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberIdDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\User\UserDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\Port\CourseService;
-use Fluxlabs\FluxIliasRestApi\Channel\CourseMember\CourseMemberQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDto;
+use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
+use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberIdDto;
+use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Channel\Course\CourseQuery;
+use FluxIliasRestApi\Channel\Course\Port\CourseService;
+use FluxIliasRestApi\Channel\CourseMember\CourseMemberQuery;
+use FluxIliasRestApi\Channel\User\Port\UserService;
 
 class AddCourseMemberCommand
 {

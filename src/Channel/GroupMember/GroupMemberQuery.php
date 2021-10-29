@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\GroupMember;
+namespace FluxIliasRestApi\Channel\GroupMember;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
-use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
+use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
 use ilDBConstants;
 use ilLPStatus;
 use ilObjGroup;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Port;
+namespace FluxIliasRestApi\Channel\UserFavourite\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
-use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Command\AddUserFavouriteCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Command\GetUserFavouritesCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\UserFavourite\Command\RemoveUserFavouriteCommand;
+use FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Channel\UserFavourite\Command\AddUserFavouriteCommand;
+use FluxIliasRestApi\Channel\UserFavourite\Command\GetUserFavouritesCommand;
+use FluxIliasRestApi\Channel\UserFavourite\Command\RemoveUserFavouriteCommand;
 use ilDBInterface;
 use ilFavouritesDBRepository;
 

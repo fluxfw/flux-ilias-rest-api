@@ -1,16 +1,16 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\File\Port;
+namespace FluxIliasRestApi\Channel\File\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\File\FileDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\File\Command\CreateFileCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\File\Command\GetFileCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\File\Command\GetFilesCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\File\Command\UpdateFileCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\File\Command\UploadFileCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
+use FluxIliasRestApi\Adapter\Api\File\FileDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\File\Command\CreateFileCommand;
+use FluxIliasRestApi\Channel\File\Command\GetFileCommand;
+use FluxIliasRestApi\Channel\File\Command\GetFilesCommand;
+use FluxIliasRestApi\Channel\File\Command\UpdateFileCommand;
+use FluxIliasRestApi\Channel\File\Command\UploadFileCommand;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use ilDBInterface;
 use ILIAS\FileUpload\FileUpload;
 

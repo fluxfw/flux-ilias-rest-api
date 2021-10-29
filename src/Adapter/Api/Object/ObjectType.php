@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\Object;
+namespace FluxIliasRestApi\Adapter\Api\Object;
 
 final class ObjectType
 {

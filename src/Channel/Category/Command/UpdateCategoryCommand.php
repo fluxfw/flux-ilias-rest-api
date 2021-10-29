@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Category\Command;
+namespace FluxIliasRestApi\Channel\Category\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\CategoryQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\Port\CategoryService;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Category\CategoryQuery;
+use FluxIliasRestApi\Channel\Category\Port\CategoryService;
 
 class UpdateCategoryCommand
 {

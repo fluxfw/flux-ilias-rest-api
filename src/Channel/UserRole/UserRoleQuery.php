@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\UserRole;
+namespace FluxIliasRestApi\Channel\UserRole;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
 use ilDBConstants;
 
 trait UserRoleQuery

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Adapter\Api\Category;
+namespace FluxIliasRestApi\Adapter\Api\Category;
 
 class CategoryDiffDto
 {

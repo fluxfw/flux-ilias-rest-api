@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Port;
+namespace FluxIliasRestApi\Channel\GroupMember\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Group\Port\GroupService;
-use Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Command\AddGroupMemberCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Command\GetGroupMembersCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Command\RemoveGroupMemberCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\GroupMember\Command\UpdateGroupMemberCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\User\Port\UserService;
+use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberIdDto;
+use FluxIliasRestApi\Channel\Group\Port\GroupService;
+use FluxIliasRestApi\Channel\GroupMember\Command\AddGroupMemberCommand;
+use FluxIliasRestApi\Channel\GroupMember\Command\GetGroupMembersCommand;
+use FluxIliasRestApi\Channel\GroupMember\Command\RemoveGroupMemberCommand;
+use FluxIliasRestApi\Channel\GroupMember\Command\UpdateGroupMemberCommand;
+use FluxIliasRestApi\Channel\User\Port\UserService;
 use ilDBInterface;
 
 class GroupMemberService

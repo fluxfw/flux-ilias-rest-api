@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Course\Command;
+namespace FluxIliasRestApi\Channel\Course\Command;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Course\CourseQuery;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\ObjectQuery;
+use FluxIliasRestApi\Adapter\Api\Course\CourseDto;
+use FluxIliasRestApi\Channel\Course\CourseQuery;
+use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 
 class GetCoursesCommand

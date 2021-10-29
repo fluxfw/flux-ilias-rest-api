@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember;
+namespace FluxIliasRestApi\Channel\CourseMember;
 
 use ilCourseConstants;
 

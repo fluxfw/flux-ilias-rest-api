@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Object;
+namespace FluxIliasRestApi\Channel\Object;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectType;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
 
 final class ObjectTypeMapping
 {

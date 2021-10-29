@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\CourseMember;
+namespace FluxIliasRestApi\Channel\CourseMember;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\InternalObjectType;
-use Fluxlabs\FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
+use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
+use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDto;
+use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
 use ilDBConstants;
 use ilLPStatus;
 use ilObjCourse;

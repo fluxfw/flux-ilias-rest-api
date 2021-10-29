@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxIliasRestApi\Channel\Category\Port;
+namespace FluxIliasRestApi\Channel\Category\Port;
 
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
-use Fluxlabs\FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\CreateCategoryCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\GetCategoriesCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\GetCategoryCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Category\Command\UpdateCategoryCommand;
-use Fluxlabs\FluxIliasRestApi\Channel\Object\Port\ObjectService;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Channel\Category\Command\CreateCategoryCommand;
+use FluxIliasRestApi\Channel\Category\Command\GetCategoriesCommand;
+use FluxIliasRestApi\Channel\Category\Command\GetCategoryCommand;
+use FluxIliasRestApi\Channel\Category\Command\UpdateCategoryCommand;
+use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use ilDBInterface;
 
 class CategoryService
