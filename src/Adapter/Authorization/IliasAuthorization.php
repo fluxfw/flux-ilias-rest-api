@@ -23,6 +23,7 @@ use ilUtil;
 class IliasAuthorization implements Authorization
 {
 
+    const SPLIT_CLIENT_USER = "/";
     use HttpBasicAuthorization;
 
     public static function new() : /*static*/ self
@@ -42,13 +43,13 @@ class IliasAuthorization implements Authorization
             return $authorization;
         }
 
-        if (!str_contains($authorization->getUser(), "/")) {
+        if (!str_contains($authorization->getUser(), static::SPLIT_CLIENT_USER)) {
             throw new Exception("Missing client and user");
         }
 
-        $user = explode("/", $authorization->getUser());
+        $user = explode(static::SPLIT_CLIENT_USER, $authorization->getUser());
         $client = array_shift($user);
-        $user = implode("/", $user);
+        $user = implode(static::SPLIT_CLIENT_USER, $user);
 
         if (empty($client) || empty($user)) {
             throw new Exception("Missing client or user");
