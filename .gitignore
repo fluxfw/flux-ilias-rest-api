@@ -10,4 +10,5 @@
 !composer.json
 !composer.lock
 !index.php
+!metadata.json
 !README.md
