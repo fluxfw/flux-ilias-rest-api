@@ -1,0 +1,11 @@
+{
+  "description": "ILIAS Rest Api (Experimental Alpha Version)",
+  "keywords": [
+    "alpha",
+    "api",
+    "experimental",
+    "ilias",
+    "rest"
+  ],
+  "homepage": "https://github.com/fluxapps/FluxIliasRestApi"
+}
