@@ -7,7 +7,7 @@ Experimental Alpha Version
 In [FluxIlias](https://github.com/fluxapps/FluxIlias)
 
 ```dockerfile
-RUN (mkdir -p "$ILIAS_WEB_DIR/Customizing/global/FluxIliasRestApi" && cd "$ILIAS_WEB_DIR/Customizing/global/FluxIliasRestApi" && wget -O - https://github.com/fluxapps/FluxIliasRestApi/archive/main.tar.gz | tar -xz --strip-components=1 && ./bin/build.sh)
+COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest/api:latest /FluxIliasRestApi "$ILIAS_WEB_DIR/Customizing/global/FluxIliasRestApi"
 ```
 
 ## Call route

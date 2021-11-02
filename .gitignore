@@ -1,14 +1,13 @@
 *
-!bin
-!bin/**
 !examples
 !examples/**
 !src
 !src/**
+!.dockerignore
 !.gitignore
 !.gitlab-ci.yml
-!composer.json
-!composer.lock
+!autoload.php
+!Dockerfile
 !index.php
 !metadata.json
 !README.md
