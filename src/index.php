@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/init.php";
+require_once __DIR__ . "/../autoload.php";
 
 use FluxIliasRestApi\Adapter\Api\Api;
 use FluxIliasRestApi\Adapter\Authorization\IliasAuthorization;
