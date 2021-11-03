@@ -36,8 +36,7 @@ class IliasPluginsRouteCollector implements RouteCollector
                 return $routes;
             }
 
-            $plugin_autoload_file = $plugin->getDirectory() . "/vendor/autoload.php";
-            if (file_exists($plugin_autoload_file)) {
+            if (file_exists($plugin_autoload_file = $plugin->getDirectory() . "/autoload.php") || file_exists($plugin_autoload_file = $plugin->getDirectory() . "/vendor/autoload.php")) {
                 require_once $plugin_autoload_file;
             }
 

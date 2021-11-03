@@ -13,3 +13,7 @@ spl_autoload_register(function (string $class) : void {
         require_once __DIR__ . str_replace("\\", "/", substr($class, strlen(__NAMESPACE__))) . ".php";
     }
 });
+
+chdir(__DIR__ . "/../../../..");
+require_once __DIR__ . "/../../../../libs/composer/vendor/autoload.php";
+require_once __DIR__ . "/../../../../webservice/soap/include/inc.soap_functions.php";

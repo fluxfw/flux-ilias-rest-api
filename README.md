@@ -40,7 +40,7 @@ With the follow route you can get all available routes
 
 ## Custom routes location
 
-You can either place custom routes in [routes](routes)
+You can either place custom routes in `routes`
 
 And/or each ILIAS plugin can also have custom routes in its own `src/Adapter/Route` folder
 
