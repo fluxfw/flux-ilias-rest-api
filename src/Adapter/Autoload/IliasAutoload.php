@@ -2,7 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Autoload;
 
-class IliasAutoload
+use FluxAutoloadApi\Autoload\Autoload;
+
+class IliasAutoload implements Autoload
 {
 
     private string $folder;
