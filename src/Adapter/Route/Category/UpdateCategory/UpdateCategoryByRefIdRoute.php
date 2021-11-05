@@ -4,14 +4,14 @@ namespace FluxIliasRestApi\Adapter\Route\Category\UpdateCategory;
 
 use FluxIliasRestApi\Adapter\Api\Api;
 use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
-use FluxRestApi\Body\BodyType;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Body\TextBodyDto;
-use FluxRestApi\Method\Method;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestApi\Status\Status;
+use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Method\Method;
+use FluxRestBaseApi\Status\Status;
 
 class UpdateCategoryByRefIdRoute implements Route
 {
