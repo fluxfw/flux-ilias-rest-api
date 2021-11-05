@@ -5,11 +5,11 @@ namespace FluxIliasRestApi\Adapter\Route\ScormLearningModule\GetScormLearningMod
 use FluxIliasRestApi\Adapter\Api\Api;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Body\TextBodyDto;
-use FluxRestApi\Method\Method;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestApi\Status\Status;
+use FluxRestBaseApi\Method\Method;
+use FluxRestBaseApi\Status\Status;
 
 class GetScormLearningModuleByRefIdRoute implements Route
 {

@@ -4,10 +4,10 @@ namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff;
 
 use FluxIliasRestApi\Adapter\Api\Api;
 use FluxRestApi\Body\JsonBodyDto;
-use FluxRestApi\Method\Method;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\Method;
 
 class GetOrganisationalUnitStaffRoute implements Route
 {
