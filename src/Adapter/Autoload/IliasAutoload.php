@@ -2,6 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Autoload;
 
+use FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
 use FluxAutoloadApi\Autoload\Autoload;
 
 class IliasAutoload implements Autoload
@@ -24,7 +25,11 @@ class IliasAutoload implements Autoload
     {
         chdir($this->folder);
 
-        require_once $this->folder . "/libs/composer/vendor/autoload.php";
+        ComposerAutoload::new(
+            $this->folder
+        )
+            ->autoload();
+
         require_once $this->folder . "/webservice/soap/include/inc.soap_functions.php";
     }
 }
