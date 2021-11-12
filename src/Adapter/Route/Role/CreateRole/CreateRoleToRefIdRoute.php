@@ -51,7 +51,7 @@ class CreateRoleToRefIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/role/create/to-ref-id/{parent_ref_id}";
+        return "/role/create/to-ref-id/{object_ref_id}";
     }
 
 
@@ -68,7 +68,7 @@ class CreateRoleToRefIdRoute implements Route
 
         $id = $this->api->createRoleToRefId(
             $request->getParam(
-                "parent_ref_id"
+                "object_ref_id"
             ),
             RoleDiffDto::newFromData(
                 $request->getParsedBody()->getData()

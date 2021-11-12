@@ -2,14 +2,12 @@
 
 namespace FluxIliasRestApi\Channel\Role\Command;
 
-use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use FluxIliasRestApi\Channel\Role\RoleQuery;
 use ilDBInterface;
 
 class GetRolesCommand
 {
 
-    use ObjectQuery;
     use RoleQuery;
 
     private ilDBInterface $database;

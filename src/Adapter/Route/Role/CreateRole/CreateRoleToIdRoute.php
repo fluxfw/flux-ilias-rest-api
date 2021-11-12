@@ -51,7 +51,7 @@ class CreateRoleToIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/role/create/to-id/{parent_id}";
+        return "/role/create/to-id/{object_id}";
     }
 
 
@@ -68,7 +68,7 @@ class CreateRoleToIdRoute implements Route
 
         $id = $this->api->createRoleToId(
             $request->getParam(
-                "parent_id"
+                "object_id"
             ),
             RoleDiffDto::newFromData(
                 $request->getParsedBody()->getData()

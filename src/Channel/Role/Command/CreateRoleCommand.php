@@ -29,42 +29,42 @@ class CreateRoleCommand
     }
 
 
-    public function createRoleToId(int $parent_id, RoleDiffDto $diff) : ?ObjectIdDto
+    public function createRoleToId(int $object_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createRole(
             $this->object->getObjectById(
-                $parent_id
+                $object_id
             ),
             $diff
         );
     }
 
 
-    public function createRoleToImportId(string $parent_import_id, RoleDiffDto $diff) : ?ObjectIdDto
+    public function createRoleToImportId(string $object_import_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createRole(
             $this->object->getObjectByImportId(
-                $parent_import_id
+                $object_import_id
             ),
             $diff
         );
     }
 
 
-    public function createRoleToRefId(int $parent_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
+    public function createRoleToRefId(int $object_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createRole(
             $this->object->getObjectByRefId(
-                $parent_ref_id
+                $object_ref_id
             ),
             $diff
         );
     }
 
 
-    private function createRole(?ObjectDto $parent_object, RoleDiffDto $diff) : ?ObjectIdDto
+    private function createRole(?ObjectDto $object, RoleDiffDto $diff) : ?ObjectIdDto
     {
-        if ($parent_object === null || $parent_object->getRefId() === null) {
+        if ($object === null || $object->getRefId() === null) {
             return null;
         }
 
@@ -73,7 +73,7 @@ class CreateRoleCommand
         $ilias_role->setTitle($diff->getTitle() ?? "");
 
         $ilias_role->create();
-        $this->rbac->admin()->assignRoleToFolder($ilias_role->getId(), $parent_object->getRefId());
+        $this->rbac->admin()->assignRoleToFolder($ilias_role->getId(), $object->getRefId());
 
         $this->mapRoleDiff(
             $diff,

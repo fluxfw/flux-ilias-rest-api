@@ -35,40 +35,40 @@ class RoleService
     }
 
 
-    public function createRoleToId(int $parent_id, RoleDiffDto $diff) : ?ObjectIdDto
+    public function createRoleToId(int $object_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateRoleCommand::new(
             $this->object,
             $this->rbac
         )
             ->createRoleToId(
-                $parent_id,
+                $object_id,
                 $diff
             );
     }
 
 
-    public function createRoleToImportId(string $parent_import_id, RoleDiffDto $diff) : ?ObjectIdDto
+    public function createRoleToImportId(string $object_import_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateRoleCommand::new(
             $this->object,
             $this->rbac
         )
             ->createRoleToImportId(
-                $parent_import_id,
+                $object_import_id,
                 $diff
             );
     }
 
 
-    public function createRoleToRefId(int $parent_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
+    public function createRoleToRefId(int $object_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateRoleCommand::new(
             $this->object,
             $this->rbac
         )
             ->createRoleToRefId(
-                $parent_ref_id,
+                $object_ref_id,
                 $diff
             );
     }
