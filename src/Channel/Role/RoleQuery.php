@@ -68,7 +68,6 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_data_parent.ob
             $role["parent_obj_id"] ?: null,
             $role["parent_import_id"] ?: null,
             $role["parent_ref_id"] ?: null,
-            $this->getObjectIconUrl($role["obj_id"] ?: null, $role["type"] ?: null),
             $role["title"] ?? "",
             $role["description"] ?? ""
         );

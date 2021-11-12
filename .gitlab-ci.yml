@@ -7,7 +7,7 @@ build:
   stage: build
   script:
     - echo -n $DEV_DOCKER_REGISTRY_PASSWORD | docker login -u $DEV_DOCKER_REGISTRY_USER --password-stdin $DEV_DOCKER_REGISTRY_URL;
-      docker build . --pull -t $DEV_DOCKER_REGISTRY_IMAGE:latest;
+      docker build . --pull --build-arg REST_API_IMAGE=$DEV_DOCKER_REGISTRY_URL/flux-rest/api:latest -t $DEV_DOCKER_REGISTRY_IMAGE:latest;
       docker push $DEV_DOCKER_REGISTRY_IMAGE:latest;
       docker logout $DEV_DOCKER_REGISTRY_URL;
   only:

@@ -51,7 +51,7 @@ class CreateRoleToImportIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/role/create/to-import-id/{parent_import_id}";
+        return "/role/create/to-import-id/{object_import_id}";
     }
 
 
@@ -68,7 +68,7 @@ class CreateRoleToImportIdRoute implements Route
 
         $id = $this->api->createRoleToImportId(
             $request->getParam(
-                "parent_import_id"
+                "object_import_id"
             ),
             RoleDiffDto::newFromData(
                 $request->getParsedBody()->getData()

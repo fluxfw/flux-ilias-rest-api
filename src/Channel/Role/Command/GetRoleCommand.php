@@ -3,7 +3,6 @@
 namespace FluxIliasRestApi\Channel\Role\Command;
 
 use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
-use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use FluxIliasRestApi\Channel\Role\RoleQuery;
 use ilDBInterface;
 use LogicException;
@@ -11,7 +10,6 @@ use LogicException;
 class GetRoleCommand
 {
 
-    use ObjectQuery;
     use RoleQuery;
 
     private ilDBInterface $database;

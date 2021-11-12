@@ -9,7 +9,6 @@ class RoleDto implements JsonSerializable
 
     private ?int $created;
     private ?string $description;
-    private ?string $icon_url;
     private ?int $id;
     private ?string $import_id;
     private ?int $object_id;
@@ -27,7 +26,6 @@ class RoleDto implements JsonSerializable
         ?int $object_id = null,
         ?string $object_import_id = null,
         ?int $object_ref_id = null,
-        ?string $icon_url = null,
         ?string $title = null,
         ?string $description = null
     ) : /*static*/ self
@@ -41,7 +39,6 @@ class RoleDto implements JsonSerializable
         $dto->object_id = $object_id;
         $dto->object_import_id = $object_import_id;
         $dto->object_ref_id = $object_ref_id;
-        $dto->icon_url = $icon_url;
         $dto->title = $title;
         $dto->description = $description;
 
@@ -58,12 +55,6 @@ class RoleDto implements JsonSerializable
     public function getDescription() : ?string
     {
         return $this->description;
-    }
-
-
-    public function getIconUrl() : ?string
-    {
-        return $this->icon_url;
     }
 
 

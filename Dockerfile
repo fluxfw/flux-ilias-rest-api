@@ -1,6 +1,9 @@
+ARG REST_API_IMAGE
+FROM $REST_API_IMAGE AS rest_api
+
 FROM alpine:latest AS build
 
-COPY --from=docker-registry.fluxpublisher.ch/flux-rest/api:latest /FluxRestApi /FluxIliasRestApi/libs/FluxRestApi
+COPY --from=rest_api /FluxRestApi /FluxIliasRestApi/libs/FluxRestApi
 COPY . /FluxIliasRestApi
 
 FROM scratch
