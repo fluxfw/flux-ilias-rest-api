@@ -1,22 +1,22 @@
-# FluxIliasRestApi
+# flux-ilias-rest-api
 
 Experimental Alpha Version
 
 ## Installation
 
-In [FluxIlias](https://github.com/fluxapps/FluxIlias)
+In [flux-ilias-rest-api](https://github.com/fluxapps/flux-ilias-rest-api)
 
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest/api:latest /FluxIliasRestApi "$ILIAS_WEB_DIR/Customizing/global/FluxIliasRestApi"
+COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest/api:latest /flux-ilias-rest-api "$ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api"
 ```
 
 ## Call route
 
-`https://%host%/Customizing/global/FluxIliasRestApi?/path/to/some/route`
+`https://%host%/Customizing/global/flux-ilias-rest-api?/path/to/some/route`
 
 With query params
 
-`https://%host%/Customizing/global/FluxIliasRestApi?/path/to/some/route&query_param=xyz`
+`https://%host%/Customizing/global/flux-ilias-rest-api?/path/to/some/route&query_param=xyz`
 
 ## Authorization
 
@@ -36,7 +36,7 @@ Only admin users can use the api
 
 With the follow route you can get all available routes
 
-`https://%host%/Customizing/global/FluxIliasRestApi?/routes`
+`https://%host%/Customizing/global/flux-ilias-rest-api?/routes`
 
 ## Custom routes location
 
@@ -50,7 +50,7 @@ The folders are scanned recursive
 
 ### Code
 
-[examples](https://github.com/fluxapps/FluxRestApi/tree/main/examples/routes)
+[flux-rest-api](https://github.com/fluxapps/flux-rest-api/tree/main/examples/routes)
 
 ### Request
 

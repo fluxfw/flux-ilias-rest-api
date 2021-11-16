@@ -1,19 +1,14 @@
-variables:
-  DOCKER_REGISTRY_IMAGE_NAME: flux-ilias-rest/api
-  DEV_DOCKER_REGISTRY_IMAGE: $DEV_DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_IMAGE_NAME
-  DOCKER_REGISTRY_IMAGE: $DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_IMAGE_NAME
-
 build:
   stage: build
   script:
-    - echo -n $DEV_DOCKER_REGISTRY_PASSWORD | docker login -u $DEV_DOCKER_REGISTRY_USER --password-stdin $DEV_DOCKER_REGISTRY_URL;
-      docker build . --pull --build-arg REST_API_IMAGE=$DEV_DOCKER_REGISTRY_URL/flux-rest/api:latest -t $DEV_DOCKER_REGISTRY_IMAGE:latest;
-      docker push $DEV_DOCKER_REGISTRY_IMAGE:latest;
-      docker logout $DEV_DOCKER_REGISTRY_URL;
+    - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY;
+      docker build . --pull --build-arg REST_API_IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/flux-rest-api:latest -t $CI_REGISTRY_IMAGE:latest;
+      docker push $CI_REGISTRY_IMAGE:latest;
+      docker logout $CI_REGISTRY;
   only:
     - develop
 
-FluxPublishUtils:
+flux-publish-utils:
   stage: build
   image: docker-registry.fluxpublisher.ch/flux-publish-utils:latest
   script:
@@ -24,12 +19,16 @@ FluxPublishUtils:
 publish:
   stage: deploy
   script:
+    - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY;
+      docker pull $CI_REGISTRY_IMAGE:latest;
+      docker logout $CI_REGISTRY;
     - echo -n $DEV_DOCKER_REGISTRY_PASSWORD | docker login -u $DEV_DOCKER_REGISTRY_USER --password-stdin $DEV_DOCKER_REGISTRY_URL;
-      docker pull $DEV_DOCKER_REGISTRY_IMAGE:latest;
+      docker tag $CI_REGISTRY_IMAGE:latest $DEV_DOCKER_REGISTRY_URL/flux-ilias-rest/api:latest;
+      docker push $DEV_DOCKER_REGISTRY_URL/flux-ilias-rest/api:latest;
       docker logout $DEV_DOCKER_REGISTRY_URL;
     - echo -n $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin $DOCKER_REGISTRY_URL;
-      docker tag $DEV_DOCKER_REGISTRY_IMAGE:latest $DOCKER_REGISTRY_IMAGE:latest;
-      docker push $DOCKER_REGISTRY_IMAGE:latest;
+      docker tag $DEV_DOCKER_REGISTRY_URL/flux-ilias-rest/api:latest $DOCKER_REGISTRY_URL/flux-ilias-rest/api:latest;
+      docker push $DOCKER_REGISTRY_URL/flux-ilias-rest/api:latest;
       docker logout $DOCKER_REGISTRY_URL;
   only:
     - main
