@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi;
 
-require_once __DIR__ . "/../libs/FluxRestApi/autoload.php";
+require_once __DIR__ . "/../libs/flux-rest-api/autoload.php";
 
 use FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
 use FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
