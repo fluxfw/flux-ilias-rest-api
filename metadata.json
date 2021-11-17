@@ -5,6 +5,7 @@
     "api",
     "experimental",
     "ilias",
+    "php",
     "rest"
   ],
   "homepage": "https://github.com/fluxapps/flux-ilias-rest-api"
