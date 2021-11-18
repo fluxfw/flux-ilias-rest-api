@@ -4,7 +4,7 @@ Experimental Alpha Version
 
 ## Installation
 
-In [flux-ilias-rest-api](https://github.com/fluxapps/flux-ilias-rest-api)
+In [flux-ilias](https://github.com/fluxapps/flux-ilias)
 
 ```dockerfile
 COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest/api:latest /flux-ilias-rest-api "$ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api"
