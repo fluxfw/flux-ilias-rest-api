@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Autoload;
 
 use FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
-use FluxAutoloadApi\Adapter\Autoload\RequireAutoload;
+use FluxAutoloadApi\Adapter\Autoload\FileAutoload;
 use FluxAutoloadApi\Autoload\Autoload;
 
 class IliasAutoload implements Autoload
@@ -31,7 +31,7 @@ class IliasAutoload implements Autoload
         )
             ->autoload();
 
-        RequireAutoload::new(
+        FileAutoload::new(
             $this->folder . "/webservice/soap/include/inc.soap_functions.php"
         )
             ->autoload();
