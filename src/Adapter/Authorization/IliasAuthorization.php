@@ -3,6 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Authorization;
 
 use Exception;
+use FluxIliasRestApi\Adapter\Autoload\IliasAutoload;
 use FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
 use FluxRestApi\Authorization\Authorization;
 use FluxRestApi\Request\RawRequestDto;
@@ -57,6 +58,11 @@ class IliasAuthorization implements Authorization
 
         ini_set("session.use_cookies", 0);
 
+        IliasAutoload::new(
+            __DIR__ . "/../../.."
+        )
+            ->autoload();
+
         (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
 
         global $DIC;
@@ -97,7 +103,7 @@ class IliasAuthorization implements Authorization
                 if (!isset($GLOBALS[$key])) {
                     switch ($class) {
                         case ilStyleDefinition::class:
-                            $GLOBALS[$key] = new ilStyleDefinition();
+                            $GLOBALS[$key] = new $class();
                             break;
                         default:
                             $GLOBALS[$key] = eval('return new class() extends ' . $class . ' { public function __construct() {} };');

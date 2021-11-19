@@ -7,7 +7,6 @@ require_once __DIR__ . "/../libs/flux-rest-api/autoload.php";
 use FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
 use FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
 use FluxAutoloadApi\Adapter\Checker\PhpVersionChecker;
-use FluxIliasRestApi\Adapter\Autoload\IliasAutoload;
 
 PhpVersionChecker::new(
     ">=7.4",
@@ -26,10 +25,5 @@ Psr4Autoload::new(
     [
         __NAMESPACE__ => __DIR__
     ]
-)
-    ->autoload();
-
-IliasAutoload::new(
-    __DIR__ . "/../../../.."
 )
     ->autoload();

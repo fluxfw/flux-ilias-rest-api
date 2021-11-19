@@ -2,6 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Autoload;
 
+use Exception;
 use FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
 use FluxAutoloadApi\Adapter\Autoload\FileAutoload;
 use FluxAutoloadApi\Autoload\Autoload;
@@ -24,16 +25,31 @@ class IliasAutoload implements Autoload
 
     public function autoload() : void
     {
-        chdir($this->folder);
+        $folder = $this->getIliasFolder(
+            $this->folder
+        );
+
+        chdir($folder);
 
         ComposerAutoload::new(
-            $this->folder
+            $folder
         )
             ->autoload();
 
         FileAutoload::new(
-            $this->folder . "/webservice/soap/include/inc.soap_functions.php"
+            $folder . "/webservice/soap/include/inc.soap_functions.php"
         )
             ->autoload();
+    }
+
+
+    private function getIliasFolder(string $folder) : string
+    {
+        $pos = strpos($folder, "/Customizing/");
+        if ($pos === false) {
+            throw new Exception("Can't detect ILIAS folder because not in Customizing");
+        }
+
+        return substr($folder, 0, $pos);
     }
 }
