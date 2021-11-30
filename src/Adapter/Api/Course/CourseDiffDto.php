@@ -24,7 +24,7 @@ class CourseDiffDto
     private ?string $import_id;
     private ?string $important_information;
     private ?string $mail_subject_prefix;
-    private ?string $mail_to_members_type;
+    private ?LegacyCourseMailToMembersType $mail_to_members_type;
     private ?bool $news;
     private ?bool $online;
     private ?int $period_end;
@@ -66,7 +66,7 @@ class CourseDiffDto
             $data->mail_subject_prefix ?? null,
             $data->show_members ?? null,
             $data->show_members_participants_list ?? null,
-            $data->mail_to_members_type ?? null,
+            ($mail_to_members_type = $data->mail_to_members_type ?? null) !== null ? LegacyCourseMailToMembersType::from($mail_to_members_type) : null,
             $data->send_welcome_email ?? null,
             $data->add_to_favourites ?? null,
             $data->important_information ?? null,
@@ -105,7 +105,7 @@ class CourseDiffDto
         ?string $mail_subject_prefix = null,
         ?bool $show_members = null,
         ?bool $show_members_participants_list = null,
-        ?string $mail_to_members_type = null,
+        ?LegacyCourseMailToMembersType $mail_to_members_type = null,
         ?bool $send_welcome_email = null,
         ?bool $add_to_favourites = null,
         ?string $important_information = null,
@@ -232,7 +232,7 @@ class CourseDiffDto
     }
 
 
-    public function getMailToMembersType() : ?string
+    public function getMailToMembersType() : ?LegacyCourseMailToMembersType
     {
         return $this->mail_to_members_type;
     }

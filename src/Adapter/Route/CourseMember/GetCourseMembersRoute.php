@@ -3,10 +3,12 @@
 namespace FluxIliasRestApi\Adapter\Route\CourseMember;
 
 use FluxIliasRestApi\Adapter\Api\Api;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
 
 class GetCourseMembersRoute implements Route
@@ -51,9 +53,9 @@ class GetCourseMembersRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::GET;
+        return LegacyDefaultMethod::GET();
     }
 
 
@@ -92,9 +94,9 @@ class GetCourseMembersRoute implements Route
                     ($administrator_role = $request->getQueryParam(
                         "administrator_role"
                     )) === "true" ? true : ($administrator_role === "false" ? false : null),
-                    $request->getQueryParam(
+                    ($learning_progress = $request->getQueryParam(
                         "learning_progress"
-                    ),
+                    )) !== null ? LegacyObjectLearningProgress::from($learning_progress) : null,
                     ($passed = $request->getQueryParam(
                         "passed"
                     )) === "true" ? true : ($passed === "false" ? false : null),

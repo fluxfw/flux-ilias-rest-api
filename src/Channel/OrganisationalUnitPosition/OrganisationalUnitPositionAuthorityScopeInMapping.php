@@ -2,26 +2,28 @@
 
 namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
-use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionAuthorityScopeIn;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionAuthorityScopeIn;
 
 final class OrganisationalUnitPositionAuthorityScopeInMapping
 {
 
-    private const INTERNAL_EXTERNAL
-        = [
-            InternalOrganisationalUnitPositionAuthorityScopeIn::SAME                => OrganisationalUnitPositionAuthorityScopeIn::SAME,
-            InternalOrganisationalUnitPositionAuthorityScopeIn::SAME_AND_SUBSEQUENT => OrganisationalUnitPositionAuthorityScopeIn::SAME_AND_SUBSEQUENT
-        ];
-
-
-    public static function mapExternalToInternal(?string $authority_scope_in) : ?int
+    public static function mapExternalToInternal(LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in) : LegacyInternalOrganisationalUnitPositionAuthorityScopeIn
     {
-        return ($authority_scope_in = $authority_scope_in ?: null) !== null ? array_flip(static::INTERNAL_EXTERNAL)[$authority_scope_in] ?? substr($authority_scope_in, 1) : null;
+        return LegacyInternalOrganisationalUnitPositionAuthorityScopeIn::from(array_flip(static::INTERNAL_EXTERNAL())[$scope_in->value] ?? substr($scope_in->value, 1));
     }
 
 
-    public static function mapInternalToExternal(?int $authority_scope_in) : ?string
+    public static function mapInternalToExternal(LegacyInternalOrganisationalUnitPositionAuthorityScopeIn $scope_in) : LegacyOrganisationalUnitPositionAuthorityScopeIn
     {
-        return ($authority_scope_in = $authority_scope_in ?: null) !== null ? static::INTERNAL_EXTERNAL[$authority_scope_in] ?? "_" . $authority_scope_in : null;
+        return LegacyOrganisationalUnitPositionAuthorityScopeIn::from(static::INTERNAL_EXTERNAL()[$scope_in->value] ?? "_" . $scope_in->value);
+    }
+
+
+    private static function INTERNAL_EXTERNAL() : array
+    {
+        return [
+            LegacyInternalOrganisationalUnitPositionAuthorityScopeIn::SAME()->value                => LegacyOrganisationalUnitPositionAuthorityScopeIn::SAME()->value,
+            LegacyInternalOrganisationalUnitPositionAuthorityScopeIn::SAME_AND_SUBSEQUENT()->value => LegacyOrganisationalUnitPositionAuthorityScopeIn::SAME_AND_SUBSEQUENT()->value
+        ];
     }
 }

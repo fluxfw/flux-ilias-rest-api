@@ -3,10 +3,12 @@
 namespace FluxIliasRestApi\Adapter\Route\Object;
 
 use FluxIliasRestApi\Adapter\Api\Api;
+use FluxIliasRestApi\Adapter\Api\Object\CustomObjectType;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
 
 class GetObjectsRoute implements Route
@@ -39,9 +41,9 @@ class GetObjectsRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::GET;
+        return LegacyDefaultMethod::GET();
     }
 
 
@@ -56,9 +58,9 @@ class GetObjectsRoute implements Route
         return ResponseDto::new(
             JsonBodyDto::new(
                 $this->api->getObjects(
-                    $request->getParam(
+                    CustomObjectType::factory($request->getParam(
                         "type"
-                    ),
+                    )),
                     $request->getQueryParam(
                         "ref_ids"
                     ) === "true"

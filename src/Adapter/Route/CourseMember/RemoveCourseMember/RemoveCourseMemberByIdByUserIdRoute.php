@@ -8,8 +8,9 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class RemoveCourseMemberByIdByUserIdRoute implements Route
 {
@@ -39,9 +40,9 @@ class RemoveCourseMemberByIdByUserIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::DELETE;
+        return LegacyDefaultMethod::DELETE();
     }
 
 
@@ -73,7 +74,7 @@ class RemoveCourseMemberByIdByUserIdRoute implements Route
                 TextBodyDto::new(
                     "Course member not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

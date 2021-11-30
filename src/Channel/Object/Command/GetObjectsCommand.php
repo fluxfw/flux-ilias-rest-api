@@ -3,6 +3,7 @@
 namespace FluxIliasRestApi\Channel\Object\Command;
 
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
 use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;
 
@@ -24,7 +25,7 @@ class GetObjectsCommand
     }
 
 
-    public function getObjects(string $type, bool $ref_ids = false) : array
+    public function getObjects(ObjectType $type, bool $ref_ids = false) : array
     {
         $objects = $this->database->fetchAll($this->database->query($this->getObjectQuery(
             $type

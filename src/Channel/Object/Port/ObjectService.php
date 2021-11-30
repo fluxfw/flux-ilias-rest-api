@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Channel\Object\Port;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
 use FluxIliasRestApi\Channel\Object\Command\CloneObjectCommand;
 use FluxIliasRestApi\Channel\Object\Command\CreateObjectCommand;
 use FluxIliasRestApi\Channel\Object\Command\DeleteObjectCommand;
@@ -196,7 +197,7 @@ class ObjectService
     }
 
 
-    public function createObjectToId(string $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToId(ObjectType $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return CreateObjectCommand::new(
             $this
@@ -209,7 +210,7 @@ class ObjectService
     }
 
 
-    public function createObjectToImportId(string $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToImportId(ObjectType $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return CreateObjectCommand::new(
             $this
@@ -222,7 +223,7 @@ class ObjectService
     }
 
 
-    public function createObjectToRefId(string $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToRefId(ObjectType $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return CreateObjectCommand::new(
             $this
@@ -340,7 +341,7 @@ class ObjectService
     }
 
 
-    public function getObjects(string $type, bool $ref_ids = false) : array
+    public function getObjects(ObjectType $type, bool $ref_ids = false) : array
     {
         return GetObjectsCommand::new(
             $this->database

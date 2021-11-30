@@ -4,7 +4,8 @@ namespace FluxIliasRestApi\Channel\File;
 
 use FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
 use FluxIliasRestApi\Adapter\Api\File\FileDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjFile;
 use ilObjFileAccess;
@@ -21,7 +22,7 @@ trait FileQuery
     private function getFileQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::FILE, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::FILE()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
@@ -83,6 +84,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
 
     private function mapFileDto(array $file) : FileDto
     {
+        $type = ($type = $file["type"] ?: null) !== null ? CustomInternalObjectType::factory($type) : null;
+
         return FileDto::new(
             $file["obj_id"] ?: null,
             $file["import_id"] ?: null,
@@ -92,9 +95,9 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $file["parent_obj_id"] ?: null,
             $file["parent_import_id"] ?: null,
             $file["parent_ref_id"] ?: null,
-            $this->getObjectUrl($file["ref_id"] ?: null, $file["type"] ?: null),
+            $this->getObjectUrl($file["ref_id"] ?: null, $type),
             $this->getFileDownloadUrl($file["ref_id"] ?: null),
-            $this->getObjectIconUrl($file["obj_id"] ?: null, $file["type"] ?: null),
+            $this->getObjectIconUrl($file["obj_id"] ?: null, $type),
             $file["title"] ?? "",
             $file["description"] ?? "",
             $file["version"] ?: null,

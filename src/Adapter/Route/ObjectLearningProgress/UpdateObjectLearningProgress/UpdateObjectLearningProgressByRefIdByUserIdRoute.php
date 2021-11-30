@@ -3,14 +3,16 @@
 namespace FluxIliasRestApi\Adapter\Route\ObjectLearningProgress\UpdateObjectLearningProgress;
 
 use FluxIliasRestApi\Adapter\Api\Api;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Body\LegacyDefaultBodyType;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class UpdateObjectLearningProgressByRefIdByUserIdRoute implements Route
 {
@@ -31,7 +33,7 @@ class UpdateObjectLearningProgressByRefIdByUserIdRoute implements Route
     public function getDocuRequestBodyTypes() : ?array
     {
         return [
-            BodyType::JSON
+            LegacyDefaultBodyType::JSON()
         ];
     }
 
@@ -42,9 +44,9 @@ class UpdateObjectLearningProgressByRefIdByUserIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::PATCH;
+        return LegacyDefaultMethod::PATCH();
     }
 
 
@@ -63,9 +65,9 @@ class UpdateObjectLearningProgressByRefIdByUserIdRoute implements Route
             $request->getParam(
                 "user_id"
             ),
-            $request->getParam(
+            LegacyObjectLearningProgress::from($request->getParam(
                 "learning_progress"
-            )
+            ))
         );
 
         if ($id !== null) {
@@ -79,7 +81,7 @@ class UpdateObjectLearningProgressByRefIdByUserIdRoute implements Route
                 TextBodyDto::new(
                     "Learning progress not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

@@ -2,6 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\CourseMember\Command;
 
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Channel\CourseMember\CourseMemberQuery;
 use ilDBInterface;
 
@@ -32,7 +33,7 @@ class GetCourseMembersCommand
         ?bool $member_role = null,
         ?bool $tutor_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $passed = null,
         ?bool $access_refused = null,
         ?bool $tutorial_support = null,

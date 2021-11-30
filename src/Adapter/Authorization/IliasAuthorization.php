@@ -24,7 +24,7 @@ use ilUtil;
 class IliasAuthorization implements Authorization
 {
 
-    const SPLIT_CLIENT_USER = "/";
+    private const SPLIT_CLIENT_USER = "/";
     use HttpBasicAuthorization;
 
     public static function new() : /*static*/ self

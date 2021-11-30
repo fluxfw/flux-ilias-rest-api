@@ -12,7 +12,7 @@ class ScormLearningModuleDiffDto
     private ?bool $online;
     private ?bool $sequencing_expert_mode;
     private ?string $title;
-    private ?string $type;
+    private ?LegacyScormLearningModuleType $type;
 
 
     public static function newFromData(object $data) : /*static*/ self
@@ -21,7 +21,7 @@ class ScormLearningModuleDiffDto
             $data->import_id ?? null,
             $data->title ?? null,
             $data->description ?? null,
-            $data->type ?? null,
+            ($type = $data->type ?? null) !== null ? LegacyScormLearningModuleType::from($type) : null,
             $data->online ?? null,
             $data->authoring_mode ?? null,
             $data->sequencing_expert_mode ?? null,
@@ -34,7 +34,7 @@ class ScormLearningModuleDiffDto
         ?string $import_id = null,
         ?string $title = null,
         ?string $description = null,
-        ?string $type = null,
+        ?LegacyScormLearningModuleType $type = null,
         ?bool $online = null,
         ?bool $authoring_mode = null,
         ?bool $sequencing_expert_mode = null,
@@ -80,7 +80,7 @@ class ScormLearningModuleDiffDto
     }
 
 
-    public function getType() : ?string
+    public function getType() : ?LegacyScormLearningModuleType
     {
         return $this->type;
     }

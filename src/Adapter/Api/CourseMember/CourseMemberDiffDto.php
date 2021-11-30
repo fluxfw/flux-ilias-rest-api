@@ -2,12 +2,14 @@
 
 namespace FluxIliasRestApi\Adapter\Api\CourseMember;
 
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+
 class CourseMemberDiffDto
 {
 
     private ?bool $access_refused;
     private ?bool $administrator_role;
-    private ?string $learning_progress;
+    private ?LegacyObjectLearningProgress $learning_progress;
     private ?bool $member_role;
     private ?bool $notification;
     private ?bool $passed;
@@ -21,7 +23,7 @@ class CourseMemberDiffDto
             $data->member_role ?? null,
             $data->tutor_role ?? null,
             $data->administrator_role ?? null,
-            $data->learning_progress ?? null,
+            ($learning_progress = $data->learning_progress ?? null) !== null ? LegacyObjectLearningProgress::from($learning_progress) : null,
             $data->passed ?? null,
             $data->access_refused ?? null,
             $data->tutorial_support ?? null,
@@ -34,7 +36,7 @@ class CourseMemberDiffDto
         ?bool $member_role = null,
         ?bool $tutor_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $passed = null,
         ?bool $access_refused = null,
         ?bool $tutorial_support = null,
@@ -56,7 +58,7 @@ class CourseMemberDiffDto
     }
 
 
-    public function getLearningProgress() : ?string
+    public function getLearningProgress() : ?LegacyObjectLearningProgress
     {
         return $this->learning_progress;
     }

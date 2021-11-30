@@ -29,7 +29,7 @@ class CourseDto implements JsonSerializable
     private ?string $import_id;
     private ?string $important_information;
     private ?string $mail_subject_prefix;
-    private ?string $mail_to_members_type;
+    private ?LegacyCourseMailToMembersType $mail_to_members_type;
     private ?bool $news;
     private ?bool $online;
     private ?int $parent_id;
@@ -82,7 +82,7 @@ class CourseDto implements JsonSerializable
         ?string $mail_subject_prefix = null,
         ?bool $show_members = null,
         ?bool $show_members_participants_list = null,
-        ?string $mail_to_members_type = null,
+        ?LegacyCourseMailToMembersType $mail_to_members_type = null,
         ?bool $send_welcome_email = null,
         ?bool $add_to_favourites = null,
         ?string $important_information = null,
@@ -235,7 +235,7 @@ class CourseDto implements JsonSerializable
     }
 
 
-    public function getMailToMembersType() : ?string
+    public function getMailToMembersType() : ?LegacyCourseMailToMembersType
     {
         return $this->mail_to_members_type;
     }

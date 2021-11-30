@@ -2,68 +2,72 @@
 
 namespace FluxIliasRestApi\Channel\Object;
 
+use FluxIliasRestApi\Adapter\Api\Object\CustomObjectType;
+use FluxIliasRestApi\Adapter\Api\Object\LegacyDefaultObjectType;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
 
 final class ObjectTypeMapping
 {
 
-    private const INTERNAL_EXTERNAL
-        = [
-            InternalObjectType::BIBL => ObjectType::BIBLIOGRAPHY,
-            InternalObjectType::BLOG => ObjectType::BLOG,
-            InternalObjectType::BOOK => ObjectType::BOOKING_POOL,
-            InternalObjectType::CAT  => ObjectType::CATEGORY,
-            InternalObjectType::CATR => ObjectType::CATEGORY_LINK,
-            InternalObjectType::CHTR => ObjectType::CHAT_ROOM,
-            InternalObjectType::CLD  => ObjectType::CLOUD_OBJECT,
-            InternalObjectType::CMIX => ObjectType::XAPI_CMI5,
-            InternalObjectType::COPA => ObjectType::CONTENT_PAGE,
-            InternalObjectType::CRS  => ObjectType::COURSE,
-            InternalObjectType::CRSR => ObjectType::COURSE_LINK,
-            InternalObjectType::DCL  => ObjectType::DATA_COLLECTION,
-            InternalObjectType::EXC  => ObjectType::EXERCISE,
-            InternalObjectType::FEED => ObjectType::WEB_FEED,
-            InternalObjectType::FILE => ObjectType::FILE,
-            InternalObjectType::FOLD => ObjectType::FOLDER,
-            InternalObjectType::FRM  => ObjectType::FORUM,
-            InternalObjectType::GLO  => ObjectType::GLOSSARY,
-            InternalObjectType::GRP  => ObjectType::GROUP,
-            InternalObjectType::GRPR => ObjectType::GROUP_LINK,
-            InternalObjectType::HTLM => ObjectType::HTML_LEARNING_MODULE,
-            InternalObjectType::IASS => ObjectType::INDIVIDUAL_ASSESSMENT,
-            InternalObjectType::ITGR => ObjectType::ITEM_GROUP,
-            InternalObjectType::LM   => ObjectType::ILIAS_LEARNING_MODULE,
-            InternalObjectType::LSO  => ObjectType::LEARNING_SEQUENCE,
-            InternalObjectType::LTI  => ObjectType::LTI_CONSUMER,
-            InternalObjectType::MCST => ObjectType::MEDIA_CAST,
-            InternalObjectType::MEP  => ObjectType::MEDIA_POOL,
-            InternalObjectType::ORGU => ObjectType::ORGANISATIONAL_UNIT,
-            InternalObjectType::POLL => ObjectType::POLL,
-            InternalObjectType::PRG  => ObjectType::STUDY_PROGRAMME,
-            InternalObjectType::PRGR => ObjectType::LINK_TO_STUDY_PROGRAMME,
-            InternalObjectType::PRTT => ObjectType::PORTFOLIO_TEMPLATE,
-            InternalObjectType::QPL  => ObjectType::QUESTION_POOL_TEST,
-            InternalObjectType::ROLE => ObjectType::ROLE,
-            InternalObjectType::ROOT => ObjectType::ROOT,
-            InternalObjectType::SAHS => ObjectType::SCORM_LEARNING_MODULE,
-            InternalObjectType::SESS => ObjectType::SESSION,
-            InternalObjectType::SPL  => ObjectType::QUESTION_POOL_SURVEY,
-            InternalObjectType::SVY  => ObjectType::SURVEY,
-            InternalObjectType::TST  => ObjectType::TEST,
-            InternalObjectType::USR  => ObjectType::USER,
-            InternalObjectType::WEBR => ObjectType::WEB_LINK,
-            InternalObjectType::WIKI => ObjectType::WIKI
-        ];
-
-
-    public static function mapExternalToInternal(?string $type) : string
+    public static function mapExternalToInternal(ObjectType $type) : InternalObjectType
     {
-        return array_flip(static::INTERNAL_EXTERNAL)[$type] ?? substr($type, 1);
+        return CustomInternalObjectType::factory(array_flip(static::INTERNAL_EXTERNAL())[$type->value] ?? substr($type->value, 1));
     }
 
 
-    public static function mapInternalToExternal(?string $type) : string
+    public static function mapInternalToExternal(InternalObjectType $type) : ObjectType
     {
-        return static::INTERNAL_EXTERNAL[$type] ?? "_" . $type;
+        return CustomObjectType::factory(static::INTERNAL_EXTERNAL()[$type->value] ?? "_" . $type->value);
+    }
+
+
+    private static function INTERNAL_EXTERNAL() : array
+    {
+        return [
+            LegacyDefaultInternalObjectType::BIBL()->value => LegacyDefaultObjectType::BIBLIOGRAPHY()->value,
+            LegacyDefaultInternalObjectType::BLOG()->value => LegacyDefaultObjectType::BLOG()->value,
+            LegacyDefaultInternalObjectType::BOOK()->value => LegacyDefaultObjectType::BOOKING_POOL()->value,
+            LegacyDefaultInternalObjectType::CAT()->value  => LegacyDefaultObjectType::CATEGORY()->value,
+            LegacyDefaultInternalObjectType::CATR()->value => LegacyDefaultObjectType::CATEGORY_LINK()->value,
+            LegacyDefaultInternalObjectType::CHTR()->value => LegacyDefaultObjectType::CHAT_ROOM()->value,
+            LegacyDefaultInternalObjectType::CLD()->value  => LegacyDefaultObjectType::CLOUD_OBJECT()->value,
+            LegacyDefaultInternalObjectType::CMIX()->value => LegacyDefaultObjectType::XAPI_CMI5()->value,
+            LegacyDefaultInternalObjectType::COPA()->value => LegacyDefaultObjectType::CONTENT_PAGE()->value,
+            LegacyDefaultInternalObjectType::CRS()->value  => LegacyDefaultObjectType::COURSE()->value,
+            LegacyDefaultInternalObjectType::CRSR()->value => LegacyDefaultObjectType::COURSE_LINK()->value,
+            LegacyDefaultInternalObjectType::DCL()->value  => LegacyDefaultObjectType::DATA_COLLECTION()->value,
+            LegacyDefaultInternalObjectType::EXC()->value  => LegacyDefaultObjectType::EXERCISE()->value,
+            LegacyDefaultInternalObjectType::FEED()->value => LegacyDefaultObjectType::WEB_FEED()->value,
+            LegacyDefaultInternalObjectType::FILE()->value => LegacyDefaultObjectType::FILE()->value,
+            LegacyDefaultInternalObjectType::FOLD()->value => LegacyDefaultObjectType::FOLDER()->value,
+            LegacyDefaultInternalObjectType::FRM()->value  => LegacyDefaultObjectType::FORUM()->value,
+            LegacyDefaultInternalObjectType::GLO()->value  => LegacyDefaultObjectType::GLOSSARY()->value,
+            LegacyDefaultInternalObjectType::GRP()->value  => LegacyDefaultObjectType::GROUP()->value,
+            LegacyDefaultInternalObjectType::GRPR()->value => LegacyDefaultObjectType::GROUP_LINK()->value,
+            LegacyDefaultInternalObjectType::HTLM()->value => LegacyDefaultObjectType::HTML_LEARNING_MODULE()->value,
+            LegacyDefaultInternalObjectType::IASS()->value => LegacyDefaultObjectType::INDIVIDUAL_ASSESSMENT()->value,
+            LegacyDefaultInternalObjectType::ITGR()->value => LegacyDefaultObjectType::ITEM_GROUP()->value,
+            LegacyDefaultInternalObjectType::LM()->value   => LegacyDefaultObjectType::ILIAS_LEARNING_MODULE()->value,
+            LegacyDefaultInternalObjectType::LSO()->value  => LegacyDefaultObjectType::LEARNING_SEQUENCE()->value,
+            LegacyDefaultInternalObjectType::LTI()->value  => LegacyDefaultObjectType::LTI_CONSUMER()->value,
+            LegacyDefaultInternalObjectType::MCST()->value => LegacyDefaultObjectType::MEDIA_CAST()->value,
+            LegacyDefaultInternalObjectType::MEP()->value  => LegacyDefaultObjectType::MEDIA_POOL()->value,
+            LegacyDefaultInternalObjectType::ORGU()->value => LegacyDefaultObjectType::ORGANISATIONAL_UNIT()->value,
+            LegacyDefaultInternalObjectType::POLL()->value => LegacyDefaultObjectType::POLL()->value,
+            LegacyDefaultInternalObjectType::PRG()->value  => LegacyDefaultObjectType::STUDY_PROGRAMME()->value,
+            LegacyDefaultInternalObjectType::PRGR()->value => LegacyDefaultObjectType::LINK_TO_STUDY_PROGRAMME()->value,
+            LegacyDefaultInternalObjectType::PRTT()->value => LegacyDefaultObjectType::PORTFOLIO_TEMPLATE()->value,
+            LegacyDefaultInternalObjectType::QPL()->value  => LegacyDefaultObjectType::QUESTION_POOL_TEST()->value,
+            LegacyDefaultInternalObjectType::ROLE()->value => LegacyDefaultObjectType::ROLE()->value,
+            LegacyDefaultInternalObjectType::ROOT()->value => LegacyDefaultObjectType::ROOT()->value,
+            LegacyDefaultInternalObjectType::SAHS()->value => LegacyDefaultObjectType::SCORM_LEARNING_MODULE()->value,
+            LegacyDefaultInternalObjectType::SESS()->value => LegacyDefaultObjectType::SESSION()->value,
+            LegacyDefaultInternalObjectType::SPL()->value  => LegacyDefaultObjectType::QUESTION_POOL_SURVEY()->value,
+            LegacyDefaultInternalObjectType::SVY()->value  => LegacyDefaultObjectType::SURVEY()->value,
+            LegacyDefaultInternalObjectType::TST()->value  => LegacyDefaultObjectType::TEST()->value,
+            LegacyDefaultInternalObjectType::USR()->value  => LegacyDefaultObjectType::USER()->value,
+            LegacyDefaultInternalObjectType::WEBR()->value => LegacyDefaultObjectType::WEB_LINK()->value,
+            LegacyDefaultInternalObjectType::WIKI()->value => LegacyDefaultObjectType::WIKI()->value
+        ];
     }
 }

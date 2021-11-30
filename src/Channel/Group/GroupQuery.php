@@ -4,7 +4,8 @@ namespace FluxIliasRestApi\Channel\Group;
 
 use FluxIliasRestApi\Adapter\Api\Group\GroupDiffDto;
 use FluxIliasRestApi\Adapter\Api\Group\GroupDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjGroup;
 
@@ -14,7 +15,7 @@ trait GroupQuery
     private function getGroupQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::GRP, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::GRP()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
@@ -75,6 +76,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
 
     private function mapGroupDto(array $group) : GroupDto
     {
+        $type = ($type = $group["type"] ?: null) !== null ? CustomInternalObjectType::factory($type) : null;
+
         return GroupDto::new(
             $group["obj_id"] ?: null,
             $group["import_id"] ?: null,
@@ -84,8 +87,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $group["parent_obj_id"] ?: null,
             $group["parent_import_id"] ?: null,
             $group["parent_ref_id"] ?: null,
-            $this->getObjectUrl($group["ref_id"] ?: null, $group["type"] ?: null),
-            $this->getObjectIconUrl($group["obj_id"] ?: null, $group["type"] ?: null),
+            $this->getObjectUrl($group["ref_id"] ?: null, $type),
+            $this->getObjectIconUrl($group["obj_id"] ?: null, $type),
             $group["title"] ?? "",
             $group["description"] ?? "",
             $group["tpl_id"] ?: null

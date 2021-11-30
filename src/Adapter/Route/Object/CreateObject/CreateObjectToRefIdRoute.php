@@ -3,15 +3,17 @@
 namespace FluxIliasRestApi\Adapter\Route\Object\CreateObject;
 
 use FluxIliasRestApi\Adapter\Api\Api;
+use FluxIliasRestApi\Adapter\Api\Object\CustomObjectType;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Body\LegacyDefaultBodyType;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class CreateObjectToRefIdRoute implements Route
 {
@@ -32,7 +34,7 @@ class CreateObjectToRefIdRoute implements Route
     public function getDocuRequestBodyTypes() : ?array
     {
         return [
-            BodyType::JSON
+            LegacyDefaultBodyType::JSON()
         ];
     }
 
@@ -43,9 +45,9 @@ class CreateObjectToRefIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::POST;
+        return LegacyDefaultMethod::POST();
     }
 
 
@@ -62,14 +64,14 @@ class CreateObjectToRefIdRoute implements Route
                 TextBodyDto::new(
                     "No json body"
                 ),
-                Status::_400
+                LegacyDefaultStatus::_400()
             );
         }
 
         $id = $this->api->createObjectToRefId(
-            $request->getParam(
+            CustomObjectType::factory($request->getParam(
                 "type"
-            ),
+            )),
             $request->getParam(
                 "parent_ref_id"
             ),
@@ -89,7 +91,7 @@ class CreateObjectToRefIdRoute implements Route
                 TextBodyDto::new(
                     "Object not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

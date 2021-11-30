@@ -3,6 +3,7 @@
 namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
 use Exception;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionCoreIdentifier;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionAuthorityDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDiffDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
@@ -34,7 +35,7 @@ WHERE " . $this->database->in("position_id", $position_ids, false, ilDBConstants
     }
 
 
-    private function getOrganisationalUnitPositionQuery(?int $id = null, ?string $core_identifier = null) : string
+    private function getOrganisationalUnitPositionQuery(?int $id = null, ?LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier = null) : string
     {
         $wheres = [];
 
@@ -43,9 +44,7 @@ WHERE " . $this->database->in("position_id", $position_ids, false, ilDBConstants
         }
 
         if ($core_identifier !== null) {
-            $wheres[] = "id=" . $this->database->quote(OrganisationalUnitPositionCoreIdentifierMapping::mapExternalToInternal(
-                    $core_identifier
-                ), ilDBConstants::T_INTEGER);
+            $wheres[] = "id=" . $this->database->quote(OrganisationalUnitPositionCoreIdentifierMapping::mapExternalToInternal($core_identifier)->value, ilDBConstants::T_INTEGER);
         }
 
         return "SELECT *
@@ -92,9 +91,7 @@ ORDER BY title ASC";
                 }
 
                 if ($authority->getScopeIn() !== null) {
-                    $ilias_authority->setScope(OrganisationalUnitPositionAuthorityScopeInMapping::mapExternalToInternal(
-                        $authority->getScopeIn()
-                    ));
+                    $ilias_authority->setScope(OrganisationalUnitPositionAuthorityScopeInMapping::mapExternalToInternal($authority->getScopeIn())->value);
                 }
 
                 $ilias_authorities[] = $ilias_authority;
@@ -109,17 +106,15 @@ ORDER BY title ASC";
         return OrganisationalUnitPositionDto::new(
             $organisational_unit_position["id"] ?: null,
             $organisational_unit_position["core_position"] ?? false,
-            OrganisationalUnitPositionCoreIdentifierMapping::mapInternalToExternal(
-                $organisational_unit_position["core_identifier"] ?: null
-            ),
+            ($core_identifier = $organisational_unit_position["core_identifier"] ?: null) !== null
+                ? OrganisationalUnitPositionCoreIdentifierMapping::mapInternalToExternal(LegacyInternalOrganisationalUnitPositionCoreIdentifier::from($core_identifier)) : null,
             $organisational_unit_position["title"] ?? "",
             $organisational_unit_position["description"] ?? "",
             $authorities !== null ? array_values(array_map(fn(array $authority) : OrganisationalUnitPositionAuthorityDto => OrganisationalUnitPositionAuthorityDto::new(
                 $authority["id"] ?: null,
                 $authority["over"] ?: null,
-                OrganisationalUnitPositionAuthorityScopeInMapping::mapInternalToExternal(
-                    $authority["scope"] ?? null
-                )
+                ($scope_in = $authority["scope"] ?: null) !== null
+                    ? OrganisationalUnitPositionAuthorityScopeInMapping::mapInternalToExternal(LegacyInternalOrganisationalUnitPositionAuthorityScopeIn::from($scope_in)) : null
             ), array_filter($authorities, fn(array $authority) : bool => $authority["position_id"] === $organisational_unit_position["id"]))) : null
         );
     }

@@ -8,7 +8,7 @@ class OrganisationalUnitPositionDto implements JsonSerializable
 {
 
     private ?array $authorities;
-    private ?string $core_identifier;
+    private ?LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier;
     private ?bool $core_position;
     private ?string $description;
     private ?int $id;
@@ -18,7 +18,7 @@ class OrganisationalUnitPositionDto implements JsonSerializable
     public static function new(
         ?int $id = null,
         ?bool $core_position = null,
-        ?string $core_identifier = null,
+        ?LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier = null,
         ?string $title = null,
         ?string $description = null,
         ?array $authorities = null
@@ -43,7 +43,7 @@ class OrganisationalUnitPositionDto implements JsonSerializable
     }
 
 
-    public function getCoreIdentifier() : ?string
+    public function getCoreIdentifier() : ?LegacyOrganisationalUnitPositionCoreIdentifier
     {
         return $this->core_identifier;
     }

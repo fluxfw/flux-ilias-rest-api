@@ -17,7 +17,7 @@ class UserDto implements JsonSerializable
     private ?bool $active;
     private ?int $agreed_on;
     private ?int $approved_on;
-    private ?string $authentication_mode;
+    private ?LegacyUserAuthenticationMode $authentication_mode;
     private ?string $avatar_url;
     private ?string $birthday;
     private ?string $city;
@@ -29,14 +29,14 @@ class UserDto implements JsonSerializable
     private ?string $external_account;
     private ?string $fax;
     private ?string $first_name;
-    private ?string $gender;
+    private ?LegacyUserGender $gender;
     private ?array $general_interests;
     private ?string $heard_about_ilias;
     private ?string $hobbies;
     private ?int $id;
     private ?string $import_id;
     private ?string $institution;
-    private ?string $language;
+    private ?LegacyUserLanguage $language;
     private ?int $last_logged_on;
     private ?string $last_name;
     private ?string $location_latitude;
@@ -50,7 +50,7 @@ class UserDto implements JsonSerializable
     private ?string $phone_mobile;
     private ?string $phone_office;
     private ?string $second_email;
-    private ?string $selected_country;
+    private ?LegacyUserSelectedCountry $selected_country;
     private ?string $street;
     private ?string $title;
     private ?int $updated_on;
@@ -62,7 +62,7 @@ class UserDto implements JsonSerializable
         ?int $id = null,
         ?string $import_id = null,
         ?string $external_account = null,
-        ?string $authentication_mode = null,
+        ?LegacyUserAuthenticationMode $authentication_mode = null,
         ?string $login = null,
         ?int $created_on = null,
         ?int $updated_on = null,
@@ -77,7 +77,7 @@ class UserDto implements JsonSerializable
         ?string $access_limited_object_import_id = null,
         ?int $access_limited_object_ref_id = null,
         ?bool $access_limited_message = null,
-        ?string $gender = null,
+        ?LegacyUserGender $gender = null,
         ?string $first_name = null,
         ?string $last_name = null,
         ?string $title = null,
@@ -89,7 +89,7 @@ class UserDto implements JsonSerializable
         ?string $city = null,
         ?string $zip_code = null,
         ?string $country = null,
-        ?string $selected_country = null,
+        ?LegacyUserSelectedCountry $selected_country = null,
         ?string $phone_office = null,
         ?string $phone_home = null,
         ?string $phone_mobile = null,
@@ -107,7 +107,7 @@ class UserDto implements JsonSerializable
         ?string $location_longitude = null,
         ?int $location_zoom = null,
         ?array $user_defined_fields = null,
-        ?string $language = null
+        ?LegacyUserLanguage $language = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -208,7 +208,7 @@ class UserDto implements JsonSerializable
     }
 
 
-    public function getAuthenticationMode() : ?string
+    public function getAuthenticationMode() : ?LegacyUserAuthenticationMode
     {
         return $this->authentication_mode;
     }
@@ -280,7 +280,7 @@ class UserDto implements JsonSerializable
     }
 
 
-    public function getGender() : ?string
+    public function getGender() : ?LegacyUserGender
     {
         return $this->gender;
     }
@@ -322,7 +322,7 @@ class UserDto implements JsonSerializable
     }
 
 
-    public function getLanguage() : ?string
+    public function getLanguage() : ?LegacyUserLanguage
     {
         return $this->language;
     }
@@ -406,7 +406,7 @@ class UserDto implements JsonSerializable
     }
 
 
-    public function getSelectedCountry() : ?string
+    public function getSelectedCountry() : ?LegacyUserSelectedCountry
     {
         return $this->selected_country;
     }

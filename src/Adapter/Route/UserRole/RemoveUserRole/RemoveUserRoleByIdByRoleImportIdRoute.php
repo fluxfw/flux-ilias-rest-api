@@ -8,8 +8,9 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class RemoveUserRoleByIdByRoleImportIdRoute implements Route
 {
@@ -39,9 +40,9 @@ class RemoveUserRoleByIdByRoleImportIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::DELETE;
+        return LegacyDefaultMethod::DELETE();
     }
 
 
@@ -73,7 +74,7 @@ class RemoveUserRoleByIdByRoleImportIdRoute implements Route
                 TextBodyDto::new(
                     "User role not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

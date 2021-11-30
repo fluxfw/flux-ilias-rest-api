@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Channel\OrganisationalUnitStaff;
 
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilOrgUnitUserAssignment;
 
@@ -29,8 +29,8 @@ trait OrganisationalUnitStaffQuery
         ?int $position_id = null
     ) : string {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::ORGU, ilDBConstants::T_TEXT),
-            "object_data_user.type=" . $this->database->quote(InternalObjectType::USR, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ORGU()->value, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 

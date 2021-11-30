@@ -9,10 +9,10 @@ class OrganisationalUnitPositionAuthorityDto implements JsonSerializable
 
     private ?int $id;
     private ?int $over_position_id;
-    private ?string $scope_in;
+    private ?LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in;
 
 
-    public static function new(?int $id = null, ?int $over_position_id = null, ?string $scope_in = null) : /*static*/ self
+    public static function new(?int $id = null, ?int $over_position_id = null, ?LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in = null) : /*static*/ self
     {
         $dto = new static();
 
@@ -36,7 +36,7 @@ class OrganisationalUnitPositionAuthorityDto implements JsonSerializable
     }
 
 
-    public function getScopeIn() : ?string
+    public function getScopeIn() : ?LegacyOrganisationalUnitPositionAuthorityScopeIn
     {
         return $this->scope_in;
     }

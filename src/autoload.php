@@ -9,17 +9,19 @@ use FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
 use FluxAutoloadApi\Adapter\Checker\PhpVersionChecker;
 
 PhpVersionChecker::new(
-    ">=7.4",
-    __NAMESPACE__
+    ">=7.4"
 )
-    ->check();
+    ->checkAndDie(
+        __NAMESPACE__
+    );
 PhpExtChecker::new(
     [
         "json"
-    ],
-    __NAMESPACE__
+    ]
 )
-    ->check();
+    ->checkAndDie(
+        __NAMESPACE__
+    );
 
 Psr4Autoload::new(
     [

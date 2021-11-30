@@ -8,8 +8,9 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class CloneObjectByImportIdToRefIdRoute implements Route
 {
@@ -42,9 +43,9 @@ class CloneObjectByImportIdToRefIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::POST;
+        return LegacyDefaultMethod::POST();
     }
 
 
@@ -82,7 +83,7 @@ class CloneObjectByImportIdToRefIdRoute implements Route
                 TextBodyDto::new(
                     "Object not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }
