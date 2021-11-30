@@ -2,10 +2,11 @@
 
 namespace FluxIliasRestApi\Channel\ScormLearningModule;
 
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\LegacyScormLearningModuleType;
 use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
 use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleType;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjSAHSLearningModule;
 use ilObjSCORM2004LearningModule;
@@ -17,7 +18,7 @@ trait ScormLearningModuleQuery
 
     private function getIliasScormLearningModule(int $id, ?int $ref_id = null) : ?ilObjSCORMLearningModule
     {
-        $class = ilObjSAHSLearningModule::_lookupSubType($id) === InternalScormLearningModuleType::SCORM_2004 ? ilObjSCORM2004LearningModule::class : ilObjSCORMLearningModule::class;
+        $class = ilObjSAHSLearningModule::_lookupSubType($id) === LegacyInternalScormLearningModuleType::SCORM_2004()->value ? ilObjSCORM2004LearningModule::class : ilObjSCORMLearningModule::class;
 
         if ($ref_id !== null) {
             return new $class($ref_id, true);
@@ -30,7 +31,7 @@ trait ScormLearningModuleQuery
     private function getScormLearningModuleQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::SAHS, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::SAHS()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
@@ -67,14 +68,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
         }
 
         if ($diff->getType() !== null) {
-            $ilias_scorm_learning_module->setSubType(ScormLearningModuleTypeMapping::mapExternalToInternal(
-                $diff->getType()
-            ));
+            $ilias_scorm_learning_module->setSubType(ScormLearningModuleTypeMapping::mapExternalToInternal($diff->getType())->value);
         }
 
         if ($diff->isAuthoringMode() !== null) {
-            if ($diff->isAuthoringMode() && $ilias_scorm_learning_module->getSubType() !== InternalScormLearningModuleType::SCORM_2004) {
-                throw new LogicException("Can only enable authoring mode for type " . ScormLearningModuleType::SCORM_2004);
+            if ($diff->isAuthoringMode() && $ilias_scorm_learning_module->getSubType() !== LegacyInternalScormLearningModuleType::SCORM_2004()->value) {
+                throw new LogicException("Can only enable authoring mode for type " . LegacyScormLearningModuleType::SCORM_2004()->value);
             }
 
             $ilias_scorm_learning_module->setEditable($diff->isAuthoringMode());
@@ -104,6 +103,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
 
     private function mapScormLearningModuleDto(array $scorm_learning_module) : ScormLearningModuleDto
     {
+        $object_type = ($object_type = $scorm_learning_module["type"] ?: null) !== null ? CustomInternalObjectType::factory($object_type) : null;
+
         return ScormLearningModuleDto::new(
             $scorm_learning_module["obj_id"] ?: null,
             $scorm_learning_module["import_id"] ?: null,
@@ -113,13 +114,11 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $scorm_learning_module["parent_obj_id"] ?: null,
             $scorm_learning_module["parent_import_id"] ?: null,
             $scorm_learning_module["parent_ref_id"] ?: null,
-            $this->getObjectUrl($scorm_learning_module["ref_id"] ?: null, $scorm_learning_module["type"] ?: null),
-            $this->getObjectIconUrl($scorm_learning_module["obj_id"] ?: null, $scorm_learning_module["type"] ?: null),
+            $this->getObjectUrl($scorm_learning_module["ref_id"] ?: null, $object_type),
+            $this->getObjectIconUrl($scorm_learning_module["obj_id"] ?: null, $object_type),
             $scorm_learning_module["title"] ?? "",
             $scorm_learning_module["description"] ?? "",
-            ScormLearningModuleTypeMapping::mapInternalToExternal(
-                $scorm_learning_module["c_type"] ?? null
-            ),
+            ($type = $scorm_learning_module["c_type"] ?: null) !== null ? ScormLearningModuleTypeMapping::mapInternalToExternal(LegacyInternalScormLearningModuleType::from($type)) : null,
             $scorm_learning_module["module_version"] ?: null,
             !($scorm_learning_module["offline"] ?? null),
             $scorm_learning_module["editable"] ?? false,
@@ -129,9 +128,9 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
     }
 
 
-    private function newIliasScormLearningModule(?string $type = null) : ilObjSCORMLearningModule
+    private function newIliasScormLearningModule(?LegacyScormLearningModuleType $type = null) : ilObjSCORMLearningModule
     {
-        if ($type === ScormLearningModuleType::SCORM_2004) {
+        if ($type === LegacyScormLearningModuleType::SCORM_2004()) {
             return new ilObjSCORM2004LearningModule();
         } else {
             return new ilObjSCORMLearningModule();

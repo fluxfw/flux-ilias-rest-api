@@ -4,7 +4,9 @@ namespace FluxIliasRestApi\Channel\GroupMember;
 
 use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
 use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
+use FluxIliasRestApi\Channel\ObjectLearningProgress\LegacyInternalObjectLearningProgress;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
 use ilDBConstants;
 use ilLPStatus;
@@ -22,13 +24,13 @@ trait GroupMemberQuery
         ?string $user_import_id = null,
         ?bool $member_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : string {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::GRP, ilDBConstants::T_TEXT),
-            "object_data_user.type=" . $this->database->quote(InternalObjectType::USR, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::GRP()->value, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
@@ -61,9 +63,7 @@ trait GroupMemberQuery
         }
 
         if ($learning_progress !== null) {
-            $wheres[] = "status=" . $this->database->quote(ObjectLearningProgressMapping::mapExternalToInternal(
-                    $learning_progress
-                ), ilDBConstants::T_INTEGER);
+            $wheres[] = "status=" . $this->database->quote(ObjectLearningProgressMapping::mapExternalToInternal($learning_progress)->value, ilDBConstants::T_INTEGER);
         }
 
         if ($tutorial_support !== null) {
@@ -89,8 +89,8 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,object_reference.ref
     private function mapGroupMemberDiff(GroupMemberDiffDto $diff, int $user_id, ilObjGroup $ilias_group) : void
     {
         $roles = [
-            InternalGroupMemberType::ADMINISTRATOR => $diff->isAdministratorRole() !== null ? $diff->isAdministratorRole() : $ilias_group->getMembersObject()->isAdmin($user_id),
-            InternalGroupMemberType::MEMBER        => $diff->isMemberRole() !== null ? $diff->isMemberRole() : $ilias_group->getMembersObject()->isMember($user_id)
+            LegacyInternalGroupMemberType::ADMINISTRATOR()->value => $diff->isAdministratorRole() !== null ? $diff->isAdministratorRole() : $ilias_group->getMembersObject()->isAdmin($user_id),
+            LegacyInternalGroupMemberType::MEMBER()->value        => $diff->isMemberRole() !== null ? $diff->isMemberRole() : $ilias_group->getMembersObject()->isMember($user_id)
         ];
         if (empty($roles = array_filter($roles))) {
             throw new LogicException("Group member must have at least one role");
@@ -104,12 +104,10 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,object_reference.ref
         ], array_keys($roles)));
 
         if ($diff->getLearningProgress() !== null) {
-            ilLPStatus::writeStatus($ilias_group->getId(), $user_id, ObjectLearningProgressMapping::mapExternalToInternal(
-                $diff->getLearningProgress()
-            ));
+            ilLPStatus::writeStatus($ilias_group->getId(), $user_id, ObjectLearningProgressMapping::mapExternalToInternal($diff->getLearningProgress())->value);
         }
 
-        if ($roles[InternalGroupMemberType::ADMINISTRATOR]) {
+        if ($roles[LegacyInternalGroupMemberType::ADMINISTRATOR()->value]) {
             $ilias_group->getMembersObject()->updateContact($user_id, $diff->isTutorialSupport() !== null ? $diff->isTutorialSupport() : $ilias_group->getMembersObject()->isContact($user_id));
 
             $ilias_group->getMembersObject()
@@ -132,9 +130,8 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,object_reference.ref
             $group_member["user_import_id"] ?: null,
             $group_member["member"] ?? false,
             $group_member["admin"] ?? false,
-            ObjectLearningProgressMapping::mapInternalToExternal(
-                $group_member["status"] ?? null
-            ),
+            ($learning_progress = $group_member["status"] ?: null) !== null ? ObjectLearningProgressMapping::mapInternalToExternal(LegacyInternalObjectLearningProgress::from($learning_progress))
+                : LegacyObjectLearningProgress::NOT_ATTEMPTED(),
             $group_member["contact"] ?? false,
             $group_member["notification"] ?? false
         );

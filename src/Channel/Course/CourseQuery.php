@@ -4,7 +4,9 @@ namespace FluxIliasRestApi\Channel\Course;
 
 use FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
 use FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Adapter\Api\Course\LegacyCourseMailToMembersType;
+use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDate;
 use ilDateTime;
 use ilDBConstants;
@@ -26,7 +28,7 @@ WHERE " . $this->database->in("id", $ids, false, ilDBConstants::T_INTEGER) . " A
     private function getCourseQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::CRS, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::CRS()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
@@ -161,9 +163,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
         }
 
         if ($diff->getMailToMembersType() !== null) {
-            $ilias_course->setMailToMembersType(CourseMailToMembersTypeMapping::mapExternalToInternal(
-                $diff->getMailToMembersType()
-            ));
+            $ilias_course->setMailToMembersType(CourseMailToMembersTypeMapping::mapExternalToInternal($diff->getMailToMembersType())->value);
         }
 
         if ($diff->isSendWelcomeEmail() !== null) {
@@ -218,6 +218,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
         )/* : mixed*/ => $container_setting["value"] ?? $null_default_value,
             array_filter($container_settings, fn(array $container_setting) : bool => $container_setting["id"] === $course["obj_id"] && $container_setting["keyword"] === $field))) : null;
 
+        $type = ($type = $course["type"] ?: null) !== null ? CustomInternalObjectType::factory($type) : null;
+
         return CourseDto::new(
             $course["obj_id"] ?: null,
             $course["import_id"] ?: null,
@@ -227,8 +229,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $course["parent_obj_id"] ?: null,
             $course["parent_import_id"] ?: null,
             $course["parent_ref_id"] ?: null,
-            $this->getObjectUrl($course["ref_id"] ?: null, $course["type"] ?: null),
-            $this->getObjectIconUrl($course["obj_id"] ?: null, $course["type"] ?: null),
+            $this->getObjectUrl($course["ref_id"] ?: null, $type),
+            $this->getObjectIconUrl($course["obj_id"] ?: null, $type),
             $course["title"] ?? "",
             $course["description"] ?? "",
             strtotime($course["period_start"]) ?: null,
@@ -276,9 +278,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             ),
             $course["show_members"] ?? false,
             $course["show_members_export"] ?? false,
-            CourseMailToMembersTypeMapping::mapInternalToExternal(
-                $course["mail_members_type"] ?? null
-            ),
+            ($mail_to_members_type = $course["mail_members_type"] ?: null) !== null
+                ? CourseMailToMembersTypeMapping::mapInternalToExternal(LegacyInternalCourseMailToMembersType::from($mail_to_members_type)) : LegacyCourseMailToMembersType::ALL(),
             $course["auto_notification"] ?? false,
             $course["abo"] ?? false,
             $course["important"] ?? "",

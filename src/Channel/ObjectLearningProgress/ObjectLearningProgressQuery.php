@@ -2,8 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\ObjectLearningProgress;
 
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 
 trait ObjectLearningProgressQuery
@@ -15,10 +16,10 @@ trait ObjectLearningProgressQuery
         ?int $object_ref_id = null,
         ?int $user_id = null,
         ?string $user_import_id = null,
-        ?string $learning_progress = null
+        ?LegacyObjectLearningProgress $learning_progress = null
     ) : string {
         $wheres = [
-            "object_data_user.type=" . $this->database->quote(InternalObjectType::USR, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
@@ -43,9 +44,7 @@ trait ObjectLearningProgressQuery
         }
 
         if ($learning_progress !== null) {
-            $wheres[] = "status=" . $this->database->quote(ObjectLearningProgressMapping::mapExternalToInternal(
-                    $learning_progress
-                ), ilDBConstants::T_INTEGER);
+            $wheres[] = "status=" . $this->database->quote(ObjectLearningProgressMapping::mapExternalToInternal($learning_progress)->value, ilDBConstants::T_INTEGER);
         }
 
         return "SELECT ut_lp_marks.*,object_data.obj_id,object_data.import_id,object_reference.ref_id,object_data_user.obj_id AS usr_id,object_data_user.import_id AS user_import_id
@@ -67,9 +66,9 @@ ORDER BY object_data.obj_id ASC,object_data_user.obj_id ASC,object_reference.ref
             $object_learning_progress["ref_id"] ?: null,
             $object_learning_progress["usr_id"] ?: null,
             $object_learning_progress["user_import_id"] ?: null,
-            ObjectLearningProgressMapping::mapInternalToExternal(
-                $object_learning_progress["status"] ?? null
-            )
+            ($learning_progress = $object_learning_progress["status"] ?: null) !== null
+                ? ObjectLearningProgressMapping::mapInternalToExternal(LegacyInternalObjectLearningProgress::from($learning_progress))
+                : LegacyObjectLearningProgress::NOT_ATTEMPTED()
         );
     }
 }

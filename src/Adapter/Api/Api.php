@@ -17,10 +17,13 @@ use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberIdDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressIdDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDiffDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitIdDto;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionCoreIdentifier;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDiffDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionIdDto;
@@ -609,7 +612,7 @@ class Api
     }
 
 
-    public function createObjectToId(string $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToId(ObjectType $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
             ->createObjectToId(
@@ -620,7 +623,7 @@ class Api
     }
 
 
-    public function createObjectToImportId(string $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToImportId(ObjectType $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
             ->createObjectToImportId(
@@ -631,7 +634,7 @@ class Api
     }
 
 
-    public function createObjectToRefId(string $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToRefId(ObjectType $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->getObject()
             ->createObjectToRefId(
@@ -886,7 +889,7 @@ class Api
         ?bool $member_role = null,
         ?bool $tutor_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $passed = null,
         ?bool $access_refused = null,
         ?bool $tutorial_support = null,
@@ -1015,7 +1018,7 @@ class Api
         ?string $user_import_id = null,
         ?bool $member_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : array {
@@ -1075,7 +1078,7 @@ class Api
         ?int $object_ref_id = null,
         ?int $user_id = null,
         ?string $user_import_id = null,
-        ?string $learning_progress = null
+        ?LegacyObjectLearningProgress $learning_progress = null
     ) : array {
         return $this->getObjectLearningProgress_()
             ->getObjectLearningProgress(
@@ -1089,7 +1092,7 @@ class Api
     }
 
 
-    public function getObjects(string $type, bool $ref_ids = false) : array
+    public function getObjects(ObjectType $type, bool $ref_ids = false) : array
     {
         return $this->getObject()
             ->getObjects(
@@ -1126,7 +1129,7 @@ class Api
     }
 
 
-    public function getOrganisationalUnitPositionByCoreIdentifier(string $core_identifier) : ?OrganisationalUnitPositionDto
+    public function getOrganisationalUnitPositionByCoreIdentifier(LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier) : ?OrganisationalUnitPositionDto
     {
         return $this->getOrganisationalUnitPosition()
             ->getOrganisationalUnitPositionByCoreIdentifier(
@@ -2124,7 +2127,7 @@ class Api
     }
 
 
-    public function updateObjectLearningProgressByIdByUserId(int $id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByIdByUserId(int $id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->getObjectLearningProgress_()
             ->updateObjectLearningProgressByIdByUserId(
@@ -2135,7 +2138,7 @@ class Api
     }
 
 
-    public function updateObjectLearningProgressByIdByUserImportId(int $id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByIdByUserImportId(int $id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->getObjectLearningProgress_()
             ->updateObjectLearningProgressByIdByUserImportId(
@@ -2146,7 +2149,7 @@ class Api
     }
 
 
-    public function updateObjectLearningProgressByImportIdByUserId(string $import_id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByImportIdByUserId(string $import_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->getObjectLearningProgress_()
             ->updateObjectLearningProgressByImportIdByUserId(
@@ -2157,7 +2160,7 @@ class Api
     }
 
 
-    public function updateObjectLearningProgressByImportIdByUserImportId(string $import_id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByImportIdByUserImportId(string $import_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->getObjectLearningProgress_()
             ->updateObjectLearningProgressByImportIdByUserImportId(
@@ -2168,7 +2171,7 @@ class Api
     }
 
 
-    public function updateObjectLearningProgressByRefIdByUserId(int $ref_id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByRefIdByUserId(int $ref_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->getObjectLearningProgress_()
             ->updateObjectLearningProgressByRefIdByUserId(
@@ -2179,7 +2182,7 @@ class Api
     }
 
 
-    public function updateObjectLearningProgressByRefIdByUserImportId(int $ref_id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByRefIdByUserImportId(int $ref_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->getObjectLearningProgress_()
             ->updateObjectLearningProgressByRefIdByUserImportId(

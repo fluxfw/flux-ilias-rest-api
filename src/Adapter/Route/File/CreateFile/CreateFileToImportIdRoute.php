@@ -9,9 +9,10 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Body\LegacyDefaultBodyType;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class CreateFileToImportIdRoute implements Route
 {
@@ -32,7 +33,7 @@ class CreateFileToImportIdRoute implements Route
     public function getDocuRequestBodyTypes() : ?array
     {
         return [
-            BodyType::JSON
+            LegacyDefaultBodyType::JSON()
         ];
     }
 
@@ -43,9 +44,9 @@ class CreateFileToImportIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::POST;
+        return LegacyDefaultMethod::POST();
     }
 
 
@@ -62,7 +63,7 @@ class CreateFileToImportIdRoute implements Route
                 TextBodyDto::new(
                     "No json body"
                 ),
-                Status::_400
+                LegacyDefaultStatus::_400()
             );
         }
 
@@ -86,7 +87,7 @@ class CreateFileToImportIdRoute implements Route
                 TextBodyDto::new(
                     "Object not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

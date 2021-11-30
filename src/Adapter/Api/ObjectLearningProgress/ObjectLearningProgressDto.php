@@ -7,7 +7,7 @@ use JsonSerializable;
 class ObjectLearningProgressDto implements JsonSerializable
 {
 
-    private ?string $learning_progress;
+    private ?LegacyObjectLearningProgress $learning_progress;
     private ?int $object_id;
     private ?string $object_import_id;
     private ?int $object_ref_id;
@@ -21,7 +21,7 @@ class ObjectLearningProgressDto implements JsonSerializable
         ?int $object_ref_id = null,
         ?int $user_id = null,
         ?string $user_import_id = null,
-        ?string $learning_progress = null
+        ?LegacyObjectLearningProgress $learning_progress = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -37,7 +37,7 @@ class ObjectLearningProgressDto implements JsonSerializable
     }
 
 
-    public function getLearningProgress() : ?string
+    public function getLearningProgress() : ?LegacyObjectLearningProgress
     {
         return $this->learning_progress;
     }

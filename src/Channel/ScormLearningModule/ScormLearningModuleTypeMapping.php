@@ -2,27 +2,28 @@
 
 namespace FluxIliasRestApi\Channel\ScormLearningModule;
 
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleType;
+use FluxIliasRestApi\Adapter\Api\ScormLearningModule\LegacyScormLearningModuleType;
 
 final class ScormLearningModuleTypeMapping
 {
 
-    private const INTERNAL_EXTERNAL
-        = [
-            InternalScormLearningModuleType::SCORM      => ScormLearningModuleType::SCORM_1_2,
-            InternalScormLearningModuleType::SCORM_2004 => ScormLearningModuleType::SCORM_2004
-        ];
-
-
-    public static function mapExternalToInternal(?string $scorm_learning_module_type) : ?string
+    public static function mapExternalToInternal(LegacyScormLearningModuleType $type) : LegacyInternalScormLearningModuleType
     {
-        return ($scorm_learning_module_type = $scorm_learning_module_type ?: null) !== null ? array_flip(static::INTERNAL_EXTERNAL)[$scorm_learning_module_type] ??
-            substr($scorm_learning_module_type, 1) : null;
+        return LegacyInternalScormLearningModuleType::from(array_flip(static::INTERNAL_EXTERNAL())[$type->value] ?? substr($type->value, 1));
     }
 
 
-    public static function mapInternalToExternal(?string $scorm_learning_module_type) : ?string
+    public static function mapInternalToExternal(LegacyInternalScormLearningModuleType $type) : LegacyScormLearningModuleType
     {
-        return ($scorm_learning_module_type = $scorm_learning_module_type ?: null) !== null ? static::INTERNAL_EXTERNAL[$scorm_learning_module_type] ?? "_" . $scorm_learning_module_type : null;
+        return LegacyScormLearningModuleType::from(static::INTERNAL_EXTERNAL()[$type->value] ?? "_" . $type->value);
+    }
+
+
+    private static function INTERNAL_EXTERNAL() : array
+    {
+        return [
+            LegacyInternalScormLearningModuleType::SCORM()->value      => LegacyScormLearningModuleType::SCORM_1_2()->value,
+            LegacyInternalScormLearningModuleType::SCORM_2004()->value => LegacyScormLearningModuleType::SCORM_2004()->value
+        ];
     }
 }

@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Channel\UserRole;
 
 use FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 
 trait UserRoleQuery
@@ -12,8 +12,8 @@ trait UserRoleQuery
     private function getUserRoleQuery(?int $user_id = null, ?string $user_import_id = null, ?int $role_id = null, ?string $role_import_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::ROLE, ilDBConstants::T_TEXT),
-            "object_data_user.type=" . $this->database->quote(InternalObjectType::USR, ilDBConstants::T_TEXT)
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ROLE()->value, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($user_id !== null) {

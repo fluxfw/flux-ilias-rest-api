@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\Role;
 
 use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
 use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjRole;
 
@@ -20,7 +20,7 @@ trait RoleQuery
     private function getRoleQuery(?int $id = null, ?string $import_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::ROLE, ilDBConstants::T_TEXT)
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ROLE()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {

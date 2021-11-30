@@ -8,8 +8,9 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class GetOrganisationalUnitRootRoute implements Route
 {
@@ -39,9 +40,9 @@ class GetOrganisationalUnitRootRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::GET;
+        return LegacyDefaultMethod::GET();
     }
 
 
@@ -66,7 +67,7 @@ class GetOrganisationalUnitRootRoute implements Route
                 TextBodyDto::new(
                     "Organisational unit not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

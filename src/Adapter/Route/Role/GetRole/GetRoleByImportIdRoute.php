@@ -8,8 +8,9 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class GetRoleByImportIdRoute implements Route
 {
@@ -39,9 +40,9 @@ class GetRoleByImportIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::GET;
+        return LegacyDefaultMethod::GET();
     }
 
 
@@ -70,7 +71,7 @@ class GetRoleByImportIdRoute implements Route
                 TextBodyDto::new(
                     "Role not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

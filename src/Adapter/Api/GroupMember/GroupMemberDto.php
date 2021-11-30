@@ -2,6 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Api\GroupMember;
 
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use JsonSerializable;
 
 class GroupMemberDto implements JsonSerializable
@@ -11,7 +12,7 @@ class GroupMemberDto implements JsonSerializable
     private ?int $group_id;
     private ?string $group_import_id;
     private ?int $group_ref_id;
-    private ?string $learning_progress;
+    private ?LegacyObjectLearningProgress $learning_progress;
     private ?bool $member_role;
     private ?bool $notification;
     private ?bool $tutorial_support;
@@ -27,7 +28,7 @@ class GroupMemberDto implements JsonSerializable
         ?string $user_import_id = null,
         ?bool $member_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : /*static*/ self
@@ -67,7 +68,7 @@ class GroupMemberDto implements JsonSerializable
     }
 
 
-    public function getLearningProgress() : ?string
+    public function getLearningProgress() : ?LegacyObjectLearningProgress
     {
         return $this->learning_progress;
     }

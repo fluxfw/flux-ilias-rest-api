@@ -2,29 +2,28 @@
 
 namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
-use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionCoreIdentifier;
 
 final class OrganisationalUnitPositionCoreIdentifierMapping
 {
 
-    private const INTERNAL_EXTERNAL
-        = [
-            InternalOrganisationalUnitPositionCoreIdentifier::EMPLOYEE => OrganisationalUnitPositionCoreIdentifier::EMPLOYEE,
-            InternalOrganisationalUnitPositionCoreIdentifier::SUPERIOR => OrganisationalUnitPositionCoreIdentifier::SUPERIOR
-        ];
-
-
-    public static function mapExternalToInternal(?string $organisational_unit_position_core_identifier) : ?int
+    public static function mapExternalToInternal(LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier) : LegacyInternalOrganisationalUnitPositionCoreIdentifier
     {
-        return ($organisational_unit_position_core_identifier = $organisational_unit_position_core_identifier ?: null) !== null
-            ? array_flip(static::INTERNAL_EXTERNAL)[$organisational_unit_position_core_identifier] ??
-            substr($organisational_unit_position_core_identifier, 1) : null;
+        return LegacyInternalOrganisationalUnitPositionCoreIdentifier::from(array_flip(static::INTERNAL_EXTERNAL())[$core_identifier->value] ?? substr($core_identifier->value, 1));
     }
 
 
-    public static function mapInternalToExternal(?int $organisational_unit_position_core_identifier) : ?string
+    public static function mapInternalToExternal(LegacyInternalOrganisationalUnitPositionCoreIdentifier $core_identifier) : LegacyOrganisationalUnitPositionCoreIdentifier
     {
-        return ($organisational_unit_position_core_identifier = $organisational_unit_position_core_identifier ?: null) !== null
-            ? static::INTERNAL_EXTERNAL[$organisational_unit_position_core_identifier] ?? "_" . $organisational_unit_position_core_identifier : null;
+        return LegacyOrganisationalUnitPositionCoreIdentifier::from(static::INTERNAL_EXTERNAL()[$core_identifier->value] ?? "_" . $core_identifier->value);
+    }
+
+
+    private static function INTERNAL_EXTERNAL() : array
+    {
+        return [
+            LegacyInternalOrganisationalUnitPositionCoreIdentifier::EMPLOYEE()->value => LegacyOrganisationalUnitPositionCoreIdentifier::EMPLOYEE()->value,
+            LegacyInternalOrganisationalUnitPositionCoreIdentifier::SUPERIOR()->value => LegacyOrganisationalUnitPositionCoreIdentifier::SUPERIOR()->value
+        ];
     }
 }

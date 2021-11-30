@@ -9,9 +9,10 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Body\LegacyDefaultBodyType;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class UploadFileByImportIdRoute implements Route
 {
@@ -32,7 +33,7 @@ class UploadFileByImportIdRoute implements Route
     public function getDocuRequestBodyTypes() : ?array
     {
         return [
-            BodyType::FORM_DATA
+            LegacyDefaultBodyType::FORM_DATA()
         ];
     }
 
@@ -43,9 +44,9 @@ class UploadFileByImportIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::PUT;
+        return LegacyDefaultMethod::PUT();
     }
 
 
@@ -62,7 +63,7 @@ class UploadFileByImportIdRoute implements Route
                 TextBodyDto::new(
                     "No form data body"
                 ),
-                Status::_400
+                LegacyDefaultStatus::_400()
             );
         }
 
@@ -85,7 +86,7 @@ class UploadFileByImportIdRoute implements Route
                 TextBodyDto::new(
                     "File not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

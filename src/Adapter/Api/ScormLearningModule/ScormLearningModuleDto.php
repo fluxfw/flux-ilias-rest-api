@@ -21,7 +21,7 @@ class ScormLearningModuleDto implements JsonSerializable
     private ?int $ref_id;
     private ?bool $sequencing_expert_mode;
     private ?string $title;
-    private ?string $type;
+    private ?LegacyScormLearningModuleType $type;
     private ?int $updated;
     private ?string $url;
     private ?int $version;
@@ -40,7 +40,7 @@ class ScormLearningModuleDto implements JsonSerializable
         ?string $icon_url = null,
         ?string $title = null,
         ?string $description = null,
-        ?string $type = null,
+        ?LegacyScormLearningModuleType $type = null,
         ?int $version = null,
         ?bool $online = null,
         ?bool $authoring_mode = null,
@@ -139,7 +139,7 @@ class ScormLearningModuleDto implements JsonSerializable
     }
 
 
-    public function getType() : ?string
+    public function getType() : ?LegacyScormLearningModuleType
     {
         return $this->type;
     }

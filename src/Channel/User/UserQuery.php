@@ -3,10 +3,12 @@
 namespace FluxIliasRestApi\Channel\User;
 
 use Exception;
+use FluxIliasRestApi\Adapter\Api\User\LegacyUserAuthenticationMode;
+use FluxIliasRestApi\Adapter\Api\User\LegacyUserGender;
 use FluxIliasRestApi\Adapter\Api\User\UserDefinedFieldDto;
 use FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
 use FluxIliasRestApi\Adapter\Api\User\UserDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjUser;
 use ilUserDefinedFields;
@@ -69,7 +71,7 @@ WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) .
     private function getUserQuery(?int $id = null, ?string $import_id = null) : string
     {
         $wheres = [
-            "type=" . $this->database->quote(InternalObjectType::USR, ilDBConstants::T_TEXT)
+            "type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {
@@ -108,9 +110,7 @@ WHERE session_id=" . $this->database->quote($session_id,
         }
 
         if ($diff->getAuthenticationMode() !== null) {
-            $ilias_user->setAuthMode(UserAuthenticationModeMapping::mapExternalToInternal(
-                $diff->getAuthenticationMode()
-            ));
+            $ilias_user->setAuthMode(UserAuthenticationModeMapping::mapExternalToInternal($diff->getAuthenticationMode())->value);
         }
 
         if ($diff->getLogin() !== null) {
@@ -182,9 +182,7 @@ WHERE session_id=" . $this->database->quote($session_id,
         }
 
         if ($diff->getGender() !== null) {
-            $ilias_user->setGender(UserGenderMapping::mapExternalToInternal(
-                $diff->getGender()
-            ));
+            $ilias_user->setGender(UserGenderMapping::mapExternalToInternal($diff->getGender())->value);
         }
 
         if ($diff->getFirstName() !== null) {
@@ -228,9 +226,7 @@ WHERE session_id=" . $this->database->quote($session_id,
         }
 
         if ($diff->getSelectedCountry() !== null) {
-            $ilias_user->setSelectedCountry(UserSelectedCountryMapping::mapExternalToInternal(
-                $diff->getSelectedCountry()
-            ));
+            $ilias_user->setSelectedCountry(UserSelectedCountryMapping::mapExternalToInternal($diff->getSelectedCountry())->value);
         }
 
         if ($diff->getPhoneOffice() !== null) {
@@ -333,9 +329,7 @@ WHERE session_id=" . $this->database->quote($session_id,
         }
 
         if ($diff->getLanguage() !== null) {
-            $ilias_user->setLanguage(UserLanguageMapping::mapExternalToInternal(
-                $diff->getLanguage()
-            ));
+            $ilias_user->setLanguage(UserLanguageMapping::mapExternalToInternal($diff->getLanguage())->value);
         }
 
         $ilias_user->setTitle($ilias_user->getFullname());
@@ -359,9 +353,8 @@ WHERE session_id=" . $this->database->quote($session_id,
             $user["usr_id"] ?: null,
             $user["import_id"] ?: null,
             $user["ext_account"] ?: null,
-            UserAuthenticationModeMapping::mapInternalToExternal(
-                $user["auth_mode"] ?? null
-            ),
+            ($authentication_mode = $user["auth_mode"] ?: null) !== null ? UserAuthenticationModeMapping::mapInternalToExternal(LegacyInternalUserAuthenticationMode::from($authentication_mode))
+                : LegacyUserAuthenticationMode::DEFAULT(),
             $user["login"] ?? "",
             strtotime($user["create_date"] ?? null) ?: null,
             strtotime($user["last_update"] ?? null) ?: null,
@@ -380,9 +373,7 @@ WHERE session_id=" . $this->database->quote($session_id,
             ),
             $user["time_limit_owner"] ?: null,
             $user["time_limit_message"] ?? false,
-            UserGenderMapping::mapInternalToExternal(
-                $user["gender"] ?? null
-            ),
+            ($gender = $user["gender"] ?: null) !== null ? UserGenderMapping::mapInternalToExternal(LegacyInternalUserGender::from($gender)) : LegacyUserGender::NONE(),
             $user["firstname"] ?? "",
             $user["lastname"] ?? "",
             $user["title"] ?? "",
@@ -398,9 +389,7 @@ WHERE session_id=" . $this->database->quote($session_id,
             $user["city"] ?? "",
             $user["zipcode"] ?? "",
             $user["country"] ?? "",
-            UserSelectedCountryMapping::mapInternalToExternal(
-                $user["sel_country"] ?? null
-            ),
+            ($selected_country = $user["sel_country"] ?: null) !== null ? UserSelectedCountryMapping::mapInternalToExternal(LegacyInternalUserSelectedCountry::from($selected_country)) : null,
             $user["phone_office"] ?? "",
             $user["phone_home"] ?? "",
             $user["phone_mobile"] ?? "",
@@ -428,11 +417,7 @@ WHERE session_id=" . $this->database->quote($session_id,
                 $user_defined_field["field_name"] ?? null,
                 $user_defined_field["value"] ?? null
             ), array_filter($user_defined_fields, fn(array $user_defined_field) : bool => $user_defined_field["usr_id"] === $user["usr_id"]))) : null,
-            UserLanguageMapping::mapInternalToExternal(
-                $getUserPreference(
-                    "language"
-                )
-            )
+            ($language = $getUserPreference("language") ?: null) !== null ? UserLanguageMapping::mapInternalToExternal(LegacyInternalUserLanguage::from($language)) : null
         );
     }
 

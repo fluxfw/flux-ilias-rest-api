@@ -3,6 +3,7 @@
 namespace FluxIliasRestApi\Channel\ObjectLearningProgress\Command;
 
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressIdDto;
 use FluxIliasRestApi\Adapter\Api\User\UserDto;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
@@ -31,7 +32,7 @@ class UpdateObjectLearningProgressCommand
     }
 
 
-    public function updateObjectLearningProgressByIdByUserId(int $id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByIdByUserId(int $id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
             $this->object->getObjectById(
@@ -45,7 +46,7 @@ class UpdateObjectLearningProgressCommand
     }
 
 
-    public function updateObjectLearningProgressByIdByUserImportId(int $id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByIdByUserImportId(int $id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
             $this->object->getObjectById(
@@ -59,7 +60,7 @@ class UpdateObjectLearningProgressCommand
     }
 
 
-    public function updateObjectLearningProgressByImportIdByUserId(string $import_id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByImportIdByUserId(string $import_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
             $this->object->getObjectByImportId(
@@ -73,7 +74,7 @@ class UpdateObjectLearningProgressCommand
     }
 
 
-    public function updateObjectLearningProgressByImportIdByUserImportId(string $import_id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByImportIdByUserImportId(string $import_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
             $this->object->getObjectByImportId(
@@ -87,7 +88,7 @@ class UpdateObjectLearningProgressCommand
     }
 
 
-    public function updateObjectLearningProgressByRefIdByUserId(int $ref_id, int $user_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByRefIdByUserId(int $ref_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
             $this->object->getObjectByRefId(
@@ -101,7 +102,7 @@ class UpdateObjectLearningProgressCommand
     }
 
 
-    public function updateObjectLearningProgressByRefIdByUserImportId(int $ref_id, string $user_import_id, string $learning_progress) : ?ObjectLearningProgressIdDto
+    public function updateObjectLearningProgressByRefIdByUserImportId(int $ref_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
             $this->object->getObjectByRefId(
@@ -115,15 +116,13 @@ class UpdateObjectLearningProgressCommand
     }
 
 
-    private function updateObjectLearningProgress(?ObjectDto $object, ?UserDto $user, string $learning_progress) : ?ObjectLearningProgressIdDto
+    private function updateObjectLearningProgress(?ObjectDto $object, ?UserDto $user, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         if ($object === null || $user === null) {
             return null;
         }
 
-        ilLPStatus::writeStatus($object->getId(), $user->getId(), ObjectLearningProgressMapping::mapExternalToInternal(
-            $learning_progress
-        ));
+        ilLPStatus::writeStatus($object->getId(), $user->getId(), ObjectLearningProgressMapping::mapExternalToInternal($learning_progress)->value);
 
         return ObjectLearningProgressIdDto::new(
             $object->getId(),

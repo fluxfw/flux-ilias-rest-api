@@ -2,34 +2,36 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxIliasRestApi\Adapter\Api\User\UserAuthenticationMode;
+use FluxIliasRestApi\Adapter\Api\User\LegacyUserAuthenticationMode;
 
 final class UserAuthenticationModeMapping
 {
 
-    private const INTERNAL_EXTERNAL
-        = [
-            InternalUserAuthenticationMode::CAS        => UserAuthenticationMode::CAS,
-            InternalUserAuthenticationMode::DEFAULT    => UserAuthenticationMode::DEFAULT,
-            InternalUserAuthenticationMode::LDAP       => UserAuthenticationMode::LDAP,
-            InternalUserAuthenticationMode::LOCAL      => UserAuthenticationMode::LOCAL,
-            InternalUserAuthenticationMode::OPENID     => UserAuthenticationMode::OPENID,
-            InternalUserAuthenticationMode::RADIUS     => UserAuthenticationMode::RADIUS,
-            InternalUserAuthenticationMode::SAML       => UserAuthenticationMode::SAML,
-            InternalUserAuthenticationMode::SCRIPT     => UserAuthenticationMode::SCRIPT,
-            InternalUserAuthenticationMode::SHIBBOLETH => UserAuthenticationMode::SHIBBOLETH,
-            InternalUserAuthenticationMode::SOAP       => UserAuthenticationMode::SOAP
-        ];
-
-
-    public static function mapExternalToInternal(?string $authentication_mode) : string
+    public static function mapExternalToInternal(LegacyUserAuthenticationMode $authentication_mode) : LegacyInternalUserAuthenticationMode
     {
-        return array_flip(static::INTERNAL_EXTERNAL)[$authentication_mode = $authentication_mode ?: UserAuthenticationMode::DEFAULT] ?? substr($authentication_mode, 1);
+        return LegacyInternalUserAuthenticationMode::from(array_flip(static::INTERNAL_EXTERNAL())[$authentication_mode->value] ?? substr($authentication_mode->value, 1));
     }
 
 
-    public static function mapInternalToExternal(?string $authentication_mode) : string
+    public static function mapInternalToExternal(LegacyInternalUserAuthenticationMode $authentication_mode) : LegacyUserAuthenticationMode
     {
-        return static::INTERNAL_EXTERNAL[$authentication_mode = $authentication_mode ?: InternalUserAuthenticationMode::DEFAULT] ?? "_" . $authentication_mode;
+        return LegacyUserAuthenticationMode::from(static::INTERNAL_EXTERNAL()[$authentication_mode->value] ?? "_" . $authentication_mode->value);
+    }
+
+
+    private static function INTERNAL_EXTERNAL() : array
+    {
+        return [
+            LegacyInternalUserAuthenticationMode::CAS()->value        => LegacyUserAuthenticationMode::CAS()->value,
+            LegacyInternalUserAuthenticationMode::DEFAULT()->value    => LegacyUserAuthenticationMode::DEFAULT()->value,
+            LegacyInternalUserAuthenticationMode::LDAP()->value       => LegacyUserAuthenticationMode::LDAP()->value,
+            LegacyInternalUserAuthenticationMode::LOCAL()->value      => LegacyUserAuthenticationMode::LOCAL()->value,
+            LegacyInternalUserAuthenticationMode::OPENID()->value     => LegacyUserAuthenticationMode::OPENID()->value,
+            LegacyInternalUserAuthenticationMode::RADIUS()->value     => LegacyUserAuthenticationMode::RADIUS()->value,
+            LegacyInternalUserAuthenticationMode::SAML()->value       => LegacyUserAuthenticationMode::SAML()->value,
+            LegacyInternalUserAuthenticationMode::SCRIPT()->value     => LegacyUserAuthenticationMode::SCRIPT()->value,
+            LegacyInternalUserAuthenticationMode::SHIBBOLETH()->value => LegacyUserAuthenticationMode::SHIBBOLETH()->value,
+            LegacyInternalUserAuthenticationMode::SOAP()->value       => LegacyUserAuthenticationMode::SOAP()->value
+        ];
     }
 }

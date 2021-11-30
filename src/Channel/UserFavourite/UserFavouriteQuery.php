@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Channel\UserFavourite;
 
 use FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 
 trait UserFavouriteQuery
@@ -12,7 +12,7 @@ trait UserFavouriteQuery
     private function getUserFavouriteQuery(?int $user_id = null, ?string $user_import_id = null, ?int $object_id = null, ?string $object_import_id = null, ?int $object_ref_id = null) : string
     {
         $wheres = [
-            "object_data_user.type=" . $this->database->quote(InternalObjectType::USR, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 

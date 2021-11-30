@@ -20,7 +20,7 @@ class ObjectDto implements JsonSerializable
     private ?int $ref_id;
     private ?array $ref_ids;
     private ?string $title;
-    private ?string $type;
+    private ?ObjectType $type;
     private ?int $updated;
     private ?string $url;
 
@@ -30,7 +30,7 @@ class ObjectDto implements JsonSerializable
         ?string $import_id = null,
         ?int $ref_id = null,
         ?array $ref_ids = null,
-        ?string $type = null,
+        ?ObjectType $type = null,
         ?int $created = null,
         ?int $updated = null,
         ?int $parent_id = null,
@@ -139,7 +139,7 @@ class ObjectDto implements JsonSerializable
     }
 
 
-    public function getType() : ?string
+    public function getType() : ?ObjectType
     {
         return $this->type;
     }

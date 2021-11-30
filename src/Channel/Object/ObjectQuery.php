@@ -4,6 +4,7 @@ namespace FluxIliasRestApi\Channel\Object;
 
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
 use ilCopyWizardOptions;
 use ilDBConstants;
 use ilLink;
@@ -110,9 +111,9 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
     }
 
 
-    private function getObjectIconUrl(int $id, ?string $type = null) : string
+    private function getObjectIconUrl(int $id, ?InternalObjectType $type = null) : string
     {
-        $icon = ilObject::_getIcon($id, "big", $type ?? "");
+        $icon = ilObject::_getIcon($id, "big", $type !== null ? $type->value : "");
 
         if (str_starts_with($icon, "./")) {
             $icon = substr($icon, 2);
@@ -122,16 +123,14 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
     }
 
 
-    private function getObjectQuery(?string $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $ref_ids = null) : string
+    private function getObjectQuery(?ObjectType $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $ref_ids = null) : string
     {
         $wheres = [
             "object_reference.deleted IS NULL"
         ];
 
         if ($type !== null) {
-            $wheres[] = "object_data.type=" . $this->database->quote(ObjectTypeMapping::mapExternalToInternal(
-                    $type
-                ), ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.type=" . $this->database->quote(ObjectTypeMapping::mapExternalToInternal($type)->value, ilDBConstants::T_TEXT);
         }
 
         if ($id !== null) {
@@ -173,13 +172,13 @@ ORDER BY object_reference.ref_id ASC";
     }
 
 
-    private function getObjectUrl(?int $ref_id, ?string $type = null) : ?string
+    private function getObjectUrl(?int $ref_id, ?InternalObjectType $type = null) : ?string
     {
         if ($ref_id === null) {
             return null;
         }
 
-        return ilLink::_getStaticLink($ref_id, $type ?? "");
+        return ilLink::_getStaticLink($ref_id, $type !== null ? $type->value : "");
     }
 
 
@@ -209,22 +208,22 @@ ORDER BY object_reference.ref_id ASC";
 
     private function mapObjectDto(array $object, ?array $ref_ids = null) : ObjectDto
     {
+        $type = ($type = $object["type"] ?: null) !== null ? CustomInternalObjectType::factory($type) : null;
+
         return ObjectDto::new(
             $object["obj_id"] ?: null,
             $object["import_id"] ?: null,
             $object["ref_id"] ?: null,
             $ref_ids !== null ? array_values(array_map(fn(array $object_ref_id) : int => $object_ref_id["ref_id"] ?: null,
                 array_filter($ref_ids, fn(array $object_ref_id) : bool => $object_ref_id["obj_id"] === $object["obj_id"]))) : null,
-            ObjectTypeMapping::mapInternalToExternal(
-                $object["type"] ?? null
-            ),
+            $type !== null ? ObjectTypeMapping::mapInternalToExternal($type) : null,
             strtotime($object["create_date"] ?? null) ?: null,
             strtotime($object["last_update"] ?? null) ?: null,
             $object["parent_obj_id"] ?: null,
             $object["parent_import_id"] ?: null,
             $object["parent_ref_id"] ?: null,
-            $this->getObjectUrl($object["ref_id"] ?: null, $object["type"] ?: null),
-            $this->getObjectIconUrl($object["obj_id"] ?: null, $object["type"] ?: null),
+            $this->getObjectUrl($object["ref_id"] ?: null, $type),
+            $this->getObjectIconUrl($object["obj_id"] ?: null, $type),
             !($object["offline"] ?? null),
             $object["title"] ?? "",
             $object["description"] ?? "",
@@ -233,11 +232,9 @@ ORDER BY object_reference.ref_id ASC";
     }
 
 
-    private function newIliasObject(string $type) : ilObject
+    private function newIliasObject(ObjectType $type) : ilObject
     {
-        $class = ilObjectFactory::getClassByType(ObjectTypeMapping::mapExternalToInternal(
-            $type
-        ));
+        $class = ilObjectFactory::getClassByType(ObjectTypeMapping::mapExternalToInternal($type)->value);
 
         return new $class();
     }

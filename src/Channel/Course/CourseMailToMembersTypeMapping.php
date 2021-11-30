@@ -2,26 +2,28 @@
 
 namespace FluxIliasRestApi\Channel\Course;
 
-use FluxIliasRestApi\Adapter\Api\Course\CourseMailToMembersType;
+use FluxIliasRestApi\Adapter\Api\Course\LegacyCourseMailToMembersType;
 
 final class CourseMailToMembersTypeMapping
 {
 
-    private const INTERNAL_EXTERNAL
-        = [
-            InternalCourseMailToMembersType::ALL                       => CourseMailToMembersType::ALL,
-            InternalCourseMailToMembersType::TUTORS_AND_ADMINISTRATORS => CourseMailToMembersType::TUTORS_AND_ADMINISTRATORS
-        ];
-
-
-    public static function mapExternalToInternal(?string $mail_to_members_type) : int
+    public static function mapExternalToInternal(LegacyCourseMailToMembersType $mail_to_members_type) : LegacyInternalCourseMailToMembersType
     {
-        return array_flip(static::INTERNAL_EXTERNAL)[$mail_to_members_type = $mail_to_members_type ?: CourseMailToMembersType::ALL] ?? substr($mail_to_members_type, 1);
+        return LegacyInternalCourseMailToMembersType::from(array_flip(static::INTERNAL_EXTERNAL())[$mail_to_members_type->value] ?? substr($mail_to_members_type->value, 1));
     }
 
 
-    public static function mapInternalToExternal(?int $mail_to_members_type) : string
+    public static function mapInternalToExternal(LegacyInternalCourseMailToMembersType $mail_to_members_type) : LegacyCourseMailToMembersType
     {
-        return static::INTERNAL_EXTERNAL[$mail_to_members_type = $mail_to_members_type ?: InternalCourseMailToMembersType::ALL] ?? "_" . $mail_to_members_type;
+        return LegacyCourseMailToMembersType::from(static::INTERNAL_EXTERNAL()[$mail_to_members_type->value] ?? "_" . $mail_to_members_type->value);
+    }
+
+
+    private static function INTERNAL_EXTERNAL() : array
+    {
+        return [
+            LegacyInternalCourseMailToMembersType::ALL()->value                       => LegacyCourseMailToMembersType::ALL()->value,
+            LegacyInternalCourseMailToMembersType::TUTORS_AND_ADMINISTRATORS()->value => LegacyCourseMailToMembersType::TUTORS_AND_ADMINISTRATORS()->value
+        ];
     }
 }

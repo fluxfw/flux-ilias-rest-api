@@ -4,7 +4,8 @@ namespace FluxIliasRestApi\Channel\OrganisationalUnit;
 
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDiffDto;
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnit\OrganisationalUnitDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjOrgUnit;
 
@@ -24,7 +25,7 @@ trait OrganisationalUnitQuery
     private function getOrganisationalUnitQuery(?int $id = null, ?string $external_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::ORGU, ilDBConstants::T_TEXT)
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ORGU()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {
@@ -79,6 +80,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
 
     private function mapOrganisationalUnitDto(array $organisational_unit) : OrganisationalUnitDto
     {
+        $type = ($type = $organisational_unit["type"] ?: null) !== null ? CustomInternalObjectType::factory($type) : null;
+
         return OrganisationalUnitDto::new(
             $organisational_unit["obj_id"] ?: null,
             $organisational_unit["ref_id"] ?: null,
@@ -87,7 +90,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $organisational_unit["parent_obj_id"] ?: null,
             $organisational_unit["parent_external_id"] ?? "",
             $organisational_unit["parent_ref_id"] ?: null,
-            $this->getObjectUrl($organisational_unit["ref_id"] ?: null, $organisational_unit["type"] ?: null),
+            $this->getObjectUrl($organisational_unit["ref_id"] ?: null, $type),
             $organisational_unit["title"] ?? "",
             $organisational_unit["description"] ?? "",
             $organisational_unit["orgu_type_id"] ?: null,

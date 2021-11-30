@@ -4,7 +4,8 @@ namespace FluxIliasRestApi\Channel\Category;
 
 use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
 use FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
-use FluxIliasRestApi\Channel\Object\InternalObjectType;
+use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
+use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjCategory;
 
@@ -14,7 +15,7 @@ trait CategoryQuery
     private function getCategoryQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(InternalObjectType::CAT, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::CAT()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
@@ -75,6 +76,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
 
     private function mapCategoryDto(array $category) : CategoryDto
     {
+        $type = ($type = $category["type"] ?: null) !== null ? CustomInternalObjectType::factory($type) : null;
+
         return CategoryDto::new(
             $category["obj_id"] ?: null,
             $category["import_id"] ?: null,
@@ -84,8 +87,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $category["parent_obj_id"] ?: null,
             $category["parent_import_id"] ?: null,
             $category["parent_ref_id"] ?: null,
-            $this->getObjectUrl($category["ref_id"] ?: null, $category["type"] ?: null),
-            $this->getObjectIconUrl($category["obj_id"] ?: null, $category["type"] ?: null),
+            $this->getObjectUrl($category["ref_id"] ?: null, $type),
+            $this->getObjectIconUrl($category["obj_id"] ?: null, $type),
             $category["title"] ?? "",
             $category["description"] ?? "",
             $category["tpl_id"] ?: null

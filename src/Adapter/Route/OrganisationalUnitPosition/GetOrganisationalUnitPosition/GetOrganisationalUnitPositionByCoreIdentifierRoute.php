@@ -3,13 +3,15 @@
 namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnitPosition\GetOrganisationalUnitPosition;
 
 use FluxIliasRestApi\Adapter\Api\Api;
+use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionCoreIdentifier;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
 {
@@ -39,9 +41,9 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::GET;
+        return LegacyDefaultMethod::GET();
     }
 
 
@@ -54,9 +56,9 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $organisational_unit_position = $this->api->getOrganisationalUnitPositionByCoreIdentifier(
-            $request->getParam(
+            LegacyOrganisationalUnitPositionCoreIdentifier::from($request->getParam(
                 "core_identifier"
-            )
+            ))
         );
 
         if ($organisational_unit_position !== null) {
@@ -70,7 +72,7 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
                 TextBodyDto::new(
                     "Organisational unit position not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

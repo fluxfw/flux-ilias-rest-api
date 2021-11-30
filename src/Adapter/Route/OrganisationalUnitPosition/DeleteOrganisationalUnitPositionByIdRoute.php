@@ -8,8 +8,9 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\LegacyDefaultStatus;
 
 class DeleteOrganisationalUnitPositionByIdRoute implements Route
 {
@@ -39,9 +40,9 @@ class DeleteOrganisationalUnitPositionByIdRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::DELETE;
+        return LegacyDefaultMethod::DELETE();
     }
 
 
@@ -70,7 +71,7 @@ class DeleteOrganisationalUnitPositionByIdRoute implements Route
                 TextBodyDto::new(
                     "Organisational unit position not found"
                 ),
-                Status::_404
+                LegacyDefaultStatus::_404()
             );
         }
     }

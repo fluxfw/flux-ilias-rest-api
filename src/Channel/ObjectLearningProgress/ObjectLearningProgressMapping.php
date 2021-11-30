@@ -2,28 +2,30 @@
 
 namespace FluxIliasRestApi\Channel\ObjectLearningProgress;
 
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 
 final class ObjectLearningProgressMapping
 {
 
-    private const INTERNAL_EXTERNAL
-        = [
-            InternalObjectLearningProgress::COMPLETED     => ObjectLearningProgress::COMPLETED,
-            InternalObjectLearningProgress::FAILED        => ObjectLearningProgress::FAILED,
-            InternalObjectLearningProgress::IN_PROGRESS   => ObjectLearningProgress::IN_PROGRESS,
-            InternalObjectLearningProgress::NOT_ATTEMPTED => ObjectLearningProgress::NOT_ATTEMPTED
-        ];
-
-
-    public static function mapExternalToInternal(?string $learning_progress) : int
+    public static function mapExternalToInternal(LegacyObjectLearningProgress $learning_progress) : LegacyInternalObjectLearningProgress
     {
-        return array_flip(static::INTERNAL_EXTERNAL)[$learning_progress = $learning_progress ?: ObjectLearningProgress::NOT_ATTEMPTED] ?? substr($learning_progress, 1);
+        return LegacyInternalObjectLearningProgress::from(array_flip(static::INTERNAL_EXTERNAL())[$learning_progress->value] ?? substr($learning_progress->value, 1));
     }
 
 
-    public static function mapInternalToExternal(?int $learning_progress) : string
+    public static function mapInternalToExternal(LegacyInternalObjectLearningProgress $learning_progress) : LegacyObjectLearningProgress
     {
-        return static::INTERNAL_EXTERNAL[$learning_progress = $learning_progress ?: InternalObjectLearningProgress::NOT_ATTEMPTED] ?? "_" . $learning_progress;
+        return LegacyObjectLearningProgress::from(static::INTERNAL_EXTERNAL()[$learning_progress->value] ?? "_" . $learning_progress->value);
+    }
+
+
+    private static function INTERNAL_EXTERNAL() : array
+    {
+        return [
+            LegacyInternalObjectLearningProgress::COMPLETED()->value     => LegacyObjectLearningProgress::COMPLETED()->value,
+            LegacyInternalObjectLearningProgress::FAILED()->value        => LegacyObjectLearningProgress::FAILED()->value,
+            LegacyInternalObjectLearningProgress::IN_PROGRESS()->value   => LegacyObjectLearningProgress::IN_PROGRESS()->value,
+            LegacyInternalObjectLearningProgress::NOT_ATTEMPTED()->value => LegacyObjectLearningProgress::NOT_ATTEMPTED()->value
+        ];
     }
 }

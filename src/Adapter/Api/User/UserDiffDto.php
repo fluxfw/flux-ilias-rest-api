@@ -13,7 +13,7 @@ class UserDiffDto
     private ?int $access_limited_until;
     private ?bool $access_unlimited;
     private ?bool $active;
-    private ?string $authentication_mode;
+    private ?LegacyUserAuthenticationMode $authentication_mode;
     private ?string $birthday;
     private ?string $city;
     private ?string $client_ip;
@@ -23,13 +23,13 @@ class UserDiffDto
     private ?string $external_account;
     private ?string $fax;
     private ?string $first_name;
-    private ?string $gender;
+    private ?LegacyUserGender $gender;
     private ?array $general_interests;
     private ?string $heard_about_ilias;
     private ?string $hobbies;
     private ?string $import_id;
     private ?string $institution;
-    private ?string $language;
+    private ?LegacyUserLanguage $language;
     private ?string $last_name;
     private ?string $location_latitude;
     private ?string $location_longitude;
@@ -43,7 +43,7 @@ class UserDiffDto
     private ?string $phone_mobile;
     private ?string $phone_office;
     private ?string $second_email;
-    private ?string $selected_country;
+    private ?LegacyUserSelectedCountry $selected_country;
     private ?string $street;
     private ?string $title;
     private ?array $user_defined_fields;
@@ -55,7 +55,7 @@ class UserDiffDto
         return static::new(
             $data->import_id ?? null,
             $data->external_account ?? null,
-            $data->authentication_mode ?? null,
+            ($authentication_mode = $data->authentication_mode ?? null) !== null ? LegacyUserAuthenticationMode::from($authentication_mode) : null,
             $data->login ?? null,
             $data->password ?? null,
             $data->active ?? null,
@@ -66,7 +66,7 @@ class UserDiffDto
             $data->access_limited_object_import_id ?? null,
             $data->access_limited_object_ref_id ?? null,
             $data->access_limited_message ?? null,
-            $data->gender ?? null,
+            ($gender = $data->gender ?? null) !== null ? LegacyUserGender::from($gender) : null,
             $data->first_name ?? null,
             $data->last_name ?? null,
             $data->title ?? null,
@@ -77,7 +77,7 @@ class UserDiffDto
             $data->city ?? null,
             $data->zip_code ?? null,
             $data->country ?? null,
-            $data->selected_country ?? null,
+            ($selected_country = $data->selected_country ?? null) !== null ? LegacyUserSelectedCountry::from($selected_country) : null,
             $data->phone_office ?? null,
             $data->phone_home ?? null,
             $data->phone_mobile ?? null,
@@ -100,7 +100,7 @@ class UserDiffDto
                 $user_defined_field->name ?? null,
                 $user_defined_field->value ?? null
             ), $user_defined_fields) : null,
-            $data->language ?? null
+            ($language = $data->language ?? null) !== null ? LegacyUserLanguage::from($language) : null
         );
     }
 
@@ -108,7 +108,7 @@ class UserDiffDto
     private static function new(
         ?string $import_id = null,
         ?string $external_account = null,
-        ?string $authentication_mode = null,
+        ?LegacyUserAuthenticationMode $authentication_mode = null,
         ?string $login = null,
         ?string $password = null,
         ?bool $active = null,
@@ -119,7 +119,7 @@ class UserDiffDto
         ?string $access_limited_object_import_id = null,
         ?int $access_limited_object_ref_id = null,
         ?bool $access_limited_message = null,
-        ?string $gender = null,
+        ?LegacyUserGender $gender = null,
         ?string $first_name = null,
         ?string $last_name = null,
         ?string $title = null,
@@ -130,7 +130,7 @@ class UserDiffDto
         ?string $city = null,
         ?string $zip_code = null,
         ?string $country = null,
-        ?string $selected_country = null,
+        ?LegacyUserSelectedCountry $selected_country = null,
         ?string $phone_office = null,
         ?string $phone_home = null,
         ?string $phone_mobile = null,
@@ -148,7 +148,7 @@ class UserDiffDto
         ?string $location_longitude = null,
         ?int $location_zoom = null,
         ?array $user_defined_fields = null,
-        ?string $language = null
+        ?LegacyUserLanguage $language = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -231,7 +231,7 @@ class UserDiffDto
     }
 
 
-    public function getAuthenticationMode() : ?string
+    public function getAuthenticationMode() : ?LegacyUserAuthenticationMode
     {
         return $this->authentication_mode;
     }
@@ -291,7 +291,7 @@ class UserDiffDto
     }
 
 
-    public function getGender() : ?string
+    public function getGender() : ?LegacyUserGender
     {
         return $this->gender;
     }
@@ -327,7 +327,7 @@ class UserDiffDto
     }
 
 
-    public function getLanguage() : ?string
+    public function getLanguage() : ?LegacyUserLanguage
     {
         return $this->language;
     }
@@ -411,7 +411,7 @@ class UserDiffDto
     }
 
 
-    public function getSelectedCountry() : ?string
+    public function getSelectedCountry() : ?LegacyUserSelectedCountry
     {
         return $this->selected_country;
     }

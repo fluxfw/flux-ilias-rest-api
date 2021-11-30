@@ -2,6 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Api\CourseMember;
 
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 use JsonSerializable;
 
 class CourseMemberDto implements JsonSerializable
@@ -12,7 +13,7 @@ class CourseMemberDto implements JsonSerializable
     private ?int $course_id;
     private ?string $course_import_id;
     private ?int $course_ref_id;
-    private ?string $learning_progress;
+    private ?LegacyObjectLearningProgress $learning_progress;
     private ?bool $member_role;
     private ?bool $notification;
     private ?bool $passed;
@@ -31,7 +32,7 @@ class CourseMemberDto implements JsonSerializable
         ?bool $member_role = null,
         ?bool $tutor_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $passed = null,
         ?bool $access_refused = null,
         ?bool $tutorial_support = null,
@@ -76,7 +77,7 @@ class CourseMemberDto implements JsonSerializable
     }
 
 
-    public function getLearningProgress() : ?string
+    public function getLearningProgress() : ?LegacyObjectLearningProgress
     {
         return $this->learning_progress;
     }

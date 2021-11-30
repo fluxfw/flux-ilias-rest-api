@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Channel\Object\Command;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
 use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 
@@ -26,7 +27,7 @@ class CreateObjectCommand
     }
 
 
-    public function createObjectToId(string $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToId(ObjectType $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createObject(
             $type,
@@ -38,7 +39,7 @@ class CreateObjectCommand
     }
 
 
-    public function createObjectToImportId(string $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToImportId(ObjectType $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createObject(
             $type,
@@ -50,7 +51,7 @@ class CreateObjectCommand
     }
 
 
-    public function createObjectToRefId(string $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
+    public function createObjectToRefId(ObjectType $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createObject(
             $type,
@@ -62,7 +63,7 @@ class CreateObjectCommand
     }
 
 
-    private function createObject(string $type, ?ObjectDto $parent_object, ObjectDiffDto $diff) : ?ObjectIdDto
+    private function createObject(ObjectType $type, ?ObjectDto $parent_object, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         if ($parent_object === null || $parent_object->getRefId() === null) {
             return null;

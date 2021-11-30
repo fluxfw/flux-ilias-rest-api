@@ -2,11 +2,13 @@
 
 namespace FluxIliasRestApi\Adapter\Api\GroupMember;
 
+use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+
 class GroupMemberDiffDto
 {
 
     private ?bool $administrator_role;
-    private ?string $learning_progress;
+    private ?LegacyObjectLearningProgress $learning_progress;
     private ?bool $member_role;
     private ?bool $notification;
     private ?bool $tutorial_support;
@@ -17,7 +19,7 @@ class GroupMemberDiffDto
         return static::new(
             $data->member_role ?? null,
             $data->administrator_role ?? null,
-            $data->learning_progress ?? null,
+            ($learning_progress = $data->learning_progress ?? null) !== null ? LegacyObjectLearningProgress::from($learning_progress) : null,
             $data->tutorial_support ?? null,
             $data->notification ?? null
         );
@@ -27,7 +29,7 @@ class GroupMemberDiffDto
     private static function new(
         ?bool $member_role = null,
         ?bool $administrator_role = null,
-        ?string $learning_progress = null,
+        ?LegacyObjectLearningProgress $learning_progress = null,
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : /*static*/ self
@@ -44,7 +46,7 @@ class GroupMemberDiffDto
     }
 
 
-    public function getLearningProgress() : ?string
+    public function getLearningProgress() : ?LegacyObjectLearningProgress
     {
         return $this->learning_progress;
     }
