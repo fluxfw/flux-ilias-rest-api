@@ -59,23 +59,23 @@ use ilFavouritesDBRepository;
 class Api
 {
 
-    private ?CategoryService $category = null;
-    private ?CourseService $course = null;
-    private ?CourseMemberService $course_member = null;
-    private ?FileService $file = null;
-    private ?GroupService $group = null;
-    private ?GroupMemberService $group_member = null;
-    private ?ObjectService $object = null;
-    private ?ObjectLearningProgressService $object_learning_progress = null;
-    private ?OrganisationalUnitService $organisational_unit = null;
-    private ?OrganisationalUnitPositionService $organisational_unit_position = null;
-    private ?OrganisationalUnitStaffService $organisational_unit_staff = null;
-    private ?RoleService $role = null;
-    private ?ScormLearningModuleService $scorm_learning_module = null;
-    private ?UserService $user = null;
-    private ?UserFavouriteService $user_favourite = null;
-    private ?UserMailService $user_mail = null;
-    private ?UserRoleService $user_role = null;
+    private CategoryService $category;
+    private CourseService $course;
+    private CourseMemberService $course_member;
+    private FileService $file;
+    private GroupService $group;
+    private GroupMemberService $group_member;
+    private ObjectService $object;
+    private ObjectLearningProgressService $object_learning_progress;
+    private OrganisationalUnitService $organisational_unit;
+    private OrganisationalUnitPositionService $organisational_unit_position;
+    private OrganisationalUnitStaffService $organisational_unit_staff;
+    private RoleService $role;
+    private ScormLearningModuleService $scorm_learning_module;
+    private UserService $user;
+    private UserFavouriteService $user_favourite;
+    private UserMailService $user_mail;
+    private UserRoleService $user_role;
 
 
     public static function new() : /*static*/ self

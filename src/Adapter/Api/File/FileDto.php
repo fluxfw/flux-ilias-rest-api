@@ -14,13 +14,13 @@ class FileDto implements JsonSerializable
     private ?string $icon_url;
     private ?int $id;
     private ?string $import_id;
-    private ?string $mime_type = null;
-    private ?string $name = null;
+    private ?string $mime_type;
+    private ?string $name;
     private ?int $parent_id;
     private ?string $parent_import_id;
     private ?int $parent_ref_id;
     private ?int $ref_id;
-    private ?int $size = null;
+    private ?int $size;
     private ?string $title;
     private ?int $updated;
     private ?string $url;
