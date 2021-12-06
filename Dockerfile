@@ -1,10 +1,13 @@
 ARG ALPINE_IMAGE=alpine:latest
+ARG FLUX_AUTOLOAD_API_IMAGE=docker-registry.fluxpublisher.ch/flux-autoload/api:latest
 ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api:latest
 
+FROM $FLUX_AUTOLOAD_API_IMAGE AS flux_autoload_api
 FROM $FLUX_REST_API_IMAGE AS flux_rest_api
 
 FROM $ALPINE_IMAGE AS build
 
+COPY --from=flux_autoload_api /flux-autoload-api /flux-ilias-rest-api/libs/flux-autoload-api
 COPY --from=flux_rest_api /flux-rest-api /flux-ilias-rest-api/libs/flux-rest-api
 COPY . /flux-ilias-rest-api
 
