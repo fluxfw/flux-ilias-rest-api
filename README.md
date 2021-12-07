@@ -10,6 +10,12 @@ In [flux-ilias](https://github.com/fluxapps/flux-ilias)
 COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest/api:latest /flux-ilias-rest-api "$ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api"
 ```
 
+*You can install it somewhere in `Customizing` even with a different name*
+
+*But may you should not install it in `Customizing/global/plugins` for avoid conflicts with ILIAS core*
+
+*This is not a ILIAS plugin*
+
 ## Call route
 
 `https://%host%/Customizing/global/flux-ilias-rest-api?/path/to/some/route`
@@ -20,7 +26,9 @@ With query params
 
 ## Authorization
 
-The API uses the basic authorization with ILIAS users
+The API uses the basic HTTP authorization
+
+It uses the ILIAS "cron context" for login in ILIAS
 
 You need to prefix the ILIAS client to the user
 
@@ -31,6 +39,8 @@ The `Authorization` header looks like (Base64 encoded)
 ## Permissions
 
 Only admin users can use the api
+
+You should create/use a separate ILIAS user
 
 ## Get available routes
 
