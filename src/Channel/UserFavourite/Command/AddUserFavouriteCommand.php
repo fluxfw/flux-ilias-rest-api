@@ -36,7 +36,8 @@ class AddUserFavouriteCommand
                 $id
             ),
             $this->object->getObjectById(
-                $object_id
+                $object_id,
+                false
             )
         );
     }
@@ -49,7 +50,8 @@ class AddUserFavouriteCommand
                 $id
             ),
             $this->object->getObjectByImportId(
-                $object_import_id
+                $object_import_id,
+                false
             )
         );
     }
@@ -62,7 +64,8 @@ class AddUserFavouriteCommand
                 $id
             ),
             $this->object->getObjectByRefId(
-                $object_ref_id
+                $object_ref_id,
+                false
             )
         );
     }
@@ -75,7 +78,8 @@ class AddUserFavouriteCommand
                 $import_id
             ),
             $this->object->getObjectById(
-                $object_id
+                $object_id,
+                false
             )
         );
     }
@@ -88,7 +92,8 @@ class AddUserFavouriteCommand
                 $import_id
             ),
             $this->object->getObjectByImportId(
-                $object_import_id
+                $object_import_id,
+                false
             )
         );
     }
@@ -101,7 +106,8 @@ class AddUserFavouriteCommand
                 $import_id
             ),
             $this->object->getObjectByRefId(
-                $object_ref_id
+                $object_ref_id,
+                false
             )
         );
     }

@@ -29,37 +29,43 @@ class DeleteObjectCommand
     }
 
 
-    public function deleteObjectById(int $id) : ?ObjectIdDto
+    public function deleteObjectById(int $id, bool $force = false) : ?ObjectIdDto
     {
         return $this->deleteObject(
             $this->object->getObjectById(
-                $id
-            )
+                $id,
+                $force
+            ),
+            $force
         );
     }
 
 
-    public function deleteObjectByImportId(string $import_id) : ?ObjectIdDto
+    public function deleteObjectByImportId(string $import_id, bool $force = false) : ?ObjectIdDto
     {
         return $this->deleteObject(
             $this->object->getObjectByImportId(
-                $import_id
-            )
+                $import_id,
+                $force
+            ),
+            $force
         );
     }
 
 
-    public function deleteObjectByRefId(int $ref_id) : ?ObjectIdDto
+    public function deleteObjectByRefId(int $ref_id, bool $force = false) : ?ObjectIdDto
     {
         return $this->deleteObject(
             $this->object->getObjectByRefId(
-                $ref_id
-            )
+                $ref_id,
+                $force
+            ),
+            $force
         );
     }
 
 
-    private function deleteObject(?ObjectDto $object) : ?ObjectIdDto
+    private function deleteObject(?ObjectDto $object, bool $force = false) : ?ObjectIdDto
     {
         if ($object === null) {
             return null;
@@ -73,10 +79,14 @@ class DeleteObjectCommand
             return null;
         }
 
-        if ($object->getRefId() === null || $object->getParentRefId() === null || $ilias_object instanceof ilObjOrgUnit || $ilias_object instanceof ilObjRole || $ilias_object instanceof ilObjUser) {
+        if ($force || $object->getRefId() === null || $object->getParentRefId() === null || $ilias_object instanceof ilObjOrgUnit || $ilias_object instanceof ilObjRole
+            || $ilias_object instanceof ilObjUser
+        ) {
             $ilias_object->delete();
         } else {
-            ilRepUtil::deleteObjects($object->getParentRefId(), [$object->getRefId()]);
+            if (!$object->isInTrash()) {
+                ilRepUtil::deleteObjects($object->getParentRefId(), [$object->getRefId()]);
+            }
         }
 
         return ObjectIdDto::new(

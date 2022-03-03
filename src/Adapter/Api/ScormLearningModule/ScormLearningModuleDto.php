@@ -14,6 +14,7 @@ class ScormLearningModuleDto implements JsonSerializable
     private ?string $icon_url;
     private ?int $id;
     private ?string $import_id;
+    private ?bool $in_trash;
     private ?bool $online;
     private ?int $parent_id;
     private ?string $parent_import_id;
@@ -45,7 +46,8 @@ class ScormLearningModuleDto implements JsonSerializable
         ?bool $online = null,
         ?bool $authoring_mode = null,
         ?bool $sequencing_expert_mode = null,
-        ?int $didactic_template_id = null
+        ?int $didactic_template_id = null,
+        ?bool $in_trash = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -68,6 +70,7 @@ class ScormLearningModuleDto implements JsonSerializable
         $dto->authoring_mode = $authoring_mode;
         $dto->sequencing_expert_mode = $sequencing_expert_mode;
         $dto->didactic_template_id = $didactic_template_id;
+        $dto->in_trash = $in_trash;
 
         return $dto;
     }
@@ -169,6 +172,12 @@ class ScormLearningModuleDto implements JsonSerializable
     }
 
 
+    public function isInTrash() : ?bool
+    {
+        return $this->in_trash;
+    }
+
+
     public function isOnline() : ?bool
     {
         return $this->online;
@@ -183,6 +192,10 @@ class ScormLearningModuleDto implements JsonSerializable
 
     public function jsonSerialize() : array
     {
-        return get_object_vars($this);
+        $data = get_object_vars($this);
+
+        unset($data["in_trash"]);
+
+        return $data;
     }
 }

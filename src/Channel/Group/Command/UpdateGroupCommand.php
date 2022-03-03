@@ -30,7 +30,8 @@ class UpdateGroupCommand
     {
         return $this->updateGroup(
             $this->group->getGroupById(
-                $id
+                $id,
+                false
             ),
             $diff
         );
@@ -41,7 +42,8 @@ class UpdateGroupCommand
     {
         return $this->updateGroup(
             $this->group->getGroupByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $diff
         );
@@ -52,7 +54,8 @@ class UpdateGroupCommand
     {
         return $this->updateGroup(
             $this->group->getGroupByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $diff
         );

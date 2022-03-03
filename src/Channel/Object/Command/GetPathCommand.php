@@ -30,40 +30,46 @@ class GetPathCommand
     }
 
 
-    public function getPathById(int $id, bool $ref_ids = false) : ?array
+    public function getPathById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getPath(
             $this->object->getObjectById(
-                $id
+                $id,
+                $in_trash
             ),
-            $ref_ids
+            $ref_ids,
+            $in_trash
         );
     }
 
 
-    public function getPathByImportId(string $import_id, bool $ref_ids = false) : ?array
+    public function getPathByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getPath(
             $this->object->getObjectByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             ),
-            $ref_ids
+            $ref_ids,
+            $in_trash
         );
     }
 
 
-    public function getPathByRefId(int $ref_id, bool $ref_ids = false) : ?array
+    public function getPathByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getPath(
             $this->object->getObjectByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             ),
-            $ref_ids
+            $ref_ids,
+            $in_trash
         );
     }
 
 
-    private function getPath(?ObjectDto $object, bool $ref_ids = false) : ?array
+    private function getPath(?ObjectDto $object, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         if ($object === null || $object->getRefId() === null) {
             return null;
@@ -75,7 +81,8 @@ class GetPathCommand
             null,
             null,
             null,
-            $path_ref_ids
+            $path_ref_ids,
+            $in_trash
         )));
         $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);
 

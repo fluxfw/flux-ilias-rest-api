@@ -30,7 +30,8 @@ class UpdateScormLearningModuleCommand
     {
         return $this->updateScormLearningModule(
             $this->scorm_learning_module->getScormLearningModuleById(
-                $id
+                $id,
+                false
             ),
             $diff
         );
@@ -41,7 +42,8 @@ class UpdateScormLearningModuleCommand
     {
         return $this->updateScormLearningModule(
             $this->scorm_learning_module->getScormLearningModuleByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $diff
         );
@@ -52,7 +54,8 @@ class UpdateScormLearningModuleCommand
     {
         return $this->updateScormLearningModule(
             $this->scorm_learning_module->getScormLearningModuleByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $diff
         );

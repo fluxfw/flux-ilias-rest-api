@@ -57,7 +57,8 @@ class GetGroupByImportIdRoute implements Route
         $group = $this->api->getGroupByImportId(
             $request->getParam(
                 "import_id"
-            )
+            ),
+            false
         );
 
         if ($group !== null) {

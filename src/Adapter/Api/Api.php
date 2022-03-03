@@ -38,8 +38,11 @@ use FluxIliasRestApi\Adapter\Api\User\UserIdDto;
 use FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
 use FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
 use FluxIliasRestApi\Channel\Category\Port\CategoryService;
+use FluxIliasRestApi\Channel\Change\Port\ChangeService;
+use FluxIliasRestApi\Channel\Config\Port\ConfigService;
 use FluxIliasRestApi\Channel\Course\Port\CourseService;
 use FluxIliasRestApi\Channel\CourseMember\Port\CourseMemberService;
+use FluxIliasRestApi\Channel\Cron\Port\CronService;
 use FluxIliasRestApi\Channel\File\Port\FileService;
 use FluxIliasRestApi\Channel\Group\Port\GroupService;
 use FluxIliasRestApi\Channel\GroupMember\Port\GroupMemberService;
@@ -50,18 +53,23 @@ use FluxIliasRestApi\Channel\OrganisationalUnitPosition\Port\OrganisationalUnitP
 use FluxIliasRestApi\Channel\OrganisationalUnitStaff\Port\OrganisationalUnitStaffService;
 use FluxIliasRestApi\Channel\Role\Port\RoleService;
 use FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
+use FluxIliasRestApi\Channel\Setup\Port\SetupService;
 use FluxIliasRestApi\Channel\User\Port\UserService;
 use FluxIliasRestApi\Channel\UserFavourite\Port\UserFavouriteService;
 use FluxIliasRestApi\Channel\UserMail\Port\UserMailService;
 use FluxIliasRestApi\Channel\UserRole\Port\UserRoleService;
+use ilCronJob;
 use ilFavouritesDBRepository;
 
 class Api
 {
 
     private CategoryService $category;
+    private ChangeService $change;
+    private ConfigService $config;
     private CourseService $course;
     private CourseMemberService $course_member;
+    private CronService $cron;
     private FileService $file;
     private GroupService $group;
     private GroupMemberService $group_member;
@@ -72,6 +80,7 @@ class Api
     private OrganisationalUnitStaffService $organisational_unit_staff;
     private RoleService $role;
     private ScormLearningModuleService $scorm_learning_module;
+    private SetupService $setup;
     private UserService $user;
     private UserFavouriteService $user_favourite;
     private UserMailService $user_mail;
@@ -753,29 +762,32 @@ class Api
     }
 
 
-    public function deleteObjectById(int $id) : ?ObjectIdDto
+    public function deleteObjectById(int $id, bool $force = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->deleteObjectById(
-                $id
+                $id,
+                $force
             );
     }
 
 
-    public function deleteObjectByImportId(string $import_id) : ?ObjectIdDto
+    public function deleteObjectByImportId(string $import_id, bool $force = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->deleteObjectByImportId(
-                $import_id
+                $import_id,
+                $force
             );
     }
 
 
-    public function deleteObjectByRefId(int $ref_id) : ?ObjectIdDto
+    public function deleteObjectByRefId(int $ref_id, bool $force = false) : ?ObjectIdDto
     {
         return $this->getObject()
             ->deleteObjectByRefId(
-                $ref_id
+                $ref_id,
+                $force
             );
     }
 
@@ -789,93 +801,116 @@ class Api
     }
 
 
-    public function getCategories() : array
+    public function getCategories(?bool $in_trash = null) : array
     {
         return $this->getCategory()
-            ->getCategories();
+            ->getCategories(
+                $in_trash
+            );
     }
 
 
-    public function getCategoryById(int $id) : ?CategoryDto
+    public function getCategoryById(int $id, ?bool $in_trash = null) : ?CategoryDto
     {
         return $this->getCategory()
             ->getCategoryById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getCategoryByImportId(string $import_id) : ?CategoryDto
+    public function getCategoryByImportId(string $import_id, ?bool $in_trash = null) : ?CategoryDto
     {
         return $this->getCategory()
             ->getCategoryByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getCategoryByRefId(int $ref_id) : ?CategoryDto
+    public function getCategoryByRefId(int $ref_id, ?bool $in_trash = null) : ?CategoryDto
     {
         return $this->getCategory()
             ->getCategoryByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getChildrenById(int $id, bool $ref_ids = false) : ?array
+    public function getChanges(?float $from = null, ?float $to = null, ?float $after = null, ?float $before = null) : ?array
+    {
+        return $this->getChange()
+            ->getChanges(
+                $from,
+                $to,
+                $after,
+                $before
+            );
+    }
+
+
+    public function getChildrenById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObject()
             ->getChildrenById(
                 $id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getChildrenByImportId(string $import_id, bool $ref_ids = false) : ?array
+    public function getChildrenByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObject()
             ->getChildrenByImportId(
                 $import_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getChildrenByRefId(int $ref_id, bool $ref_ids = false) : ?array
+    public function getChildrenByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObject()
             ->getChildrenByRefId(
                 $ref_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getCourseById(int $id) : ?CourseDto
+    public function getCourseById(int $id, ?bool $in_trash = null) : ?CourseDto
     {
         return $this->getCourse()
             ->getCourseById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getCourseByImportId(string $import_id) : ?CourseDto
+    public function getCourseByImportId(string $import_id, ?bool $in_trash = null) : ?CourseDto
     {
         return $this->getCourse()
             ->getCourseByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getCourseByRefId(int $ref_id) : ?CourseDto
+    public function getCourseByRefId(int $ref_id, ?bool $in_trash = null) : ?CourseDto
     {
         return $this->getCourse()
             ->getCourseByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
@@ -914,12 +949,29 @@ class Api
     }
 
 
-    public function getCourses(bool $container_settings = false) : array
+    public function getCourses(bool $container_settings = false, ?bool $in_trash = null) : array
     {
         return $this->getCourse()
             ->getCourses(
-                $container_settings
+                $container_settings,
+                $in_trash
             );
+    }
+
+
+    public function getCronJob(string $id) : ?ilCronJob
+    {
+        return $this->getCron()
+            ->getCronJob(
+                $id
+            );
+    }
+
+
+    public function getCronJobs() : array
+    {
+        return $this->getCron()
+            ->getCronJobs();
     }
 
 
@@ -942,37 +994,42 @@ class Api
     }
 
 
-    public function getFileById(int $id) : ?FileDto
+    public function getFileById(int $id, ?bool $in_trash = null) : ?FileDto
     {
         return $this->getFile()
             ->getFileById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getFileByImportId(string $import_id) : ?FileDto
+    public function getFileByImportId(string $import_id, ?bool $in_trash = null) : ?FileDto
     {
         return $this->getFile()
             ->getFileByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getFileByRefId(int $ref_id) : ?FileDto
+    public function getFileByRefId(int $ref_id, ?bool $in_trash = null) : ?FileDto
     {
         return $this->getFile()
             ->getFileByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getFiles() : array
+    public function getFiles(?bool $in_trash = null) : array
     {
         return $this->getFile()
-            ->getFiles();
+            ->getFiles(
+                $in_trash
+            );
     }
 
 
@@ -983,29 +1040,32 @@ class Api
     }
 
 
-    public function getGroupById(int $id) : ?GroupDto
+    public function getGroupById(int $id, ?bool $in_trash = null) : ?GroupDto
     {
         return $this->getGroup()
             ->getGroupById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getGroupByImportId(string $import_id) : ?GroupDto
+    public function getGroupByImportId(string $import_id, ?bool $in_trash = null) : ?GroupDto
     {
         return $this->getGroup()
             ->getGroupByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getGroupByRefId(int $ref_id) : ?GroupDto
+    public function getGroupByRefId(int $ref_id, ?bool $in_trash = null) : ?GroupDto
     {
         return $this->getGroup()
             ->getGroupByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
@@ -1038,36 +1098,41 @@ class Api
     }
 
 
-    public function getGroups() : array
+    public function getGroups(?bool $in_trash = null) : array
     {
         return $this->getGroup()
-            ->getGroups();
+            ->getGroups(
+                $in_trash
+            );
     }
 
 
-    public function getObjectById(int $id) : ?ObjectDto
+    public function getObjectById(int $id, ?bool $in_trash = null) : ?ObjectDto
     {
         return $this->getObject()
             ->getObjectById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getObjectByImportId(string $import_id) : ?ObjectDto
+    public function getObjectByImportId(string $import_id, ?bool $in_trash = null) : ?ObjectDto
     {
         return $this->getObject()
             ->getObjectByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getObjectByRefId(int $ref_id) : ?ObjectDto
+    public function getObjectByRefId(int $ref_id, ?bool $in_trash = null) : ?ObjectDto
     {
         return $this->getObject()
             ->getObjectByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
@@ -1092,12 +1157,13 @@ class Api
     }
 
 
-    public function getObjects(ObjectType $type, bool $ref_ids = false) : array
+    public function getObjects(ObjectType $type, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         return $this->getObject()
             ->getObjects(
                 $type,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
@@ -1190,32 +1256,35 @@ class Api
     }
 
 
-    public function getPathById(int $id, bool $ref_ids = false) : ?array
+    public function getPathById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObject()
             ->getPathById(
                 $id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getPathByImportId(string $import_id, bool $ref_ids = false) : ?array
+    public function getPathByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObject()
             ->getPathByImportId(
                 $import_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getPathByRefId(int $ref_id, bool $ref_ids = false) : ?array
+    public function getPathByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObject()
             ->getPathByRefId(
                 $ref_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
@@ -1252,37 +1321,42 @@ class Api
     }
 
 
-    public function getScormLearningModuleById(int $id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleById(int $id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return $this->getScormLearningModule()
             ->getScormLearningModuleById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getScormLearningModuleByImportId(string $import_id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleByImportId(string $import_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return $this->getScormLearningModule()
             ->getScormLearningModuleByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getScormLearningModuleByRefId(int $ref_id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleByRefId(int $ref_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return $this->getScormLearningModule()
             ->getScormLearningModuleByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getScormLearningModules() : array
+    public function getScormLearningModules(?bool $in_trash = null) : array
     {
         return $this->getScormLearningModule()
-            ->getScormLearningModules();
+            ->getScormLearningModules(
+                $in_trash
+            );
     }
 
 
@@ -1356,6 +1430,29 @@ class Api
                 $preferences,
                 $user_defined_fields
             );
+    }
+
+
+    public function handleIliasEvent(string $component, string $event, array $parameters) : void
+    {
+        $user = $this->getCurrentApiUser();
+        if ($user === null) {
+            return;
+        }
+
+        $this->getChange()->handleIliasEvent(
+            $user,
+            $component,
+            $event,
+            $parameters
+        );
+    }
+
+
+    public function installHelperPlugin() : void
+    {
+        $this->getSetup()
+            ->installHelperPlugin();
     }
 
 
@@ -1536,6 +1633,13 @@ class Api
                 $ref_id,
                 $parent_ref_id
             );
+    }
+
+
+    public function purgeChanges() : void
+    {
+        $this->getChange()
+            ->purgeChanges();
     }
 
 
@@ -1822,6 +1926,20 @@ class Api
                 $import_id,
                 $role_import_id
             );
+    }
+
+
+    public function transferChanges() : void
+    {
+        $this->getChange()
+            ->transferChanges();
+    }
+
+
+    public function uninstallHelperPlugin() : void
+    {
+        $this->getSetup()
+            ->uninstallHelperPlugin();
     }
 
 
@@ -2379,6 +2497,41 @@ class Api
     }
 
 
+    private function getChange() : ChangeService
+    {
+        global $DIC;
+
+        $this->change ??= ChangeService::new(
+            $DIC->database(),
+            $this->getConfig(),
+            $this->getCategory(),
+            $this->getCourse(),
+            $this->getCourseMember(),
+            $this->getFile(),
+            $this->getGroup(),
+            $this->getGroupMember(),
+            $this->getObject(),
+            $this->getObjectLearningProgress_(),
+            $this->getOrganisationalUnit(),
+            $this->getOrganisationalUnitStaff_(),
+            $this->getRole(),
+            $this->getScormLearningModule(),
+            $this->getUser(),
+            $this->getUserRole()
+        );
+
+        return $this->change;
+    }
+
+
+    private function getConfig() : ConfigService
+    {
+        $this->config ??= ConfigService::new();
+
+        return $this->config;
+    }
+
+
     private function getCourse() : CourseService
     {
         global $DIC;
@@ -2403,6 +2556,19 @@ class Api
         );
 
         return $this->course_member;
+    }
+
+
+    private function getCron() : CronService
+    {
+        global $DIC;
+
+        $this->cron ??= CronService::new(
+            $DIC->database(),
+            $this->getChange()
+        );
+
+        return $this->cron;
     }
 
 
@@ -2539,6 +2705,18 @@ class Api
         );
 
         return $this->scorm_learning_module;
+    }
+
+
+    private function getSetup() : SetupService
+    {
+        $this->setup ??= SetupService::new(
+            $this->getChange(),
+            $this->getConfig(),
+            $this->getCron()
+        );
+
+        return $this->setup;
     }
 
 

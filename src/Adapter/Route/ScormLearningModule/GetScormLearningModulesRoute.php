@@ -54,7 +54,9 @@ class GetScormLearningModulesRoute implements Route
     {
         return ResponseDto::new(
             JsonBodyDto::new(
-                $this->api->getScormLearningModules()
+                $this->api->getScormLearningModules(
+                    false
+                )
             )
         );
     }

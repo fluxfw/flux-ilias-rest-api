@@ -57,7 +57,8 @@ class GetFileByIdRoute implements Route
         $file = $this->api->getFileById(
             $request->getParam(
                 "id"
-            )
+            ),
+            false
         );
 
         if ($file !== null) {

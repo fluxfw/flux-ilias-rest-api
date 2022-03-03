@@ -13,6 +13,7 @@ class CategoryDto implements JsonSerializable
     private ?string $icon_url;
     private ?int $id;
     private ?string $import_id;
+    private ?bool $in_trash;
     private ?int $parent_id;
     private ?string $parent_import_id;
     private ?int $parent_ref_id;
@@ -35,7 +36,8 @@ class CategoryDto implements JsonSerializable
         ?string $icon_url = null,
         ?string $title = null,
         ?string $description = null,
-        ?int $didactic_template_id = null
+        ?int $didactic_template_id = null,
+        ?bool $in_trash = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -53,6 +55,7 @@ class CategoryDto implements JsonSerializable
         $dto->title = $title;
         $dto->description = $description;
         $dto->didactic_template_id = $didactic_template_id;
+        $dto->in_trash = $in_trash;
 
         return $dto;
     }
@@ -136,8 +139,18 @@ class CategoryDto implements JsonSerializable
     }
 
 
+    public function isInTrash() : ?bool
+    {
+        return $this->in_trash;
+    }
+
+
     public function jsonSerialize() : array
     {
-        return get_object_vars($this);
+        $data = get_object_vars($this);
+
+        unset($data["in_trash"]);
+
+        return $data;
     }
 }

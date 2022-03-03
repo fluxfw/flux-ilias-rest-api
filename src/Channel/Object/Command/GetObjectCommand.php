@@ -25,12 +25,16 @@ class GetObjectCommand
     }
 
 
-    public function getObjectById(int $id) : ?ObjectDto
+    public function getObjectById(int $id, ?bool $in_trash = null) : ?ObjectDto
     {
         $object = null;
         while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
                 null,
-                $id
+                $id,
+                null,
+                null,
+                null,
+                $in_trash
             )))) !== null) {
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the id " . $id);
@@ -45,13 +49,16 @@ class GetObjectCommand
     }
 
 
-    public function getObjectByImportId(string $import_id) : ?ObjectDto
+    public function getObjectByImportId(string $import_id, ?bool $in_trash = null) : ?ObjectDto
     {
         $object = null;
         while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
                 null,
                 null,
-                $import_id
+                $import_id,
+                null,
+                null,
+                $in_trash
             )))) !== null) {
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the import id " . $import_id);
@@ -66,14 +73,16 @@ class GetObjectCommand
     }
 
 
-    public function getObjectByRefId(int $ref_id) : ?ObjectDto
+    public function getObjectByRefId(int $ref_id, ?bool $in_trash = null) : ?ObjectDto
     {
         $object = null;
         while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
                 null,
                 null,
                 null,
-                $ref_id
+                $ref_id,
+                null,
+                $in_trash
             )))) !== null) {
             if ($object !== null) {
                 throw new LogicException("Multiple objects found with the ref id " . $ref_id);

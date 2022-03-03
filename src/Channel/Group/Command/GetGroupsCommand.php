@@ -25,8 +25,13 @@ class GetGroupsCommand
     }
 
 
-    public function getGroups() : array
+    public function getGroups(?bool $in_trash = null) : array
     {
-        return array_map([$this, "mapGroupDto"], $this->database->fetchAll($this->database->query($this->getGroupQuery())));
+        return array_map([$this, "mapGroupDto"], $this->database->fetchAll($this->database->query($this->getGroupQuery(
+            null,
+            null,
+            null,
+            $in_trash
+        ))));
     }
 }

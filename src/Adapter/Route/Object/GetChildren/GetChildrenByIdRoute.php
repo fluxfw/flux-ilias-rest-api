@@ -62,7 +62,8 @@ class GetChildrenByIdRoute implements Route
             ),
             $request->getQueryParam(
                 "ref_ids"
-            ) === "true"
+            ) === "true",
+            false
         );
 
         if ($children !== null) {

@@ -62,7 +62,8 @@ class GetPathByRefIdRoute implements Route
             ),
             $request->getQueryParam(
                 "ref_ids"
-            ) === "true"
+            ) === "true",
+            false
         );
 
         if ($path !== null) {

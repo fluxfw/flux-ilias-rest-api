@@ -30,7 +30,8 @@ class UpdateCourseCommand
     {
         return $this->updateCourse(
             $this->course->getCourseById(
-                $id
+                $id,
+                false
             ),
             $diff
         );
@@ -41,7 +42,8 @@ class UpdateCourseCommand
     {
         return $this->updateCourse(
             $this->course->getCourseByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $diff
         );
@@ -52,7 +54,8 @@ class UpdateCourseCommand
     {
         return $this->updateCourse(
             $this->course->getCourseByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $diff
         );

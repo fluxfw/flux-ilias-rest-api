@@ -36,7 +36,8 @@ class UpdateGroupMemberCommand
     {
         return $this->updateGroupMember(
             $this->group->getGroupById(
-                $id
+                $id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -50,7 +51,8 @@ class UpdateGroupMemberCommand
     {
         return $this->updateGroupMember(
             $this->group->getGroupById(
-                $id
+                $id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id
@@ -64,7 +66,8 @@ class UpdateGroupMemberCommand
     {
         return $this->updateGroupMember(
             $this->group->getGroupByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -78,7 +81,8 @@ class UpdateGroupMemberCommand
     {
         return $this->updateGroupMember(
             $this->group->getGroupByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id
@@ -92,7 +96,8 @@ class UpdateGroupMemberCommand
     {
         return $this->updateGroupMember(
             $this->group->getGroupByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -106,7 +111,8 @@ class UpdateGroupMemberCommand
     {
         return $this->updateGroupMember(
             $this->group->getGroupByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id

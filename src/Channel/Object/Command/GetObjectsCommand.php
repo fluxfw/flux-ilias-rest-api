@@ -25,10 +25,15 @@ class GetObjectsCommand
     }
 
 
-    public function getObjects(ObjectType $type, bool $ref_ids = false) : array
+    public function getObjects(ObjectType $type, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         $objects = $this->database->fetchAll($this->database->query($this->getObjectQuery(
-            $type
+            $type,
+            null,
+            null,
+            null,
+            null,
+            $in_trash
         )));
         $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);
 

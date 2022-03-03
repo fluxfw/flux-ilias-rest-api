@@ -57,7 +57,8 @@ class GetCourseByRefIdRoute implements Route
         $course = $this->api->getCourseByRefId(
             $request->getParam(
                 "ref_id"
-            )
+            ),
+            false
         );
 
         if ($course !== null) {

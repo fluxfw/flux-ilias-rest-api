@@ -57,7 +57,8 @@ class GetObjectByRefIdRoute implements Route
         $object = $this->api->getObjectByRefId(
             $request->getParam(
                 "ref_id"
-            )
+            ),
+            false
         );
 
         if ($object !== null) {

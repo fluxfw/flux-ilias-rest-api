@@ -32,7 +32,8 @@ class CreateObjectCommand
         return $this->createObject(
             $type,
             $this->object->getObjectById(
-                $parent_id
+                $parent_id,
+                false
             ),
             $diff
         );
@@ -44,7 +45,8 @@ class CreateObjectCommand
         return $this->createObject(
             $type,
             $this->object->getObjectByImportId(
-                $parent_import_id
+                $parent_import_id,
+                false
             ),
             $diff
         );
@@ -56,7 +58,8 @@ class CreateObjectCommand
         return $this->createObject(
             $type,
             $this->object->getObjectByRefId(
-                $parent_ref_id
+                $parent_ref_id,
+                false
             ),
             $diff
         );

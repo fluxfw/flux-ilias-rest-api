@@ -57,7 +57,8 @@ class GetCategoryByRefIdRoute implements Route
         $category = $this->api->getCategoryByRefId(
             $request->getParam(
                 "ref_id"
-            )
+            ),
+            false
         );
 
         if ($category !== null) {

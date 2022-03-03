@@ -236,40 +236,43 @@ class ObjectService
     }
 
 
-    public function deleteObjectById(int $id) : ?ObjectIdDto
+    public function deleteObjectById(int $id, bool $force = false) : ?ObjectIdDto
     {
         return DeleteObjectCommand::new(
             $this
         )
             ->deleteObjectById(
-                $id
+                $id,
+                $force
             );
     }
 
 
-    public function deleteObjectByImportId(string $import_id) : ?ObjectIdDto
+    public function deleteObjectByImportId(string $import_id, bool $force = false) : ?ObjectIdDto
     {
         return DeleteObjectCommand::new(
             $this
         )
             ->deleteObjectByImportId(
-                $import_id
+                $import_id,
+                $force
             );
     }
 
 
-    public function deleteObjectByRefId(int $ref_id) : ?ObjectIdDto
+    public function deleteObjectByRefId(int $ref_id, bool $force = false) : ?ObjectIdDto
     {
         return DeleteObjectCommand::new(
             $this
         )
             ->deleteObjectByRefId(
-                $ref_id
+                $ref_id,
+                $force
             );
     }
 
 
-    public function getChildrenById(int $id, bool $ref_ids = false) : ?array
+    public function getChildrenById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return GetChildrenCommand::new(
             $this,
@@ -277,12 +280,13 @@ class ObjectService
         )
             ->getChildrenById(
                 $id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getChildrenByImportId(string $import_id, bool $ref_ids = false) : ?array
+    public function getChildrenByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return GetChildrenCommand::new(
             $this,
@@ -290,12 +294,13 @@ class ObjectService
         )
             ->getChildrenByImportId(
                 $import_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getChildrenByRefId(int $ref_id, bool $ref_ids = false) : ?array
+    public function getChildrenByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return GetChildrenCommand::new(
             $this,
@@ -303,57 +308,62 @@ class ObjectService
         )
             ->getChildrenByRefId(
                 $ref_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getObjectById(int $id) : ?ObjectDto
+    public function getObjectById(int $id, ?bool $in_trash = null) : ?ObjectDto
     {
         return GetObjectCommand::new(
             $this->database
         )
             ->getObjectById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getObjectByImportId(string $import_id) : ?ObjectDto
+    public function getObjectByImportId(string $import_id, ?bool $in_trash = null) : ?ObjectDto
     {
         return GetObjectCommand::new(
             $this->database
         )
             ->getObjectByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getObjectByRefId(int $ref_id) : ?ObjectDto
+    public function getObjectByRefId(int $ref_id, ?bool $in_trash = null) : ?ObjectDto
     {
         return GetObjectCommand::new(
             $this->database
         )
             ->getObjectByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getObjects(ObjectType $type, bool $ref_ids = false) : array
+    public function getObjects(ObjectType $type, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         return GetObjectsCommand::new(
             $this->database
         )
             ->getObjects(
                 $type,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getPathById(int $id, bool $ref_ids = false) : ?array
+    public function getPathById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return GetPathCommand::new(
             $this,
@@ -362,12 +372,13 @@ class ObjectService
         )
             ->getPathById(
                 $id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getPathByImportId(string $import_id, bool $ref_ids = false) : ?array
+    public function getPathByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return GetPathCommand::new(
             $this,
@@ -376,12 +387,13 @@ class ObjectService
         )
             ->getPathByImportId(
                 $import_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 
 
-    public function getPathByRefId(int $ref_id, bool $ref_ids = false) : ?array
+    public function getPathByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return GetPathCommand::new(
             $this,
@@ -390,7 +402,8 @@ class ObjectService
         )
             ->getPathByRefId(
                 $ref_id,
-                $ref_ids
+                $ref_ids,
+                $in_trash
             );
     }
 

@@ -54,7 +54,9 @@ class GetFilesRoute implements Route
     {
         return ResponseDto::new(
             JsonBodyDto::new(
-                $this->api->getFiles()
+                $this->api->getFiles(
+                    false
+                )
             )
         );
     }

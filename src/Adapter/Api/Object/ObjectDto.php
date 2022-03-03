@@ -13,6 +13,7 @@ class ObjectDto implements JsonSerializable
     private ?string $icon_url;
     private ?int $id;
     private ?string $import_id;
+    private ?bool $in_trash;
     private ?bool $online;
     private ?int $parent_id;
     private ?string $parent_import_id;
@@ -41,7 +42,8 @@ class ObjectDto implements JsonSerializable
         ?bool $online = null,
         ?string $title = null,
         ?string $description = null,
-        ?int $didactic_template_id = null
+        ?int $didactic_template_id = null,
+        ?bool $in_trash = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -62,6 +64,7 @@ class ObjectDto implements JsonSerializable
         $dto->title = $title;
         $dto->description = $description;
         $dto->didactic_template_id = $didactic_template_id;
+        $dto->in_trash = $in_trash;
 
         return $dto;
     }
@@ -157,6 +160,12 @@ class ObjectDto implements JsonSerializable
     }
 
 
+    public function isInTrash() : ?bool
+    {
+        return $this->in_trash;
+    }
+
+
     public function isOnline() : ?bool
     {
         return $this->online;
@@ -165,6 +174,10 @@ class ObjectDto implements JsonSerializable
 
     public function jsonSerialize() : array
     {
-        return get_object_vars($this);
+        $data = get_object_vars($this);
+
+        unset($data["in_trash"]);
+
+        return $data;
     }
 }

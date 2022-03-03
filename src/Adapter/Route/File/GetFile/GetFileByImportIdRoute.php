@@ -57,7 +57,8 @@ class GetFileByImportIdRoute implements Route
         $file = $this->api->getFileByImportId(
             $request->getParam(
                 "import_id"
-            )
+            ),
+            false
         );
 
         if ($file !== null) {

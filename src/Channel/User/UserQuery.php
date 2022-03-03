@@ -139,7 +139,8 @@ WHERE session_id=" . $this->database->quote($session_id,
 
         if ($diff->getAccessLimitedObjectId() !== null) {
             $object = $this->object->getObjectById(
-                $diff->getAccessLimitedObjectId()
+                $diff->getAccessLimitedObjectId(),
+                false
             );
             if ($object === null) {
                 throw new Exception("Access limited object id " . $diff->getAccessLimitedObjectId() . " not found");
@@ -153,7 +154,10 @@ WHERE session_id=" . $this->database->quote($session_id,
                 throw new LogicException("Can't set both access limited import id and object id");
             }
 
-            $object = $this->object->getObjectByImportId($diff->getAccessLimitedObjectImportId());
+            $object = $this->object->getObjectByImportId(
+                $diff->getAccessLimitedObjectImportId(),
+                false
+            );
             if ($object === null) {
                 throw new Exception("Access limited object import id " . $diff->getAccessLimitedObjectImportId() . " not found");
             }
@@ -169,7 +173,10 @@ WHERE session_id=" . $this->database->quote($session_id,
                 throw new LogicException("Can't set both access limited ref id and import id");
             }
 
-            $object = $this->object->getObjectByRefId($diff->getAccessLimitedObjectRefId());
+            $object = $this->object->getObjectByRefId(
+                $diff->getAccessLimitedObjectRefId(),
+                false
+            );
             if ($object === null) {
                 throw new Exception("Access limited object ref id " . $diff->getAccessLimitedObjectRefId() . " not found");
             }

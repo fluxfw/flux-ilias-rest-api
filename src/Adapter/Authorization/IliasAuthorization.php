@@ -95,6 +95,9 @@ class IliasAuthorization implements Authorization
                 "tpl"                 => ilTemplate::class
             ] as $key => $class
         ) {
+            if (!class_exists($class)) {
+                continue;
+            }
             if ($dic->offsetExists($key)) {
                 if (!isset($GLOBALS[$key])) {
                     $GLOBALS[$key] = $dic->offsetGet($key);

@@ -80,12 +80,9 @@ trait ObjectQuery
     }
 
 
-    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
+    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?bool $in_trash = null) : string
     {
-        $wheres = [
-            "object_reference.deleted IS NULL",
-            "object_reference_child.deleted IS NULL"
-        ];
+        $wheres = [];
 
         if ($id !== null) {
             $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
@@ -99,13 +96,18 @@ trait ObjectQuery
             $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
-        return "SELECT object_data_child.*,object_reference_child.ref_id,object_data.obj_id AS parent_obj_id,object_reference.ref_id AS parent_ref_id,object_data.import_id AS parent_import_id
+        if ($in_trash !== null) {
+            $wheres[] = "object_reference.deleted IS" . ($in_trash ? " NOT" : "") . " NULL";
+            $wheres[] = "object_reference_child.deleted IS" . ($in_trash ? " NOT" : "") . " NULL";
+        }
+
+        return "SELECT object_data_child.*,object_reference_child.ref_id,object_reference_child.deleted,object_data.obj_id AS parent_obj_id,object_reference.ref_id AS parent_ref_id,object_data.import_id AS parent_import_id
 FROM object_data
 INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
 INNER JOIN tree ON object_reference.ref_id=tree.parent
 INNER JOIN object_reference AS object_reference_child ON tree.child=object_reference_child.ref_id
 INNER JOIN object_data AS object_data_child ON object_reference_child.obj_id=object_data_child.obj_id
-WHERE " . implode(" AND ", $wheres) . "
+" . (!empty($wheres) ? "WHERE " . implode(" AND ", $wheres) : "") . "
 GROUP BY object_data_child.obj_id
 ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_reference_child.ref_id ASC";
     }
@@ -123,11 +125,9 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
     }
 
 
-    private function getObjectQuery(?ObjectType $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $ref_ids = null) : string
+    private function getObjectQuery(?ObjectType $type = null, ?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $ref_ids = null, ?bool $in_trash = null) : string
     {
-        $wheres = [
-            "object_reference.deleted IS NULL"
-        ];
+        $wheres = [];
 
         if ($type !== null) {
             $wheres[] = "object_data.type=" . $this->database->quote(ObjectTypeMapping::mapExternalToInternal($type)->value, ilDBConstants::T_TEXT);
@@ -149,14 +149,18 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
             $wheres[] = $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
         }
 
-        return "SELECT object_data.*,object_reference.ref_id,didactic_tpl_objs.tpl_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
+        if ($in_trash !== null) {
+            $wheres[] = "object_reference.deleted IS" . ($in_trash ? " NOT" : "") . " NULL";
+        }
+
+        return "SELECT object_data.*,object_reference.ref_id,object_reference.deleted,didactic_tpl_objs.tpl_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
 FROM object_data
 LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
 LEFT JOIN didactic_tpl_objs ON object_data.obj_id=didactic_tpl_objs.obj_id
 LEFT JOIN tree ON object_reference.ref_id=tree.child
 LEFT JOIN object_reference AS object_reference_parent ON tree.parent=object_reference_parent.ref_id
 LEFT JOIN object_data AS object_data_parent ON object_reference_parent.obj_id=object_data_parent.obj_id
-WHERE " . implode(" AND ", $wheres) . "
+" . (!empty($wheres) ? "WHERE " . implode(" AND ", $wheres) : "") . "
 GROUP BY object_data.obj_id
 ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_id ASC";
     }
@@ -227,7 +231,8 @@ ORDER BY object_reference.ref_id ASC";
             !($object["offline"] ?? null),
             $object["title"] ?? "",
             $object["description"] ?? "",
-            $object["tpl_id"] ?: null
+            $object["tpl_id"] ?: null,
+            ($object["deleted"] ?? null) !== null
         );
     }
 

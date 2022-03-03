@@ -57,7 +57,8 @@ class GetObjectByIdRoute implements Route
         $object = $this->api->getObjectById(
             $request->getParam(
                 "id"
-            )
+            ),
+            false
         );
 
         if ($object !== null) {

@@ -57,7 +57,8 @@ class GetCategoryByImportIdRoute implements Route
         $category = $this->api->getCategoryByImportId(
             $request->getParam(
                 "import_id"
-            )
+            ),
+            false
         );
 
         if ($category !== null) {

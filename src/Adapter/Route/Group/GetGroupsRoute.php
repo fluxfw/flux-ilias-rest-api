@@ -54,7 +54,9 @@ class GetGroupsRoute implements Route
     {
         return ResponseDto::new(
             JsonBodyDto::new(
-                $this->api->getGroups()
+                $this->api->getGroups(
+                    false
+                )
             )
         );
     }
