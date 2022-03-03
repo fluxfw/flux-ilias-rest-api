@@ -30,7 +30,8 @@ class UpdateObjectCommand
     {
         return $this->updateObject(
             $this->object->getObjectById(
-                $id
+                $id,
+                false
             ),
             $diff
         );
@@ -41,7 +42,8 @@ class UpdateObjectCommand
     {
         return $this->updateObject(
             $this->object->getObjectByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $diff
         );
@@ -52,7 +54,8 @@ class UpdateObjectCommand
     {
         return $this->updateObject(
             $this->object->getObjectByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $diff
         );

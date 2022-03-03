@@ -33,7 +33,8 @@ class UploadFileCommand
     {
         return $this->uploadFile(
             $this->file->getFileById(
-                $id
+                $id,
+                false
             ),
             $title,
             $replace
@@ -45,7 +46,8 @@ class UploadFileCommand
     {
         return $this->uploadFile(
             $this->file->getFileByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $title,
             $replace
@@ -57,7 +59,8 @@ class UploadFileCommand
     {
         return $this->uploadFile(
             $this->file->getFileByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $title,
             $replace

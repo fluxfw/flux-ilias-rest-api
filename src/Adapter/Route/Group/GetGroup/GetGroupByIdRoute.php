@@ -57,7 +57,8 @@ class GetGroupByIdRoute implements Route
         $group = $this->api->getGroupById(
             $request->getParam(
                 "id"
-            )
+            ),
+            false
         );
 
         if ($group !== null) {

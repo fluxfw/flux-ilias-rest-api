@@ -33,7 +33,8 @@ class RemoveGroupMemberCommand
     {
         return $this->removeGroupMember(
             $this->group->getGroupById(
-                $id
+                $id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -46,7 +47,8 @@ class RemoveGroupMemberCommand
     {
         return $this->removeGroupMember(
             $this->group->getGroupById(
-                $id
+                $id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id
@@ -59,7 +61,8 @@ class RemoveGroupMemberCommand
     {
         return $this->removeGroupMember(
             $this->group->getGroupByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -72,7 +75,8 @@ class RemoveGroupMemberCommand
     {
         return $this->removeGroupMember(
             $this->group->getGroupByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id
@@ -85,7 +89,8 @@ class RemoveGroupMemberCommand
     {
         return $this->removeGroupMember(
             $this->group->getGroupByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -98,7 +103,8 @@ class RemoveGroupMemberCommand
     {
         return $this->removeGroupMember(
             $this->group->getGroupByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id

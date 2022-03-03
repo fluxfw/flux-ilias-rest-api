@@ -17,6 +17,7 @@ PhpVersionChecker::new(
     );
 PhpExtChecker::new(
     [
+        "curl",
         "json"
     ]
 )

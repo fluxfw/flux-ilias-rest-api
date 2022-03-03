@@ -66,46 +66,50 @@ class CourseService
     }
 
 
-    public function getCourseById(int $id) : ?CourseDto
+    public function getCourseById(int $id, ?bool $in_trash = null) : ?CourseDto
     {
         return GetCourseCommand::new(
             $this->database
         )
             ->getCourseById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getCourseByImportId(string $import_id) : ?CourseDto
+    public function getCourseByImportId(string $import_id, ?bool $in_trash = null) : ?CourseDto
     {
         return GetCourseCommand::new(
             $this->database
         )
             ->getCourseByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getCourseByRefId(int $ref_id) : ?CourseDto
+    public function getCourseByRefId(int $ref_id, ?bool $in_trash = null) : ?CourseDto
     {
         return GetCourseCommand::new(
             $this->database
         )
             ->getCourseByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getCourses(bool $container_settings = false) : array
+    public function getCourses(bool $container_settings = false, ?bool $in_trash = null) : array
     {
         return GetCoursesCommand::new(
             $this->database
         )
             ->getCourses(
-                $container_settings
+                $container_settings,
+                $in_trash
             );
     }
 

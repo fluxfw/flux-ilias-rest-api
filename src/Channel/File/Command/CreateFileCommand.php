@@ -30,7 +30,8 @@ class CreateFileCommand
     {
         return $this->createFile(
             $this->object->getObjectById(
-                $parent_id
+                $parent_id,
+                false
             ),
             $diff
         );
@@ -41,7 +42,8 @@ class CreateFileCommand
     {
         return $this->createFile(
             $this->object->getObjectByImportId(
-                $parent_import_id
+                $parent_import_id,
+                false
             ),
             $diff
         );
@@ -52,7 +54,8 @@ class CreateFileCommand
     {
         return $this->createFile(
             $this->object->getObjectByRefId(
-                $parent_ref_id
+                $parent_ref_id,
+                false
             ),
             $diff
         );

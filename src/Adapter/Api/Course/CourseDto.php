@@ -28,6 +28,7 @@ class CourseDto implements JsonSerializable
     private ?int $id;
     private ?string $import_id;
     private ?string $important_information;
+    private ?bool $in_trash;
     private ?string $mail_subject_prefix;
     private ?LegacyCourseMailToMembersType $mail_to_members_type;
     private ?bool $news;
@@ -93,7 +94,8 @@ class CourseDto implements JsonSerializable
         ?string $contact_phone = null,
         ?string $contact_email = null,
         ?string $contact_consultation = null,
-        ?int $didactic_template_id = null
+        ?int $didactic_template_id = null,
+        ?bool $in_trash = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -140,6 +142,7 @@ class CourseDto implements JsonSerializable
         $dto->contact_email = $contact_email;
         $dto->contact_consultation = $contact_consultation;
         $dto->didactic_template_id = $didactic_template_id;
+        $dto->in_trash = $in_trash;
 
         return $dto;
     }
@@ -349,6 +352,12 @@ class CourseDto implements JsonSerializable
     }
 
 
+    public function isInTrash() : ?bool
+    {
+        return $this->in_trash;
+    }
+
+
     public function isNews() : ?bool
     {
         return $this->news;
@@ -399,6 +408,10 @@ class CourseDto implements JsonSerializable
 
     public function jsonSerialize() : array
     {
-        return get_object_vars($this);
+        $data = get_object_vars($this);
+
+        unset($data["in_trash"]);
+
+        return $data;
     }
 }

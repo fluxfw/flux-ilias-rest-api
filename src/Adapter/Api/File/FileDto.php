@@ -14,6 +14,7 @@ class FileDto implements JsonSerializable
     private ?string $icon_url;
     private ?int $id;
     private ?string $import_id;
+    private ?bool $in_trash;
     private ?string $mime_type;
     private ?string $name;
     private ?int $parent_id;
@@ -45,7 +46,8 @@ class FileDto implements JsonSerializable
         ?string $name = null,
         ?int $size = null,
         ?string $mime_type = null,
-        ?int $didactic_template_id = null
+        ?int $didactic_template_id = null,
+        ?bool $in_trash = null
     ) : /*static*/ self
     {
         $dto = new static();
@@ -68,6 +70,7 @@ class FileDto implements JsonSerializable
         $dto->size = $size;
         $dto->mime_type = $mime_type;
         $dto->didactic_template_id = $didactic_template_id;
+        $dto->in_trash = $in_trash;
 
         return $dto;
     }
@@ -181,8 +184,18 @@ class FileDto implements JsonSerializable
     }
 
 
+    public function isInTrash() : ?bool
+    {
+        return $this->in_trash;
+    }
+
+
     public function jsonSerialize() : array
     {
-        return get_object_vars($this);
+        $data = get_object_vars($this);
+
+        unset($data["in_trash"]);
+
+        return $data;
     }
 }

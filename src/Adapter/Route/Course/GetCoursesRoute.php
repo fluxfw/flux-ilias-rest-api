@@ -59,7 +59,8 @@ class GetCoursesRoute implements Route
                 $this->api->getCourses(
                     $request->getQueryParam(
                         "container_settings"
-                    ) === "true"
+                    ) === "true",
+                    false
                 )
             )
         );

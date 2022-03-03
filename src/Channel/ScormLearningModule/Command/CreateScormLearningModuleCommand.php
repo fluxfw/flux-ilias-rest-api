@@ -31,7 +31,8 @@ class CreateScormLearningModuleCommand
     {
         return $this->createScormLearningModule(
             $this->object->getObjectById(
-                $parent_id
+                $parent_id,
+                false
             ),
             $diff
         );
@@ -42,7 +43,8 @@ class CreateScormLearningModuleCommand
     {
         return $this->createScormLearningModule(
             $this->object->getObjectByImportId(
-                $parent_import_id
+                $parent_import_id,
+                false
             ),
             $diff
         );
@@ -53,7 +55,8 @@ class CreateScormLearningModuleCommand
     {
         return $this->createScormLearningModule(
             $this->object->getObjectByRefId(
-                $parent_ref_id
+                $parent_ref_id,
+                false
             ),
             $diff
         );

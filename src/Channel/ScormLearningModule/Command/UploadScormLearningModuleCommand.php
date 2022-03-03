@@ -31,7 +31,8 @@ class UploadScormLearningModuleCommand
     {
         return $this->uploadScormLearningModule(
             $this->scorm_learning_module->getScormLearningModuleById(
-                $id
+                $id,
+                false
             ),
             $file
         );
@@ -42,7 +43,8 @@ class UploadScormLearningModuleCommand
     {
         return $this->uploadScormLearningModule(
             $this->scorm_learning_module->getScormLearningModuleByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $file
         );
@@ -53,7 +55,8 @@ class UploadScormLearningModuleCommand
     {
         return $this->uploadScormLearningModule(
             $this->scorm_learning_module->getScormLearningModuleByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $file
         );

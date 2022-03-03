@@ -30,7 +30,8 @@ class UpdateCategoryCommand
     {
         return $this->updateCategory(
             $this->category->getCategoryById(
-                $id
+                $id,
+                false
             ),
             $diff
         );
@@ -41,7 +42,8 @@ class UpdateCategoryCommand
     {
         return $this->updateCategory(
             $this->category->getCategoryByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $diff
         );
@@ -52,7 +54,8 @@ class UpdateCategoryCommand
     {
         return $this->updateCategory(
             $this->category->getCategoryByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $diff
         );

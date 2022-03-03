@@ -57,7 +57,8 @@ class GetCategoryByIdRoute implements Route
         $category = $this->api->getCategoryById(
             $request->getParam(
                 "id"
-            )
+            ),
+            false
         );
 
         if ($category !== null) {

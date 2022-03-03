@@ -57,7 +57,8 @@ class GetCourseByImportIdRoute implements Route
         $course = $this->api->getCourseByImportId(
             $request->getParam(
                 "import_id"
-            )
+            ),
+            false
         );
 
         if ($course !== null) {

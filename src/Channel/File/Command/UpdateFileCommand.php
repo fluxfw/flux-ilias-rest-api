@@ -30,7 +30,8 @@ class UpdateFileCommand
     {
         return $this->updateFile(
             $this->file->getFileById(
-                $id
+                $id,
+                false
             ),
             $diff
         );
@@ -41,7 +42,8 @@ class UpdateFileCommand
     {
         return $this->updateFile(
             $this->file->getFileByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $diff
         );
@@ -52,7 +54,8 @@ class UpdateFileCommand
     {
         return $this->updateFile(
             $this->file->getFileByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $diff
         );

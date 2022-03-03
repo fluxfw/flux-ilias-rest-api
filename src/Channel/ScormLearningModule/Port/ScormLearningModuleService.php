@@ -67,45 +67,50 @@ class ScormLearningModuleService
     }
 
 
-    public function getScormLearningModuleById(int $id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleById(int $id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return GetScormLearningModuleCommand::new(
             $this->database
         )
             ->getScormLearningModuleById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getScormLearningModuleByImportId(string $import_id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleByImportId(string $import_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return GetScormLearningModuleCommand::new(
             $this->database
         )
             ->getScormLearningModuleByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getScormLearningModuleByRefId(int $ref_id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleByRefId(int $ref_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return GetScormLearningModuleCommand::new(
             $this->database
         )
             ->getScormLearningModuleByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getScormLearningModules() : array
+    public function getScormLearningModules(?bool $in_trash = null) : array
     {
         return GetScormLearningModulesCommand::new(
             $this->database
         )
-            ->getScormLearningModules();
+            ->getScormLearningModules(
+                $in_trash
+            );
     }
 
 

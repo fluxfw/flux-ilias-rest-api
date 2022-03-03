@@ -27,11 +27,14 @@ class GetFileCommand
     }
 
 
-    public function getFileById(int $id) : ?FileDto
+    public function getFileById(int $id, ?bool $in_trash = null) : ?FileDto
     {
         $file = null;
         while (($file_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getFileQuery(
-                $id
+                $id,
+                null,
+                null,
+                $in_trash
             )))) !== null) {
             if ($file !== null) {
                 throw new LogicException("Multiple files found with the id " . $id);
@@ -45,12 +48,14 @@ class GetFileCommand
     }
 
 
-    public function getFileByImportId(string $import_id) : ?FileDto
+    public function getFileByImportId(string $import_id, ?bool $in_trash = null) : ?FileDto
     {
         $file = null;
         while (($file_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getFileQuery(
                 null,
-                $import_id
+                $import_id,
+                null,
+                $in_trash
             )))) !== null) {
             if ($file !== null) {
                 throw new LogicException("Multiple files found with the import id " . $import_id);
@@ -64,13 +69,14 @@ class GetFileCommand
     }
 
 
-    public function getFileByRefId(int $ref_id) : ?FileDto
+    public function getFileByRefId(int $ref_id, ?bool $in_trash = null) : ?FileDto
     {
         $file = null;
         while (($file_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getFileQuery(
                 null,
                 null,
-                $ref_id
+                $ref_id,
+                $in_trash
             )))) !== null) {
             if ($file !== null) {
                 throw new LogicException("Multiple files found with the ref id " . $ref_id);

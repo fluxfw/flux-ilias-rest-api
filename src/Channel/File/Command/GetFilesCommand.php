@@ -25,8 +25,13 @@ class GetFilesCommand
     }
 
 
-    public function getFiles() : array
+    public function getFiles(?bool $in_trash = null) : array
     {
-        return array_map([$this, "mapFileDto"], $this->database->fetchAll($this->database->query($this->getFileQuery())));
+        return array_map([$this, "mapFileDto"], $this->database->fetchAll($this->database->query($this->getFileQuery(
+            null,
+            null,
+            null,
+            $in_trash
+        ))));
     }
 }

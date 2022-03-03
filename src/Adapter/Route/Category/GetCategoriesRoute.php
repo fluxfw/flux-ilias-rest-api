@@ -54,7 +54,9 @@ class GetCategoriesRoute implements Route
     {
         return ResponseDto::new(
             JsonBodyDto::new(
-                $this->api->getCategories()
+                $this->api->getCategories(
+                    false
+                )
             )
         );
     }

@@ -26,9 +26,14 @@ class GetCoursesCommand
     }
 
 
-    public function getCourses(bool $container_settings = false) : array
+    public function getCourses(bool $container_settings = false, ?bool $in_trash = null) : array
     {
-        $courses = $this->database->fetchAll($this->database->query($this->getCourseQuery()));
+        $courses = $this->database->fetchAll($this->database->query($this->getCourseQuery(
+            null,
+            null,
+            null,
+            $in_trash
+        )));
         $course_ids = array_map(fn(array $course) : int => $course["obj_id"], $courses);
 
         $container_settings_ = $container_settings ? $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery($course_ids))) : null;

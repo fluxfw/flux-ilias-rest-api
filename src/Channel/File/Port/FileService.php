@@ -70,45 +70,50 @@ class FileService
     }
 
 
-    public function getFileById(int $id) : ?FileDto
+    public function getFileById(int $id, ?bool $in_trash = null) : ?FileDto
     {
         return GetFileCommand::new(
             $this->database
         )
             ->getFileById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getFileByImportId(string $import_id) : ?FileDto
+    public function getFileByImportId(string $import_id, ?bool $in_trash = null) : ?FileDto
     {
         return GetFileCommand::new(
             $this->database
         )
             ->getFileByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getFileByRefId(int $ref_id) : ?FileDto
+    public function getFileByRefId(int $ref_id, ?bool $in_trash = null) : ?FileDto
     {
         return GetFileCommand::new(
             $this->database
         )
             ->getFileByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getFiles() : array
+    public function getFiles(?bool $in_trash = null) : array
     {
         return GetFilesCommand::new(
             $this->database
         )
-            ->getFiles();
+            ->getFiles(
+                $in_trash
+            );
     }
 
 

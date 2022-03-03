@@ -66,44 +66,49 @@ class CategoryService
     }
 
 
-    public function getCategories() : array
+    public function getCategories(?bool $in_trash = null) : array
     {
         return GetCategoriesCommand::new(
             $this->database
         )
-            ->getCategories();
+            ->getCategories(
+                $in_trash
+            );
     }
 
 
-    public function getCategoryById(int $id) : ?CategoryDto
+    public function getCategoryById(int $id, ?bool $in_trash = null) : ?CategoryDto
     {
         return GetCategoryCommand::new(
             $this->database
         )
             ->getCategoryById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getCategoryByImportId(string $import_id) : ?CategoryDto
+    public function getCategoryByImportId(string $import_id, ?bool $in_trash = null) : ?CategoryDto
     {
         return GetCategoryCommand::new(
             $this->database
         )
             ->getCategoryByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getCategoryByRefId(int $ref_id) : ?CategoryDto
+    public function getCategoryByRefId(int $ref_id, ?bool $in_trash = null) : ?CategoryDto
     {
         return GetCategoryCommand::new(
             $this->database
         )
             ->getCategoryByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 

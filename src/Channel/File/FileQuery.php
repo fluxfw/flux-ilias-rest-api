@@ -19,11 +19,10 @@ trait FileQuery
     }
 
 
-    private function getFileQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : string
+    private function getFileQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?bool $in_trash = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::FILE()->value, ilDBConstants::T_TEXT),
-            "object_reference.deleted IS NULL"
+            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::FILE()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {
@@ -38,7 +37,11 @@ trait FileQuery
             $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
-        return "SELECT object_data.*,object_reference.ref_id,didactic_tpl_objs.tpl_id,file_data.*,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
+        if ($in_trash !== null) {
+            $wheres[] = "object_reference.deleted IS" . ($in_trash ? " NOT" : "") . " NULL";
+        }
+
+        return "SELECT object_data.*,object_reference.ref_id,object_reference.deleted,didactic_tpl_objs.tpl_id,file_data.*,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id
 FROM object_data
 LEFT JOIN object_reference ON object_data.obj_id=object_reference.obj_id
 LEFT JOIN didactic_tpl_objs ON object_data.obj_id=didactic_tpl_objs.obj_id
@@ -104,7 +107,8 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $file["file_name"] ?: null,
             $file["file_size"] ?: null,
             $file["file_type"] ?: null,
-            $file["tpl_id"] ?: null
+            $file["tpl_id"] ?: null,
+            ($file["deleted"] ?? null) !== null
         );
     }
 

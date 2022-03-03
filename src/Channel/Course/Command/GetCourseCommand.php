@@ -27,11 +27,14 @@ class GetCourseCommand
     }
 
 
-    public function getCourseById(int $id) : ?CourseDto
+    public function getCourseById(int $id, ?bool $in_trash = null) : ?CourseDto
     {
         $course = null;
         while (($course_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCourseQuery(
-                $id
+                $id,
+                null,
+                null,
+                $in_trash
             )))) !== null) {
             if ($course !== null) {
                 throw new LogicException("Multiple courses found with the id " . $id);
@@ -46,12 +49,14 @@ class GetCourseCommand
     }
 
 
-    public function getCourseByImportId(string $import_id) : ?CourseDto
+    public function getCourseByImportId(string $import_id, ?bool $in_trash = null) : ?CourseDto
     {
         $course = null;
         while (($course_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCourseQuery(
                 null,
-                $import_id
+                $import_id,
+                null,
+                $in_trash
             )))) !== null) {
             if ($course !== null) {
                 throw new LogicException("Multiple courses found with the import id " . $import_id);
@@ -66,13 +71,14 @@ class GetCourseCommand
     }
 
 
-    public function getCourseByRefId(int $ref_id) : ?CourseDto
+    public function getCourseByRefId(int $ref_id, ?bool $in_trash = null) : ?CourseDto
     {
         $course = null;
         while (($course_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCourseQuery(
                 null,
                 null,
-                $ref_id
+                $ref_id,
+                $in_trash
             )))) !== null) {
             if ($course !== null) {
                 throw new LogicException("Multiple courses found with the ref id " . $ref_id);

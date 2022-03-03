@@ -16,6 +16,10 @@ COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest/api:latest /flux-il
 
 *This is not a ILIAS plugin*
 
+### Helper Plugin
+
+If you need additional features like changes, you need to install [flux-ilias-rest-helper-plugin](https://github.com/fluxapps/flux-ilias-rest-helper-plugin) too
+
 ## Call route
 
 `https://%host%/Customizing/global/flux-ilias-rest-api?/path/to/some/route`

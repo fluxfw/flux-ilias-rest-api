@@ -27,11 +27,14 @@ class GetGroupCommand
     }
 
 
-    public function getGroupById(int $id) : ?GroupDto
+    public function getGroupById(int $id, ?bool $in_trash = null) : ?GroupDto
     {
         $group = null;
         while (($group_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getGroupQuery(
-                $id
+                $id,
+                null,
+                null,
+                $in_trash
             )))) !== null) {
             if ($group !== null) {
                 throw new LogicException("Multiple groups found with the id " . $id);
@@ -45,12 +48,14 @@ class GetGroupCommand
     }
 
 
-    public function getGroupByImportId(string $import_id) : ?GroupDto
+    public function getGroupByImportId(string $import_id, ?bool $in_trash = null) : ?GroupDto
     {
         $group = null;
         while (($group_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getGroupQuery(
                 null,
-                $import_id
+                $import_id,
+                null,
+                $in_trash
             )))) !== null) {
             if ($group !== null) {
                 throw new LogicException("Multiple groups found with the import id " . $import_id);
@@ -64,13 +69,14 @@ class GetGroupCommand
     }
 
 
-    public function getGroupByRefId(int $ref_id) : ?GroupDto
+    public function getGroupByRefId(int $ref_id, ?bool $in_trash = null) : ?GroupDto
     {
         $group = null;
         while (($group_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getGroupQuery(
                 null,
                 null,
-                $ref_id
+                $ref_id,
+                $in_trash
             )))) !== null) {
             if ($group !== null) {
                 throw new LogicException("Multiple groups found with the ref id " . $ref_id);

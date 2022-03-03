@@ -30,8 +30,7 @@ trait OrganisationalUnitStaffQuery
     ) : string {
         $wheres = [
             "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ORGU()->value, ilDBConstants::T_TEXT),
-            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
-            "object_reference.deleted IS NULL"
+            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($organisational_unit_id !== null) {

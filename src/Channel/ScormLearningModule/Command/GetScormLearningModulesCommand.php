@@ -25,8 +25,13 @@ class GetScormLearningModulesCommand
     }
 
 
-    public function getScormLearningModules() : array
+    public function getScormLearningModules(?bool $in_trash = null) : array
     {
-        return array_map([$this, "mapScormLearningModuleDto"], $this->database->fetchAll($this->database->query($this->getScormLearningModuleQuery())));
+        return array_map([$this, "mapScormLearningModuleDto"], $this->database->fetchAll($this->database->query($this->getScormLearningModuleQuery(
+            null,
+            null,
+            null,
+            $in_trash
+        ))));
     }
 }

@@ -25,8 +25,13 @@ class GetCategoriesCommand
     }
 
 
-    public function getCategories() : array
+    public function getCategories(?bool $in_trash = null) : array
     {
-        return array_map([$this, "mapCategoryDto"], $this->database->fetchAll($this->database->query($this->getCategoryQuery())));
+        return array_map([$this, "mapCategoryDto"], $this->database->fetchAll($this->database->query($this->getCategoryQuery(
+            null,
+            null,
+            null,
+            $in_trash
+        ))));
     }
 }

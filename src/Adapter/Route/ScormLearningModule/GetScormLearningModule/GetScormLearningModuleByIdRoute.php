@@ -57,7 +57,8 @@ class GetScormLearningModuleByIdRoute implements Route
         $scorm_learning_module = $this->api->getScormLearningModuleById(
             $request->getParam(
                 "id"
-            )
+            ),
+            false
         );
 
         if ($scorm_learning_module !== null) {

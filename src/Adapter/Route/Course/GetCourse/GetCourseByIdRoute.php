@@ -57,7 +57,8 @@ class GetCourseByIdRoute implements Route
         $course = $this->api->getCourseById(
             $request->getParam(
                 "id"
-            )
+            ),
+            false
         );
 
         if ($course !== null) {

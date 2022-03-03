@@ -27,11 +27,14 @@ class GetScormLearningModuleCommand
     }
 
 
-    public function getScormLearningModuleById(int $id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleById(int $id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         $scorm_learning_module = null;
         while (($scorm_learning_module_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getScormLearningModuleQuery(
-                $id
+                $id,
+                null,
+                null,
+                $in_trash
             )))) !== null) {
             if ($scorm_learning_module !== null) {
                 throw new LogicException("Multiple scorm learning modules found with the id " . $id);
@@ -45,12 +48,14 @@ class GetScormLearningModuleCommand
     }
 
 
-    public function getScormLearningModuleByImportId(string $import_id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleByImportId(string $import_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         $scorm_learning_module = null;
         while (($scorm_learning_module_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getScormLearningModuleQuery(
                 null,
-                $import_id
+                $import_id,
+                null,
+                $in_trash
             )))) !== null) {
             if ($scorm_learning_module !== null) {
                 throw new LogicException("Multiple scorm learning modules found with the import id " . $import_id);
@@ -64,13 +69,14 @@ class GetScormLearningModuleCommand
     }
 
 
-    public function getScormLearningModuleByRefId(int $ref_id) : ?ScormLearningModuleDto
+    public function getScormLearningModuleByRefId(int $ref_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         $scorm_learning_module = null;
         while (($scorm_learning_module_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getScormLearningModuleQuery(
                 null,
                 null,
-                $ref_id
+                $ref_id,
+                $in_trash
             )))) !== null) {
             if ($scorm_learning_module !== null) {
                 throw new LogicException("Multiple scorm learning modules found with the ref id " . $ref_id);

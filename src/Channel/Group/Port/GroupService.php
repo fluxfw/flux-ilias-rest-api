@@ -66,45 +66,50 @@ class GroupService
     }
 
 
-    public function getGroupById(int $id) : ?GroupDto
+    public function getGroupById(int $id, ?bool $in_trash = null) : ?GroupDto
     {
         return GetGroupCommand::new(
             $this->database
         )
             ->getGroupById(
-                $id
+                $id,
+                $in_trash
             );
     }
 
 
-    public function getGroupByImportId(string $import_id) : ?GroupDto
+    public function getGroupByImportId(string $import_id, ?bool $in_trash = null) : ?GroupDto
     {
         return GetGroupCommand::new(
             $this->database
         )
             ->getGroupByImportId(
-                $import_id
+                $import_id,
+                $in_trash
             );
     }
 
 
-    public function getGroupByRefId(int $ref_id) : ?GroupDto
+    public function getGroupByRefId(int $ref_id, ?bool $in_trash = null) : ?GroupDto
     {
         return GetGroupCommand::new(
             $this->database
         )
             ->getGroupByRefId(
-                $ref_id
+                $ref_id,
+                $in_trash
             );
     }
 
 
-    public function getGroups() : array
+    public function getGroups(?bool $in_trash = null) : array
     {
         return GetGroupsCommand::new(
             $this->database
         )
-            ->getGroups();
+            ->getGroups(
+                $in_trash
+            );
     }
 
 

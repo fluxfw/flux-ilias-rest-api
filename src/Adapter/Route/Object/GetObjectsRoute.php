@@ -63,7 +63,8 @@ class GetObjectsRoute implements Route
                     )),
                     $request->getQueryParam(
                         "ref_ids"
-                    ) === "true"
+                    ) === "true",
+                    false
                 )
             )
         );

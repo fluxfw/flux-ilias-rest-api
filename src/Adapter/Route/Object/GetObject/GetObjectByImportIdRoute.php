@@ -57,7 +57,8 @@ class GetObjectByImportIdRoute implements Route
         $object = $this->api->getObjectByImportId(
             $request->getParam(
                 "import_id"
-            )
+            ),
+            false
         );
 
         if ($object !== null) {

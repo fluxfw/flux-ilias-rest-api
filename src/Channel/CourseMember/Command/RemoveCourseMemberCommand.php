@@ -33,7 +33,8 @@ class RemoveCourseMemberCommand
     {
         return $this->removeCourseMember(
             $this->course->getCourseById(
-                $id
+                $id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -46,7 +47,8 @@ class RemoveCourseMemberCommand
     {
         return $this->removeCourseMember(
             $this->course->getCourseById(
-                $id
+                $id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id
@@ -59,7 +61,8 @@ class RemoveCourseMemberCommand
     {
         return $this->removeCourseMember(
             $this->course->getCourseByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -72,7 +75,8 @@ class RemoveCourseMemberCommand
     {
         return $this->removeCourseMember(
             $this->course->getCourseByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id
@@ -85,7 +89,8 @@ class RemoveCourseMemberCommand
     {
         return $this->removeCourseMember(
             $this->course->getCourseByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->user->getUserById(
                 $user_id
@@ -98,7 +103,8 @@ class RemoveCourseMemberCommand
     {
         return $this->removeCourseMember(
             $this->course->getCourseByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->user->getUserByImportId(
                 $user_import_id

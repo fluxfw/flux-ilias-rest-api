@@ -39,10 +39,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectById(
-                $id
+                $id,
+                false
             ),
             $this->object->getObjectById(
-                $parent_id
+                $parent_id,
+                false
             ),
             $link,
             $prefer_link
@@ -54,10 +56,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectById(
-                $id
+                $id,
+                false
             ),
             $this->object->getObjectByImportId(
-                $parent_import_id
+                $parent_import_id,
+                false
             ),
             $link,
             $prefer_link
@@ -69,10 +73,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectById(
-                $id
+                $id,
+                false
             ),
             $this->object->getObjectByRefId(
-                $parent_ref_id
+                $parent_ref_id,
+                false
             ),
             $link,
             $prefer_link
@@ -84,10 +90,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->object->getObjectById(
-                $parent_id
+                $parent_id,
+                false
             ),
             $link,
             $prefer_link
@@ -99,10 +107,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->object->getObjectByImportId(
-                $parent_import_id
+                $parent_import_id,
+                false
             ),
             $link,
             $prefer_link
@@ -114,10 +124,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectByImportId(
-                $import_id
+                $import_id,
+                false
             ),
             $this->object->getObjectByRefId(
-                $parent_ref_id
+                $parent_ref_id,
+                false
             ),
             $link,
             $prefer_link
@@ -129,10 +141,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->object->getObjectById(
-                $parent_id
+                $parent_id,
+                false
             ),
             $link,
             $prefer_link
@@ -144,10 +158,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->object->getObjectByImportId(
-                $parent_import_id
+                $parent_import_id,
+                false
             ),
             $link,
             $prefer_link
@@ -159,10 +175,12 @@ class CloneObjectCommand
     {
         return $this->cloneObject(
             $this->object->getObjectByRefId(
-                $ref_id
+                $ref_id,
+                false
             ),
             $this->object->getObjectByRefId(
-                $parent_ref_id
+                $parent_ref_id,
+                false
             ),
             $link,
             $prefer_link

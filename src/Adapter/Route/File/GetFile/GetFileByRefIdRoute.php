@@ -57,7 +57,8 @@ class GetFileByRefIdRoute implements Route
         $file = $this->api->getFileByRefId(
             $request->getParam(
                 "ref_id"
-            )
+            ),
+            false
         );
 
         if ($file !== null) {

@@ -57,7 +57,8 @@ class GetGroupByRefIdRoute implements Route
         $group = $this->api->getGroupByRefId(
             $request->getParam(
                 "ref_id"
-            )
+            ),
+            false
         );
 
         if ($group !== null) {

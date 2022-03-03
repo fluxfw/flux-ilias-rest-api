@@ -27,10 +27,11 @@ class GetChildrenCommand
     }
 
 
-    public function getChildrenById(int $id, bool $ref_ids = false) : ?array
+    public function getChildrenById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object->getObjectById(
-            $id
+            $id,
+            $in_trash
         );
         if ($object === null) {
             return null;
@@ -40,15 +41,17 @@ class GetChildrenCommand
             $object->getId(),
             null,
             null,
-            $ref_ids
+            $ref_ids,
+            $in_trash
         );
     }
 
 
-    public function getChildrenByImportId(string $import_id, bool $ref_ids = false) : ?array
+    public function getChildrenByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object->getObjectByImportId(
-            $import_id
+            $import_id,
+            $in_trash
         );
         if ($object === null) {
             return null;
@@ -58,15 +61,17 @@ class GetChildrenCommand
             null,
             $object->getImportId(),
             null,
-            $ref_ids
+            $ref_ids,
+            $in_trash
         );
     }
 
 
-    public function getChildrenByRefId(int $ref_id, bool $ref_ids = false) : ?array
+    public function getChildrenByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object->getObjectByRefId(
-            $ref_id
+            $ref_id,
+            $in_trash
         );
         if ($object === null) {
             return null;
@@ -76,17 +81,19 @@ class GetChildrenCommand
             null,
             null,
             $object->getRefId(),
-            $ref_ids
+            $ref_ids,
+            $in_trash
         );
     }
 
 
-    private function getChildren(?int $id = null, ?string $import_id = null, ?int $ref_id = null, bool $ref_ids = false) : array
+    private function getChildren(?int $id = null, ?string $import_id = null, ?int $ref_id = null, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         $objects = $this->database->fetchAll($this->database->query($this->getObjectChildrenQuery(
             $id,
             $import_id,
-            $ref_id
+            $ref_id,
+            $in_trash
         )));
         $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);
 
