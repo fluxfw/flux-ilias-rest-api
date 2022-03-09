@@ -18,28 +18,41 @@ use ILIAS\DI\RBACServices;
 class RoleService
 {
 
-    private ilDBInterface $database;
-    private ObjectService $object;
-    private RBACServices $rbac;
+    private ilDBInterface $ilias_database;
+    private RBACServices $ilias_rbac;
+    private ObjectService $object_service;
 
 
-    public static function new(ilDBInterface $database, ObjectService $object, RBACServices $rbac) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ RBACServices $ilias_rbac
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->object_service = $object_service;
+        $this->ilias_rbac = $ilias_rbac;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ObjectService $object_service,
+        RBACServices $ilias_rbac
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->object = $object;
-        $service->rbac = $rbac;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $object_service,
+            $ilias_rbac
+        );
     }
 
 
     public function createRoleToId(int $object_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateRoleCommand::new(
-            $this->object,
-            $this->rbac
+            $this->object_service,
+            $this->ilias_rbac
         )
             ->createRoleToId(
                 $object_id,
@@ -51,8 +64,8 @@ class RoleService
     public function createRoleToImportId(string $object_import_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateRoleCommand::new(
-            $this->object,
-            $this->rbac
+            $this->object_service,
+            $this->ilias_rbac
         )
             ->createRoleToImportId(
                 $object_import_id,
@@ -64,8 +77,8 @@ class RoleService
     public function createRoleToRefId(int $object_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateRoleCommand::new(
-            $this->object,
-            $this->rbac
+            $this->object_service,
+            $this->ilias_rbac
         )
             ->createRoleToRefId(
                 $object_ref_id,
@@ -77,7 +90,7 @@ class RoleService
     public function getGlobalRoleObject() : ?ObjectDto
     {
         return GetGlobalRoleObjectCommand::new(
-            $this->object
+            $this->object_service
         )
             ->getGlobalRoleObject();
     }
@@ -86,7 +99,7 @@ class RoleService
     public function getRoleById(int $id) : ?RoleDto
     {
         return GetRoleCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getRoleById(
                 $id
@@ -97,7 +110,7 @@ class RoleService
     public function getRoleByImportId(string $import_id) : ?RoleDto
     {
         return GetRoleCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getRoleByImportId(
                 $import_id
@@ -108,7 +121,7 @@ class RoleService
     public function getRoles() : array
     {
         return GetRolesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getRoles();
     }

@@ -10,11 +10,15 @@ class DeleteConfigCommand
 
     use ConfigQuery;
 
+    private function __construct()
+    {
+
+    }
+
+
     public static function new() : /*static*/ self
     {
-        $command = new static();
-
-        return $command;
+        return new static();
     }
 
 

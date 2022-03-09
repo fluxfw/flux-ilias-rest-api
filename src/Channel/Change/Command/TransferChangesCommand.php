@@ -5,9 +5,9 @@ namespace FluxIliasRestApi\Channel\Change\Command;
 use Exception;
 use FluxIliasRestApi\Channel\Change\ChangeQuery;
 use FluxIliasRestApi\Channel\Change\Port\ChangeService;
-use FluxRestBaseApi\Body\LegacyDefaultBodyType;
-use FluxRestBaseApi\Header\LegacyDefaultHeader;
-use FluxRestBaseApi\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Header\LegacyDefaultHeader;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\LegacyDefaultMethod;
 use ilDBInterface;
 
 class TransferChangesCommand
@@ -15,18 +15,28 @@ class TransferChangesCommand
 
     use ChangeQuery;
 
-    private ChangeService $change;
-    private ilDBInterface $database;
+    private ChangeService $change_service;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database, ChangeService $change) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ChangeService $change_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->change_service = $change_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ChangeService $change_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-        $command->change = $change;
-
-        return $command;
+        return new static(
+            $ilias_database,
+            $change_service
+        );
     }
 
 
@@ -36,15 +46,15 @@ class TransferChangesCommand
             return null;
         }
 
-        $changes = $this->change->getChanges(
+        $changes = $this->change_service->getChanges(
             null,
             null,
-            $this->change->getLastTransferredChangeTime()
+            $this->change_service->getLastTransferredChangeTime()
         );
 
         $curl = null;
         try {
-            $curl = curl_init($this->change->getTransferChangesPostUrl());
+            $curl = curl_init($this->change_service->getTransferChangesPostUrl());
 
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, LegacyDefaultMethod::POST()->value);
 
@@ -71,7 +81,7 @@ class TransferChangesCommand
 
         $count = count($changes);
         if ($count > 0) {
-            $this->change->setLastTransferredChangeTime(
+            $this->change_service->setLastTransferredChangeTime(
                 $changes[$count - 1]->getTime()
             );
         }

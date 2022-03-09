@@ -1,12 +1,10 @@
 {
-  "description": "ILIAS Rest Api (Experimental Alpha Version)",
-  "topics": [
-    "alpha",
-    "api",
-    "experimental",
-    "ilias",
-    "php",
-    "rest"
-  ],
-  "homepage": "https://github.com/fluxapps/flux-ilias-rest-api"
+    "description": "ILIAS Rest Api",
+    "topics": [
+        "api",
+        "ilias",
+        "php",
+        "rest"
+    ],
+    "homepage": "https://github.com/fluxapps/flux-ilias-rest-api"
 }

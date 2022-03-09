@@ -11,16 +11,23 @@ class GetCourseMembersCommand
 
     use CourseMemberQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
@@ -39,7 +46,7 @@ class GetCourseMembersCommand
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : array {
-        return array_map([$this, "mapCourseMemberDto"], $this->database->fetchAll($this->database->query($this->getCourseMemberQuery(
+        return array_map([$this, "mapCourseMemberDto"], $this->ilias_database->fetchAll($this->ilias_database->query($this->getCourseMemberQuery(
             $course_id,
             $course_import_id,
             $course_ref_id,

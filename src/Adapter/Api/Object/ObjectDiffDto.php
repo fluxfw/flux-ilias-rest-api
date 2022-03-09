@@ -12,7 +12,42 @@ class ObjectDiffDto
     private ?string $title;
 
 
-    public static function newFromData(object $data) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?bool $online,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description,
+        /*public readonly*/ ?int $didactic_template_id
+    ) {
+        $this->import_id = $import_id;
+        $this->online = $online;
+        $this->title = $title;
+        $this->description = $description;
+        $this->didactic_template_id = $didactic_template_id;
+    }
+
+
+    public static function new(
+        ?string $import_id = null,
+        ?bool $online = null,
+        ?string $title = null,
+        ?string $description = null,
+        ?int $didactic_template_id = null
+    ) : /*static*/ self
+    {
+        return new static(
+            $import_id,
+            $online,
+            $title,
+            $description,
+            $didactic_template_id
+        );
+    }
+
+
+    public static function newFromData(
+        object $data
+    ) : /*static*/ self
     {
         return static::new(
             $data->import_id ?? null,
@@ -21,20 +56,6 @@ class ObjectDiffDto
             $data->description ?? null,
             $data->didactic_template_id ?? null
         );
-    }
-
-
-    private static function new(?string $import_id = null, ?bool $online = null, ?string $title = null, ?string $description = null, ?int $didactic_template_id = null) : /*static*/ self
-    {
-        $dto = new static();
-
-        $dto->import_id = $import_id;
-        $dto->online = $online;
-        $dto->title = $title;
-        $dto->description = $description;
-        $dto->didactic_template_id = $didactic_template_id;
-
-        return $dto;
     }
 
 

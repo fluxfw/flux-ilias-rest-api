@@ -15,6 +15,23 @@ class OrganisationalUnitPositionDto implements JsonSerializable
     private ?string $title;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?bool $core_position,
+        /*public readonly*/ ?LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description,
+        /*public readonly*/ ?array $authorities
+    ) {
+        $this->id = $id;
+        $this->core_position = $core_position;
+        $this->core_identifier = $core_identifier;
+        $this->title = $title;
+        $this->description = $description;
+        $this->authorities = $authorities;
+    }
+
+
     public static function new(
         ?int $id = null,
         ?bool $core_position = null,
@@ -24,16 +41,14 @@ class OrganisationalUnitPositionDto implements JsonSerializable
         ?array $authorities = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->core_position = $core_position;
-        $dto->core_identifier = $core_identifier;
-        $dto->title = $title;
-        $dto->description = $description;
-        $dto->authorities = $authorities;
-
-        return $dto;
+        return new static(
+            $id,
+            $core_position,
+            $core_identifier,
+            $title,
+            $description,
+            $authorities
+        );
     }
 
 

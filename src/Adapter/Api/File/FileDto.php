@@ -28,6 +28,49 @@ class FileDto implements JsonSerializable
     private ?int $version;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?int $ref_id,
+        /*public readonly*/ ?int $created,
+        /*public readonly*/ ?int $updated,
+        /*public readonly*/ ?int $parent_id,
+        /*public readonly*/ ?string $parent_import_id,
+        /*public readonly*/ ?int $parent_ref_id,
+        /*public readonly*/ ?string $url,
+        /*public readonly*/ ?string $download_url,
+        /*public readonly*/ ?string $icon_url,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description,
+        /*public readonly*/ ?int $version,
+        /*public readonly*/ ?string $name,
+        /*public readonly*/ ?int $size,
+        /*public readonly*/ ?string $mime_type,
+        /*public readonly*/ ?int $didactic_template_id,
+        /*public readonly*/ ?bool $in_trash
+    ) {
+        $this->id = $id;
+        $this->import_id = $import_id;
+        $this->ref_id = $ref_id;
+        $this->created = $created;
+        $this->updated = $updated;
+        $this->parent_id = $parent_id;
+        $this->parent_import_id = $parent_import_id;
+        $this->parent_ref_id = $parent_ref_id;
+        $this->url = $url;
+        $this->download_url = $download_url;
+        $this->icon_url = $icon_url;
+        $this->title = $title;
+        $this->description = $description;
+        $this->version = $version;
+        $this->name = $name;
+        $this->size = $size;
+        $this->mime_type = $mime_type;
+        $this->didactic_template_id = $didactic_template_id;
+        $this->in_trash = $in_trash;
+    }
+
+
     public static function new(
         ?int $id = null,
         ?string $import_id = null,
@@ -50,29 +93,27 @@ class FileDto implements JsonSerializable
         ?bool $in_trash = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->import_id = $import_id;
-        $dto->ref_id = $ref_id;
-        $dto->created = $created;
-        $dto->updated = $updated;
-        $dto->parent_id = $parent_id;
-        $dto->parent_import_id = $parent_import_id;
-        $dto->parent_ref_id = $parent_ref_id;
-        $dto->url = $url;
-        $dto->download_url = $download_url;
-        $dto->icon_url = $icon_url;
-        $dto->title = $title;
-        $dto->description = $description;
-        $dto->version = $version;
-        $dto->name = $name;
-        $dto->size = $size;
-        $dto->mime_type = $mime_type;
-        $dto->didactic_template_id = $didactic_template_id;
-        $dto->in_trash = $in_trash;
-
-        return $dto;
+        return new static(
+            $id,
+            $import_id,
+            $ref_id,
+            $created,
+            $updated,
+            $parent_id,
+            $parent_import_id,
+            $parent_ref_id,
+            $url,
+            $download_url,
+            $icon_url,
+            $title,
+            $description,
+            $version,
+            $name,
+            $size,
+            $mime_type,
+            $didactic_template_id,
+            $in_trash
+        );
     }
 
 

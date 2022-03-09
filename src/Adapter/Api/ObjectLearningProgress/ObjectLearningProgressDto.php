@@ -15,6 +15,23 @@ class ObjectLearningProgressDto implements JsonSerializable
     private ?string $user_import_id;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $object_id,
+        /*public readonly*/ ?string $object_import_id,
+        /*public readonly*/ ?int $object_ref_id,
+        /*public readonly*/ ?int $user_id,
+        /*public readonly*/ ?string $user_import_id,
+        /*public readonly*/ ?LegacyObjectLearningProgress $learning_progress
+    ) {
+        $this->object_id = $object_id;
+        $this->object_import_id = $object_import_id;
+        $this->object_ref_id = $object_ref_id;
+        $this->user_id = $user_id;
+        $this->user_import_id = $user_import_id;
+        $this->learning_progress = $learning_progress;
+    }
+
+
     public static function new(
         ?int $object_id = null,
         ?string $object_import_id = null,
@@ -24,16 +41,14 @@ class ObjectLearningProgressDto implements JsonSerializable
         ?LegacyObjectLearningProgress $learning_progress = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->object_id = $object_id;
-        $dto->object_import_id = $object_import_id;
-        $dto->object_ref_id = $object_ref_id;
-        $dto->user_id = $user_id;
-        $dto->user_import_id = $user_import_id;
-        $dto->learning_progress = $learning_progress;
-
-        return $dto;
+        return new static(
+            $object_id,
+            $object_import_id,
+            $object_ref_id,
+            $user_id,
+            $user_import_id,
+            $learning_progress
+        );
     }
 
 

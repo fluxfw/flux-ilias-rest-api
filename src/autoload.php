@@ -3,11 +3,12 @@
 namespace FluxIliasRestApi;
 
 require_once __DIR__ . "/../libs/flux-autoload-api/autoload.php";
+require_once __DIR__ . "/../libs/flux-legacy-enum/autoload.php";
 require_once __DIR__ . "/../libs/flux-rest-api/autoload.php";
 
-use FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
-use FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
-use FluxAutoloadApi\Adapter\Checker\PhpVersionChecker;
+use FluxIliasRestApi\Libs\FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
+use FluxIliasRestApi\Libs\FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
+use FluxIliasRestApi\Libs\FluxAutoloadApi\Adapter\Checker\PhpVersionChecker;
 
 PhpVersionChecker::new(
     ">=7.4"

@@ -25,22 +25,38 @@ use ilTree;
 class ObjectService
 {
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
+    private ilObjectDefinition $ilias_object_definition;
+    private ilTree $ilias_tree;
     private ilObjUser $ilias_user;
-    private ilObjectDefinition $object_definition;
-    private ilTree $tree;
 
 
-    public static function new(ilDBInterface $database, ilTree $tree, ilObjUser $ilias_user, ilObjectDefinition $object_definition) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ilTree $ilias_tree,
+        /*private readonly*/ ilObjUser $ilias_user,
+        /*private readonly*/ ilObjectDefinition $ilias_object_definition
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->ilias_tree = $ilias_tree;
+        $this->ilias_user = $ilias_user;
+        $this->ilias_object_definition = $ilias_object_definition;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ilTree $ilias_tree,
+        ilObjUser $ilias_user,
+        ilObjectDefinition $ilias_object_definition
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->tree = $tree;
-        $service->ilias_user = $ilias_user;
-        $service->object_definition = $object_definition;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $ilias_tree,
+            $ilias_user,
+            $ilias_object_definition
+        );
     }
 
 
@@ -48,9 +64,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByIdToId(
                 $id,
@@ -65,9 +81,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByIdToImportId(
                 $id,
@@ -82,9 +98,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByIdToRefId(
                 $id,
@@ -99,9 +115,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByImportIdToId(
                 $import_id,
@@ -116,9 +132,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByImportIdToImportId(
                 $import_id,
@@ -133,9 +149,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByImportIdToRefId(
                 $import_id,
@@ -150,9 +166,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByRefIdToId(
                 $ref_id,
@@ -167,9 +183,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByRefIdToImportId(
                 $ref_id,
@@ -184,9 +200,9 @@ class ObjectService
     {
         return CloneObjectCommand::new(
             $this,
-            $this->tree,
+            $this->ilias_tree,
             $this->ilias_user,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->cloneObjectByRefIdToRefId(
                 $ref_id,
@@ -276,7 +292,7 @@ class ObjectService
     {
         return GetChildrenCommand::new(
             $this,
-            $this->database
+            $this->ilias_database
         )
             ->getChildrenById(
                 $id,
@@ -290,7 +306,7 @@ class ObjectService
     {
         return GetChildrenCommand::new(
             $this,
-            $this->database
+            $this->ilias_database
         )
             ->getChildrenByImportId(
                 $import_id,
@@ -304,7 +320,7 @@ class ObjectService
     {
         return GetChildrenCommand::new(
             $this,
-            $this->database
+            $this->ilias_database
         )
             ->getChildrenByRefId(
                 $ref_id,
@@ -317,7 +333,7 @@ class ObjectService
     public function getObjectById(int $id, ?bool $in_trash = null) : ?ObjectDto
     {
         return GetObjectCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getObjectById(
                 $id,
@@ -329,7 +345,7 @@ class ObjectService
     public function getObjectByImportId(string $import_id, ?bool $in_trash = null) : ?ObjectDto
     {
         return GetObjectCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getObjectByImportId(
                 $import_id,
@@ -341,7 +357,7 @@ class ObjectService
     public function getObjectByRefId(int $ref_id, ?bool $in_trash = null) : ?ObjectDto
     {
         return GetObjectCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getObjectByRefId(
                 $ref_id,
@@ -353,7 +369,7 @@ class ObjectService
     public function getObjects(ObjectType $type, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         return GetObjectsCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getObjects(
                 $type,
@@ -367,8 +383,8 @@ class ObjectService
     {
         return GetPathCommand::new(
             $this,
-            $this->database,
-            $this->tree
+            $this->ilias_database,
+            $this->ilias_tree
         )
             ->getPathById(
                 $id,
@@ -382,8 +398,8 @@ class ObjectService
     {
         return GetPathCommand::new(
             $this,
-            $this->database,
-            $this->tree
+            $this->ilias_database,
+            $this->ilias_tree
         )
             ->getPathByImportId(
                 $import_id,
@@ -397,8 +413,8 @@ class ObjectService
     {
         return GetPathCommand::new(
             $this,
-            $this->database,
-            $this->tree
+            $this->ilias_database,
+            $this->ilias_tree
         )
             ->getPathByRefId(
                 $ref_id,
@@ -421,7 +437,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByIdToId(
                 $id,
@@ -434,7 +450,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByIdToImportId(
                 $id,
@@ -447,7 +463,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByIdToRefId(
                 $id,
@@ -460,7 +476,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByImportIdToId(
                 $import_id,
@@ -473,7 +489,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByImportIdToImportId(
                 $import_id,
@@ -486,7 +502,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByImportIdToRefId(
                 $import_id,
@@ -499,7 +515,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByRefIdToId(
                 $ref_id,
@@ -512,7 +528,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByRefIdToImportId(
                 $ref_id,
@@ -525,7 +541,7 @@ class ObjectService
     {
         return LinkObjectCommand::new(
             $this,
-            $this->object_definition
+            $this->ilias_object_definition
         )
             ->linkObjectByRefIdToRefId(
                 $ref_id,
@@ -538,7 +554,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByIdToId(
                 $id,
@@ -551,7 +567,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByIdToImportId(
                 $id,
@@ -564,7 +580,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByIdToRefId(
                 $id,
@@ -577,7 +593,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByImportIdToId(
                 $import_id,
@@ -590,7 +606,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByImportIdToImportId(
                 $import_id,
@@ -603,7 +619,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByImportIdToRefId(
                 $import_id,
@@ -616,7 +632,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByRefIdToId(
                 $ref_id,
@@ -629,7 +645,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByRefIdToImportId(
                 $ref_id,
@@ -642,7 +658,7 @@ class ObjectService
     {
         return MoveObjectCommand::new(
             $this,
-            $this->tree
+            $this->ilias_tree
         )
             ->moveObjectByRefIdToRefId(
                 $ref_id,

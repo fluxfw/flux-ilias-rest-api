@@ -16,16 +16,23 @@ use ilDBInterface;
 class OrganisationalUnitPositionService
 {
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-
-        return $service;
+        return new static(
+            $ilias_database
+        );
     }
 
 
@@ -52,7 +59,7 @@ class OrganisationalUnitPositionService
     public function getOrganisationalUnitPositionByCoreIdentifier(LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier) : ?OrganisationalUnitPositionDto
     {
         return GetOrganisationalUnitPositionCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnitPositionByCoreIdentifier(
                 $core_identifier
@@ -63,7 +70,7 @@ class OrganisationalUnitPositionService
     public function getOrganisationalUnitPositionById(int $id) : ?OrganisationalUnitPositionDto
     {
         return GetOrganisationalUnitPositionCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnitPositionById(
                 $id
@@ -74,7 +81,7 @@ class OrganisationalUnitPositionService
     public function getOrganisationalUnitPositions(bool $authorities = false) : array
     {
         return GetOrganisationalUnitPositionsCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnitPositions(
                 $authorities

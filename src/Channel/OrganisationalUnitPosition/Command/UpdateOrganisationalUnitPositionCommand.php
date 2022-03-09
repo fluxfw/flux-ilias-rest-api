@@ -13,23 +13,30 @@ class UpdateOrganisationalUnitPositionCommand
 
     use OrganisationalUnitPositionQuery;
 
-    private OrganisationalUnitPositionService $organisational_unit_position;
+    private OrganisationalUnitPositionService $organisational_unit_position_service;
 
 
-    public static function new(OrganisationalUnitPositionService $organisational_unit_position) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ OrganisationalUnitPositionService $organisational_unit_position_service
+    ) {
+        $this->organisational_unit_position_service = $organisational_unit_position_service;
+    }
+
+
+    public static function new(
+        OrganisationalUnitPositionService $organisational_unit_position_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->organisational_unit_position = $organisational_unit_position;
-
-        return $command;
+        return new static(
+            $organisational_unit_position_service
+        );
     }
 
 
     public function updateOrganisationalUnitPositionById(int $id, OrganisationalUnitPositionDiffDto $diff) : ?OrganisationalUnitPositionIdDto
     {
         return $this->updateOrganisationalUnitPosition(
-            $this->organisational_unit_position->getOrganisationalUnitPositionById(
+            $this->organisational_unit_position_service->getOrganisationalUnitPositionById(
                 $id
             ),
             $diff

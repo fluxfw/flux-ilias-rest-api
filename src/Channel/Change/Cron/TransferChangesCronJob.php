@@ -11,16 +11,23 @@ use ilUriInputGUI;
 class TransferChangesCronJob extends ilCronJob
 {
 
-    private ChangeService $change;
+    private ChangeService $change_service;
 
 
-    public static function new(ChangeService $change) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ChangeService $change_service
+    ) {
+        $this->change_service = $change_service;
+    }
+
+
+    public static function new(
+        ChangeService $change_service
+    ) : /*static*/ self
     {
-        $cron_job = new static();
-
-        $cron_job->change = $change;
-
-        return $cron_job;
+        return new static(
+            $change_service
+        );
     }
 
 
@@ -28,7 +35,7 @@ class TransferChangesCronJob extends ilCronJob
     {
         $post_url = new ilUriInputGUI("Post url", "post_url");
         $post_url->setRequired(true);
-        $post_url->setValue($this->change->getTransferChangesPostUrl());
+        $post_url->setValue($this->change_service->getTransferChangesPostUrl());
         $a_form->addItem($post_url);
     }
 
@@ -85,7 +92,7 @@ class TransferChangesCronJob extends ilCronJob
     {
         $result = new ilCronJobResult();
 
-        $count = $this->change->transferChanges();
+        $count = $this->change_service->transferChanges();
 
         if ($count !== null) {
             $result->setStatus(ilCronJobResult::STATUS_OK);
@@ -100,7 +107,7 @@ class TransferChangesCronJob extends ilCronJob
 
     public function saveCustomSettings(ilPropertyFormGUI $a_form) : bool
     {
-        $this->change->setTransferChangesPostUrl(
+        $this->change_service->setTransferChangesPostUrl(
             strval($a_form->getInput("post_url"))
         );
 

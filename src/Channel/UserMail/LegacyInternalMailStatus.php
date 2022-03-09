@@ -2,12 +2,12 @@
 
 namespace FluxIliasRestApi\Channel\UserMail;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static UNREAD() unread
  */
-final class LegacyInternalMailStatus extends LegacyStringBackedEnum
+class LegacyInternalMailStatus extends LegacyStringBackedEnum
 {
 
 }

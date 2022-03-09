@@ -4,10 +4,10 @@ namespace FluxIliasRestApi\Adapter\Authorization;
 
 use Exception;
 use FluxIliasRestApi\Adapter\Autoload\IliasAutoload;
-use FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
-use FluxRestApi\Authorization\Authorization;
-use FluxRestApi\Request\RawRequestDto;
-use FluxRestApi\Response\ResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
+use FluxIliasRestApi\Libs\FluxRestApi\Authorization\Authorization;
+use FluxIliasRestApi\Libs\FluxRestApi\Request\RawRequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
 use ilBrowser;
 use ilCronStartUp;
 use ilHelpGUI;
@@ -27,11 +27,15 @@ class IliasAuthorization implements Authorization
     private const SPLIT_CLIENT_USER = "/";
     use HttpBasicAuthorization;
 
+    private function __construct()
+    {
+
+    }
+
+
     public static function new() : /*static*/ self
     {
-        $auth = new static();
-
-        return $auth;
+        return new static();
     }
 
 

@@ -11,23 +11,30 @@ class CreateChangeDatabaseCommand
 
     use ChangeQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function createChangeDatabase() : void
     {
         if (!$this->changeDatabaseExists()) {
-            $this->database->createTable($this->getChangeDatabaseTable(), [
+            $this->ilias_database->createTable($this->getChangeDatabaseTable(), [
                 "id"             => [
                     "type"    => ilDBConstants::T_INTEGER,
                     "length"  => 8,
@@ -58,9 +65,10 @@ class CreateChangeDatabaseCommand
                 ]
             ]);
 
-            $this->database->addPrimaryKey($this->getChangeDatabaseTable(), ["id"]);
+            $this->ilias_database->addPrimaryKey($this->getChangeDatabaseTable(), ["id"]);
 
-            $this->database->manipulate('ALTER TABLE ' . $this->database->quoteIdentifier($this->getChangeDatabaseTable()) . ' MODIFY COLUMN ' . $this->database->quoteIdentifier("id")
+            $this->ilias_database->manipulate('ALTER TABLE ' . $this->ilias_database->quoteIdentifier($this->getChangeDatabaseTable()) . ' MODIFY COLUMN '
+                . $this->ilias_database->quoteIdentifier("id")
                 . ' BIGINT NOT NULL AUTO_INCREMENT');
         }
     }

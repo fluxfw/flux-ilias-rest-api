@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static AD() AD
@@ -253,7 +253,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
  * @method static static ZM() ZM
  * @method static static ZW() ZW
  */
-final class LegacyInternalUserSelectedCountry extends LegacyStringBackedEnum
+class LegacyInternalUserSelectedCountry extends LegacyStringBackedEnum
 {
 
 }

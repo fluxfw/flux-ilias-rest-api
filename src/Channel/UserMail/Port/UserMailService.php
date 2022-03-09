@@ -9,26 +9,36 @@ use ilDBInterface;
 class UserMailService
 {
 
-    private ilDBInterface $database;
-    private UserService $user;
+    private ilDBInterface $ilias_database;
+    private UserService $user_service;
 
 
-    public static function new(ilDBInterface $database, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->user = $user;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $user_service
+        );
     }
 
 
     public function getUnreadMailsCountById(int $id) : ?int
     {
         return GetUnreadMailsCount::new(
-            $this->database,
-            $this->user
+            $this->ilias_database,
+            $this->user_service
         )
             ->getUnreadMailsCountById(
                 $id
@@ -39,8 +49,8 @@ class UserMailService
     public function getUnreadMailsCountByImportId(string $import_id) : ?int
     {
         return GetUnreadMailsCount::new(
-            $this->database,
-            $this->user
+            $this->ilias_database,
+            $this->user_service
         )
             ->getUnreadMailsCountByImportId(
                 $import_id

@@ -17,29 +17,39 @@ class UpdateObjectLearningProgressCommand
 
     use ObjectLearningProgressQuery;
 
-    private ObjectService $object;
-    private UserService $user;
+    private ObjectService $object_service;
+    private UserService $user_service;
 
 
-    public static function new(ObjectService $object, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->object_service = $object_service;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-        $command->user = $user;
-
-        return $command;
+        return new static(
+            $object_service,
+            $user_service
+        );
     }
 
 
     public function updateObjectLearningProgressByIdByUserId(int $id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
             $learning_progress
@@ -50,11 +60,11 @@ class UpdateObjectLearningProgressCommand
     public function updateObjectLearningProgressByIdByUserImportId(int $id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
             $learning_progress
@@ -65,11 +75,11 @@ class UpdateObjectLearningProgressCommand
     public function updateObjectLearningProgressByImportIdByUserId(string $import_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
             $learning_progress
@@ -80,11 +90,11 @@ class UpdateObjectLearningProgressCommand
     public function updateObjectLearningProgressByImportIdByUserImportId(string $import_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
             $learning_progress
@@ -95,11 +105,11 @@ class UpdateObjectLearningProgressCommand
     public function updateObjectLearningProgressByRefIdByUserId(int $ref_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
             $learning_progress
@@ -110,11 +120,11 @@ class UpdateObjectLearningProgressCommand
     public function updateObjectLearningProgressByRefIdByUserImportId(int $ref_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
         return $this->updateObjectLearningProgress(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
             $learning_progress

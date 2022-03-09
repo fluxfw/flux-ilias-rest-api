@@ -13,23 +13,30 @@ class UpdateCourseCommand
 
     use CourseQuery;
 
-    private CourseService $course;
+    private CourseService $course_service;
 
 
-    public static function new(CourseService $course) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ CourseService $course_service
+    ) {
+        $this->course_service = $course_service;
+    }
+
+
+    public static function new(
+        CourseService $course_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->course = $course;
-
-        return $command;
+        return new static(
+            $course_service
+        );
     }
 
 
     public function updateCourseById(int $id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateCourse(
-            $this->course->getCourseById(
+            $this->course_service->getCourseById(
                 $id,
                 false
             ),
@@ -41,7 +48,7 @@ class UpdateCourseCommand
     public function updateCourseByImportId(string $import_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateCourse(
-            $this->course->getCourseByImportId(
+            $this->course_service->getCourseByImportId(
                 $import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class UpdateCourseCommand
     public function updateCourseByRefId(int $ref_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateCourse(
-            $this->course->getCourseByRefId(
+            $this->course_service->getCourseByRefId(
                 $ref_id,
                 false
             ),

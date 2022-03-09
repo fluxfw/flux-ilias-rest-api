@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionCoreIdentifier;
 
-final class OrganisationalUnitPositionCoreIdentifierMapping
+class OrganisationalUnitPositionCoreIdentifierMapping
 {
 
     public static function mapExternalToInternal(LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier) : LegacyInternalOrganisationalUnitPositionCoreIdentifier

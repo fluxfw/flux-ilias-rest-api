@@ -14,25 +14,35 @@ class UpdateUserCommand
 
     use UserQuery;
 
-    private ObjectService $object;
-    private UserService $user;
+    private ObjectService $object_service;
+    private UserService $user_service;
 
 
-    public static function new(UserService $user, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->user_service = $user_service;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        UserService $user_service,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->user = $user;
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $user_service,
+            $object_service
+        );
     }
 
 
     public function updateUserById(int $id, UserDiffDto $diff) : ?UserIdDto
     {
         return $this->updateUser(
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $id
             ),
             $diff
@@ -43,7 +53,7 @@ class UpdateUserCommand
     public function updateUserByImportId(string $import_id, UserDiffDto $diff) : ?UserIdDto
     {
         return $this->updateUser(
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $import_id
             ),
             $diff

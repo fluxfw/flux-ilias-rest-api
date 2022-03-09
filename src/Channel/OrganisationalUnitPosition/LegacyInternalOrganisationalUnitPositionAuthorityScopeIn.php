@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
 
 // ilOrgUnitAuthority::SCOPE_SAME_ORGU
 // ilOrgUnitAuthority::SCOPE_SUBSEQUENT_ORGUS
@@ -11,7 +11,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
  * @method static static SAME() 1
  * @method static static SAME_AND_SUBSEQUENT() 2
  */
-final class LegacyInternalOrganisationalUnitPositionAuthorityScopeIn extends LegacyIntBackedEnum
+class LegacyInternalOrganisationalUnitPositionAuthorityScopeIn extends LegacyIntBackedEnum
 {
 
 }

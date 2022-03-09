@@ -9,11 +9,15 @@ use FluxIliasRestApi\Channel\Config\Command\SetConfigCommand;
 class ConfigService
 {
 
+    private function __construct()
+    {
+
+    }
+
+
     public static function new() : /*static*/ self
     {
-        $service = new static();
-
-        return $service;
+        return new static();
     }
 
 

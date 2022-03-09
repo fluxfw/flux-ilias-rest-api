@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\ScormLearningModule;
 
 use FluxIliasRestApi\Adapter\Api\ScormLearningModule\LegacyScormLearningModuleType;
 
-final class ScormLearningModuleTypeMapping
+class ScormLearningModuleTypeMapping
 {
 
     public static function mapExternalToInternal(LegacyScormLearningModuleType $type) : LegacyInternalScormLearningModuleType

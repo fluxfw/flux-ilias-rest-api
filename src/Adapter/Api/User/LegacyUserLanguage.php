@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Api\User;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static ABKHAZIAN() abkhazian
@@ -145,7 +145,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
  * @method static static ZHUANG() zhuang
  * @method static static ZULU() zulu
  */
-final class LegacyUserLanguage extends LegacyStringBackedEnum
+class LegacyUserLanguage extends LegacyStringBackedEnum
 {
 
 }

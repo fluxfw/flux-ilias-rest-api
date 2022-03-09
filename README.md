@@ -1,6 +1,6 @@
 # flux-ilias-rest-api
 
-Experimental Alpha Version
+ILIAS Rest Api
 
 ## Installation
 
@@ -60,12 +60,6 @@ And/or each ILIAS plugin can also have custom routes in its own `src/Adapter/Rou
 
 The folders are scanned recursive
 
-## Examples
-
-### Code
-
-[flux-rest-api](https://github.com/fluxapps/flux-rest-api/tree/main/examples/routes)
-
-### Request
+## Example
 
 [examples](examples)

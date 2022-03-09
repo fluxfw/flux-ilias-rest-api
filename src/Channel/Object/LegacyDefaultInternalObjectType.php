@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\Object;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static BIBL() bibl

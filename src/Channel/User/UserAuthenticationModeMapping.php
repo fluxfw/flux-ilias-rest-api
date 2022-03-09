@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\User;
 
 use FluxIliasRestApi\Adapter\Api\User\LegacyUserAuthenticationMode;
 
-final class UserAuthenticationModeMapping
+class UserAuthenticationModeMapping
 {
 
     public static function mapExternalToInternal(LegacyUserAuthenticationMode $authentication_mode) : LegacyInternalUserAuthenticationMode

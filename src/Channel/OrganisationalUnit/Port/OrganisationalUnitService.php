@@ -15,16 +15,23 @@ use ilDBInterface;
 class OrganisationalUnitService
 {
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-
-        return $service;
+        return new static(
+            $ilias_database
+        );
     }
 
 
@@ -67,7 +74,7 @@ class OrganisationalUnitService
     public function getOrganisationalUnitByExternalId(string $external_id) : ?OrganisationalUnitDto
     {
         return GetOrganisationalUnitCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnitByExternalId(
                 $external_id
@@ -78,7 +85,7 @@ class OrganisationalUnitService
     public function getOrganisationalUnitById(int $id) : ?OrganisationalUnitDto
     {
         return GetOrganisationalUnitCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnitById(
                 $id
@@ -89,7 +96,7 @@ class OrganisationalUnitService
     public function getOrganisationalUnitByRefId(int $ref_id) : ?OrganisationalUnitDto
     {
         return GetOrganisationalUnitCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnitByRefId(
                 $ref_id
@@ -109,7 +116,7 @@ class OrganisationalUnitService
     public function getOrganisationalUnits() : array
     {
         return GetOrganisationalUnitsCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnits();
     }

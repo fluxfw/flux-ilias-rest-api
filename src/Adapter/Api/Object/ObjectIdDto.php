@@ -12,15 +12,28 @@ class ObjectIdDto implements JsonSerializable
     private ?int $ref_id;
 
 
-    public static function new(?int $id = null, ?string $import_id = null, ?int $ref_id = null) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?int $ref_id
+    ) {
+        $this->id = $id;
+        $this->import_id = $import_id;
+        $this->ref_id = $ref_id;
+    }
+
+
+    public static function new(
+        ?int $id = null,
+        ?string $import_id = null,
+        ?int $ref_id = null
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->import_id = $import_id;
-        $dto->ref_id = $ref_id;
-
-        return $dto;
+        return new static(
+            $id,
+            $import_id,
+            $ref_id
+        );
     }
 
 

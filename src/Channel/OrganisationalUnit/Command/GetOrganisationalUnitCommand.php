@@ -14,23 +14,30 @@ class GetOrganisationalUnitCommand
     use ObjectQuery;
     use OrganisationalUnitQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getOrganisationalUnitByExternalId(string $external_id) : ?OrganisationalUnitDto
     {
         $organisational_unit = null;
-        while (($organisational_unit_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getOrganisationalUnitQuery(
+        while (($organisational_unit_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getOrganisationalUnitQuery(
                 null,
                 $external_id
             )))) !== null) {
@@ -49,7 +56,7 @@ class GetOrganisationalUnitCommand
     public function getOrganisationalUnitById(int $id) : ?OrganisationalUnitDto
     {
         $organisational_unit = null;
-        while (($organisational_unit_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getOrganisationalUnitQuery(
+        while (($organisational_unit_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getOrganisationalUnitQuery(
                 $id
             )))) !== null) {
             if ($organisational_unit !== null) {
@@ -67,7 +74,7 @@ class GetOrganisationalUnitCommand
     public function getOrganisationalUnitByRefId(int $ref_id) : ?OrganisationalUnitDto
     {
         $organisational_unit = null;
-        while (($organisational_unit_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getOrganisationalUnitQuery(
+        while (($organisational_unit_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getOrganisationalUnitQuery(
                 null,
                 null,
                 $ref_id

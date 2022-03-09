@@ -13,27 +13,40 @@ class GetPathCommand
 
     use ObjectQuery;
 
-    private ilDBInterface $database;
-    private ObjectService $object;
-    private ilTree $tree;
+    private ilDBInterface $ilias_database;
+    private ilTree $ilias_tree;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object, ilDBInterface $database, ilTree $tree) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ilTree $ilias_tree
+    ) {
+        $this->object_service = $object_service;
+        $this->ilias_database = $ilias_database;
+        $this->ilias_tree = $ilias_tree;
+    }
+
+
+    public static function new(
+        ObjectService $object_service,
+        ilDBInterface $ilias_database,
+        ilTree $ilias_tree
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-        $command->database = $database;
-        $command->tree = $tree;
-
-        return $command;
+        return new static(
+            $object_service,
+            $ilias_database,
+            $ilias_tree
+        );
     }
 
 
     public function getPathById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getPath(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 $in_trash
             ),
@@ -46,7 +59,7 @@ class GetPathCommand
     public function getPathByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getPath(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 $in_trash
             ),
@@ -59,7 +72,7 @@ class GetPathCommand
     public function getPathByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getPath(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 $in_trash
             ),
@@ -75,8 +88,8 @@ class GetPathCommand
             return null;
         }
 
-        $path_ref_ids = $this->tree->getPathId($object->getRefId());
-        $objects = $this->database->fetchAll($this->database->query($this->getObjectQuery(
+        $path_ref_ids = $this->ilias_tree->getPathId($object->getRefId());
+        $objects = $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectQuery(
             null,
             null,
             null,
@@ -86,7 +99,7 @@ class GetPathCommand
         )));
         $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);
 
-        $ref_ids_ = $ref_ids ? $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery($object_ids))) : null;
+        $ref_ids_ = $ref_ids ? $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectRefIdsQuery($object_ids))) : null;
 
         usort($objects, fn(array $object1, array $object2) : int => array_search($object1["ref_id"] ?: null, $path_ref_ids) - array_search($object2["ref_id"] ?: null, $path_ref_ids));
 

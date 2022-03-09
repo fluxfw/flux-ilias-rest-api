@@ -14,25 +14,35 @@ class CreateRoleCommand
 
     use RoleQuery;
 
-    private ObjectService $object;
-    private RBACServices $rbac;
+    private RBACServices $ilias_rbac;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object, RBACServices $rbac) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ RBACServices $ilias_rbac
+    ) {
+        $this->object_service = $object_service;
+        $this->ilias_rbac = $ilias_rbac;
+    }
+
+
+    public static function new(
+        ObjectService $object_service,
+        RBACServices $ilias_rbac
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-        $command->rbac = $rbac;
-
-        return $command;
+        return new static(
+            $object_service,
+            $ilias_rbac
+        );
     }
 
 
     public function createRoleToId(int $object_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createRole(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $object_id,
                 false
             ),
@@ -44,7 +54,7 @@ class CreateRoleCommand
     public function createRoleToImportId(string $object_import_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createRole(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $object_import_id,
                 false
             ),
@@ -56,7 +66,7 @@ class CreateRoleCommand
     public function createRoleToRefId(int $object_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createRole(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $object_ref_id,
                 false
             ),
@@ -76,7 +86,7 @@ class CreateRoleCommand
         $ilias_role->setTitle($diff->getTitle() ?? "");
 
         $ilias_role->create();
-        $this->rbac->admin()->assignRoleToFolder($ilias_role->getId(), $object->getRefId());
+        $this->ilias_rbac->admin()->assignRoleToFolder($ilias_role->getId(), $object->getRefId());
 
         $this->mapRoleDiff(
             $diff,

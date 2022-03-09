@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static AA() aa
@@ -145,7 +145,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
  * @method static static ZH() zh
  * @method static static ZU() zu
  */
-final class LegacyInternalUserLanguage extends LegacyStringBackedEnum
+class LegacyInternalUserLanguage extends LegacyStringBackedEnum
 {
 
 }

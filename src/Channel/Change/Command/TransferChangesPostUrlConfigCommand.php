@@ -8,22 +8,29 @@ class TransferChangesPostUrlConfigCommand
 {
 
     private const CONFIG_KEY = "transfer_changes_post_url";
-    private ConfigService $config;
+    private ConfigService $config_service;
 
 
-    public static function new(ConfigService $config) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ConfigService $config_service
+    ) {
+        $this->config_service = $config_service;
+    }
+
+
+    public static function new(
+        ConfigService $config_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->config = $config;
-
-        return $command;
+        return new static(
+            $config_service
+        );
     }
 
 
     public function getTransferChangesPostUrl() : string
     {
-        return strval($this->config->getConfig(
+        return strval($this->config_service->getConfig(
             static::CONFIG_KEY
         ));
     }
@@ -31,7 +38,7 @@ class TransferChangesPostUrlConfigCommand
 
     public function setTransferChangesPostUrl(string $transfer_changes_post_url) : void
     {
-        $this->config->setConfig(
+        $this->config_service->setConfig(
             static::CONFIG_KEY,
             $transfer_changes_post_url
         );

@@ -10,16 +10,23 @@ class GetOrganisationalUnitStaffCommand
 
     use OrganisationalUnitStaffQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
@@ -31,7 +38,7 @@ class GetOrganisationalUnitStaffCommand
         ?string $user_import_id = null,
         ?int $position_id = null
     ) : array {
-        return array_map([$this, "mapOrganisationalUnitStaffDto"], $this->database->fetchAll($this->database->query($this->getOrganisationalUnitStaffQuery(
+        return array_map([$this, "mapOrganisationalUnitStaffDto"], $this->ilias_database->fetchAll($this->ilias_database->query($this->getOrganisationalUnitStaffQuery(
             $organisational_unit_id,
             $organisational_unit_external_id,
             $organisational_unit_ref_id,

@@ -13,18 +13,28 @@ class GetCurrentUserCommand
 
     use UserQuery;
 
-    private ilDBInterface $database;
-    private UserService $user;
+    private ilDBInterface $ilias_database;
+    private UserService $user_service;
 
 
-    public static function new(ilDBInterface $database, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-        $command->user = $user;
-
-        return $command;
+        return new static(
+            $ilias_database,
+            $user_service
+        );
     }
 
 
@@ -35,7 +45,7 @@ class GetCurrentUserCommand
         }
 
         $user_id = null;
-        while (($session = $this->database->fetchAssoc($result ??= $this->database->query($this->getUserSessionQuery(
+        while (($session = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getUserSessionQuery(
                 $session_id
             )))) !== null) {
             if ($user_id !== null) {
@@ -48,7 +58,7 @@ class GetCurrentUserCommand
             return null;
         }
 
-        return $this->user->getUserById(
+        return $this->user_service->getUserById(
             $user_id
         );
     }

@@ -14,23 +14,30 @@ class GetGroupCommand
     use GroupQuery;
     use ObjectQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getGroupById(int $id, ?bool $in_trash = null) : ?GroupDto
     {
         $group = null;
-        while (($group_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getGroupQuery(
+        while (($group_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getGroupQuery(
                 $id,
                 null,
                 null,
@@ -51,7 +58,7 @@ class GetGroupCommand
     public function getGroupByImportId(string $import_id, ?bool $in_trash = null) : ?GroupDto
     {
         $group = null;
-        while (($group_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getGroupQuery(
+        while (($group_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getGroupQuery(
                 null,
                 $import_id,
                 null,
@@ -72,7 +79,7 @@ class GetGroupCommand
     public function getGroupByRefId(int $ref_id, ?bool $in_trash = null) : ?GroupDto
     {
         $group = null;
-        while (($group_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getGroupQuery(
+        while (($group_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getGroupQuery(
                 null,
                 null,
                 $ref_id,

@@ -12,30 +12,43 @@ use ILIAS\DI\RBACServices;
 class AddUserRoleCommand
 {
 
-    private RBACServices $rbac;
-    private RoleService $role;
-    private UserService $user;
+    private RBACServices $ilias_rbac;
+    private RoleService $role_service;
+    private UserService $user_service;
 
 
-    public static function new(UserService $user, RoleService $role, RBACServices $rbac) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ RoleService $role_service,
+        /*private readonly*/ RBACServices $ilias_rbac
+    ) {
+        $this->user_service = $user_service;
+        $this->role_service = $role_service;
+        $this->ilias_rbac = $ilias_rbac;
+    }
+
+
+    public static function new(
+        UserService $user_service,
+        RoleService $role_service,
+        RBACServices $ilias_rbac
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->user = $user;
-        $command->role = $role;
-        $command->rbac = $rbac;
-
-        return $command;
+        return new static(
+            $user_service,
+            $role_service,
+            $ilias_rbac
+        );
     }
 
 
     public function addUserRoleByIdByRoleId(int $id, int $role_id) : ?UserRoleDto
     {
         return $this->addUserRole(
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $id
             ),
-            $this->role->getRoleById(
+            $this->role_service->getRoleById(
                 $role_id
             )
         );
@@ -45,10 +58,10 @@ class AddUserRoleCommand
     public function addUserRoleByIdByRoleImportId(int $id, string $role_import_id) : ?UserRoleDto
     {
         return $this->addUserRole(
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $id
             ),
-            $this->role->getRoleByImportId(
+            $this->role_service->getRoleByImportId(
                 $role_import_id
             )
         );
@@ -58,10 +71,10 @@ class AddUserRoleCommand
     public function addUserRoleByImportIdByRoleId(string $import_id, int $role_id) : ?UserRoleDto
     {
         return $this->addUserRole(
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $import_id
             ),
-            $this->role->getRoleById(
+            $this->role_service->getRoleById(
                 $role_id
             )
         );
@@ -71,10 +84,10 @@ class AddUserRoleCommand
     public function addUserRoleByImportIdByRoleImportId(string $import_id, string $role_import_id) : ?UserRoleDto
     {
         return $this->addUserRole(
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $import_id
             ),
-            $this->role->getRoleByImportId(
+            $this->role_service->getRoleByImportId(
                 $role_import_id
             )
         );
@@ -87,8 +100,8 @@ class AddUserRoleCommand
             return null;
         }
 
-        if (!$this->rbac->review()->isAssigned($user->getId(), $role->getId())) {
-            $this->rbac->admin()->assignUser($role->getId(), $user->getId());
+        if (!$this->ilias_rbac->review()->isAssigned($user->getId(), $role->getId())) {
+            $this->ilias_rbac->admin()->assignUser($role->getId(), $user->getId());
         }
 
         return UserRoleDto::new(

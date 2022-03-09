@@ -16,33 +16,49 @@ class CloneObjectCommand
 
     use ObjectQuery;
 
+    private ilObjectDefinition $ilias_object_definition;
+    private ilTree $ilias_tree;
     private ilObjUser $ilias_user;
-    private ObjectService $object;
-    private ilObjectDefinition $object_definition;
-    private ilTree $tree;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object, ilTree $tree, ilObjUser $ilias_user, ilObjectDefinition $object_definition) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ilTree $ilias_tree,
+        /*private readonly*/ ilObjUser $ilias_user,
+        /*private readonly*/ ilObjectDefinition $ilias_object_definition
+    ) {
+        $this->object_service = $object_service;
+        $this->ilias_tree = $ilias_tree;
+        $this->ilias_user = $ilias_user;
+        $this->ilias_object_definition = $ilias_object_definition;
+    }
+
+
+    public static function new(
+        ObjectService $object_service,
+        ilTree $ilias_tree,
+        ilObjUser $ilias_user,
+        ilObjectDefinition $ilias_object_definition
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-        $command->tree = $tree;
-        $command->ilias_user = $ilias_user;
-        $command->object_definition = $object_definition;
-
-        return $command;
+        return new static(
+            $object_service,
+            $ilias_tree,
+            $ilias_user,
+            $ilias_object_definition
+        );
     }
 
 
     public function cloneObjectByIdToId(int $id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             ),
@@ -55,11 +71,11 @@ class CloneObjectCommand
     public function cloneObjectByIdToImportId(int $id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             ),
@@ -72,11 +88,11 @@ class CloneObjectCommand
     public function cloneObjectByIdToRefId(int $id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             ),
@@ -89,11 +105,11 @@ class CloneObjectCommand
     public function cloneObjectByImportIdToId(string $import_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             ),
@@ -106,11 +122,11 @@ class CloneObjectCommand
     public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             ),
@@ -123,11 +139,11 @@ class CloneObjectCommand
     public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             ),
@@ -140,11 +156,11 @@ class CloneObjectCommand
     public function cloneObjectByRefIdToId(int $ref_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             ),
@@ -157,11 +173,11 @@ class CloneObjectCommand
     public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             ),
@@ -174,11 +190,11 @@ class CloneObjectCommand
     public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
         return $this->cloneObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             ),

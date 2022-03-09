@@ -14,25 +14,35 @@ class UploadFileCommand
 
     use FileQuery;
 
-    private FileService $file;
-    private FileUpload $upload;
+    private FileService $file_service;
+    private FileUpload $ilias_upload;
 
 
-    public static function new(FileService $file, FileUpload $upload) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ FileService $file_service,
+        /*private readonly*/ FileUpload $ilias_upload
+    ) {
+        $this->file_service = $file_service;
+        $this->ilias_upload = $ilias_upload;
+    }
+
+
+    public static function new(
+        FileService $file_service,
+        FileUpload $ilias_upload
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->file = $file;
-        $command->upload = $upload;
-
-        return $command;
+        return new static(
+            $file_service,
+            $ilias_upload
+        );
     }
 
 
     public function uploadFileById(int $id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
     {
         return $this->uploadFile(
-            $this->file->getFileById(
+            $this->file_service->getFileById(
                 $id,
                 false
             ),
@@ -45,7 +55,7 @@ class UploadFileCommand
     public function uploadFileByImportId(string $import_id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
     {
         return $this->uploadFile(
-            $this->file->getFileByImportId(
+            $this->file_service->getFileByImportId(
                 $import_id,
                 false
             ),
@@ -58,7 +68,7 @@ class UploadFileCommand
     public function uploadFileByRefId(int $ref_id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
     {
         return $this->uploadFile(
-            $this->file->getFileByRefId(
+            $this->file_service->getFileByRefId(
                 $ref_id,
                 false
             ),
@@ -82,18 +92,18 @@ class UploadFileCommand
             return null;
         }
 
-        $this->upload->register(new ilCountPDFPagesPreProcessors());
+        $this->ilias_upload->register(new ilCountPDFPagesPreProcessors());
 
-        if (!$this->upload->hasUploads()) {
+        if (!$this->ilias_upload->hasUploads()) {
             return null;
         }
 
-        if (!$this->upload->hasBeenProcessed()) {
-            $this->upload->process();
+        if (!$this->ilias_upload->hasBeenProcessed()) {
+            $this->ilias_upload->process();
         }
 
-        $result_key = array_key_first($this->upload->getResults());
-        $result = $this->upload->getResults()[$result_key];
+        $result_key = array_key_first($this->ilias_upload->getResults());
+        $result = $this->ilias_upload->getResults()[$result_key];
         if (!$result->isOK()) {
             return null;
         }

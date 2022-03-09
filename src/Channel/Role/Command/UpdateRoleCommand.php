@@ -13,23 +13,30 @@ class UpdateRoleCommand
 
     use RoleQuery;
 
-    private RoleService $role;
+    private RoleService $role_service;
 
 
-    public static function new(RoleService $role) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ RoleService $role_service
+    ) {
+        $this->role_service = $role_service;
+    }
+
+
+    public static function new(
+        RoleService $role_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->role = $role;
-
-        return $command;
+        return new static(
+            $role_service
+        );
     }
 
 
     public function updateRoleById(int $id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateRole(
-            $this->role->getRoleById(
+            $this->role_service->getRoleById(
                 $id
             ),
             $diff
@@ -40,7 +47,7 @@ class UpdateRoleCommand
     public function updateRoleByImportId(string $import_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateRole(
-            $this->role->getRoleByImportId(
+            $this->role_service->getRoleByImportId(
                 $import_id
             ),
             $diff

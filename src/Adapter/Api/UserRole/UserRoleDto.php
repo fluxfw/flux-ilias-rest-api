@@ -13,16 +13,32 @@ class UserRoleDto implements JsonSerializable
     private ?string $user_import_id;
 
 
-    public static function new(?int $user_id = null, ?string $user_import_id = null, ?int $role_id = null, ?string $role_import_id = null) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?int $user_id,
+        /*public readonly*/ ?string $user_import_id,
+        /*public readonly*/ ?int $role_id,
+        /*public readonly*/ ?string $role_import_id
+    ) {
+        $this->user_id = $user_id;
+        $this->user_import_id = $user_import_id;
+        $this->role_id = $role_id;
+        $this->role_import_id = $role_import_id;
+    }
+
+
+    public static function new(
+        ?int $user_id = null,
+        ?string $user_import_id = null,
+        ?int $role_id = null,
+        ?string $role_import_id = null
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->user_id = $user_id;
-        $dto->user_import_id = $user_import_id;
-        $dto->role_id = $role_id;
-        $dto->role_import_id = $role_import_id;
-
-        return $dto;
+        return new static(
+            $user_id,
+            $user_import_id,
+            $role_id,
+            $role_import_id
+        );
     }
 
 

@@ -42,60 +42,93 @@ class HandleIliasEventCommand
 
     use ChangeQuery;
 
-    private CategoryService $category;
-    private CourseService $course;
-    private CourseMemberService $course_member;
-    private ilDBInterface $database;
-    private FileService $file;
-    private GroupService $group;
-    private GroupMemberService $group_member;
-    private ObjectService $object;
-    private ObjectLearningProgressService $object_learning_progress;
-    private OrganisationalUnitService $organisational_unit;
-    private OrganisationalUnitStaffService $organisational_unit_staff;
-    private RoleService $role;
-    private ScormLearningModuleService $scorm_learning_module;
-    private UserService $user;
-    private UserRoleService $user_role;
+    private CategoryService $category_service;
+    private CourseMemberService $course_member_service;
+    private CourseService $course_service;
+    private FileService $file_service;
+    private GroupMemberService $group_member_service;
+    private GroupService $group_service;
+    private ilDBInterface $ilias_database;
+    private ObjectLearningProgressService $object_learning_progress_service;
+    private ObjectService $object_service;
+    private OrganisationalUnitService $organisational_unit_service;
+    private OrganisationalUnitStaffService $organisational_unit_staff_service;
+    private RoleService $role_service;
+    private ScormLearningModuleService $scorm_learning_module_service;
+    private UserRoleService $user_role_service;
+    private UserService $user_service;
+
+
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ CategoryService $category_service,
+        /*private readonly*/ CourseService $course_service,
+        /*private readonly*/ CourseMemberService $course_member_service,
+        /*private readonly*/ FileService $file_service,
+        /*private readonly*/ GroupService $group_service,
+        /*private readonly*/ GroupMemberService $group_member_service,
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ObjectLearningProgressService $object_learning_progress_service,
+        /*private readonly*/ OrganisationalUnitService $organisational_unit_service,
+        /*private readonly*/ OrganisationalUnitStaffService $organisational_unit_staff_service,
+        /*private readonly*/ RoleService $role_service,
+        /*private readonly*/ ScormLearningModuleService $scorm_learning_module_service,
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ UserRoleService $user_role_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->category_service = $category_service;
+        $this->course_service = $course_service;
+        $this->course_member_service = $course_member_service;
+        $this->file_service = $file_service;
+        $this->group_service = $group_service;
+        $this->group_member_service = $group_member_service;
+        $this->object_service = $object_service;
+        $this->object_learning_progress_service = $object_learning_progress_service;
+        $this->organisational_unit_service = $organisational_unit_service;
+        $this->organisational_unit_staff_service = $organisational_unit_staff_service;
+        $this->role_service = $role_service;
+        $this->scorm_learning_module_service = $scorm_learning_module_service;
+        $this->user_service = $user_service;
+        $this->user_role_service = $user_role_service;
+    }
 
 
     public static function new(
-        ilDBInterface $database,
-        CategoryService $category,
-        CourseService $course,
-        CourseMemberService $course_member,
-        FileService $file,
-        GroupService $group,
-        GroupMemberService $group_member,
-        ObjectService $object,
-        ObjectLearningProgressService $object_learning_progress,
-        OrganisationalUnitService $organisational_unit,
-        OrganisationalUnitStaffService $organisational_unit_staff,
-        RoleService $role,
-        ScormLearningModuleService $scorm_learning_module,
-        UserService $user,
-        UserRoleService $user_role
+        ilDBInterface $ilias_database,
+        CategoryService $category_service,
+        CourseService $course_service,
+        CourseMemberService $course_member_service,
+        FileService $file_service,
+        GroupService $group_service,
+        GroupMemberService $group_member_service,
+        ObjectService $object_service,
+        ObjectLearningProgressService $object_learning_progress_service,
+        OrganisationalUnitService $organisational_unit_service,
+        OrganisationalUnitStaffService $organisational_unit_staff_service,
+        RoleService $role_service,
+        ScormLearningModuleService $scorm_learning_module_service,
+        UserService $user_service,
+        UserRoleService $user_role_service
     ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-        $command->category = $category;
-        $command->course = $course;
-        $command->course_member = $course_member;
-        $command->file = $file;
-        $command->group = $group;
-        $command->group_member = $group_member;
-        $command->object = $object;
-        $command->object_learning_progress = $object_learning_progress;
-        $command->organisational_unit = $organisational_unit;
-        $command->organisational_unit_staff = $organisational_unit_staff;
-        $command->role = $role;
-        $command->scorm_learning_module = $scorm_learning_module;
-        $command->user = $user;
-        $command->user_role = $user_role;
-
-        return $command;
+        return new static(
+            $ilias_database,
+            $category_service,
+            $course_service,
+            $course_member_service,
+            $file_service,
+            $group_service,
+            $group_member_service,
+            $object_service,
+            $object_learning_progress_service,
+            $organisational_unit_service,
+            $organisational_unit_staff_service,
+            $role_service,
+            $scorm_learning_module_service,
+            $user_service,
+            $user_role_service
+        );
     }
 
 
@@ -167,11 +200,11 @@ class HandleIliasEventCommand
     private function getCategoryData(int $id, ?int $ref_id = null) : ?object
     {
         if ($ref_id !== null) {
-            return $this->category->getCategoryByRefId(
+            return $this->category_service->getCategoryByRefId(
                 $ref_id
             );
         } else {
-            return $this->category->getCategoryById(
+            return $this->category_service->getCategoryById(
                 $id
             );
         }
@@ -181,11 +214,11 @@ class HandleIliasEventCommand
     private function getCourseData(int $id, ?int $ref_id = null) : ?object
     {
         if ($ref_id !== null) {
-            return $this->course->getCourseByRefId(
+            return $this->course_service->getCourseByRefId(
                 $ref_id
             );
         } else {
-            return $this->course->getCourseById(
+            return $this->course_service->getCourseById(
                 $id
             );
         }
@@ -194,7 +227,7 @@ class HandleIliasEventCommand
 
     private function getCourseMemberData(int $course_id, int $user_id) : object
     {
-        return $this->course_member->getCourseMembers(
+        return $this->course_member_service->getCourseMembers(
                 $course_id,
                 null,
                 null,
@@ -211,11 +244,11 @@ class HandleIliasEventCommand
     private function getFileData(int $id, ?int $ref_id = null) : ?object
     {
         if ($ref_id !== null) {
-            return $this->file->getFileByRefId(
+            return $this->file_service->getFileByRefId(
                 $ref_id
             );
         } else {
-            return $this->file->getFileById(
+            return $this->file_service->getFileById(
                 $id
             );
         }
@@ -225,11 +258,11 @@ class HandleIliasEventCommand
     private function getGroupData(int $id, ?int $ref_id = null) : ?object
     {
         if ($ref_id !== null) {
-            return $this->group->getGroupByRefId(
+            return $this->group_service->getGroupByRefId(
                 $ref_id
             );
         } else {
-            return $this->group->getGroupById(
+            return $this->group_service->getGroupById(
                 $id
             );
         }
@@ -238,7 +271,7 @@ class HandleIliasEventCommand
 
     private function getGroupMemberData(int $group_id, int $user_id) : object
     {
-        return $this->group_member->getGroupMembers(
+        return $this->group_member_service->getGroupMembers(
                 $group_id,
                 null,
                 null,
@@ -255,12 +288,12 @@ class HandleIliasEventCommand
     private function getObjectData(?int $id = null, ?int $ref_id = null) : ?object
     {
         if ($ref_id !== null) {
-            return $this->object->getObjectByRefId(
+            return $this->object_service->getObjectByRefId(
                 $ref_id
             );
         } else {
             if ($id !== null) {
-                return $this->object->getObjectById(
+                return $this->object_service->getObjectById(
                     $id
                 );
             }
@@ -272,7 +305,7 @@ class HandleIliasEventCommand
 
     private function getObjectLearningProgressData(int $object_id, int $user_id) : object
     {
-        return $this->object_learning_progress->getObjectLearningProgress(
+        return $this->object_learning_progress_service->getObjectLearningProgress(
                 $object_id,
                 null,
                 null,
@@ -289,11 +322,11 @@ class HandleIliasEventCommand
     private function getOrganisationalUnitData(int $id, ?int $ref_id = null) : ?object
     {
         if ($ref_id !== null) {
-            return $this->organisational_unit->getOrganisationalUnitByRefId(
+            return $this->organisational_unit_service->getOrganisationalUnitByRefId(
                 $ref_id
             );
         } else {
-            return $this->organisational_unit->getOrganisationalUnitById(
+            return $this->organisational_unit_service->getOrganisationalUnitById(
                 $id
             );
         }
@@ -302,7 +335,7 @@ class HandleIliasEventCommand
 
     private function getOrganisationalUnitStaffData(int $organisational_unit_ref_id, int $user_id, int $position_id) : object
     {
-        return $this->organisational_unit_staff->getOrganisationalUnitStaff(
+        return $this->organisational_unit_staff_service->getOrganisationalUnitStaff(
                 null,
                 null,
                 $organisational_unit_ref_id,
@@ -322,7 +355,7 @@ class HandleIliasEventCommand
 
     private function getRoleData(int $id) : ?object
     {
-        return $this->role->getRoleById(
+        return $this->role_service->getRoleById(
             $id
         );
     }
@@ -331,11 +364,11 @@ class HandleIliasEventCommand
     private function getScormLearningModuleData(int $id, ?int $ref_id = null) : ?object
     {
         if ($ref_id !== null) {
-            return $this->scorm_learning_module->getScormLearningModuleByRefId(
+            return $this->scorm_learning_module_service->getScormLearningModuleByRefId(
                 $ref_id
             );
         } else {
-            return $this->scorm_learning_module->getScormLearningModuleById(
+            return $this->scorm_learning_module_service->getScormLearningModuleById(
                 $id
             );
         }
@@ -344,7 +377,7 @@ class HandleIliasEventCommand
 
     private function getUserData(int $id) : ?object
     {
-        return $this->user->getUserById(
+        return $this->user_service->getUserById(
             $id
         );
     }
@@ -352,7 +385,7 @@ class HandleIliasEventCommand
 
     private function getUserRoleData(int $user_id, int $role_id) : object
     {
-        return $this->user_role->getUserRoles(
+        return $this->user_role_service->getUserRoles(
                 $user_id,
                 null,
                 $role_id
@@ -1248,7 +1281,7 @@ class HandleIliasEventCommand
 
     private function storeChange(LegacyChangeType $type, UserDto $user, ?object $data) : void
     {
-        $this->database->insert($this->getChangeDatabaseTable(), [
+        $this->ilias_database->insert($this->getChangeDatabaseTable(), [
             "type"           => [ilDBConstants::T_TEXT, $type->value],
             "time"           => [ilDBConstants::T_FLOAT, microtime(true)],
             "user_id"        => [ilDBConstants::T_INTEGER, $user->getId()],

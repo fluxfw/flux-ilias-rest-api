@@ -58,6 +58,109 @@ class UserDto implements JsonSerializable
     private ?string $zip_code;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?string $external_account,
+        /*public readonly*/ ?LegacyUserAuthenticationMode $authentication_mode,
+        /*public readonly*/ ?string $login,
+        /*public readonly*/ ?int $created_on,
+        /*public readonly*/ ?int $updated_on,
+        /*public readonly*/ ?int $approved_on,
+        /*public readonly*/ ?int $agreed_on,
+        /*public readonly*/ ?int $last_logged_on,
+        /*public readonly*/ ?bool $active,
+        /*public readonly*/ ?bool $access_unlimited,
+        /*public readonly*/ ?int $access_limited_from,
+        /*public readonly*/ ?int $access_limited_until,
+        /*public readonly*/ ?int $access_limited_object_id,
+        /*public readonly*/ ?string $access_limited_object_import_id,
+        /*public readonly*/ ?int $access_limited_object_ref_id,
+        /*public readonly*/ ?bool $access_limited_message,
+        /*public readonly*/ ?LegacyUserGender $gender,
+        /*public readonly*/ ?string $first_name,
+        /*public readonly*/ ?string $last_name,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $avatar_url,
+        /*public readonly*/ ?string $birthday,
+        /*public readonly*/ ?string $institution,
+        /*public readonly*/ ?string $department,
+        /*public readonly*/ ?string $street,
+        /*public readonly*/ ?string $city,
+        /*public readonly*/ ?string $zip_code,
+        /*public readonly*/ ?string $country,
+        /*public readonly*/ ?LegacyUserSelectedCountry $selected_country,
+        /*public readonly*/ ?string $phone_office,
+        /*public readonly*/ ?string $phone_home,
+        /*public readonly*/ ?string $phone_mobile,
+        /*public readonly*/ ?string $fax,
+        /*public readonly*/ ?string $email,
+        /*public readonly*/ ?string $second_email,
+        /*public readonly*/ ?string $hobbies,
+        /*public readonly*/ ?string $heard_about_ilias,
+        /*public readonly*/ ?array $general_interests,
+        /*public readonly*/ ?array $offering_helps,
+        /*public readonly*/ ?array $looking_for_helps,
+        /*public readonly*/ ?string $matriculation_number,
+        /*public readonly*/ ?string $client_ip,
+        /*public readonly*/ ?string $location_latitude,
+        /*public readonly*/ ?string $location_longitude,
+        /*public readonly*/ ?int $location_zoom,
+        /*public readonly*/ ?array $user_defined_fields,
+        /*public readonly*/ ?LegacyUserLanguage $language
+    ) {
+        $this->id = $id;
+        $this->import_id = $import_id;
+        $this->external_account = $external_account;
+        $this->authentication_mode = $authentication_mode;
+        $this->login = $login;
+        $this->created_on = $created_on;
+        $this->updated_on = $updated_on;
+        $this->approved_on = $approved_on;
+        $this->agreed_on = $agreed_on;
+        $this->last_logged_on = $last_logged_on;
+        $this->active = $active;
+        $this->access_unlimited = $access_unlimited;
+        $this->access_limited_from = $access_limited_from;
+        $this->access_limited_until = $access_limited_until;
+        $this->access_limited_object_id = $access_limited_object_id;
+        $this->access_limited_object_import_id = $access_limited_object_import_id;
+        $this->access_limited_object_ref_id = $access_limited_object_ref_id;
+        $this->access_limited_message = $access_limited_message;
+        $this->gender = $gender;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
+        $this->title = $title;
+        $this->avatar_url = $avatar_url;
+        $this->birthday = $birthday;
+        $this->institution = $institution;
+        $this->department = $department;
+        $this->street = $street;
+        $this->city = $city;
+        $this->zip_code = $zip_code;
+        $this->country = $country;
+        $this->selected_country = $selected_country;
+        $this->phone_office = $phone_office;
+        $this->phone_home = $phone_home;
+        $this->phone_mobile = $phone_mobile;
+        $this->fax = $fax;
+        $this->email = $email;
+        $this->second_email = $second_email;
+        $this->hobbies = $hobbies;
+        $this->heard_about_ilias = $heard_about_ilias;
+        $this->general_interests = $general_interests;
+        $this->offering_helps = $offering_helps;
+        $this->looking_for_helps = $looking_for_helps;
+        $this->matriculation_number = $matriculation_number;
+        $this->client_ip = $client_ip;
+        $this->location_latitude = $location_latitude;
+        $this->location_longitude = $location_longitude;
+        $this->location_zoom = $location_zoom;
+        $this->user_defined_fields = $user_defined_fields;
+        $this->language = $language;
+    }
+
+
     public static function new(
         ?int $id = null,
         ?string $import_id = null,
@@ -110,59 +213,57 @@ class UserDto implements JsonSerializable
         ?LegacyUserLanguage $language = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->import_id = $import_id;
-        $dto->external_account = $external_account;
-        $dto->authentication_mode = $authentication_mode;
-        $dto->login = $login;
-        $dto->created_on = $created_on;
-        $dto->updated_on = $updated_on;
-        $dto->approved_on = $approved_on;
-        $dto->agreed_on = $agreed_on;
-        $dto->last_logged_on = $last_logged_on;
-        $dto->active = $active;
-        $dto->access_unlimited = $access_unlimited;
-        $dto->access_limited_from = $access_limited_from;
-        $dto->access_limited_until = $access_limited_until;
-        $dto->access_limited_object_id = $access_limited_object_id;
-        $dto->access_limited_object_import_id = $access_limited_object_import_id;
-        $dto->access_limited_object_ref_id = $access_limited_object_ref_id;
-        $dto->access_limited_message = $access_limited_message;
-        $dto->gender = $gender;
-        $dto->first_name = $first_name;
-        $dto->last_name = $last_name;
-        $dto->title = $title;
-        $dto->avatar_url = $avatar_url;
-        $dto->birthday = $birthday;
-        $dto->institution = $institution;
-        $dto->department = $department;
-        $dto->street = $street;
-        $dto->city = $city;
-        $dto->zip_code = $zip_code;
-        $dto->country = $country;
-        $dto->selected_country = $selected_country;
-        $dto->phone_office = $phone_office;
-        $dto->phone_home = $phone_home;
-        $dto->phone_mobile = $phone_mobile;
-        $dto->fax = $fax;
-        $dto->email = $email;
-        $dto->second_email = $second_email;
-        $dto->hobbies = $hobbies;
-        $dto->heard_about_ilias = $heard_about_ilias;
-        $dto->general_interests = $general_interests;
-        $dto->offering_helps = $offering_helps;
-        $dto->looking_for_helps = $looking_for_helps;
-        $dto->matriculation_number = $matriculation_number;
-        $dto->client_ip = $client_ip;
-        $dto->location_latitude = $location_latitude;
-        $dto->location_longitude = $location_longitude;
-        $dto->location_zoom = $location_zoom;
-        $dto->user_defined_fields = $user_defined_fields;
-        $dto->language = $language;
-
-        return $dto;
+        return new static(
+            $id,
+            $import_id,
+            $external_account,
+            $authentication_mode,
+            $login,
+            $created_on,
+            $updated_on,
+            $approved_on,
+            $agreed_on,
+            $last_logged_on,
+            $active,
+            $access_unlimited,
+            $access_limited_from,
+            $access_limited_until,
+            $access_limited_object_id,
+            $access_limited_object_import_id,
+            $access_limited_object_ref_id,
+            $access_limited_message,
+            $gender,
+            $first_name,
+            $last_name,
+            $title,
+            $avatar_url,
+            $birthday,
+            $institution,
+            $department,
+            $street,
+            $city,
+            $zip_code,
+            $country,
+            $selected_country,
+            $phone_office,
+            $phone_home,
+            $phone_mobile,
+            $fax,
+            $email,
+            $second_email,
+            $hobbies,
+            $heard_about_ilias,
+            $general_interests,
+            $offering_helps,
+            $looking_for_helps,
+            $matriculation_number,
+            $client_ip,
+            $location_latitude,
+            $location_longitude,
+            $location_zoom,
+            $user_defined_fields,
+            $language
+        );
     }
 
 

@@ -12,22 +12,29 @@ class GetObjectsCommand
 
     use ObjectQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getObjects(ObjectType $type, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
-        $objects = $this->database->fetchAll($this->database->query($this->getObjectQuery(
+        $objects = $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectQuery(
             $type,
             null,
             null,
@@ -37,7 +44,7 @@ class GetObjectsCommand
         )));
         $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);
 
-        $ref_ids_ = $ref_ids ? $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery($object_ids))) : null;
+        $ref_ids_ = $ref_ids ? $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectRefIdsQuery($object_ids))) : null;
 
         return array_map(fn(array $object) : ObjectDto => $this->mapObjectDto(
             $object,

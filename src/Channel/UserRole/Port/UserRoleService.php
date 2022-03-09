@@ -14,31 +14,47 @@ use ILIAS\DI\RBACServices;
 class UserRoleService
 {
 
-    private ilDBInterface $database;
-    private RBACServices $rbac;
-    private RoleService $role;
-    private UserService $user;
+    private ilDBInterface $ilias_database;
+    private RBACServices $ilias_rbac;
+    private RoleService $role_service;
+    private UserService $user_service;
 
 
-    public static function new(ilDBInterface $database, UserService $user, RoleService $role, RBACServices $rbac) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ RoleService $role_service,
+        /*private readonly*/ RBACServices $ilias_rbac
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->user_service = $user_service;
+        $this->role_service = $role_service;
+        $this->ilias_rbac = $ilias_rbac;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        UserService $user_service,
+        RoleService $role_service,
+        RBACServices $ilias_rbac
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->user = $user;
-        $service->role = $role;
-        $service->rbac = $rbac;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $user_service,
+            $role_service,
+            $ilias_rbac
+        );
     }
 
 
     public function addUserRoleByIdByRoleId(int $id, int $role_id) : ?UserRoleDto
     {
         return AddUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->addUserRoleByIdByRoleId(
                 $id,
@@ -50,9 +66,9 @@ class UserRoleService
     public function addUserRoleByIdByRoleImportId(int $id, string $role_import_id) : ?UserRoleDto
     {
         return AddUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->addUserRoleByIdByRoleImportId(
                 $id,
@@ -64,9 +80,9 @@ class UserRoleService
     public function addUserRoleByImportIdByRoleId(string $import_id, int $role_id) : ?UserRoleDto
     {
         return AddUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->addUserRoleByImportIdByRoleId(
                 $import_id,
@@ -78,9 +94,9 @@ class UserRoleService
     public function addUserRoleByImportIdByRoleImportId(string $import_id, string $role_import_id) : ?UserRoleDto
     {
         return AddUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->addUserRoleByImportIdByRoleImportId(
                 $import_id,
@@ -92,7 +108,7 @@ class UserRoleService
     public function getUserRoles(?int $user_id = null, ?string $user_import_id = null, ?int $role_id = null, ?string $role_import_id = null) : array
     {
         return GetUserRolesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getUserRoles(
                 $user_id,
@@ -106,9 +122,9 @@ class UserRoleService
     public function removeUserRoleByIdByRoleId(int $id, int $role_id) : ?UserRoleDto
     {
         return RemoveUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->removeUserRoleByIdByRoleId(
                 $id,
@@ -120,9 +136,9 @@ class UserRoleService
     public function removeUserRoleByIdByRoleImportId(int $id, string $role_import_id) : ?UserRoleDto
     {
         return RemoveUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->removeUserRoleByIdByRoleImportId(
                 $id,
@@ -134,9 +150,9 @@ class UserRoleService
     public function removeUserRoleByImportIdByRoleId(string $import_id, int $role_id) : ?UserRoleDto
     {
         return RemoveUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->removeUserRoleByImportIdByRoleId(
                 $import_id,
@@ -148,9 +164,9 @@ class UserRoleService
     public function removeUserRoleByImportIdByRoleImportId(string $import_id, string $role_import_id) : ?UserRoleDto
     {
         return RemoveUserRoleCommand::new(
-            $this->user,
-            $this->role,
-            $this->rbac
+            $this->user_service,
+            $this->role_service,
+            $this->ilias_rbac
         )
             ->removeUserRoleByImportIdByRoleImportId(
                 $import_id,

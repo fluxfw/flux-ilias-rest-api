@@ -17,29 +17,39 @@ class AddCourseMemberCommand
     use CourseQuery;
     use CourseMemberQuery;
 
-    private CourseService $course;
-    private UserService $user;
+    private CourseService $course_service;
+    private UserService $user_service;
 
 
-    public static function new(CourseService $course, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ CourseService $course_service,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->course_service = $course_service;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        CourseService $course_service,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->course = $course;
-        $command->user = $user;
-
-        return $command;
+        return new static(
+            $course_service,
+            $user_service
+        );
     }
 
 
     public function addCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->addCourseMember(
-            $this->course->getCourseById(
+            $this->course_service->getCourseById(
                 $id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
             $diff
@@ -50,11 +60,11 @@ class AddCourseMemberCommand
     public function addCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->addCourseMember(
-            $this->course->getCourseById(
+            $this->course_service->getCourseById(
                 $id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
             $diff
@@ -65,11 +75,11 @@ class AddCourseMemberCommand
     public function addCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->addCourseMember(
-            $this->course->getCourseByImportId(
+            $this->course_service->getCourseByImportId(
                 $import_id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
             $diff
@@ -80,11 +90,11 @@ class AddCourseMemberCommand
     public function addCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->addCourseMember(
-            $this->course->getCourseByImportId(
+            $this->course_service->getCourseByImportId(
                 $import_id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
             $diff
@@ -95,11 +105,11 @@ class AddCourseMemberCommand
     public function addCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->addCourseMember(
-            $this->course->getCourseByRefId(
+            $this->course_service->getCourseByRefId(
                 $ref_id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
             $diff
@@ -110,11 +120,11 @@ class AddCourseMemberCommand
     public function addCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return $this->addCourseMember(
-            $this->course->getCourseByRefId(
+            $this->course_service->getCourseByRefId(
                 $ref_id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
             $diff

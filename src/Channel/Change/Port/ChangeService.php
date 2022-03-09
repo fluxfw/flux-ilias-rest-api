@@ -33,70 +33,105 @@ use ilDBInterface;
 class ChangeService
 {
 
-    private CategoryService $category;
-    private ConfigService $config;
-    private CourseService $course;
-    private CourseMemberService $course_member;
-    private ilDBInterface $database;
-    private FileService $file;
-    private GroupService $group;
-    private GroupMemberService $group_member;
-    private ObjectService $object;
-    private ObjectLearningProgressService $object_learning_progress;
-    private OrganisationalUnitService $organisational_unit;
-    private OrganisationalUnitStaffService $organisational_unit_staff;
-    private RoleService $role;
-    private ScormLearningModuleService $scorm_learning_module;
-    private UserService $user;
-    private UserRoleService $user_role;
+    private CategoryService $category_service;
+    private ConfigService $config_service;
+    private CourseMemberService $course_member_service;
+    private CourseService $course_service;
+    private FileService $file_service;
+    private GroupMemberService $group_member_service;
+    private GroupService $group_service;
+    private ilDBInterface $ilias_database;
+    private ObjectLearningProgressService $object_learning_progress_service;
+    private ObjectService $object_service;
+    private OrganisationalUnitService $organisational_unit_service;
+    private OrganisationalUnitStaffService $organisational_unit_staff_service;
+    private RoleService $role_service;
+    private ScormLearningModuleService $scorm_learning_module_service;
+    private UserRoleService $user_role_service;
+    private UserService $user_service;
+
+
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ConfigService $config_service,
+        /*private readonly*/ CategoryService $category_service,
+        /*private readonly*/ CourseService $course_service,
+        /*private readonly*/ CourseMemberService $course_member_service,
+        /*private readonly*/ FileService $file_service,
+        /*private readonly*/ GroupService $group_service,
+        /*private readonly*/ GroupMemberService $group_member_service,
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ObjectLearningProgressService $object_learning_progress_service,
+        /*private readonly*/ OrganisationalUnitService $organisational_unit_service,
+        /*private readonly*/ OrganisationalUnitStaffService $organisational_unit_staff_service,
+        /*private readonly*/ RoleService $role_service,
+        /*private readonly*/ ScormLearningModuleService $scorm_learning_module_service,
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ UserRoleService $user_role_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->config_service = $config_service;
+        $this->category_service = $category_service;
+        $this->course_service = $course_service;
+        $this->course_member_service = $course_member_service;
+        $this->file_service = $file_service;
+        $this->group_service = $group_service;
+        $this->group_member_service = $group_member_service;
+        $this->object_service = $object_service;
+        $this->object_learning_progress_service = $object_learning_progress_service;
+        $this->organisational_unit_service = $organisational_unit_service;
+        $this->organisational_unit_staff_service = $organisational_unit_staff_service;
+        $this->role_service = $role_service;
+        $this->scorm_learning_module_service = $scorm_learning_module_service;
+        $this->user_service = $user_service;
+        $this->user_role_service = $user_role_service;
+    }
 
 
     public static function new(
-        ilDBInterface $database,
-        ConfigService $config,
-        CategoryService $category,
-        CourseService $course,
-        CourseMemberService $course_member,
-        FileService $file,
-        GroupService $group,
-        GroupMemberService $group_member,
-        ObjectService $object,
-        ObjectLearningProgressService $object_learning_progress,
-        OrganisationalUnitService $organisational_unit,
-        OrganisationalUnitStaffService $organisational_unit_staff,
-        RoleService $role,
-        ScormLearningModuleService $scorm_learning_module,
-        UserService $user,
-        UserRoleService $user_role
+        ilDBInterface $ilias_database,
+        ConfigService $config_service,
+        CategoryService $category_service,
+        CourseService $course_service,
+        CourseMemberService $course_member_service,
+        FileService $file_service,
+        GroupService $group_service,
+        GroupMemberService $group_member_service,
+        ObjectService $object_service,
+        ObjectLearningProgressService $object_learning_progress_service,
+        OrganisationalUnitService $organisational_unit_service,
+        OrganisationalUnitStaffService $organisational_unit_staff_service,
+        RoleService $role_service,
+        ScormLearningModuleService $scorm_learning_module_service,
+        UserService $user_service,
+        UserRoleService $user_role_service
     ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->config = $config;
-        $service->category = $category;
-        $service->course = $course;
-        $service->course_member = $course_member;
-        $service->file = $file;
-        $service->group = $group;
-        $service->group_member = $group_member;
-        $service->object = $object;
-        $service->object_learning_progress = $object_learning_progress;
-        $service->organisational_unit = $organisational_unit;
-        $service->organisational_unit_staff = $organisational_unit_staff;
-        $service->role = $role;
-        $service->scorm_learning_module = $scorm_learning_module;
-        $service->user = $user;
-        $service->user_role = $user_role;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $config_service,
+            $category_service,
+            $course_service,
+            $course_member_service,
+            $file_service,
+            $group_service,
+            $group_member_service,
+            $object_service,
+            $object_learning_progress_service,
+            $organisational_unit_service,
+            $organisational_unit_staff_service,
+            $role_service,
+            $scorm_learning_module_service,
+            $user_service,
+            $user_role_service
+        );
     }
 
 
     public function createChangeDatabase() : void
     {
         CreateChangeDatabaseCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->createChangeDatabase();
     }
@@ -105,7 +140,7 @@ class ChangeService
     public function dropChangeDatabase() : void
     {
         DropChangeDatabaseCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->dropChangeDatabase();
     }
@@ -123,7 +158,7 @@ class ChangeService
     public function getChanges(?float $from = null, ?float $to = null, ?float $after = null, ?float $before = null) : ?array
     {
         return GetChangesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getChanges(
                 $from,
@@ -137,7 +172,7 @@ class ChangeService
     public function getKeepChangesInsideDays() : int
     {
         return KeepChangesInsideDaysConfigCommand::new(
-            $this->config
+            $this->config_service
         )
             ->getKeepChangesInsideDays();
     }
@@ -146,7 +181,7 @@ class ChangeService
     public function getLastTransferredChangeTime() : ?float
     {
         return LastTransferredChangeTimeCommand::new(
-            $this->config
+            $this->config_service
         )
             ->getLastTransferredChangeTime();
     }
@@ -155,7 +190,7 @@ class ChangeService
     public function getTransferChangesPostUrl() : string
     {
         return TransferChangesPostUrlConfigCommand::new(
-            $this->config
+            $this->config_service
         )
             ->getTransferChangesPostUrl();
     }
@@ -164,21 +199,21 @@ class ChangeService
     public function handleIliasEvent(UserDto $user, string $component, string $event, array $parameters) : void
     {
         HandleIliasEventCommand::new(
-            $this->database,
-            $this->category,
-            $this->course,
-            $this->course_member,
-            $this->file,
-            $this->group,
-            $this->group_member,
-            $this->object,
-            $this->object_learning_progress,
-            $this->organisational_unit,
-            $this->organisational_unit_staff,
-            $this->role,
-            $this->scorm_learning_module,
-            $this->user,
-            $this->user_role
+            $this->ilias_database,
+            $this->category_service,
+            $this->course_service,
+            $this->course_member_service,
+            $this->file_service,
+            $this->group_service,
+            $this->group_member_service,
+            $this->object_service,
+            $this->object_learning_progress_service,
+            $this->organisational_unit_service,
+            $this->organisational_unit_staff_service,
+            $this->role_service,
+            $this->scorm_learning_module_service,
+            $this->user_service,
+            $this->user_role_service
         )
             ->handleIliasEvent(
                 $user,
@@ -192,7 +227,7 @@ class ChangeService
     public function purgeChanges() : ?int
     {
         return PurgeChangesCommand::new(
-            $this->database,
+            $this->ilias_database,
             $this
         )
             ->purgeChanges();
@@ -202,7 +237,7 @@ class ChangeService
     public function setKeepChangesInsideDays(int $keep_changes_inside_days) : void
     {
         KeepChangesInsideDaysConfigCommand::new(
-            $this->config
+            $this->config_service
         )
             ->setKeepChangesInsideDays(
                 $keep_changes_inside_days
@@ -213,7 +248,7 @@ class ChangeService
     public function setLastTransferredChangeTime(float $last_transferred_change_time) : void
     {
         LastTransferredChangeTimeCommand::new(
-            $this->config
+            $this->config_service
         )
             ->setLastTransferredChangeTime(
                 $last_transferred_change_time
@@ -224,7 +259,7 @@ class ChangeService
     public function setTransferChangesPostUrl(string $transfer_changes_url) : void
     {
         TransferChangesPostUrlConfigCommand::new(
-            $this->config
+            $this->config_service
         )
             ->setTransferChangesPostUrl(
                 $transfer_changes_url
@@ -235,7 +270,7 @@ class ChangeService
     public function transferChanges() : ?int
     {
         return TransferChangesCommand::new(
-            $this->database,
+            $this->ilias_database,
             $this
         )
             ->transferChanges();

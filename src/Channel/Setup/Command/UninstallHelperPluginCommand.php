@@ -9,27 +9,40 @@ use FluxIliasRestApi\Channel\Cron\Port\CronService;
 class UninstallHelperPluginCommand
 {
 
-    private ChangeService $change;
-    private ConfigService $config;
-    private CronService $cron;
+    private ChangeService $change_service;
+    private ConfigService $config_service;
+    private CronService $cron_service;
 
 
-    public static function new(ChangeService $change, ConfigService $config, CronService $cron) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ChangeService $change_service,
+        /*private readonly*/ ConfigService $config_service,
+        /*private readonly*/ CronService $cron_service
+    ) {
+        $this->change_service = $change_service;
+        $this->config_service = $config_service;
+        $this->cron_service = $cron_service;
+    }
+
+
+    public static function new(
+        ChangeService $change_service,
+        ConfigService $config_service,
+        CronService $cron_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->change = $change;
-        $command->config = $config;
-        $command->cron = $cron;
-
-        return $command;
+        return new static(
+            $change_service,
+            $config_service,
+            $cron_service
+        );
     }
 
 
     public function uninstallHelperPlugin() : void
     {
-        $this->change->dropChangeDatabase();
-        $this->config->deleteConfig();
-        $this->cron->deleteCronJobs();
+        $this->change_service->dropChangeDatabase();
+        $this->config_service->deleteConfig();
+        $this->cron_service->deleteCronJobs();
     }
 }

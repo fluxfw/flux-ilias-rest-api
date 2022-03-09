@@ -25,19 +25,19 @@ trait OrganisationalUnitQuery
     private function getOrganisationalUnitQuery(?int $id = null, ?string $external_id = null, ?int $ref_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ORGU()->value, ilDBConstants::T_TEXT)
+            "object_data.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::ORGU()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
         }
 
         if ($external_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($external_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($external_id, ilDBConstants::T_TEXT);
         }
 
         if ($ref_id !== null) {
-            $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
         return "SELECT object_data.*,object_reference.ref_id,orgu_data.*,didactic_tpl_objs.tpl_id,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_external_id

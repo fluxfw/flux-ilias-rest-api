@@ -11,16 +11,23 @@ class GetGroupMembersCommand
 
     use GroupMemberQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
@@ -36,7 +43,7 @@ class GetGroupMembersCommand
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : array {
-        return array_map([$this, "mapGroupMemberDto"], $this->database->fetchAll($this->database->query($this->getGroupMemberQuery(
+        return array_map([$this, "mapGroupMemberDto"], $this->ilias_database->fetchAll($this->ilias_database->query($this->getGroupMemberQuery(
             $group_id,
             $group_import_id,
             $group_ref_id,

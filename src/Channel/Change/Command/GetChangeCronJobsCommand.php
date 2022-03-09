@@ -9,16 +9,23 @@ use FluxIliasRestApi\Channel\Change\Port\ChangeService;
 class GetChangeCronJobsCommand
 {
 
-    private ChangeService $change;
+    private ChangeService $change_service;
 
 
-    public static function new(ChangeService $change) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ChangeService $change_service
+    ) {
+        $this->change_service = $change_service;
+    }
+
+
+    public static function new(
+        ChangeService $change_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->change = $change;
-
-        return $command;
+        return new static(
+            $change_service
+        );
     }
 
 
@@ -26,10 +33,10 @@ class GetChangeCronJobsCommand
     {
         return [
             TransferChangesCronJob::new(
-                $this->change
+                $this->change_service
             ),
             PurgeChangesCronJob::new(
-                $this->change
+                $this->change_service
             )
         ];
     }

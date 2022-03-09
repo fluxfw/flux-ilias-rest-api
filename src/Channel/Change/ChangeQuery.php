@@ -11,7 +11,7 @@ trait ChangeQuery
 
     private function changeDatabaseExists() : bool
     {
-        return $this->database->tableExists($this->getChangeDatabaseTable());
+        return $this->ilias_database->tableExists($this->getChangeDatabaseTable());
     }
 
 
@@ -23,8 +23,8 @@ trait ChangeQuery
 
     private function getChangePurgeQuery(int $keep_changes_inside_days) : string
     {
-        return "DELETE FROM " . $this->database->quoteIdentifier($this->getChangeDatabaseTable()) . "
-WHERE time<" . $this->database->quote(time() - ($keep_changes_inside_days * 24 * 60 * 60), ilDBConstants::T_FLOAT);
+        return "DELETE FROM " . $this->ilias_database->quoteIdentifier($this->getChangeDatabaseTable()) . "
+WHERE time<" . $this->ilias_database->quote(time() - ($keep_changes_inside_days * 24 * 60 * 60), ilDBConstants::T_FLOAT);
     }
 
 
@@ -33,23 +33,23 @@ WHERE time<" . $this->database->quote(time() - ($keep_changes_inside_days * 24 *
         $wheres = [];
 
         if ($from !== null) {
-            $wheres[] = "time>=" . $this->database->quote($from, ilDBConstants::T_FLOAT);
+            $wheres[] = "time>=" . $this->ilias_database->quote($from, ilDBConstants::T_FLOAT);
         }
 
         if ($to !== null) {
-            $wheres[] = "time<=" . $this->database->quote($to, ilDBConstants::T_FLOAT);
+            $wheres[] = "time<=" . $this->ilias_database->quote($to, ilDBConstants::T_FLOAT);
         }
 
         if ($after !== null) {
-            $wheres[] = "time>" . $this->database->quote($after, ilDBConstants::T_FLOAT);
+            $wheres[] = "time>" . $this->ilias_database->quote($after, ilDBConstants::T_FLOAT);
         }
 
         if ($before !== null) {
-            $wheres[] = "time<" . $this->database->quote($before, ilDBConstants::T_FLOAT);
+            $wheres[] = "time<" . $this->ilias_database->quote($before, ilDBConstants::T_FLOAT);
         }
 
         return "SELECT *
-FROM " . $this->database->quoteIdentifier($this->getChangeDatabaseTable()) . "
+FROM " . $this->ilias_database->quoteIdentifier($this->getChangeDatabaseTable()) . "
 " . (!empty($wheres) ? "WHERE " . implode(" AND ", $wheres) : "") . "
 ORDER BY time ASC";
     }

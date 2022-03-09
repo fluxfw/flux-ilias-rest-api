@@ -15,7 +15,54 @@ class ScormLearningModuleDiffDto
     private ?LegacyScormLearningModuleType $type;
 
 
-    public static function newFromData(object $data) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description,
+        /*public readonly*/ ?LegacyScormLearningModuleType $type,
+        /*public readonly*/ ?bool $online,
+        /*public readonly*/ ?bool $authoring_mode,
+        /*public readonly*/ ?bool $sequencing_expert_mode,
+        /*public readonly*/ ?int $didactic_template_id
+    ) {
+        $this->import_id = $import_id;
+        $this->title = $title;
+        $this->description = $description;
+        $this->type = $type;
+        $this->online = $online;
+        $this->authoring_mode = $authoring_mode;
+        $this->sequencing_expert_mode = $sequencing_expert_mode;
+        $this->didactic_template_id = $didactic_template_id;
+    }
+
+
+    public static function new(
+        ?string $import_id = null,
+        ?string $title = null,
+        ?string $description = null,
+        ?LegacyScormLearningModuleType $type = null,
+        ?bool $online = null,
+        ?bool $authoring_mode = null,
+        ?bool $sequencing_expert_mode = null,
+        ?int $didactic_template_id = null
+    ) : /*static*/ self
+    {
+        return new static(
+            $import_id,
+            $title,
+            $description,
+            $type,
+            $online,
+            $authoring_mode,
+            $sequencing_expert_mode,
+            $didactic_template_id
+        );
+    }
+
+
+    public static function newFromData(
+        object $data
+    ) : /*static*/ self
     {
         return static::new(
             $data->import_id ?? null,
@@ -27,32 +74,6 @@ class ScormLearningModuleDiffDto
             $data->sequencing_expert_mode ?? null,
             $data->didactic_template_id ?? null
         );
-    }
-
-
-    private static function new(
-        ?string $import_id = null,
-        ?string $title = null,
-        ?string $description = null,
-        ?LegacyScormLearningModuleType $type = null,
-        ?bool $online = null,
-        ?bool $authoring_mode = null,
-        ?bool $sequencing_expert_mode = null,
-        ?int $didactic_template_id = null
-    ) : /*static*/ self
-    {
-        $dto = new static();
-
-        $dto->import_id = $import_id;
-        $dto->title = $title;
-        $dto->description = $description;
-        $dto->type = $type;
-        $dto->online = $online;
-        $dto->authoring_mode = $authoring_mode;
-        $dto->sequencing_expert_mode = $sequencing_expert_mode;
-        $dto->didactic_template_id = $didactic_template_id;
-
-        return $dto;
     }
 
 

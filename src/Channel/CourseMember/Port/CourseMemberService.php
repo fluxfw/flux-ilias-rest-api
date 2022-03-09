@@ -16,28 +16,41 @@ use ilDBInterface;
 class CourseMemberService
 {
 
-    private CourseService $course;
-    private ilDBInterface $database;
-    private UserService $user;
+    private CourseService $course_service;
+    private ilDBInterface $ilias_database;
+    private UserService $user_service;
 
 
-    public static function new(ilDBInterface $database, CourseService $course, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ CourseService $course_service,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->course_service = $course_service;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        CourseService $course_service,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->course = $course;
-        $service->user = $user;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $course_service,
+            $user_service
+        );
     }
 
 
     public function addCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return AddCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->addCourseMemberByIdByUserId(
                 $id,
@@ -50,8 +63,8 @@ class CourseMemberService
     public function addCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return AddCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->addCourseMemberByIdByUserImportId(
                 $id,
@@ -64,8 +77,8 @@ class CourseMemberService
     public function addCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return AddCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->addCourseMemberByImportIdByUserId(
                 $import_id,
@@ -78,8 +91,8 @@ class CourseMemberService
     public function addCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return AddCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->addCourseMemberByImportIdByUserImportId(
                 $import_id,
@@ -92,8 +105,8 @@ class CourseMemberService
     public function addCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return AddCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->addCourseMemberByRefIdByUserId(
                 $ref_id,
@@ -106,8 +119,8 @@ class CourseMemberService
     public function addCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return AddCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->addCourseMemberByRefIdByUserImportId(
                 $ref_id,
@@ -133,7 +146,7 @@ class CourseMemberService
         ?bool $notification = null
     ) : array {
         return GetCourseMembersCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCourseMembers(
                 $course_id,
@@ -156,8 +169,8 @@ class CourseMemberService
     public function removeCourseMemberByIdByUserId(int $id, int $user_id) : ?CourseMemberIdDto
     {
         return RemoveCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->removeCourseMemberByIdByUserId(
                 $id,
@@ -169,8 +182,8 @@ class CourseMemberService
     public function removeCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?CourseMemberIdDto
     {
         return RemoveCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->removeCourseMemberByIdByUserImportId(
                 $id,
@@ -182,8 +195,8 @@ class CourseMemberService
     public function removeCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?CourseMemberIdDto
     {
         return RemoveCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->removeCourseMemberByImportIdByUserId(
                 $import_id,
@@ -195,8 +208,8 @@ class CourseMemberService
     public function removeCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?CourseMemberIdDto
     {
         return RemoveCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->removeCourseMemberByImportIdByUserImportId(
                 $import_id,
@@ -208,8 +221,8 @@ class CourseMemberService
     public function removeCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?CourseMemberIdDto
     {
         return RemoveCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->removeCourseMemberByRefIdByUserId(
                 $ref_id,
@@ -221,8 +234,8 @@ class CourseMemberService
     public function removeCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?CourseMemberIdDto
     {
         return RemoveCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->removeCourseMemberByRefIdByUserImportId(
                 $ref_id,
@@ -234,8 +247,8 @@ class CourseMemberService
     public function updateCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return UpdateCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->updateCourseMemberByIdByUserId(
                 $id,
@@ -248,8 +261,8 @@ class CourseMemberService
     public function updateCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return UpdateCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->updateCourseMemberByIdByUserImportId(
                 $id,
@@ -262,8 +275,8 @@ class CourseMemberService
     public function updateCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return UpdateCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->updateCourseMemberByImportIdByUserId(
                 $import_id,
@@ -276,8 +289,8 @@ class CourseMemberService
     public function updateCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return UpdateCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->updateCourseMemberByImportIdByUserImportId(
                 $import_id,
@@ -290,8 +303,8 @@ class CourseMemberService
     public function updateCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return UpdateCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->updateCourseMemberByRefIdByUserId(
                 $ref_id,
@@ -304,8 +317,8 @@ class CourseMemberService
     public function updateCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
         return UpdateCourseMemberCommand::new(
-            $this->course,
-            $this->user
+            $this->course_service,
+            $this->user_service
         )
             ->updateCourseMemberByRefIdByUserImportId(
                 $ref_id,

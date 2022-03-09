@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\User;
 
 use FluxIliasRestApi\Adapter\Api\User\LegacyUserGender;
 
-final class UserGenderMapping
+class UserGenderMapping
 {
 
     public static function mapExternalToInternal(LegacyUserGender $gender) : LegacyInternalUserGender

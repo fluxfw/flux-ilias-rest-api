@@ -28,7 +28,7 @@ trait UserQuery
         return "SELECT object_data.obj_id,import_id,object_reference.ref_id
 FROM object_data
 INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
-WHERE " . $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
+WHERE " . $this->ilias_database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
     }
 
 
@@ -48,7 +48,7 @@ WHERE " . $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBCo
 FROM udf_definition
 LEFT JOIN udf_text ON udf_definition.field_id=udf_text.field_id
 LEFT JOIN udf_clob ON udf_definition.field_id=udf_clob.field_id
-HAVING " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER);
+HAVING " . $this->ilias_database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER);
     }
 
 
@@ -56,7 +56,7 @@ HAVING " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER);
     {
         return "SELECT usr_id,field_id,value
 FROM usr_data_multi
-WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
+WHERE " . $this->ilias_database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
     }
 
 
@@ -64,22 +64,22 @@ WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) .
     {
         return "SELECT usr_id,keyword,value
 FROM usr_pref
-WHERE " . $this->database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
+WHERE " . $this->ilias_database->in("usr_id", $ids, false, ilDBConstants::T_INTEGER) . " AND value IS NOT NULL";
     }
 
 
     private function getUserQuery(?int $id = null, ?string $import_id = null) : string
     {
         $wheres = [
-            "type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT)
+            "type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {
-            $wheres[] = "usr_data.usr_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+            $wheres[] = "usr_data.usr_id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
         }
 
         if ($import_id !== null) {
-            $wheres[] = "import_id=" . $this->database->quote($import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "import_id=" . $this->ilias_database->quote($import_id, ilDBConstants::T_TEXT);
         }
 
         return "SELECT usr_data.*,import_id
@@ -94,7 +94,7 @@ ORDER BY login ASC";
     {
         return "SELECT user_id
 FROM usr_session
-WHERE session_id=" . $this->database->quote($session_id,
+WHERE session_id=" . $this->ilias_database->quote($session_id,
                 ilDBConstants::T_TEXT);
     }
 

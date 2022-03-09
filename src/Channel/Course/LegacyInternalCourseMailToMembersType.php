@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\Course;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
 
 // ilCourseConstants::MAIL_ALLOWED_ALL
 // ilCourseConstants::MAIL_ALLOWED_TUTORS
@@ -11,7 +11,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
  * @method static static ALL() 1
  * @method static static TUTORS_AND_ADMINISTRATORS() 2
  */
-final class LegacyInternalCourseMailToMembersType extends LegacyIntBackedEnum
+class LegacyInternalCourseMailToMembersType extends LegacyIntBackedEnum
 {
 
 }

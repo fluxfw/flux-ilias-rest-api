@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\User;
 
 use FluxIliasRestApi\Adapter\Api\User\LegacyUserSelectedCountry;
 
-final class UserSelectedCountryMapping
+class UserSelectedCountryMapping
 {
 
     public static function mapExternalToInternal(LegacyUserSelectedCountry $selected_country) : LegacyInternalUserSelectedCountry

@@ -18,28 +18,41 @@ use ILIAS\DI\RBACServices;
 class UserService
 {
 
-    private ilDBInterface $database;
-    private ObjectService $object;
-    private RBACServices $rbac;
+    private ilDBInterface $ilias_database;
+    private RBACServices $ilias_rbac;
+    private ObjectService $object_service;
 
 
-    public static function new(ilDBInterface $database, RBACServices $rbac, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ RBACServices $ilias_rbac,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->ilias_rbac = $ilias_rbac;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        RBACServices $ilias_rbac,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->rbac = $rbac;
-        $service->object = $object;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $ilias_rbac,
+            $object_service
+        );
     }
 
 
     public function createUser(UserDiffDto $diff) : UserIdDto
     {
         return CreateUserCommand::new(
-            $this->rbac,
-            $this->object
+            $this->ilias_rbac,
+            $this->object_service
         )
             ->createUser(
                 $diff
@@ -50,7 +63,7 @@ class UserService
     public function getCurrentWebUser(?string $session_id) : ?UserDto
     {
         return GetCurrentUserCommand::new(
-            $this->database,
+            $this->ilias_database,
             $this
         )
             ->getCurrentWebUser(
@@ -62,7 +75,7 @@ class UserService
     public function getUserById(int $id) : ?UserDto
     {
         return GetUserCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getUserById(
                 $id
@@ -73,7 +86,7 @@ class UserService
     public function getUserByImportId(string $import_id) : ?UserDto
     {
         return GetUserCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getUserByImportId(
                 $import_id
@@ -84,7 +97,7 @@ class UserService
     public function getUsers(bool $access_limited_object_ids = false, bool $multi_fields = false, bool $preferences = false, bool $user_defined_fields = false) : array
     {
         return GetUsersCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getUsers(
                 $access_limited_object_ids,
@@ -123,7 +136,7 @@ class UserService
     {
         return UpdateUserCommand::new(
             $this,
-            $this->object
+            $this->object_service
         )
             ->updateUserById(
                 $id,
@@ -136,7 +149,7 @@ class UserService
     {
         return UpdateUserCommand::new(
             $this,
-            $this->object
+            $this->object_service
         )
             ->updateUserByImportId(
                 $import_id,

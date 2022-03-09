@@ -2,31 +2,38 @@
 
 namespace FluxIliasRestApi\Adapter\Route\ScormLearningModule\CreateScormLearningModule;
 
-use FluxIliasRestApi\Adapter\Api\Api;
+use FluxIliasRestApi\Adapter\Api\IliasRestApi;
 use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
-use FluxRestApi\Body\JsonBodyDto;
-use FluxRestApi\Body\TextBodyDto;
-use FluxRestApi\Request\RequestDto;
-use FluxRestApi\Response\ResponseDto;
-use FluxRestApi\Route\Route;
-use FluxRestBaseApi\Body\LegacyDefaultBodyType;
-use FluxRestBaseApi\Method\LegacyDefaultMethod;
-use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Request\RequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
 
 class CreateScormLearningModuleToIdRoute implements Route
 {
 
-    private Api $api;
+    private IliasRestApi $ilias_rest_api;
 
 
-    public static function new(Api $api) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ IliasRestApi $ilias_rest_api
+    ) {
+        $this->ilias_rest_api = $ilias_rest_api;
+    }
+
+
+    public static function new(
+        IliasRestApi $ilias_rest_api
+    ) : /*static*/ self
     {
-        $route = new static();
-
-        $route->api = $api;
-
-        return $route;
+        return new static(
+            $ilias_rest_api
+        );
     }
 
 
@@ -67,7 +74,7 @@ class CreateScormLearningModuleToIdRoute implements Route
             );
         }
 
-        $id = $this->api->createScormLearningModuleToId(
+        $id = $this->ilias_rest_api->createScormLearningModuleToId(
             $request->getParam(
                 "parent_id"
             ),

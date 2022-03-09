@@ -11,14 +11,24 @@ class UserIdDto implements JsonSerializable
     private ?string $import_id;
 
 
-    public static function new(?int $id = null, ?string $import_id = null) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?string $import_id
+    ) {
+        $this->id = $id;
+        $this->import_id = $import_id;
+    }
+
+
+    public static function new(
+        ?int $id = null,
+        ?string $import_id = null
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->import_id = $import_id;
-
-        return $dto;
+        return new static(
+            $id,
+            $import_id
+        );
     }
 
 
