@@ -7,21 +7,28 @@ use FluxIliasRestApi\Channel\Change\Port\ChangeService;
 class InstallHelperPluginCommand
 {
 
-    private ChangeService $change;
+    private ChangeService $change_service;
 
 
-    public static function new(ChangeService $change) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ChangeService $change_service
+    ) {
+        $this->change_service = $change_service;
+    }
+
+
+    public static function new(
+        ChangeService $change_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->change = $change;
-
-        return $command;
+        return new static(
+            $change_service
+        );
     }
 
 
     public function installHelperPlugin() : void
     {
-        $this->change->createChangeDatabase();
+        $this->change_service->createChangeDatabase();
     }
 }

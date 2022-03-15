@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static CAS() cas
@@ -16,7 +16,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
  * @method static static SHIBBOLETH() shibboleth
  * @method static static SOAP() soap
  */
-final class LegacyInternalUserAuthenticationMode extends LegacyStringBackedEnum
+class LegacyInternalUserAuthenticationMode extends LegacyStringBackedEnum
 {
 
 }

@@ -12,23 +12,30 @@ class GetObjectCommand
 
     use ObjectQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getObjectById(int $id, ?bool $in_trash = null) : ?ObjectDto
     {
         $object = null;
-        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
+        while (($object_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getObjectQuery(
                 null,
                 $id,
                 null,
@@ -41,7 +48,7 @@ class GetObjectCommand
             }
             $object = $this->mapObjectDto(
                 $object_,
-                $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
             );
         }
 
@@ -52,7 +59,7 @@ class GetObjectCommand
     public function getObjectByImportId(string $import_id, ?bool $in_trash = null) : ?ObjectDto
     {
         $object = null;
-        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
+        while (($object_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getObjectQuery(
                 null,
                 null,
                 $import_id,
@@ -65,7 +72,7 @@ class GetObjectCommand
             }
             $object = $this->mapObjectDto(
                 $object_,
-                $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
             );
         }
 
@@ -76,7 +83,7 @@ class GetObjectCommand
     public function getObjectByRefId(int $ref_id, ?bool $in_trash = null) : ?ObjectDto
     {
         $object = null;
-        while (($object_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getObjectQuery(
+        while (($object_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getObjectQuery(
                 null,
                 null,
                 null,
@@ -89,7 +96,7 @@ class GetObjectCommand
             }
             $object = $this->mapObjectDto(
                 $object_,
-                $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectRefIdsQuery([$object_["obj_id"]])))
             );
         }
 

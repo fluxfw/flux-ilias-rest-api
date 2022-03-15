@@ -12,23 +12,30 @@ class GetUserCommand
 
     use UserQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getUserById(int $id) : ?UserDto
     {
         $user = null;
-        while (($user_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getUserQuery(
+        while (($user_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getUserQuery(
                 $id
             )))) !== null) {
             if ($user !== null) {
@@ -36,10 +43,10 @@ class GetUserCommand
             }
             $user = $this->mapUserDto(
                 $user_,
-                $this->database->fetchAll($this->database->query($this->getUserAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
-                $this->database->fetchAll($this->database->query($this->getUserMultiFieldQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getUserPreferenceQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserMultiFieldQuery([$user_["usr_id"]]))),
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserPreferenceQuery([$user_["usr_id"]]))),
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
             );
         }
 
@@ -50,7 +57,7 @@ class GetUserCommand
     public function getUserByImportId(string $import_id) : ?UserDto
     {
         $user = null;
-        while (($user_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getUserQuery(
+        while (($user_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getUserQuery(
                 null,
                 $import_id
             )))) !== null) {
@@ -59,10 +66,10 @@ class GetUserCommand
             }
             $user = $this->mapUserDto(
                 $user_,
-                $this->database->fetchAll($this->database->query($this->getUserAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
-                $this->database->fetchAll($this->database->query($this->getUserMultiFieldQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getUserPreferenceQuery([$user_["usr_id"]]))),
-                $this->database->fetchAll($this->database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserAccessLimitedObjects(array_filter([$user_["time_limit_owner"]])))),
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserMultiFieldQuery([$user_["usr_id"]]))),
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserPreferenceQuery([$user_["usr_id"]]))),
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getUserDefinedFieldQuery([$user_["usr_id"]])))
             );
         }
 

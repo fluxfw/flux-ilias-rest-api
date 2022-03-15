@@ -13,23 +13,30 @@ class UpdateOrganisationalUnitCommand
 
     use OrganisationalUnitQuery;
 
-    private OrganisationalUnitService $organisational_unit;
+    private OrganisationalUnitService $organisational_unit_service;
 
 
-    public static function new(OrganisationalUnitService $organisational_unit) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ OrganisationalUnitService $organisational_unit_service
+    ) {
+        $this->organisational_unit_service = $organisational_unit_service;
+    }
+
+
+    public static function new(
+        OrganisationalUnitService $organisational_unit_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->organisational_unit = $organisational_unit;
-
-        return $command;
+        return new static(
+            $organisational_unit_service
+        );
     }
 
 
     public function updateOrganisationalUnitByExternalId(string $external_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
         return $this->updateOrganisationalUnit(
-            $this->organisational_unit->getOrganisationalUnitByExternalId(
+            $this->organisational_unit_service->getOrganisationalUnitByExternalId(
                 $external_id
             ),
             $diff
@@ -40,7 +47,7 @@ class UpdateOrganisationalUnitCommand
     public function updateOrganisationalUnitById(int $id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
         return $this->updateOrganisationalUnit(
-            $this->organisational_unit->getOrganisationalUnitById(
+            $this->organisational_unit_service->getOrganisationalUnitById(
                 $id
             ),
             $diff
@@ -51,7 +58,7 @@ class UpdateOrganisationalUnitCommand
     public function updateOrganisationalUnitByRefId(int $ref_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
         return $this->updateOrganisationalUnit(
-            $this->organisational_unit->getOrganisationalUnitByRefId(
+            $this->organisational_unit_service->getOrganisationalUnitByRefId(
                 $ref_id
             ),
             $diff

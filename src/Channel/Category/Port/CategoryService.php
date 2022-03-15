@@ -15,25 +15,35 @@ use ilDBInterface;
 class CategoryService
 {
 
-    private ilDBInterface $database;
-    private ObjectService $object;
+    private ilDBInterface $ilias_database;
+    private ObjectService $object_service;
 
 
-    public static function new(ilDBInterface $database, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->object = $object;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $object_service
+        );
     }
 
 
     public function createCategoryToId(int $parent_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
         return CreateCategoryCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createCategoryToId(
                 $parent_id,
@@ -45,7 +55,7 @@ class CategoryService
     public function createCategoryToImportId(string $parent_import_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
         return CreateCategoryCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createCategoryToImportId(
                 $parent_import_id,
@@ -57,7 +67,7 @@ class CategoryService
     public function createCategoryToRefId(int $parent_ref_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
         return CreateCategoryCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createCategoryToRefId(
                 $parent_ref_id,
@@ -69,7 +79,7 @@ class CategoryService
     public function getCategories(?bool $in_trash = null) : array
     {
         return GetCategoriesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCategories(
                 $in_trash
@@ -80,7 +90,7 @@ class CategoryService
     public function getCategoryById(int $id, ?bool $in_trash = null) : ?CategoryDto
     {
         return GetCategoryCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCategoryById(
                 $id,
@@ -92,7 +102,7 @@ class CategoryService
     public function getCategoryByImportId(string $import_id, ?bool $in_trash = null) : ?CategoryDto
     {
         return GetCategoryCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCategoryByImportId(
                 $import_id,
@@ -104,7 +114,7 @@ class CategoryService
     public function getCategoryByRefId(int $ref_id, ?bool $in_trash = null) : ?CategoryDto
     {
         return GetCategoryCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCategoryByRefId(
                 $ref_id,

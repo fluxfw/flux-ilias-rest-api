@@ -14,23 +14,30 @@ class GetCategoryCommand
     use CategoryQuery;
     use ObjectQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getCategoryById(int $id, ?bool $in_trash = null) : ?CategoryDto
     {
         $category = null;
-        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoryQuery(
+        while (($category_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getCategoryQuery(
                 $id,
                 null,
                 null,
@@ -51,7 +58,7 @@ class GetCategoryCommand
     public function getCategoryByImportId(string $import_id, ?bool $in_trash = null) : ?CategoryDto
     {
         $category = null;
-        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoryQuery(
+        while (($category_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getCategoryQuery(
                 null,
                 $import_id,
                 null,
@@ -72,7 +79,7 @@ class GetCategoryCommand
     public function getCategoryByRefId(int $ref_id, ?bool $in_trash = null) : ?CategoryDto
     {
         $category = null;
-        while (($category_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCategoryQuery(
+        while (($category_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getCategoryQuery(
                 null,
                 null,
                 $ref_id,

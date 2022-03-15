@@ -8,22 +8,29 @@ class LastTransferredChangeTimeCommand
 {
 
     private const CONFIG_KEY = "last_transferred_change_time";
-    private ConfigService $config;
+    private ConfigService $config_service;
 
 
-    public static function new(ConfigService $config) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ConfigService $config_service
+    ) {
+        $this->config_service = $config_service;
+    }
+
+
+    public static function new(
+        ConfigService $config_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->config = $config;
-
-        return $command;
+        return new static(
+            $config_service
+        );
     }
 
 
     public function getLastTransferredChangeTime() : ?float
     {
-        return $this->config->getConfig(
+        return $this->config_service->getConfig(
             static::CONFIG_KEY
         );
     }
@@ -31,7 +38,7 @@ class LastTransferredChangeTimeCommand
 
     public function setLastTransferredChangeTime(float $last_transferred_change_time) : void
     {
-        $this->config->setConfig(
+        $this->config_service->setConfig(
             static::CONFIG_KEY,
             $last_transferred_change_time
         );

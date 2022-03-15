@@ -23,6 +23,37 @@ class CourseMemberDto implements JsonSerializable
     private ?string $user_import_id;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $course_id,
+        /*public readonly*/ ?string $course_import_id,
+        /*public readonly*/ ?int $course_ref_id,
+        /*public readonly*/ ?int $user_id,
+        /*public readonly*/ ?string $user_import_id,
+        /*public readonly*/ ?bool $member_role,
+        /*public readonly*/ ?bool $tutor_role,
+        /*public readonly*/ ?bool $administrator_role,
+        /*public readonly*/ ?LegacyObjectLearningProgress $learning_progress,
+        /*public readonly*/ ?bool $passed,
+        /*public readonly*/ ?bool $access_refused,
+        /*public readonly*/ ?bool $tutorial_support,
+        /*public readonly*/ ?bool $notification
+    ) {
+        $this->course_id = $course_id;
+        $this->course_import_id = $course_import_id;
+        $this->course_ref_id = $course_ref_id;
+        $this->user_id = $user_id;
+        $this->user_import_id = $user_import_id;
+        $this->member_role = $member_role;
+        $this->tutor_role = $tutor_role;
+        $this->administrator_role = $administrator_role;
+        $this->learning_progress = $learning_progress;
+        $this->passed = $passed;
+        $this->access_refused = $access_refused;
+        $this->tutorial_support = $tutorial_support;
+        $this->notification = $notification;
+    }
+
+
     public static function new(
         ?int $course_id = null,
         ?string $course_import_id = null,
@@ -39,23 +70,21 @@ class CourseMemberDto implements JsonSerializable
         ?bool $notification = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->course_id = $course_id;
-        $dto->course_import_id = $course_import_id;
-        $dto->course_ref_id = $course_ref_id;
-        $dto->user_id = $user_id;
-        $dto->user_import_id = $user_import_id;
-        $dto->member_role = $member_role;
-        $dto->tutor_role = $tutor_role;
-        $dto->administrator_role = $administrator_role;
-        $dto->learning_progress = $learning_progress;
-        $dto->passed = $passed;
-        $dto->access_refused = $access_refused;
-        $dto->tutorial_support = $tutorial_support;
-        $dto->notification = $notification;
-
-        return $dto;
+        return new static(
+            $course_id,
+            $course_import_id,
+            $course_ref_id,
+            $user_id,
+            $user_import_id,
+            $member_role,
+            $tutor_role,
+            $administrator_role,
+            $learning_progress,
+            $passed,
+            $access_refused,
+            $tutorial_support,
+            $notification
+        );
     }
 
 

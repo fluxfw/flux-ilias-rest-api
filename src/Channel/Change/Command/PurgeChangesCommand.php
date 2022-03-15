@@ -11,18 +11,28 @@ class PurgeChangesCommand
 
     use ChangeQuery;
 
-    private ChangeService $change;
-    private ilDBInterface $database;
+    private ChangeService $change_service;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database, ChangeService $change) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ChangeService $change_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->change_service = $change_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ChangeService $change_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-        $command->change = $change;
-
-        return $command;
+        return new static(
+            $ilias_database,
+            $change_service
+        );
     }
 
 
@@ -32,8 +42,8 @@ class PurgeChangesCommand
             return null;
         }
 
-        return $this->database->manipulate($this->getChangePurgeQuery(
-            $this->change->getKeepChangesInsideDays()
+        return $this->ilias_database->manipulate($this->getChangePurgeQuery(
+            $this->change_service->getKeepChangesInsideDays()
         ));
     }
 }

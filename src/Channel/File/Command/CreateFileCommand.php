@@ -13,23 +13,30 @@ class CreateFileCommand
 
     use FileQuery;
 
-    private ObjectService $object;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $object_service
+        );
     }
 
 
     public function createFileToId(int $parent_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createFile(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             ),
@@ -41,7 +48,7 @@ class CreateFileCommand
     public function createFileToImportId(string $parent_import_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createFile(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class CreateFileCommand
     public function createFileToRefId(int $parent_ref_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createFile(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             ),

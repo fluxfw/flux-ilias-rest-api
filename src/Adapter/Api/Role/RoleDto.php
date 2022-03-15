@@ -18,6 +18,29 @@ class RoleDto implements JsonSerializable
     private ?int $updated;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?int $created,
+        /*public readonly*/ ?int $updated,
+        /*public readonly*/ ?int $object_id,
+        /*public readonly*/ ?string $object_import_id,
+        /*public readonly*/ ?int $object_ref_id,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description
+    ) {
+        $this->id = $id;
+        $this->import_id = $import_id;
+        $this->created = $created;
+        $this->updated = $updated;
+        $this->object_id = $object_id;
+        $this->object_import_id = $object_import_id;
+        $this->object_ref_id = $object_ref_id;
+        $this->title = $title;
+        $this->description = $description;
+    }
+
+
     public static function new(
         ?int $id = null,
         ?string $import_id = null,
@@ -30,19 +53,17 @@ class RoleDto implements JsonSerializable
         ?string $description = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->import_id = $import_id;
-        $dto->created = $created;
-        $dto->updated = $updated;
-        $dto->object_id = $object_id;
-        $dto->object_import_id = $object_import_id;
-        $dto->object_ref_id = $object_ref_id;
-        $dto->title = $title;
-        $dto->description = $description;
-
-        return $dto;
+        return new static(
+            $id,
+            $import_id,
+            $created,
+            $updated,
+            $object_id,
+            $object_import_id,
+            $object_ref_id,
+            $title,
+            $description
+        );
     }
 
 

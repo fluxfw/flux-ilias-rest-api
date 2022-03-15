@@ -14,29 +14,39 @@ class MoveObjectCommand
 
     use ObjectQuery;
 
-    private ObjectService $object;
-    private ilTree $tree;
+    private ilTree $ilias_tree;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object, ilTree $tree) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ilTree $ilias_tree
+    ) {
+        $this->object_service = $object_service;
+        $this->ilias_tree = $ilias_tree;
+    }
+
+
+    public static function new(
+        ObjectService $object_service,
+        ilTree $ilias_tree
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-        $command->tree = $tree;
-
-        return $command;
+        return new static(
+            $object_service,
+            $ilias_tree
+        );
     }
 
 
     public function moveObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             )
@@ -47,11 +57,11 @@ class MoveObjectCommand
     public function moveObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             )
@@ -62,11 +72,11 @@ class MoveObjectCommand
     public function moveObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             )
@@ -77,11 +87,11 @@ class MoveObjectCommand
     public function moveObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             )
@@ -92,11 +102,11 @@ class MoveObjectCommand
     public function moveObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             )
@@ -107,11 +117,11 @@ class MoveObjectCommand
     public function moveObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             )
@@ -122,11 +132,11 @@ class MoveObjectCommand
     public function moveObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             )
@@ -137,11 +147,11 @@ class MoveObjectCommand
     public function moveObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             )
@@ -152,11 +162,11 @@ class MoveObjectCommand
     public function moveObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->moveObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             )
@@ -175,7 +185,7 @@ class MoveObjectCommand
         }
 
         if ($object->getParentRefId() !== $parent_object->getRefId()) {
-            $this->tree->moveTree($object->getRefId(), $parent_object->getRefId());
+            $this->ilias_tree->moveTree($object->getRefId(), $parent_object->getRefId());
         }
 
         return ObjectIdDto::new(

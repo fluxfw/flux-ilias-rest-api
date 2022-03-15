@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Api\User;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static AFGHANISTAN() afghanistan
@@ -253,7 +253,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
  * @method static static ZAMBIA() zambia
  * @method static static ZIMBABWE() zimbabwe
  */
-final class LegacyUserSelectedCountry extends LegacyStringBackedEnum
+class LegacyUserSelectedCountry extends LegacyStringBackedEnum
 {
 
 }

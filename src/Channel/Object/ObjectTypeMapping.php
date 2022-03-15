@@ -6,7 +6,7 @@ use FluxIliasRestApi\Adapter\Api\Object\CustomObjectType;
 use FluxIliasRestApi\Adapter\Api\Object\LegacyDefaultObjectType;
 use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
 
-final class ObjectTypeMapping
+class ObjectTypeMapping
 {
 
     public static function mapExternalToInternal(ObjectType $type) : InternalObjectType

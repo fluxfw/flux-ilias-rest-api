@@ -28,6 +28,49 @@ class ScormLearningModuleDto implements JsonSerializable
     private ?int $version;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?int $ref_id,
+        /*public readonly*/ ?int $created,
+        /*public readonly*/ ?int $updated,
+        /*public readonly*/ ?int $parent_id,
+        /*public readonly*/ ?string $parent_import_id,
+        /*public readonly*/ ?int $parent_ref_id,
+        /*public readonly*/ ?string $url,
+        /*public readonly*/ ?string $icon_url,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description,
+        /*public readonly*/ ?LegacyScormLearningModuleType $type,
+        /*public readonly*/ ?int $version,
+        /*public readonly*/ ?bool $online,
+        /*public readonly*/ ?bool $authoring_mode,
+        /*public readonly*/ ?bool $sequencing_expert_mode,
+        /*public readonly*/ ?int $didactic_template_id,
+        /*public readonly*/ ?bool $in_trash
+    ) {
+        $this->id = $id;
+        $this->import_id = $import_id;
+        $this->ref_id = $ref_id;
+        $this->created = $created;
+        $this->updated = $updated;
+        $this->parent_id = $parent_id;
+        $this->parent_import_id = $parent_import_id;
+        $this->parent_ref_id = $parent_ref_id;
+        $this->url = $url;
+        $this->icon_url = $icon_url;
+        $this->title = $title;
+        $this->description = $description;
+        $this->type = $type;
+        $this->version = $version;
+        $this->online = $online;
+        $this->authoring_mode = $authoring_mode;
+        $this->sequencing_expert_mode = $sequencing_expert_mode;
+        $this->didactic_template_id = $didactic_template_id;
+        $this->in_trash = $in_trash;
+    }
+
+
     public static function new(
         ?int $id = null,
         ?string $import_id = null,
@@ -50,29 +93,27 @@ class ScormLearningModuleDto implements JsonSerializable
         ?bool $in_trash = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->import_id = $import_id;
-        $dto->ref_id = $ref_id;
-        $dto->created = $created;
-        $dto->updated = $updated;
-        $dto->parent_id = $parent_id;
-        $dto->parent_import_id = $parent_import_id;
-        $dto->parent_ref_id = $parent_ref_id;
-        $dto->url = $url;
-        $dto->icon_url = $icon_url;
-        $dto->title = $title;
-        $dto->description = $description;
-        $dto->type = $type;
-        $dto->version = $version;
-        $dto->online = $online;
-        $dto->authoring_mode = $authoring_mode;
-        $dto->sequencing_expert_mode = $sequencing_expert_mode;
-        $dto->didactic_template_id = $didactic_template_id;
-        $dto->in_trash = $in_trash;
-
-        return $dto;
+        return new static(
+            $id,
+            $import_id,
+            $ref_id,
+            $created,
+            $updated,
+            $parent_id,
+            $parent_import_id,
+            $parent_ref_id,
+            $url,
+            $icon_url,
+            $title,
+            $description,
+            $type,
+            $version,
+            $online,
+            $authoring_mode,
+            $sequencing_expert_mode,
+            $didactic_template_id,
+            $in_trash
+        );
     }
 
 

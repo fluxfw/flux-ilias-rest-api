@@ -31,7 +31,7 @@ trait OrganisationalUnitPositionQuery
     {
         return "SELECT *
 FROM il_orgu_authority
-WHERE " . $this->database->in("position_id", $position_ids, false, ilDBConstants::T_INTEGER);
+WHERE " . $this->ilias_database->in("position_id", $position_ids, false, ilDBConstants::T_INTEGER);
     }
 
 
@@ -40,11 +40,11 @@ WHERE " . $this->database->in("position_id", $position_ids, false, ilDBConstants
         $wheres = [];
 
         if ($id !== null) {
-            $wheres[] = "id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+            $wheres[] = "id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
         }
 
         if ($core_identifier !== null) {
-            $wheres[] = "id=" . $this->database->quote(OrganisationalUnitPositionCoreIdentifierMapping::mapExternalToInternal($core_identifier)->value, ilDBConstants::T_INTEGER);
+            $wheres[] = "id=" . $this->ilias_database->quote(OrganisationalUnitPositionCoreIdentifierMapping::mapExternalToInternal($core_identifier)->value, ilDBConstants::T_INTEGER);
         }
 
         return "SELECT *

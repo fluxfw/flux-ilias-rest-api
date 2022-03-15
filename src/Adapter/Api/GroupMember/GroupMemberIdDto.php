@@ -14,17 +14,36 @@ class GroupMemberIdDto implements JsonSerializable
     private ?string $user_import_id;
 
 
-    public static function new(?int $group_id = null, ?string $group_import_id = null, ?int $group_ref_id = null, ?int $user_id = null, ?string $user_import_id = null) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?int $group_id,
+        /*public readonly*/ ?string $group_import_id,
+        /*public readonly*/ ?int $group_ref_id,
+        /*public readonly*/ ?int $user_id,
+        /*public readonly*/ ?string $user_import_id
+    ) {
+        $this->group_id = $group_id;
+        $this->group_import_id = $group_import_id;
+        $this->group_ref_id = $group_ref_id;
+        $this->user_id = $user_id;
+        $this->user_import_id = $user_import_id;
+    }
+
+
+    public static function new(
+        ?int $group_id = null,
+        ?string $group_import_id = null,
+        ?int $group_ref_id = null,
+        ?int $user_id = null,
+        ?string $user_import_id = null
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->group_id = $group_id;
-        $dto->group_import_id = $group_import_id;
-        $dto->group_ref_id = $group_ref_id;
-        $dto->user_id = $user_id;
-        $dto->user_import_id = $user_import_id;
-
-        return $dto;
+        return new static(
+            $group_id,
+            $group_import_id,
+            $group_ref_id,
+            $user_id,
+            $user_import_id
+        );
     }
 
 

@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\User;
 
 use FluxIliasRestApi\Adapter\Api\User\LegacyUserLanguage;
 
-final class UserLanguageMapping
+class UserLanguageMapping
 {
 
     public static function mapExternalToInternal(LegacyUserLanguage $language) : LegacyInternalUserLanguage

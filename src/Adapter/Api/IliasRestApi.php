@@ -59,45 +59,33 @@ use FluxIliasRestApi\Channel\UserFavourite\Port\UserFavouriteService;
 use FluxIliasRestApi\Channel\UserMail\Port\UserMailService;
 use FluxIliasRestApi\Channel\UserRole\Port\UserRoleService;
 use ilCronJob;
+use ilDBInterface;
 use ilFavouritesDBRepository;
+use ILIAS\DI\Container;
+use ILIAS\DI\RBACServices;
+use ILIAS\FileUpload\FileUpload;
+use ilObjectDefinition;
+use ilObjUser;
+use ilTree;
 
-class Api
+class IliasRestApi
 {
 
-    private CategoryService $category;
-    private ChangeService $change;
-    private ConfigService $config;
-    private CourseService $course;
-    private CourseMemberService $course_member;
-    private CronService $cron;
-    private FileService $file;
-    private GroupService $group;
-    private GroupMemberService $group_member;
-    private ObjectService $object;
-    private ObjectLearningProgressService $object_learning_progress;
-    private OrganisationalUnitService $organisational_unit;
-    private OrganisationalUnitPositionService $organisational_unit_position;
-    private OrganisationalUnitStaffService $organisational_unit_staff;
-    private RoleService $role;
-    private ScormLearningModuleService $scorm_learning_module;
-    private SetupService $setup;
-    private UserService $user;
-    private UserFavouriteService $user_favourite;
-    private UserMailService $user_mail;
-    private UserRoleService $user_role;
+    private function __construct()
+    {
+
+    }
 
 
     public static function new() : /*static*/ self
     {
-        $api = new static();
-
-        return $api;
+        return new static();
     }
 
 
     public function addCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->addCourseMemberByIdByUserId(
                 $id,
                 $user_id,
@@ -108,7 +96,7 @@ class Api
 
     public function addCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->addCourseMemberByIdByUserImportId(
                 $id,
                 $user_import_id,
@@ -119,7 +107,7 @@ class Api
 
     public function addCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->addCourseMemberByImportIdByUserId(
                 $import_id,
                 $user_id,
@@ -130,7 +118,7 @@ class Api
 
     public function addCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->addCourseMemberByImportIdByUserImportId(
                 $import_id,
                 $user_import_id,
@@ -141,7 +129,7 @@ class Api
 
     public function addCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->addCourseMemberByRefIdByUserId(
                 $ref_id,
                 $user_id,
@@ -152,7 +140,7 @@ class Api
 
     public function addCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->addCourseMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
@@ -163,7 +151,7 @@ class Api
 
     public function addGroupMemberByIdByUserId(int $id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->addGroupMemberByIdByUserId(
                 $id,
                 $user_id,
@@ -174,7 +162,7 @@ class Api
 
     public function addGroupMemberByIdByUserImportId(int $id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->addGroupMemberByIdByUserImportId(
                 $id,
                 $user_import_id,
@@ -185,7 +173,7 @@ class Api
 
     public function addGroupMemberByImportIdByUserId(string $import_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->addGroupMemberByImportIdByUserId(
                 $import_id,
                 $user_id,
@@ -196,7 +184,7 @@ class Api
 
     public function addGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->addGroupMemberByImportIdByUserImportId(
                 $import_id,
                 $user_import_id,
@@ -207,7 +195,7 @@ class Api
 
     public function addGroupMemberByRefIdByUserId(int $ref_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->addGroupMemberByRefIdByUserId(
                 $ref_id,
                 $user_id,
@@ -218,7 +206,7 @@ class Api
 
     public function addGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->addGroupMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
@@ -229,7 +217,7 @@ class Api
 
     public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->addOrganisationalUnitStaffByExternalIdByUserId(
                 $external_id,
                 $user_id,
@@ -240,7 +228,7 @@ class Api
 
     public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->addOrganisationalUnitStaffByExternalIdByUserImportId(
                 $external_id,
                 $user_import_id,
@@ -251,7 +239,7 @@ class Api
 
     public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->addOrganisationalUnitStaffByIdByUserId(
                 $id,
                 $user_id,
@@ -262,7 +250,7 @@ class Api
 
     public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->addOrganisationalUnitStaffByIdByUserImportId(
                 $id,
                 $user_import_id,
@@ -273,7 +261,7 @@ class Api
 
     public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->addOrganisationalUnitStaffByRefIdByUserId(
                 $ref_id,
                 $user_id,
@@ -284,7 +272,7 @@ class Api
 
     public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->addOrganisationalUnitStaffByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
@@ -295,7 +283,7 @@ class Api
 
     public function addUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->addUserFavouriteByIdByObjectId(
                 $id,
                 $object_id
@@ -305,7 +293,7 @@ class Api
 
     public function addUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->addUserFavouriteByIdByObjectImportId(
                 $id,
                 $object_import_id
@@ -315,7 +303,7 @@ class Api
 
     public function addUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->addUserFavouriteByIdByObjectRefId(
                 $id,
                 $object_ref_id
@@ -325,7 +313,7 @@ class Api
 
     public function addUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->addUserFavouriteByImportIdByObjectId(
                 $import_id,
                 $object_id
@@ -335,7 +323,7 @@ class Api
 
     public function addUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->addUserFavouriteByImportIdByObjectImportId(
                 $import_id,
                 $object_import_id
@@ -345,7 +333,7 @@ class Api
 
     public function addUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->addUserFavouriteByImportIdByObjectRefId(
                 $import_id,
                 $object_ref_id
@@ -355,7 +343,7 @@ class Api
 
     public function addUserRoleByIdByRoleId(int $id, int $role_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->addUserRoleByIdByRoleId(
                 $id,
                 $role_id
@@ -365,7 +353,7 @@ class Api
 
     public function addUserRoleByIdByRoleImportId(int $id, string $role_import_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->addUserRoleByIdByRoleImportId(
                 $id,
                 $role_import_id
@@ -375,7 +363,7 @@ class Api
 
     public function addUserRoleByImportIdByRoleId(string $import_id, int $role_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->addUserRoleByImportIdByRoleId(
                 $import_id,
                 $role_id
@@ -385,7 +373,7 @@ class Api
 
     public function addUserRoleByImportIdByRoleImportId(string $import_id, string $role_import_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->addUserRoleByImportIdByRoleImportId(
                 $import_id,
                 $role_import_id
@@ -395,7 +383,7 @@ class Api
 
     public function cloneObjectByIdToId(int $id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByIdToId(
                 $id,
                 $parent_id,
@@ -407,7 +395,7 @@ class Api
 
     public function cloneObjectByIdToImportId(int $id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByIdToImportId(
                 $id,
                 $parent_import_id,
@@ -419,7 +407,7 @@ class Api
 
     public function cloneObjectByIdToRefId(int $id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByIdToRefId(
                 $id,
                 $parent_ref_id,
@@ -431,7 +419,7 @@ class Api
 
     public function cloneObjectByImportIdToId(string $import_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByImportIdToId(
                 $import_id,
                 $parent_id,
@@ -443,7 +431,7 @@ class Api
 
     public function cloneObjectByImportIdToImportId(string $import_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByImportIdToImportId(
                 $import_id,
                 $parent_import_id,
@@ -455,7 +443,7 @@ class Api
 
     public function cloneObjectByImportIdToRefId(string $import_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByImportIdToRefId(
                 $import_id,
                 $parent_ref_id,
@@ -467,7 +455,7 @@ class Api
 
     public function cloneObjectByRefIdToId(int $ref_id, int $parent_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByRefIdToId(
                 $ref_id,
                 $parent_id,
@@ -479,7 +467,7 @@ class Api
 
     public function cloneObjectByRefIdToImportId(int $ref_id, string $parent_import_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByRefIdToImportId(
                 $ref_id,
                 $parent_import_id,
@@ -491,7 +479,7 @@ class Api
 
     public function cloneObjectByRefIdToRefId(int $ref_id, int $parent_ref_id, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->cloneObjectByRefIdToRefId(
                 $ref_id,
                 $parent_ref_id,
@@ -503,7 +491,7 @@ class Api
 
     public function createCategoryToId(int $parent_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->createCategoryToId(
                 $parent_id,
                 $diff
@@ -513,7 +501,7 @@ class Api
 
     public function createCategoryToImportId(string $parent_import_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->createCategoryToImportId(
                 $parent_import_id,
                 $diff
@@ -523,7 +511,7 @@ class Api
 
     public function createCategoryToRefId(int $parent_ref_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->createCategoryToRefId(
                 $parent_ref_id,
                 $diff
@@ -533,7 +521,7 @@ class Api
 
     public function createCourseToId(int $parent_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->createCourseToId(
                 $parent_id,
                 $diff
@@ -543,7 +531,7 @@ class Api
 
     public function createCourseToImportId(string $parent_import_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->createCourseToImportId(
                 $parent_import_id,
                 $diff
@@ -553,7 +541,7 @@ class Api
 
     public function createCourseToRefId(int $parent_ref_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->createCourseToRefId(
                 $parent_ref_id,
                 $diff
@@ -563,7 +551,7 @@ class Api
 
     public function createFileToId(int $parent_id, FileDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->createFileToId(
                 $parent_id,
                 $diff
@@ -573,7 +561,7 @@ class Api
 
     public function createFileToImportId(string $parent_import_id, FileDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->createFileToImportId(
                 $parent_import_id,
                 $diff
@@ -583,7 +571,7 @@ class Api
 
     public function createFileToRefId(int $parent_ref_id, FileDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->createFileToRefId(
                 $parent_ref_id,
                 $diff
@@ -593,7 +581,7 @@ class Api
 
     public function createGroupToId(int $parent_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->createGroupToId(
                 $parent_id,
                 $diff
@@ -603,7 +591,7 @@ class Api
 
     public function createGroupToImportId(string $parent_import_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->createGroupToImportId(
                 $parent_import_id,
                 $diff
@@ -613,7 +601,7 @@ class Api
 
     public function createGroupToRefId(int $parent_ref_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->createGroupToRefId(
                 $parent_ref_id,
                 $diff
@@ -623,7 +611,7 @@ class Api
 
     public function createObjectToId(ObjectType $type, int $parent_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->createObjectToId(
                 $type,
                 $parent_id,
@@ -634,7 +622,7 @@ class Api
 
     public function createObjectToImportId(ObjectType $type, string $parent_import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->createObjectToImportId(
                 $type,
                 $parent_import_id,
@@ -645,7 +633,7 @@ class Api
 
     public function createObjectToRefId(ObjectType $type, int $parent_ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->createObjectToRefId(
                 $type,
                 $parent_ref_id,
@@ -656,7 +644,7 @@ class Api
 
     public function createOrganisationalUnitPosition(OrganisationalUnitPositionDiffDto $diff) : OrganisationalUnitPositionIdDto
     {
-        return $this->getOrganisationalUnitPosition()
+        return $this->getOrganisationalUnitPositionService()
             ->createOrganisationalUnitPosition(
                 $diff
             );
@@ -665,7 +653,7 @@ class Api
 
     public function createOrganisationalUnitToExternalId(string $parent_external_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->createOrganisationalUnitToExternalId(
                 $parent_external_id,
                 $diff
@@ -675,7 +663,7 @@ class Api
 
     public function createOrganisationalUnitToId(int $parent_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->createOrganisationalUnitToId(
                 $parent_id,
                 $diff
@@ -685,7 +673,7 @@ class Api
 
     public function createOrganisationalUnitToRefId(int $parent_ref_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->createOrganisationalUnitToRefId(
                 $parent_ref_id,
                 $diff
@@ -695,7 +683,7 @@ class Api
 
     public function createRoleToId(int $object_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->createRoleToId(
                 $object_id,
                 $diff
@@ -705,7 +693,7 @@ class Api
 
     public function createRoleToImportId(string $object_import_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->createRoleToImportId(
                 $object_import_id,
                 $diff
@@ -715,7 +703,7 @@ class Api
 
     public function createRoleToRefId(int $object_ref_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->createRoleToRefId(
                 $object_ref_id,
                 $diff
@@ -725,7 +713,7 @@ class Api
 
     public function createScormLearningModuleToId(int $parent_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->createScormLearningModuleToId(
                 $parent_id,
                 $diff
@@ -735,7 +723,7 @@ class Api
 
     public function createScormLearningModuleToImportId(string $parent_import_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->createScormLearningModuleToImportId(
                 $parent_import_id,
                 $diff
@@ -745,7 +733,7 @@ class Api
 
     public function createScormLearningModuleToRefId(int $parent_ref_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->createScormLearningModuleToRefId(
                 $parent_ref_id,
                 $diff
@@ -755,7 +743,7 @@ class Api
 
     public function createUser(UserDiffDto $diff) : UserIdDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->createUser(
                 $diff
             );
@@ -764,7 +752,7 @@ class Api
 
     public function deleteObjectById(int $id, bool $force = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->deleteObjectById(
                 $id,
                 $force
@@ -774,7 +762,7 @@ class Api
 
     public function deleteObjectByImportId(string $import_id, bool $force = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->deleteObjectByImportId(
                 $import_id,
                 $force
@@ -784,7 +772,7 @@ class Api
 
     public function deleteObjectByRefId(int $ref_id, bool $force = false) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->deleteObjectByRefId(
                 $ref_id,
                 $force
@@ -794,7 +782,7 @@ class Api
 
     public function deleteOrganisationalUnitPositionById(int $id) : ?OrganisationalUnitPositionIdDto
     {
-        return $this->getOrganisationalUnitPosition()
+        return $this->getOrganisationalUnitPositionService()
             ->deleteOrganisationalUnitPositionById(
                 $id
             );
@@ -803,7 +791,7 @@ class Api
 
     public function getCategories(?bool $in_trash = null) : array
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->getCategories(
                 $in_trash
             );
@@ -812,7 +800,7 @@ class Api
 
     public function getCategoryById(int $id, ?bool $in_trash = null) : ?CategoryDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->getCategoryById(
                 $id,
                 $in_trash
@@ -822,7 +810,7 @@ class Api
 
     public function getCategoryByImportId(string $import_id, ?bool $in_trash = null) : ?CategoryDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->getCategoryByImportId(
                 $import_id,
                 $in_trash
@@ -832,7 +820,7 @@ class Api
 
     public function getCategoryByRefId(int $ref_id, ?bool $in_trash = null) : ?CategoryDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->getCategoryByRefId(
                 $ref_id,
                 $in_trash
@@ -842,7 +830,7 @@ class Api
 
     public function getChanges(?float $from = null, ?float $to = null, ?float $after = null, ?float $before = null) : ?array
     {
-        return $this->getChange()
+        return $this->getChangeService()
             ->getChanges(
                 $from,
                 $to,
@@ -854,7 +842,7 @@ class Api
 
     public function getChildrenById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getChildrenById(
                 $id,
                 $ref_ids,
@@ -865,7 +853,7 @@ class Api
 
     public function getChildrenByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getChildrenByImportId(
                 $import_id,
                 $ref_ids,
@@ -876,7 +864,7 @@ class Api
 
     public function getChildrenByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getChildrenByRefId(
                 $ref_id,
                 $ref_ids,
@@ -887,7 +875,7 @@ class Api
 
     public function getCourseById(int $id, ?bool $in_trash = null) : ?CourseDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->getCourseById(
                 $id,
                 $in_trash
@@ -897,7 +885,7 @@ class Api
 
     public function getCourseByImportId(string $import_id, ?bool $in_trash = null) : ?CourseDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->getCourseByImportId(
                 $import_id,
                 $in_trash
@@ -907,7 +895,7 @@ class Api
 
     public function getCourseByRefId(int $ref_id, ?bool $in_trash = null) : ?CourseDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->getCourseByRefId(
                 $ref_id,
                 $in_trash
@@ -930,7 +918,7 @@ class Api
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : array {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->getCourseMembers(
                 $course_id,
                 $course_import_id,
@@ -951,7 +939,7 @@ class Api
 
     public function getCourses(bool $container_settings = false, ?bool $in_trash = null) : array
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->getCourses(
                 $container_settings,
                 $in_trash
@@ -961,7 +949,7 @@ class Api
 
     public function getCronJob(string $id) : ?ilCronJob
     {
-        return $this->getCron()
+        return $this->getCronService()
             ->getCronJob(
                 $id
             );
@@ -970,24 +958,22 @@ class Api
 
     public function getCronJobs() : array
     {
-        return $this->getCron()
+        return $this->getCronService()
             ->getCronJobs();
     }
 
 
     public function getCurrentApiUser() : ?UserDto
     {
-        global $DIC;
-
         return $this->getUserById(
-            $DIC->user()->getId()
+            $this->getIliasUser()->getId()
         );
     }
 
 
     public function getCurrentWebUser(?string $session_id) : ?UserDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->getCurrentWebUser(
                 $session_id
             );
@@ -996,7 +982,7 @@ class Api
 
     public function getFileById(int $id, ?bool $in_trash = null) : ?FileDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->getFileById(
                 $id,
                 $in_trash
@@ -1006,7 +992,7 @@ class Api
 
     public function getFileByImportId(string $import_id, ?bool $in_trash = null) : ?FileDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->getFileByImportId(
                 $import_id,
                 $in_trash
@@ -1016,7 +1002,7 @@ class Api
 
     public function getFileByRefId(int $ref_id, ?bool $in_trash = null) : ?FileDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->getFileByRefId(
                 $ref_id,
                 $in_trash
@@ -1026,7 +1012,7 @@ class Api
 
     public function getFiles(?bool $in_trash = null) : array
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->getFiles(
                 $in_trash
             );
@@ -1035,14 +1021,14 @@ class Api
 
     public function getGlobalRoleObject() : ?ObjectDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->getGlobalRoleObject();
     }
 
 
     public function getGroupById(int $id, ?bool $in_trash = null) : ?GroupDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->getGroupById(
                 $id,
                 $in_trash
@@ -1052,7 +1038,7 @@ class Api
 
     public function getGroupByImportId(string $import_id, ?bool $in_trash = null) : ?GroupDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->getGroupByImportId(
                 $import_id,
                 $in_trash
@@ -1062,7 +1048,7 @@ class Api
 
     public function getGroupByRefId(int $ref_id, ?bool $in_trash = null) : ?GroupDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->getGroupByRefId(
                 $ref_id,
                 $in_trash
@@ -1082,7 +1068,7 @@ class Api
         ?bool $tutorial_support = null,
         ?bool $notification = null
     ) : array {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->getGroupMembers(
                 $group_id,
                 $group_import_id,
@@ -1100,7 +1086,7 @@ class Api
 
     public function getGroups(?bool $in_trash = null) : array
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->getGroups(
                 $in_trash
             );
@@ -1109,7 +1095,7 @@ class Api
 
     public function getObjectById(int $id, ?bool $in_trash = null) : ?ObjectDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getObjectById(
                 $id,
                 $in_trash
@@ -1119,7 +1105,7 @@ class Api
 
     public function getObjectByImportId(string $import_id, ?bool $in_trash = null) : ?ObjectDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getObjectByImportId(
                 $import_id,
                 $in_trash
@@ -1129,7 +1115,7 @@ class Api
 
     public function getObjectByRefId(int $ref_id, ?bool $in_trash = null) : ?ObjectDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getObjectByRefId(
                 $ref_id,
                 $in_trash
@@ -1145,7 +1131,7 @@ class Api
         ?string $user_import_id = null,
         ?LegacyObjectLearningProgress $learning_progress = null
     ) : array {
-        return $this->getObjectLearningProgress_()
+        return $this->getObjectLearningProgressService()
             ->getObjectLearningProgress(
                 $object_id,
                 $object_import_id,
@@ -1159,7 +1145,7 @@ class Api
 
     public function getObjects(ObjectType $type, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getObjects(
                 $type,
                 $ref_ids,
@@ -1170,7 +1156,7 @@ class Api
 
     public function getOrganisationalUnitByExternalId(string $external_id) : ?OrganisationalUnitDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->getOrganisationalUnitByExternalId(
                 $external_id
             );
@@ -1179,7 +1165,7 @@ class Api
 
     public function getOrganisationalUnitById(int $id) : ?OrganisationalUnitDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->getOrganisationalUnitById(
                 $id
             );
@@ -1188,7 +1174,7 @@ class Api
 
     public function getOrganisationalUnitByRefId(int $ref_id) : ?OrganisationalUnitDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->getOrganisationalUnitByRefId(
                 $ref_id
             );
@@ -1197,7 +1183,7 @@ class Api
 
     public function getOrganisationalUnitPositionByCoreIdentifier(LegacyOrganisationalUnitPositionCoreIdentifier $core_identifier) : ?OrganisationalUnitPositionDto
     {
-        return $this->getOrganisationalUnitPosition()
+        return $this->getOrganisationalUnitPositionService()
             ->getOrganisationalUnitPositionByCoreIdentifier(
                 $core_identifier
             );
@@ -1206,7 +1192,7 @@ class Api
 
     public function getOrganisationalUnitPositionById(int $id) : ?OrganisationalUnitPositionDto
     {
-        return $this->getOrganisationalUnitPosition()
+        return $this->getOrganisationalUnitPositionService()
             ->getOrganisationalUnitPositionById(
                 $id
             );
@@ -1215,7 +1201,7 @@ class Api
 
     public function getOrganisationalUnitPositions(bool $authorities = false) : array
     {
-        return $this->getOrganisationalUnitPosition()
+        return $this->getOrganisationalUnitPositionService()
             ->getOrganisationalUnitPositions(
                 $authorities
             );
@@ -1224,7 +1210,7 @@ class Api
 
     public function getOrganisationalUnitRoot() : ?OrganisationalUnitDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->getOrganisationalUnitRoot();
     }
 
@@ -1237,7 +1223,7 @@ class Api
         ?string $user_import_id = null,
         ?int $position_id = null
     ) : array {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->getOrganisationalUnitStaff(
                 $organisational_unit_id,
                 $organisational_unit_external_id,
@@ -1251,14 +1237,14 @@ class Api
 
     public function getOrganisationalUnits() : array
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->getOrganisationalUnits();
     }
 
 
     public function getPathById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getPathById(
                 $id,
                 $ref_ids,
@@ -1269,7 +1255,7 @@ class Api
 
     public function getPathByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getPathByImportId(
                 $import_id,
                 $ref_ids,
@@ -1280,7 +1266,7 @@ class Api
 
     public function getPathByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getPathByRefId(
                 $ref_id,
                 $ref_ids,
@@ -1291,7 +1277,7 @@ class Api
 
     public function getRoleById(int $id) : ?RoleDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->getRoleById(
                 $id
             );
@@ -1300,7 +1286,7 @@ class Api
 
     public function getRoleByImportId(string $import_id) : ?RoleDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->getRoleByImportId(
                 $import_id
             );
@@ -1309,21 +1295,21 @@ class Api
 
     public function getRoles() : array
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->getRoles();
     }
 
 
     public function getRootObject() : ?ObjectDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->getRootObject();
     }
 
 
     public function getScormLearningModuleById(int $id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->getScormLearningModuleById(
                 $id,
                 $in_trash
@@ -1333,7 +1319,7 @@ class Api
 
     public function getScormLearningModuleByImportId(string $import_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->getScormLearningModuleByImportId(
                 $import_id,
                 $in_trash
@@ -1343,7 +1329,7 @@ class Api
 
     public function getScormLearningModuleByRefId(int $ref_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->getScormLearningModuleByRefId(
                 $ref_id,
                 $in_trash
@@ -1353,7 +1339,7 @@ class Api
 
     public function getScormLearningModules(?bool $in_trash = null) : array
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->getScormLearningModules(
                 $in_trash
             );
@@ -1362,7 +1348,7 @@ class Api
 
     public function getUnreadMailsCountById(int $id) : ?int
     {
-        return $this->getUserMail()
+        return $this->getUserMailService()
             ->getUnreadMailsCountById(
                 $id
             );
@@ -1371,7 +1357,7 @@ class Api
 
     public function getUnreadMailsCountByImportId(string $import_id) : ?int
     {
-        return $this->getUserMail()
+        return $this->getUserMailService()
             ->getUnreadMailsCountByImportId(
                 $import_id
             );
@@ -1380,7 +1366,7 @@ class Api
 
     public function getUserById(int $id) : ?UserDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->getUserById(
                 $id
             );
@@ -1389,7 +1375,7 @@ class Api
 
     public function getUserByImportId(string $import_id) : ?UserDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->getUserByImportId(
                 $import_id
             );
@@ -1398,7 +1384,7 @@ class Api
 
     public function getUserFavourites(?int $user_id = null, ?string $user_import_id = null, ?int $object_id = null, ?string $object_import_id = null, ?int $object_ref_id = null) : array
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->getUserFavourites(
                 $user_id,
                 $user_import_id,
@@ -1411,7 +1397,7 @@ class Api
 
     public function getUserRoles(?int $user_id = null, ?string $user_import_id = null, ?int $role_id = null, ?string $role_import_id = null) : array
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->getUserRoles(
                 $user_id,
                 $user_import_id,
@@ -1423,7 +1409,7 @@ class Api
 
     public function getUsers(bool $access_limited_object_ids = false, bool $multi_fields = false, bool $preferences = false, bool $user_defined_fields = false) : array
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->getUsers(
                 $access_limited_object_ids,
                 $multi_fields,
@@ -1440,7 +1426,7 @@ class Api
             return;
         }
 
-        $this->getChange()->handleIliasEvent(
+        $this->getChangeService()->handleIliasEvent(
             $user,
             $component,
             $event,
@@ -1451,14 +1437,14 @@ class Api
 
     public function installHelperPlugin() : void
     {
-        $this->getSetup()
+        $this->getSetupService()
             ->installHelperPlugin();
     }
 
 
     public function linkObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByIdToId(
                 $id,
                 $parent_id
@@ -1468,7 +1454,7 @@ class Api
 
     public function linkObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByIdToImportId(
                 $id,
                 $parent_import_id
@@ -1478,7 +1464,7 @@ class Api
 
     public function linkObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByIdToRefId(
                 $id,
                 $parent_ref_id
@@ -1488,7 +1474,7 @@ class Api
 
     public function linkObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByImportIdToId(
                 $import_id,
                 $parent_id
@@ -1498,7 +1484,7 @@ class Api
 
     public function linkObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByImportIdToImportId(
                 $import_id,
                 $parent_import_id
@@ -1508,7 +1494,7 @@ class Api
 
     public function linkObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByImportIdToRefId(
                 $import_id,
                 $parent_ref_id
@@ -1518,7 +1504,7 @@ class Api
 
     public function linkObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByRefIdToId(
                 $ref_id,
                 $parent_id
@@ -1528,7 +1514,7 @@ class Api
 
     public function linkObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByRefIdToImportId(
                 $ref_id,
                 $parent_import_id
@@ -1538,7 +1524,7 @@ class Api
 
     public function linkObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->linkObjectByRefIdToRefId(
                 $ref_id,
                 $parent_ref_id
@@ -1548,7 +1534,7 @@ class Api
 
     public function moveObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByIdToId(
                 $id,
                 $parent_id
@@ -1558,7 +1544,7 @@ class Api
 
     public function moveObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByIdToImportId(
                 $id,
                 $parent_import_id
@@ -1568,7 +1554,7 @@ class Api
 
     public function moveObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByIdToRefId(
                 $id,
                 $parent_ref_id
@@ -1578,7 +1564,7 @@ class Api
 
     public function moveObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByImportIdToId(
                 $import_id,
                 $parent_id
@@ -1588,7 +1574,7 @@ class Api
 
     public function moveObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByImportIdToImportId(
                 $import_id,
                 $parent_import_id
@@ -1598,7 +1584,7 @@ class Api
 
     public function moveObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByImportIdToRefId(
                 $import_id,
                 $parent_ref_id
@@ -1608,7 +1594,7 @@ class Api
 
     public function moveObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByRefIdToId(
                 $ref_id,
                 $parent_id
@@ -1618,7 +1604,7 @@ class Api
 
     public function moveObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByRefIdToImportId(
                 $ref_id,
                 $parent_import_id
@@ -1628,7 +1614,7 @@ class Api
 
     public function moveObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->moveObjectByRefIdToRefId(
                 $ref_id,
                 $parent_ref_id
@@ -1638,14 +1624,14 @@ class Api
 
     public function purgeChanges() : void
     {
-        $this->getChange()
+        $this->getChangeService()
             ->purgeChanges();
     }
 
 
     public function removeCourseMemberByIdByUserId(int $id, int $user_id) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->removeCourseMemberByIdByUserId(
                 $id,
                 $user_id
@@ -1655,7 +1641,7 @@ class Api
 
     public function removeCourseMemberByIdByUserImportId(int $id, string $user_import_id) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->removeCourseMemberByIdByUserImportId(
                 $id,
                 $user_import_id
@@ -1665,7 +1651,7 @@ class Api
 
     public function removeCourseMemberByImportIdByUserId(string $import_id, int $user_id) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->removeCourseMemberByImportIdByUserId(
                 $import_id,
                 $user_id
@@ -1675,7 +1661,7 @@ class Api
 
     public function removeCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->removeCourseMemberByImportIdByUserImportId(
                 $import_id,
                 $user_import_id
@@ -1685,7 +1671,7 @@ class Api
 
     public function removeCourseMemberByRefIdByUserId(int $ref_id, int $user_id) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->removeCourseMemberByRefIdByUserId(
                 $ref_id,
                 $user_id
@@ -1695,7 +1681,7 @@ class Api
 
     public function removeCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->removeCourseMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id
@@ -1705,7 +1691,7 @@ class Api
 
     public function removeGroupMemberByIdByUserId(int $id, int $user_id) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->removeGroupMemberByIdByUserId(
                 $id,
                 $user_id
@@ -1715,7 +1701,7 @@ class Api
 
     public function removeGroupMemberByIdByUserImportId(int $id, string $user_import_id) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->removeGroupMemberByIdByUserImportId(
                 $id,
                 $user_import_id
@@ -1725,7 +1711,7 @@ class Api
 
     public function removeGroupMemberByImportIdByUserId(string $import_id, int $user_id) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->removeGroupMemberByImportIdByUserId(
                 $import_id,
                 $user_id
@@ -1735,7 +1721,7 @@ class Api
 
     public function removeGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->removeGroupMemberByImportIdByUserImportId(
                 $import_id,
                 $user_import_id
@@ -1745,7 +1731,7 @@ class Api
 
     public function removeGroupMemberByRefIdByUserId(int $ref_id, int $user_id) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->removeGroupMemberByRefIdByUserId(
                 $ref_id,
                 $user_id
@@ -1755,7 +1741,7 @@ class Api
 
     public function removeGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->removeGroupMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id
@@ -1765,7 +1751,7 @@ class Api
 
     public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->removeOrganisationalUnitStaffByExternalIdByUserId(
                 $external_id,
                 $user_id,
@@ -1776,7 +1762,7 @@ class Api
 
     public function removeOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->removeOrganisationalUnitStaffByExternalIdByUserImportId(
                 $external_id,
                 $user_import_id,
@@ -1787,7 +1773,7 @@ class Api
 
     public function removeOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->removeOrganisationalUnitStaffByIdByUserId(
                 $id,
                 $user_id,
@@ -1798,7 +1784,7 @@ class Api
 
     public function removeOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->removeOrganisationalUnitStaffByIdByUserImportId(
                 $id,
                 $user_import_id,
@@ -1809,7 +1795,7 @@ class Api
 
     public function removeOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->removeOrganisationalUnitStaffByRefIdByUserId(
                 $ref_id,
                 $user_id,
@@ -1820,7 +1806,7 @@ class Api
 
     public function removeOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
-        return $this->getOrganisationalUnitStaff_()
+        return $this->getOrganisationalUnitStaffService()
             ->removeOrganisationalUnitStaffByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
@@ -1831,7 +1817,7 @@ class Api
 
     public function removeUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->removeUserFavouriteByIdByObjectId(
                 $id,
                 $object_id
@@ -1841,7 +1827,7 @@ class Api
 
     public function removeUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->removeUserFavouriteByIdByObjectImportId(
                 $id,
                 $object_import_id
@@ -1851,7 +1837,7 @@ class Api
 
     public function removeUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->removeUserFavouriteByIdByObjectRefId(
                 $id,
                 $object_ref_id
@@ -1861,7 +1847,7 @@ class Api
 
     public function removeUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->removeUserFavouriteByImportIdByObjectId(
                 $import_id,
                 $object_id
@@ -1871,7 +1857,7 @@ class Api
 
     public function removeUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->removeUserFavouriteByImportIdByObjectImportId(
                 $import_id,
                 $object_import_id
@@ -1881,7 +1867,7 @@ class Api
 
     public function removeUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
-        return $this->getUserFavourite()
+        return $this->getUserFavouriteService()
             ->removeUserFavouriteByImportIdByObjectRefId(
                 $import_id,
                 $object_ref_id
@@ -1891,7 +1877,7 @@ class Api
 
     public function removeUserRoleByIdByRoleId(int $id, int $role_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->removeUserRoleByIdByRoleId(
                 $id,
                 $role_id
@@ -1901,7 +1887,7 @@ class Api
 
     public function removeUserRoleByIdByRoleImportId(int $id, string $role_import_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->removeUserRoleByIdByRoleImportId(
                 $id,
                 $role_import_id
@@ -1911,7 +1897,7 @@ class Api
 
     public function removeUserRoleByImportIdByRoleId(string $import_id, int $role_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->removeUserRoleByImportIdByRoleId(
                 $import_id,
                 $role_id
@@ -1921,7 +1907,7 @@ class Api
 
     public function removeUserRoleByImportIdByRoleImportId(string $import_id, string $role_import_id) : ?UserRoleDto
     {
-        return $this->getUserRole()
+        return $this->getUserRoleService()
             ->removeUserRoleByImportIdByRoleImportId(
                 $import_id,
                 $role_import_id
@@ -1931,21 +1917,21 @@ class Api
 
     public function transferChanges() : void
     {
-        $this->getChange()
+        $this->getChangeService()
             ->transferChanges();
     }
 
 
     public function uninstallHelperPlugin() : void
     {
-        $this->getSetup()
+        $this->getSetupService()
             ->uninstallHelperPlugin();
     }
 
 
     public function updateAvatarById(int $id, ?string $file) : ?UserIdDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->updateAvatarById(
                 $id,
                 $file
@@ -1955,7 +1941,7 @@ class Api
 
     public function updateAvatarByImportId(string $import_id, ?string $file) : ?UserIdDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->updateAvatarByImportId(
                 $import_id,
                 $file
@@ -1965,7 +1951,7 @@ class Api
 
     public function updateCategoryById(int $id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->updateCategoryById(
                 $id,
                 $diff
@@ -1975,7 +1961,7 @@ class Api
 
     public function updateCategoryByImportId(string $import_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->updateCategoryByImportId(
                 $import_id,
                 $diff
@@ -1985,7 +1971,7 @@ class Api
 
     public function updateCategoryByRefId(int $ref_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCategory()
+        return $this->getCategoryService()
             ->updateCategoryByRefId(
                 $ref_id,
                 $diff
@@ -1995,7 +1981,7 @@ class Api
 
     public function updateCourseById(int $id, CourseDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->updateCourseById(
                 $id,
                 $diff
@@ -2005,7 +1991,7 @@ class Api
 
     public function updateCourseByImportId(string $import_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->updateCourseByImportId(
                 $import_id,
                 $diff
@@ -2015,7 +2001,7 @@ class Api
 
     public function updateCourseByRefId(int $ref_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getCourse()
+        return $this->getCourseService()
             ->updateCourseByRefId(
                 $ref_id,
                 $diff
@@ -2025,7 +2011,7 @@ class Api
 
     public function updateCourseMemberByIdByUserId(int $id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->updateCourseMemberByIdByUserId(
                 $id,
                 $user_id,
@@ -2036,7 +2022,7 @@ class Api
 
     public function updateCourseMemberByIdByUserImportId(int $id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->updateCourseMemberByIdByUserImportId(
                 $id,
                 $user_import_id,
@@ -2047,7 +2033,7 @@ class Api
 
     public function updateCourseMemberByImportIdByUserId(string $import_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->updateCourseMemberByImportIdByUserId(
                 $import_id,
                 $user_id,
@@ -2058,7 +2044,7 @@ class Api
 
     public function updateCourseMemberByImportIdByUserImportId(string $import_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->updateCourseMemberByImportIdByUserImportId(
                 $import_id,
                 $user_import_id,
@@ -2069,7 +2055,7 @@ class Api
 
     public function updateCourseMemberByRefIdByUserId(int $ref_id, int $user_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->updateCourseMemberByRefIdByUserId(
                 $ref_id,
                 $user_id,
@@ -2080,7 +2066,7 @@ class Api
 
     public function updateCourseMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, CourseMemberDiffDto $diff) : ?CourseMemberIdDto
     {
-        return $this->getCourseMember()
+        return $this->getCourseMemberService()
             ->updateCourseMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
@@ -2091,7 +2077,7 @@ class Api
 
     public function updateFileById(int $id, FileDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->updateFileById(
                 $id,
                 $diff
@@ -2101,7 +2087,7 @@ class Api
 
     public function updateFileByImportId(string $import_id, FileDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->updateFileByImportId(
                 $import_id,
                 $diff
@@ -2111,7 +2097,7 @@ class Api
 
     public function updateFileByRefId(int $ref_id, FileDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->updateFileByRefId(
                 $ref_id,
                 $diff
@@ -2121,7 +2107,7 @@ class Api
 
     public function updateGroupById(int $id, GroupDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->updateGroupById(
                 $id,
                 $diff
@@ -2131,7 +2117,7 @@ class Api
 
     public function updateGroupByImportId(string $import_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->updateGroupByImportId(
                 $import_id,
                 $diff
@@ -2141,7 +2127,7 @@ class Api
 
     public function updateGroupByRefId(int $ref_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getGroup()
+        return $this->getGroupService()
             ->updateGroupByRefId(
                 $ref_id,
                 $diff
@@ -2151,7 +2137,7 @@ class Api
 
     public function updateGroupMemberByIdByUserId(int $id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->updateGroupMemberByIdByUserId(
                 $id,
                 $user_id,
@@ -2162,7 +2148,7 @@ class Api
 
     public function updateGroupMemberByIdByUserImportId(int $id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->updateGroupMemberByIdByUserImportId(
                 $id,
                 $user_import_id,
@@ -2173,7 +2159,7 @@ class Api
 
     public function updateGroupMemberByImportIdByUserId(string $import_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->updateGroupMemberByImportIdByUserId(
                 $import_id,
                 $user_id,
@@ -2184,7 +2170,7 @@ class Api
 
     public function updateGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->updateGroupMemberByImportIdByUserImportId(
                 $import_id,
                 $user_import_id,
@@ -2195,7 +2181,7 @@ class Api
 
     public function updateGroupMemberByRefIdByUserId(int $ref_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->updateGroupMemberByRefIdByUserId(
                 $ref_id,
                 $user_id,
@@ -2206,7 +2192,7 @@ class Api
 
     public function updateGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
-        return $this->getGroupMember()
+        return $this->getGroupMemberService()
             ->updateGroupMemberByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
@@ -2217,7 +2203,7 @@ class Api
 
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->updateObjectById(
                 $id,
                 $diff
@@ -2227,7 +2213,7 @@ class Api
 
     public function updateObjectByImportId(string $import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->updateObjectByImportId(
                 $import_id,
                 $diff
@@ -2237,7 +2223,7 @@ class Api
 
     public function updateObjectByRefId(int $ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getObject()
+        return $this->getObjectService()
             ->updateObjectByRefId(
                 $ref_id,
                 $diff
@@ -2247,7 +2233,7 @@ class Api
 
     public function updateObjectLearningProgressByIdByUserId(int $id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
-        return $this->getObjectLearningProgress_()
+        return $this->getObjectLearningProgressService()
             ->updateObjectLearningProgressByIdByUserId(
                 $id,
                 $user_id,
@@ -2258,7 +2244,7 @@ class Api
 
     public function updateObjectLearningProgressByIdByUserImportId(int $id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
-        return $this->getObjectLearningProgress_()
+        return $this->getObjectLearningProgressService()
             ->updateObjectLearningProgressByIdByUserImportId(
                 $id,
                 $user_import_id,
@@ -2269,7 +2255,7 @@ class Api
 
     public function updateObjectLearningProgressByImportIdByUserId(string $import_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
-        return $this->getObjectLearningProgress_()
+        return $this->getObjectLearningProgressService()
             ->updateObjectLearningProgressByImportIdByUserId(
                 $import_id,
                 $user_id,
@@ -2280,7 +2266,7 @@ class Api
 
     public function updateObjectLearningProgressByImportIdByUserImportId(string $import_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
-        return $this->getObjectLearningProgress_()
+        return $this->getObjectLearningProgressService()
             ->updateObjectLearningProgressByImportIdByUserImportId(
                 $import_id,
                 $user_import_id,
@@ -2291,7 +2277,7 @@ class Api
 
     public function updateObjectLearningProgressByRefIdByUserId(int $ref_id, int $user_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
-        return $this->getObjectLearningProgress_()
+        return $this->getObjectLearningProgressService()
             ->updateObjectLearningProgressByRefIdByUserId(
                 $ref_id,
                 $user_id,
@@ -2302,7 +2288,7 @@ class Api
 
     public function updateObjectLearningProgressByRefIdByUserImportId(int $ref_id, string $user_import_id, LegacyObjectLearningProgress $learning_progress) : ?ObjectLearningProgressIdDto
     {
-        return $this->getObjectLearningProgress_()
+        return $this->getObjectLearningProgressService()
             ->updateObjectLearningProgressByRefIdByUserImportId(
                 $ref_id,
                 $user_import_id,
@@ -2313,7 +2299,7 @@ class Api
 
     public function updateOrganisationalUnitByExternalId(string $external_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->updateOrganisationalUnitByExternalId(
                 $external_id,
                 $diff
@@ -2323,7 +2309,7 @@ class Api
 
     public function updateOrganisationalUnitById(int $id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->updateOrganisationalUnitById(
                 $id,
                 $diff
@@ -2333,7 +2319,7 @@ class Api
 
     public function updateOrganisationalUnitByRefId(int $ref_id, OrganisationalUnitDiffDto $diff) : ?OrganisationalUnitIdDto
     {
-        return $this->getOrganisationalUnit()
+        return $this->getOrganisationalUnitService()
             ->updateOrganisationalUnitByRefId(
                 $ref_id,
                 $diff
@@ -2343,7 +2329,7 @@ class Api
 
     public function updateOrganisationalUnitPositionById(int $id, OrganisationalUnitPositionDiffDto $diff) : ?OrganisationalUnitPositionIdDto
     {
-        return $this->getOrganisationalUnitPosition()
+        return $this->getOrganisationalUnitPositionService()
             ->updateOrganisationalUnitPositionById(
                 $id,
                 $diff
@@ -2353,7 +2339,7 @@ class Api
 
     public function updateRoleById(int $id, RoleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->updateRoleById(
                 $id,
                 $diff
@@ -2363,7 +2349,7 @@ class Api
 
     public function updateRoleByImportId(string $import_id, RoleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getRole()
+        return $this->getRoleService()
             ->updateRoleByImportId(
                 $import_id,
                 $diff
@@ -2373,7 +2359,7 @@ class Api
 
     public function updateScormLearningModuleById(int $id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->updateScormLearningModuleById(
                 $id,
                 $diff
@@ -2383,7 +2369,7 @@ class Api
 
     public function updateScormLearningModuleByImportId(string $import_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->updateScormLearningModuleByImportId(
                 $import_id,
                 $diff
@@ -2393,7 +2379,7 @@ class Api
 
     public function updateScormLearningModuleByRefId(int $ref_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->updateScormLearningModuleByRefId(
                 $ref_id,
                 $diff
@@ -2403,7 +2389,7 @@ class Api
 
     public function updateUserById(int $id, UserDiffDto $diff) : ?UserIdDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->updateUserById(
                 $id,
                 $diff
@@ -2413,7 +2399,7 @@ class Api
 
     public function updateUserByImportId(string $import_id, UserDiffDto $diff) : ?UserIdDto
     {
-        return $this->getUser()
+        return $this->getUserService()
             ->updateUserByImportId(
                 $import_id,
                 $diff
@@ -2423,7 +2409,7 @@ class Api
 
     public function uploadFileById(int $id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->uploadFileById(
                 $id,
                 $title,
@@ -2434,7 +2420,7 @@ class Api
 
     public function uploadFileByImportId(string $import_id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->uploadFileByImportId(
                 $import_id,
                 $title,
@@ -2445,7 +2431,7 @@ class Api
 
     public function uploadFileByRefId(int $ref_id, ?string $title = null, bool $replace = false) : ?ObjectIdDto
     {
-        return $this->getFile()
+        return $this->getFileService()
             ->uploadFileByRefId(
                 $ref_id,
                 $title,
@@ -2456,7 +2442,7 @@ class Api
 
     public function uploadScormLearningModuleById(int $id, string $file) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->uploadScormLearningModuleById(
                 $id,
                 $file
@@ -2466,7 +2452,7 @@ class Api
 
     public function uploadScormLearningModuleByImportId(string $import_id, string $file) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->uploadScormLearningModuleByImportId(
                 $import_id,
                 $file
@@ -2476,7 +2462,7 @@ class Api
 
     public function uploadScormLearningModuleByRefId(int $ref_id, string $file) : ?ObjectIdDto
     {
-        return $this->getScormLearningModule()
+        return $this->getScormLearningModuleService()
             ->uploadScormLearningModuleByRefId(
                 $ref_id,
                 $file
@@ -2484,295 +2470,265 @@ class Api
     }
 
 
-    private function getCategory() : CategoryService
+    private function getCategoryService() : CategoryService
+    {
+        return CategoryService::new(
+            $this->getIliasDatabase(),
+            $this->getObjectService()
+        );
+    }
+
+
+    private function getChangeService() : ChangeService
+    {
+        return ChangeService::new(
+            $this->getIliasDatabase(),
+            $this->getConfigService(),
+            $this->getCategoryService(),
+            $this->getCourseService(),
+            $this->getCourseMemberService(),
+            $this->getFileService(),
+            $this->getGroupService(),
+            $this->getGroupMemberService(),
+            $this->getObjectService(),
+            $this->getObjectLearningProgressService(),
+            $this->getOrganisationalUnitService(),
+            $this->getOrganisationalUnitStaffService(),
+            $this->getRoleService(),
+            $this->getScormLearningModuleService(),
+            $this->getUserService(),
+            $this->getUserRoleService()
+        );
+    }
+
+
+    private function getConfigService() : ConfigService
+    {
+        return ConfigService::new();
+    }
+
+
+    private function getCourseMemberService() : CourseMemberService
+    {
+        return CourseMemberService::new(
+            $this->getIliasDatabase(),
+            $this->getCourseService(),
+            $this->getUserService()
+        );
+    }
+
+
+    private function getCourseService() : CourseService
+    {
+        return CourseService::new(
+            $this->getIliasDatabase(),
+            $this->getObjectService()
+        );
+    }
+
+
+    private function getCronService() : CronService
+    {
+        return CronService::new(
+            $this->getIliasDatabase(),
+            $this->getChangeService()
+        );
+    }
+
+
+    private function getFileService() : FileService
+    {
+        return FileService::new(
+            $this->getIliasDatabase(),
+            $this->getIliasUpload(),
+            $this->getObjectService()
+        );
+    }
+
+
+    private function getGroupMemberService() : GroupMemberService
+    {
+        return GroupMemberService::new(
+            $this->getIliasDatabase(),
+            $this->getGroupService(),
+            $this->getUserService()
+        );
+    }
+
+
+    private function getGroupService() : GroupService
+    {
+        return GroupService::new(
+            $this->getIliasDatabase(),
+            $this->getObjectService()
+        );
+    }
+
+
+    private function getIliasDatabase() : ilDBInterface
+    {
+        return $this->getIliasDic()->database();
+    }
+
+
+    private function getIliasDic() : Container
     {
         global $DIC;
 
-        $this->category ??= CategoryService::new(
-            $DIC->database(),
-            $this->getObject()
-        );
-
-        return $this->category;
+        return $DIC;
     }
 
 
-    private function getChange() : ChangeService
+    private function getIliasFavourite() : ilFavouritesDBRepository
     {
-        global $DIC;
-
-        $this->change ??= ChangeService::new(
-            $DIC->database(),
-            $this->getConfig(),
-            $this->getCategory(),
-            $this->getCourse(),
-            $this->getCourseMember(),
-            $this->getFile(),
-            $this->getGroup(),
-            $this->getGroupMember(),
-            $this->getObject(),
-            $this->getObjectLearningProgress_(),
-            $this->getOrganisationalUnit(),
-            $this->getOrganisationalUnitStaff_(),
-            $this->getRole(),
-            $this->getScormLearningModule(),
-            $this->getUser(),
-            $this->getUserRole()
-        );
-
-        return $this->change;
+        return new ilFavouritesDBRepository();
     }
 
 
-    private function getConfig() : ConfigService
+    private function getIliasObjectDefinition() : ilObjectDefinition
     {
-        $this->config ??= ConfigService::new();
-
-        return $this->config;
+        return $this->getIliasDic()["objDefinition"];
     }
 
 
-    private function getCourse() : CourseService
+    private function getIliasRbac() : RBACServices
     {
-        global $DIC;
-
-        $this->course ??= CourseService::new(
-            $DIC->database(),
-            $this->getObject()
-        );
-
-        return $this->course;
+        return $this->getIliasDic()->rbac();
     }
 
 
-    private function getCourseMember() : CourseMemberService
+    private function getIliasTree() : ilTree
     {
-        global $DIC;
-
-        $this->course_member ??= CourseMemberService::new(
-            $DIC->database(),
-            $this->getCourse(),
-            $this->getUser()
-        );
-
-        return $this->course_member;
+        return $this->getIliasDic()->repositoryTree();
     }
 
 
-    private function getCron() : CronService
+    private function getIliasUpload() : FileUpload
     {
-        global $DIC;
-
-        $this->cron ??= CronService::new(
-            $DIC->database(),
-            $this->getChange()
-        );
-
-        return $this->cron;
+        return $this->getIliasDic()->upload();
     }
 
 
-    private function getFile() : FileService
+    private function getIliasUser() : ilObjUser
     {
-        global $DIC;
-
-        $this->file ??= FileService::new(
-            $DIC->database(),
-            $DIC->upload(),
-            $this->getObject()
-        );
-
-        return $this->file;
+        return $this->getIliasDic()->user();
     }
 
 
-    private function getGroup() : GroupService
+    private function getObjectLearningProgressService() : ObjectLearningProgressService
     {
-        global $DIC;
-
-        $this->group ??= GroupService::new(
-            $DIC->database(),
-            $this->getObject()
+        return ObjectLearningProgressService::new(
+            $this->getIliasDatabase(),
+            $this->getObjectService(),
+            $this->getUserService()
         );
-
-        return $this->group;
     }
 
 
-    private function getGroupMember() : GroupMemberService
+    private function getObjectService() : ObjectService
     {
-        global $DIC;
-
-        $this->group_member ??= GroupMemberService::new(
-            $DIC->database(),
-            $this->getGroup(),
-            $this->getUser()
+        return ObjectService::new(
+            $this->getIliasDatabase(),
+            $this->getIliasTree(),
+            $this->getIliasUser(),
+            $this->getIliasObjectDefinition()
         );
-
-        return $this->group_member;
     }
 
 
-    private function getObject() : ObjectService
+    private function getOrganisationalUnitPositionService() : OrganisationalUnitPositionService
     {
-        global $DIC;
-
-        $this->object ??= ObjectService::new(
-            $DIC->database(),
-            $DIC->repositoryTree(),
-            $DIC->user(),
-            $DIC["objDefinition"]
+        return OrganisationalUnitPositionService::new(
+            $this->getIliasDatabase()
         );
-
-        return $this->object;
     }
 
 
-    private function getObjectLearningProgress_() : ObjectLearningProgressService
+    private function getOrganisationalUnitService() : OrganisationalUnitService
     {
-        global $DIC;
-
-        $this->object_learning_progress ??= ObjectLearningProgressService::new(
-            $DIC->database(),
-            $this->getObject(),
-            $this->getUser()
+        return OrganisationalUnitService::new(
+            $this->getIliasDatabase()
         );
-
-        return $this->object_learning_progress;
     }
 
 
-    private function getOrganisationalUnit() : OrganisationalUnitService
+    private function getOrganisationalUnitStaffService() : OrganisationalUnitStaffService
     {
-        global $DIC;
-
-        $this->organisational_unit ??= OrganisationalUnitService::new(
-            $DIC->database()
+        return OrganisationalUnitStaffService::new(
+            $this->getIliasDatabase(),
+            $this->getOrganisationalUnitService(),
+            $this->getUserService(),
+            $this->getOrganisationalUnitPositionService()
         );
-
-        return $this->organisational_unit;
     }
 
 
-    private function getOrganisationalUnitPosition() : OrganisationalUnitPositionService
+    private function getRoleService() : RoleService
     {
-        global $DIC;
-
-        $this->organisational_unit_position ??= OrganisationalUnitPositionService::new(
-            $DIC->database()
+        return RoleService::new(
+            $this->getIliasDatabase(),
+            $this->getObjectService(),
+            $this->getIliasRbac()
         );
-
-        return $this->organisational_unit_position;
     }
 
 
-    private function getOrganisationalUnitStaff_() : OrganisationalUnitStaffService
+    private function getScormLearningModuleService() : ScormLearningModuleService
     {
-        global $DIC;
-
-        $this->organisational_unit_staff ??= OrganisationalUnitStaffService::new(
-            $DIC->database(),
-            $this->getOrganisationalUnit(),
-            $this->getUser(),
-            $this->getOrganisationalUnitPosition()
+        return ScormLearningModuleService::new(
+            $this->getIliasDatabase(),
+            $this->getObjectService()
         );
-
-        return $this->organisational_unit_staff;
     }
 
 
-    private function getRole() : RoleService
+    private function getSetupService() : SetupService
     {
-        global $DIC;
-
-        $this->role ??= RoleService::new(
-            $DIC->database(),
-            $this->getObject(),
-            $DIC->rbac()
+        return SetupService::new(
+            $this->getChangeService(),
+            $this->getConfigService(),
+            $this->getCronService()
         );
-
-        return $this->role;
     }
 
 
-    private function getScormLearningModule() : ScormLearningModuleService
+    private function getUserFavouriteService() : UserFavouriteService
     {
-        global $DIC;
-
-        $this->scorm_learning_module ??= ScormLearningModuleService::new(
-            $DIC->database(),
-            $this->getObject()
+        return UserFavouriteService::new(
+            $this->getIliasDatabase(),
+            $this->getUserService(),
+            $this->getObjectService(),
+            $this->getIliasFavourite()
         );
-
-        return $this->scorm_learning_module;
     }
 
 
-    private function getSetup() : SetupService
+    private function getUserMailService() : UserMailService
     {
-        $this->setup ??= SetupService::new(
-            $this->getChange(),
-            $this->getConfig(),
-            $this->getCron()
+        return UserMailService::new(
+            $this->getIliasDatabase(),
+            $this->getUserService()
         );
-
-        return $this->setup;
     }
 
 
-    private function getUser() : UserService
+    private function getUserRoleService() : UserRoleService
     {
-        global $DIC;
-
-        $this->user ??= UserService::new(
-            $DIC->database(),
-            $DIC->rbac(),
-            $this->getObject()
+        return UserRoleService::new(
+            $this->getIliasDatabase(),
+            $this->getUserService(),
+            $this->getRoleService(),
+            $this->getIliasRbac()
         );
-
-        return $this->user;
     }
 
 
-    private function getUserFavourite() : UserFavouriteService
+    private function getUserService() : UserService
     {
-        global $DIC;
-
-        $this->user_favourite ??= UserFavouriteService::new(
-            $DIC->database(),
-            $this->getUser(),
-            $this->getObject(),
-            new ilFavouritesDBRepository()
+        return UserService::new(
+            $this->getIliasDatabase(),
+            $this->getIliasRbac(),
+            $this->getObjectService()
         );
-
-        return $this->user_favourite;
-    }
-
-
-    private function getUserMail() : UserMailService
-    {
-        global $DIC;
-
-        $this->user_mail ??= UserMailService::new(
-            $DIC->database(),
-            $this->getUser()
-        );
-
-        return $this->user_mail;
-    }
-
-
-    private function getUserRole() : UserRoleService
-    {
-        global $DIC;
-
-        $this->user_role ??= UserRoleService::new(
-            $DIC->database(),
-            $this->getUser(),
-            $this->getRole(),
-            $DIC->rbac()
-        );
-
-        return $this->user_role;
     }
 }

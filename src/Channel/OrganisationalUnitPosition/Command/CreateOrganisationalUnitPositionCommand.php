@@ -11,11 +11,15 @@ class CreateOrganisationalUnitPositionCommand
 
     use OrganisationalUnitPositionQuery;
 
+    private function __construct()
+    {
+
+    }
+
+
     public static function new() : /*static*/ self
     {
-        $command = new static();
-
-        return $command;
+        return new static();
     }
 
 

@@ -19,7 +19,7 @@ trait ObjectQuery
 
     private function cloneIliasObject(ilObject $ilias_object, ObjectDto $parent_object, bool $link = false, bool $prefer_link = false) : ?ilObject
     {
-        if (!$this->object_definition->allowCopy($ilias_object->getType())) {
+        if (!$this->ilias_object_definition->allowCopy($ilias_object->getType())) {
             throw new LogicException("Can't clone object type " . $ilias_object->getType());
         }
 
@@ -29,17 +29,17 @@ trait ObjectQuery
         $wizard_options->saveRoot($ilias_object->getRefId());
 
         $wizard_options->initContainer($ilias_object->getRefId(), $parent_object->getRefId());
-        foreach ($this->tree->getSubTree($this->tree->getNodeData($ilias_object->getRefId())) as $child) {
+        foreach ($this->ilias_tree->getSubTree($this->tree->getNodeData($ilias_object->getRefId())) as $child) {
             if (intval($child["ref_id"]) === intval($ilias_object->getRefId())) {
                 continue;
             }
 
             $copy_types = [];
-            if ($this->object_definition->allowCopy($child["type"])) {
+            if ($this->ilias_object_definition->allowCopy($child["type"])) {
                 $copy_types[] = ilCopyWizardOptions::COPY_WIZARD_COPY;
             }
 
-            if ($link && $this->object_definition->allowLink($child["type"])) {
+            if ($link && $this->ilias_object_definition->allowLink($child["type"])) {
                 $copy_types[] = ilCopyWizardOptions::COPY_WIZARD_LINK;
             }
             if (empty($copy_types)) {
@@ -85,15 +85,15 @@ trait ObjectQuery
         $wheres = [];
 
         if ($id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
         }
 
         if ($import_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($import_id, ilDBConstants::T_TEXT);
         }
 
         if ($ref_id !== null) {
-            $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
         if ($in_trash !== null) {
@@ -130,23 +130,23 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
         $wheres = [];
 
         if ($type !== null) {
-            $wheres[] = "object_data.type=" . $this->database->quote(ObjectTypeMapping::mapExternalToInternal($type)->value, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.type=" . $this->ilias_database->quote(ObjectTypeMapping::mapExternalToInternal($type)->value, ilDBConstants::T_TEXT);
         }
 
         if ($id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
         }
 
         if ($import_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($import_id, ilDBConstants::T_TEXT);
         }
 
         if ($ref_id !== null) {
-            $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
         if ($ref_ids !== null) {
-            $wheres[] = $this->database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
+            $wheres[] = $this->ilias_database->in("object_reference.ref_id", $ref_ids, false, ilDBConstants::T_INTEGER);
         }
 
         if ($in_trash !== null) {
@@ -171,7 +171,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
         return "SELECT object_data.obj_id,object_reference.ref_id
 FROM object_data
 INNER JOIN object_reference ON object_data.obj_id=object_reference.obj_id
-WHERE " . $this->database->in("object_data.obj_id", $ids, false, ilDBConstants::T_INTEGER) . "
+WHERE " . $this->ilias_database->in("object_data.obj_id", $ids, false, ilDBConstants::T_INTEGER) . "
 ORDER BY object_reference.ref_id ASC";
     }
 

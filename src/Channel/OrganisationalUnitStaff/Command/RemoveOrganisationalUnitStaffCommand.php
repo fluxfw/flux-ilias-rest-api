@@ -16,33 +16,46 @@ class RemoveOrganisationalUnitStaffCommand
 
     use OrganisationalUnitStaffQuery;
 
-    private OrganisationalUnitService $organisational_unit;
-    private OrganisationalUnitPositionService $organisational_unit_position;
-    private UserService $user;
+    private OrganisationalUnitPositionService $organisational_unit_position_service;
+    private OrganisationalUnitService $organisational_unit_service;
+    private UserService $user_service;
 
 
-    public static function new(OrganisationalUnitService $organisational_unit, UserService $user, OrganisationalUnitPositionService $organisational_unit_position) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ OrganisationalUnitService $organisational_unit_service,
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ OrganisationalUnitPositionService $organisational_unit_position_service
+    ) {
+        $this->organisational_unit_service = $organisational_unit_service;
+        $this->user_service = $user_service;
+        $this->organisational_unit_position_service = $organisational_unit_position_service;
+    }
+
+
+    public static function new(
+        OrganisationalUnitService $organisational_unit_service,
+        UserService $user_service,
+        OrganisationalUnitPositionService $organisational_unit_position_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->organisational_unit = $organisational_unit;
-        $command->user = $user;
-        $command->organisational_unit_position = $organisational_unit_position;
-
-        return $command;
+        return new static(
+            $organisational_unit_service,
+            $user_service,
+            $organisational_unit_position_service
+        );
     }
 
 
     public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->removeOrganisationalUnitStaff(
-            $this->organisational_unit->getOrganisationalUnitByExternalId(
+            $this->organisational_unit_service->getOrganisationalUnitByExternalId(
                 $external_id
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
-            $this->organisational_unit_position->getOrganisationalUnitPositionById(
+            $this->organisational_unit_position_service->getOrganisationalUnitPositionById(
                 $position_id
             )
         );
@@ -52,13 +65,13 @@ class RemoveOrganisationalUnitStaffCommand
     public function removeOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->removeOrganisationalUnitStaff(
-            $this->organisational_unit->getOrganisationalUnitByExternalId(
+            $this->organisational_unit_service->getOrganisationalUnitByExternalId(
                 $external_id
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
-            $this->organisational_unit_position->getOrganisationalUnitPositionById(
+            $this->organisational_unit_position_service->getOrganisationalUnitPositionById(
                 $position_id
             )
         );
@@ -68,13 +81,13 @@ class RemoveOrganisationalUnitStaffCommand
     public function removeOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->removeOrganisationalUnitStaff(
-            $this->organisational_unit->getOrganisationalUnitById(
+            $this->organisational_unit_service->getOrganisationalUnitById(
                 $id
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
-            $this->organisational_unit_position->getOrganisationalUnitPositionById(
+            $this->organisational_unit_position_service->getOrganisationalUnitPositionById(
                 $position_id
             )
         );
@@ -84,13 +97,13 @@ class RemoveOrganisationalUnitStaffCommand
     public function removeOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->removeOrganisationalUnitStaff(
-            $this->organisational_unit->getOrganisationalUnitById(
+            $this->organisational_unit_service->getOrganisationalUnitById(
                 $id
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
-            $this->organisational_unit_position->getOrganisationalUnitPositionById(
+            $this->organisational_unit_position_service->getOrganisationalUnitPositionById(
                 $position_id
             )
         );
@@ -100,13 +113,13 @@ class RemoveOrganisationalUnitStaffCommand
     public function removeOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->removeOrganisationalUnitStaff(
-            $this->organisational_unit->getOrganisationalUnitByRefId(
+            $this->organisational_unit_service->getOrganisationalUnitByRefId(
                 $ref_id
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             ),
-            $this->organisational_unit_position->getOrganisationalUnitPositionById(
+            $this->organisational_unit_position_service->getOrganisationalUnitPositionById(
                 $position_id
             )
         );
@@ -116,13 +129,13 @@ class RemoveOrganisationalUnitStaffCommand
     public function removeOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return $this->removeOrganisationalUnitStaff(
-            $this->organisational_unit->getOrganisationalUnitByRefId(
+            $this->organisational_unit_service->getOrganisationalUnitByRefId(
                 $ref_id
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             ),
-            $this->organisational_unit_position->getOrganisationalUnitPositionById(
+            $this->organisational_unit_position_service->getOrganisationalUnitPositionById(
                 $position_id
             )
         );

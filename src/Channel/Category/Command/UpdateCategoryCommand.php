@@ -13,23 +13,30 @@ class UpdateCategoryCommand
 
     use CategoryQuery;
 
-    private CategoryService $category;
+    private CategoryService $category_service;
 
 
-    public static function new(CategoryService $category) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ CategoryService $category_service
+    ) {
+        $this->category_service = $category_service;
+    }
+
+
+    public static function new(
+        CategoryService $category_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->category = $category;
-
-        return $command;
+        return new static(
+            $category_service
+        );
     }
 
 
     public function updateCategoryById(int $id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateCategory(
-            $this->category->getCategoryById(
+            $this->category_service->getCategoryById(
                 $id,
                 false
             ),
@@ -41,7 +48,7 @@ class UpdateCategoryCommand
     public function updateCategoryByImportId(string $import_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateCategory(
-            $this->category->getCategoryByImportId(
+            $this->category_service->getCategoryByImportId(
                 $import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class UpdateCategoryCommand
     public function updateCategoryByRefId(int $ref_id, CategoryDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateCategory(
-            $this->category->getCategoryByRefId(
+            $this->category_service->getCategoryByRefId(
                 $ref_id,
                 false
             ),

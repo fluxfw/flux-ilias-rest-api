@@ -13,25 +13,35 @@ class GetUnreadMailsCount
 
     use UserMailQuery;
 
-    private ilDBInterface $database;
-    private UserService $user;
+    private ilDBInterface $ilias_database;
+    private UserService $user_service;
 
 
-    public static function new(ilDBInterface $database, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-        $command->user = $user;
-
-        return $command;
+        return new static(
+            $ilias_database,
+            $user_service
+        );
     }
 
 
     public function getUnreadMailsCountById(int $id) : ?int
     {
         return $this->getUnreadMailsCount(
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $id
             )
         );
@@ -41,7 +51,7 @@ class GetUnreadMailsCount
     public function getUnreadMailsCountByImportId(string $import_id) : ?int
     {
         return $this->getUnreadMailsCount(
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $import_id
             )
         );
@@ -54,7 +64,7 @@ class GetUnreadMailsCount
             return null;
         }
 
-        return $this->database->fetchAssoc($this->database->query($this->getUserMailQuery(
+        return $this->ilias_database->fetchAssoc($this->ilias_database->query($this->getUserMailQuery(
             $user->getId(),
             LegacyInternalMailStatus::UNREAD()->value,
             true

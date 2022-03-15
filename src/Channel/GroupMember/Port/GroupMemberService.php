@@ -16,28 +16,41 @@ use ilDBInterface;
 class GroupMemberService
 {
 
-    private ilDBInterface $database;
-    private GroupService $group;
-    private UserService $user;
+    private GroupService $group_service;
+    private ilDBInterface $ilias_database;
+    private UserService $user_service;
 
 
-    public static function new(ilDBInterface $database, GroupService $group, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ GroupService $group_service,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->group_service = $group_service;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        GroupService $group_service,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->group = $group;
-        $service->user = $user;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $group_service,
+            $user_service
+        );
     }
 
 
     public function addGroupMemberByIdByUserId(int $id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return AddGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->addGroupMemberByIdByUserId(
                 $id,
@@ -50,8 +63,8 @@ class GroupMemberService
     public function addGroupMemberByIdByUserImportId(int $id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return AddGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->addGroupMemberByIdByUserImportId(
                 $id,
@@ -64,8 +77,8 @@ class GroupMemberService
     public function addGroupMemberByImportIdByUserId(string $import_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return AddGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->addGroupMemberByImportIdByUserId(
                 $import_id,
@@ -78,8 +91,8 @@ class GroupMemberService
     public function addGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return AddGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->addGroupMemberByImportIdByUserImportId(
                 $import_id,
@@ -92,8 +105,8 @@ class GroupMemberService
     public function addGroupMemberByRefIdByUserId(int $ref_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return AddGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->addGroupMemberByRefIdByUserId(
                 $ref_id,
@@ -106,8 +119,8 @@ class GroupMemberService
     public function addGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return AddGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->addGroupMemberByRefIdByUserImportId(
                 $ref_id,
@@ -130,7 +143,7 @@ class GroupMemberService
         ?bool $notification = null
     ) : array {
         return GetGroupMembersCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getGroupMembers(
                 $group_id,
@@ -150,8 +163,8 @@ class GroupMemberService
     public function removeGroupMemberByIdByUserId(int $id, int $user_id) : ?GroupMemberIdDto
     {
         return RemoveGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->removeGroupMemberByIdByUserId(
                 $id,
@@ -163,8 +176,8 @@ class GroupMemberService
     public function removeGroupMemberByIdByUserImportId(int $id, string $user_import_id) : ?GroupMemberIdDto
     {
         return RemoveGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->removeGroupMemberByIdByUserImportId(
                 $id,
@@ -176,8 +189,8 @@ class GroupMemberService
     public function removeGroupMemberByImportIdByUserId(string $import_id, int $user_id) : ?GroupMemberIdDto
     {
         return RemoveGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->removeGroupMemberByImportIdByUserId(
                 $import_id,
@@ -189,8 +202,8 @@ class GroupMemberService
     public function removeGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?GroupMemberIdDto
     {
         return RemoveGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->removeGroupMemberByImportIdByUserImportId(
                 $import_id,
@@ -202,8 +215,8 @@ class GroupMemberService
     public function removeGroupMemberByRefIdByUserId(int $ref_id, int $user_id) : ?GroupMemberIdDto
     {
         return RemoveGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->removeGroupMemberByRefIdByUserId(
                 $ref_id,
@@ -215,8 +228,8 @@ class GroupMemberService
     public function removeGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?GroupMemberIdDto
     {
         return RemoveGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->removeGroupMemberByRefIdByUserImportId(
                 $ref_id,
@@ -228,8 +241,8 @@ class GroupMemberService
     public function updateGroupMemberByIdByUserId(int $id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return UpdateGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->updateGroupMemberByIdByUserId(
                 $id,
@@ -242,8 +255,8 @@ class GroupMemberService
     public function updateGroupMemberByIdByUserImportId(int $id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return UpdateGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->updateGroupMemberByIdByUserImportId(
                 $id,
@@ -256,8 +269,8 @@ class GroupMemberService
     public function updateGroupMemberByImportIdByUserId(string $import_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return UpdateGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->updateGroupMemberByImportIdByUserId(
                 $import_id,
@@ -270,8 +283,8 @@ class GroupMemberService
     public function updateGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return UpdateGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->updateGroupMemberByImportIdByUserImportId(
                 $import_id,
@@ -284,8 +297,8 @@ class GroupMemberService
     public function updateGroupMemberByRefIdByUserId(int $ref_id, int $user_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return UpdateGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->updateGroupMemberByRefIdByUserId(
                 $ref_id,
@@ -298,8 +311,8 @@ class GroupMemberService
     public function updateGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id, GroupMemberDiffDto $diff) : ?GroupMemberIdDto
     {
         return UpdateGroupMemberCommand::new(
-            $this->group,
-            $this->user
+            $this->group_service,
+            $this->user_service
         )
             ->updateGroupMemberByRefIdByUserImportId(
                 $ref_id,

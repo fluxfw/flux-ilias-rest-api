@@ -15,25 +15,35 @@ use ilDBInterface;
 class CourseService
 {
 
-    private ilDBInterface $database;
-    private ObjectService $object;
+    private ilDBInterface $ilias_database;
+    private ObjectService $object_service;
 
 
-    public static function new(ilDBInterface $database, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->object = $object;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $object_service
+        );
     }
 
 
     public function createCourseToId(int $parent_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return CreateCourseCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createCourseToId(
                 $parent_id,
@@ -45,7 +55,7 @@ class CourseService
     public function createCourseToImportId(string $parent_import_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return CreateCourseCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createCourseToImportId(
                 $parent_import_id,
@@ -57,7 +67,7 @@ class CourseService
     public function createCourseToRefId(int $parent_ref_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return CreateCourseCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createCourseToRefId(
                 $parent_ref_id,
@@ -69,7 +79,7 @@ class CourseService
     public function getCourseById(int $id, ?bool $in_trash = null) : ?CourseDto
     {
         return GetCourseCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCourseById(
                 $id,
@@ -81,7 +91,7 @@ class CourseService
     public function getCourseByImportId(string $import_id, ?bool $in_trash = null) : ?CourseDto
     {
         return GetCourseCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCourseByImportId(
                 $import_id,
@@ -93,7 +103,7 @@ class CourseService
     public function getCourseByRefId(int $ref_id, ?bool $in_trash = null) : ?CourseDto
     {
         return GetCourseCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCourseByRefId(
                 $ref_id,
@@ -105,7 +115,7 @@ class CourseService
     public function getCourses(bool $container_settings = false, ?bool $in_trash = null) : array
     {
         return GetCoursesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getCourses(
                 $container_settings,

@@ -14,23 +14,30 @@ class CreateScormLearningModuleCommand
 
     use ScormLearningModuleQuery;
 
-    private ObjectService $object;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $object_service
+        );
     }
 
 
     public function createScormLearningModuleToId(int $parent_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createScormLearningModule(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             ),
@@ -42,7 +49,7 @@ class CreateScormLearningModuleCommand
     public function createScormLearningModuleToImportId(string $parent_import_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createScormLearningModule(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             ),
@@ -54,7 +61,7 @@ class CreateScormLearningModuleCommand
     public function createScormLearningModuleToRefId(int $parent_ref_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createScormLearningModule(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             ),

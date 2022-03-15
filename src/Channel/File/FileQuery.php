@@ -22,19 +22,19 @@ trait FileQuery
     private function getFileQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?bool $in_trash = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::FILE()->value, ilDBConstants::T_TEXT)
+            "object_data.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::FILE()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
         }
 
         if ($import_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($import_id, ilDBConstants::T_TEXT);
         }
 
         if ($ref_id !== null) {
-            $wheres[] = "object_reference.ref_id=" . $this->database->quote($ref_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
         if ($in_trash !== null) {

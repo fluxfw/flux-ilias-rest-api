@@ -22,6 +22,37 @@ class OrganisationalUnitDto implements JsonSerializable
     private ?string $url;
 
 
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?int $ref_id,
+        /*public readonly*/ ?int $created,
+        /*public readonly*/ ?int $updated,
+        /*public readonly*/ ?int $parent_id,
+        /*public readonly*/ ?string $parent_external_id,
+        /*public readonly*/ ?int $parent_ref_id,
+        /*public readonly*/ ?string $url,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description,
+        /*public readonly*/ ?int $type_id,
+        /*public readonly*/ ?string $external_id,
+        /*public readonly*/ ?int $didactic_template_id
+    ) {
+        $this->id = $id;
+        $this->ref_id = $ref_id;
+        $this->created = $created;
+        $this->updated = $updated;
+        $this->parent_id = $parent_id;
+        $this->parent_external_id = $parent_external_id;
+        $this->parent_ref_id = $parent_ref_id;
+        $this->url = $url;
+        $this->title = $title;
+        $this->description = $description;
+        $this->type_id = $type_id;
+        $this->external_id = $external_id;
+        $this->didactic_template_id = $didactic_template_id;
+    }
+
+
     public static function new(
         ?int $id = null,
         ?int $ref_id = null,
@@ -38,23 +69,21 @@ class OrganisationalUnitDto implements JsonSerializable
         ?int $didactic_template_id = null
     ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->ref_id = $ref_id;
-        $dto->created = $created;
-        $dto->updated = $updated;
-        $dto->parent_id = $parent_id;
-        $dto->parent_external_id = $parent_external_id;
-        $dto->parent_ref_id = $parent_ref_id;
-        $dto->url = $url;
-        $dto->title = $title;
-        $dto->description = $description;
-        $dto->type_id = $type_id;
-        $dto->external_id = $external_id;
-        $dto->didactic_template_id = $didactic_template_id;
-
-        return $dto;
+        return new static(
+            $id,
+            $ref_id,
+            $created,
+            $updated,
+            $parent_id,
+            $parent_external_id,
+            $parent_ref_id,
+            $url,
+            $title,
+            $description,
+            $type_id,
+            $external_id,
+            $didactic_template_id
+        );
     }
 
 

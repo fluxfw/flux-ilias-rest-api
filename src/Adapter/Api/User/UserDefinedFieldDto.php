@@ -12,15 +12,28 @@ class UserDefinedFieldDto implements JsonSerializable
     private ?string $value;
 
 
-    public static function new(?int $id = null, ?string $name = null, ?string $value = null) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?string $name,
+        /*public readonly*/ ?string $value
+    ) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->value = $value;
+    }
+
+
+    public static function new(
+        ?int $id = null,
+        ?string $name = null,
+        ?string $value = null
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->name = $name;
-        $dto->value = $value;
-
-        return $dto;
+        return new static(
+            $id,
+            $name,
+            $value
+        );
     }
 
 

@@ -11,7 +11,38 @@ class GroupDiffDto
     private ?string $title;
 
 
-    public static function newFromData(object $data) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?string $import_id,
+        /*public readonly*/ ?string $title,
+        /*public readonly*/ ?string $description,
+        /*public readonly*/ ?int $didactic_template_id
+    ) {
+        $this->import_id = $import_id;
+        $this->title = $title;
+        $this->description = $description;
+        $this->didactic_template_id = $didactic_template_id;
+    }
+
+
+    public static function new(
+        ?string $import_id = null,
+        ?string $title = null,
+        ?string $description = null,
+        ?int $didactic_template_id = null
+    ) : /*static*/ self
+    {
+        return new static(
+            $import_id,
+            $title,
+            $description,
+            $didactic_template_id
+        );
+    }
+
+
+    public static function newFromData(
+        object $data
+    ) : /*static*/ self
     {
         return static::new(
             $data->import_id ?? null,
@@ -19,19 +50,6 @@ class GroupDiffDto
             $data->description ?? null,
             $data->didactic_template_id ?? null
         );
-    }
-
-
-    private static function new(?string $import_id = null, ?string $title = null, ?string $description = null, ?int $didactic_template_id = null) : /*static*/ self
-    {
-        $dto = new static();
-
-        $dto->import_id = $import_id;
-        $dto->title = $title;
-        $dto->description = $description;
-        $dto->didactic_template_id = $didactic_template_id;
-
-        return $dto;
     }
 
 

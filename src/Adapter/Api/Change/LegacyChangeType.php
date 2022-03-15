@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Api\Change;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyStringBackedEnum;
 
 /**
  * @method static static ADDED_COURSE_MEMBER() added_course_member

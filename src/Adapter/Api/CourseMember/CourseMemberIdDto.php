@@ -14,17 +14,36 @@ class CourseMemberIdDto implements JsonSerializable
     private ?string $user_import_id;
 
 
-    public static function new(?int $course_id = null, ?string $course_import_id = null, ?int $course_ref_id = null, ?int $user_id = null, ?string $user_import_id = null) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?int $course_id,
+        /*public readonly*/ ?string $course_import_id,
+        /*public readonly*/ ?int $course_ref_id,
+        /*public readonly*/ ?int $user_id,
+        /*public readonly*/ ?string $user_import_id
+    ) {
+        $this->course_id = $course_id;
+        $this->course_import_id = $course_import_id;
+        $this->course_ref_id = $course_ref_id;
+        $this->user_id = $user_id;
+        $this->user_import_id = $user_import_id;
+    }
+
+
+    public static function new(
+        ?int $course_id = null,
+        ?string $course_import_id = null,
+        ?int $course_ref_id = null,
+        ?int $user_id = null,
+        ?string $user_import_id = null
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->course_id = $course_id;
-        $dto->course_import_id = $course_import_id;
-        $dto->course_ref_id = $course_ref_id;
-        $dto->user_id = $user_id;
-        $dto->user_import_id = $user_import_id;
-
-        return $dto;
+        return new static(
+            $course_id,
+            $course_import_id,
+            $course_ref_id,
+            $user_id,
+            $user_import_id
+        );
     }
 
 

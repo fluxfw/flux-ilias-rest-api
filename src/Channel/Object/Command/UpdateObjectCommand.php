@@ -13,23 +13,30 @@ class UpdateObjectCommand
 
     use ObjectQuery;
 
-    private ObjectService $object;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $object_service
+        );
     }
 
 
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
@@ -41,7 +48,7 @@ class UpdateObjectCommand
     public function updateObjectByImportId(string $import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class UpdateObjectCommand
     public function updateObjectByRefId(int $ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),

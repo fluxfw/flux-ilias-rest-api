@@ -11,16 +11,23 @@ use ilPropertyFormGUI;
 class PurgeChangesCronJob extends ilCronJob
 {
 
-    private ChangeService $change;
+    private ChangeService $change_service;
 
 
-    public static function new(ChangeService $change) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ChangeService $change_service
+    ) {
+        $this->change_service = $change_service;
+    }
+
+
+    public static function new(
+        ChangeService $change_service
+    ) : /*static*/ self
     {
-        $cron_job = new static();
-
-        $cron_job->change = $change;
-
-        return $cron_job;
+        return new static(
+            $change_service
+        );
     }
 
 
@@ -30,7 +37,7 @@ class PurgeChangesCronJob extends ilCronJob
         $keep_changes_inside_days->setSuffix("days");
         $keep_changes_inside_days->setRequired(true);
         $keep_changes_inside_days->setMinValue(0);
-        $keep_changes_inside_days->setValue($this->change->getKeepChangesInsideDays());
+        $keep_changes_inside_days->setValue($this->change_service->getKeepChangesInsideDays());
         $a_form->addItem($keep_changes_inside_days);
     }
 
@@ -87,7 +94,7 @@ class PurgeChangesCronJob extends ilCronJob
     {
         $result = new ilCronJobResult();
 
-        $count = $this->change->purgeChanges();
+        $count = $this->change_service->purgeChanges();
 
         if ($count !== null) {
             $result->setStatus(ilCronJobResult::STATUS_OK);
@@ -102,7 +109,7 @@ class PurgeChangesCronJob extends ilCronJob
 
     public function saveCustomSettings(ilPropertyFormGUI $a_form) : bool
     {
-        $this->change->setKeepChangesInsideDays(
+        $this->change_service->setKeepChangesInsideDays(
             max(0, intval($a_form->getInput("keep_changes_inside_days")))
         );
 

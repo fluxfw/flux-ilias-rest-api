@@ -12,24 +12,34 @@ class GetChildrenCommand
 
     use ObjectQuery;
 
-    private ilDBInterface $database;
-    private ObjectService $object;
+    private ilDBInterface $ilias_database;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object, ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->object_service = $object_service;
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ObjectService $object_service,
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $object_service,
+            $ilias_database
+        );
     }
 
 
     public function getChildrenById(int $id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        $object = $this->object->getObjectById(
+        $object = $this->object_service->getObjectById(
             $id,
             $in_trash
         );
@@ -49,7 +59,7 @@ class GetChildrenCommand
 
     public function getChildrenByImportId(string $import_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        $object = $this->object->getObjectByImportId(
+        $object = $this->object_service->getObjectByImportId(
             $import_id,
             $in_trash
         );
@@ -69,7 +79,7 @@ class GetChildrenCommand
 
     public function getChildrenByRefId(int $ref_id, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
-        $object = $this->object->getObjectByRefId(
+        $object = $this->object_service->getObjectByRefId(
             $ref_id,
             $in_trash
         );
@@ -89,7 +99,7 @@ class GetChildrenCommand
 
     private function getChildren(?int $id = null, ?string $import_id = null, ?int $ref_id = null, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
-        $objects = $this->database->fetchAll($this->database->query($this->getObjectChildrenQuery(
+        $objects = $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectChildrenQuery(
             $id,
             $import_id,
             $ref_id,
@@ -97,7 +107,7 @@ class GetChildrenCommand
         )));
         $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);
 
-        $ref_ids_ = $ref_ids ? $this->database->fetchAll($this->database->query($this->getObjectRefIdsQuery($object_ids))) : null;
+        $ref_ids_ = $ref_ids ? $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectRefIdsQuery($object_ids))) : null;
 
         return array_map(fn(array $object) : ObjectDto => $this->mapObjectDto(
             $object,

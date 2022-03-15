@@ -8,22 +8,29 @@ use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 class GetGlobalRoleObjectCommand
 {
 
-    private ObjectService $object;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $object_service
+        );
     }
 
 
     public function getGlobalRoleObject() : ?ObjectDto
     {
-        return $this->object->getObjectByRefId(
+        return $this->object_service->getObjectByRefId(
             ROLE_FOLDER_ID
         );
     }

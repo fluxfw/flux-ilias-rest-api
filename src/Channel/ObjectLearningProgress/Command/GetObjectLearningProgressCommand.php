@@ -11,16 +11,23 @@ class GetObjectLearningProgressCommand
 
     use ObjectLearningProgressQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
@@ -32,7 +39,7 @@ class GetObjectLearningProgressCommand
         ?string $user_import_id = null,
         ?LegacyObjectLearningProgress $learning_progress = null
     ) : array {
-        return array_map([$this, "mapObjectLearningProgressDto"], $this->database->fetchAll($this->database->query($this->getObjectLearningProgressQuery(
+        return array_map([$this, "mapObjectLearningProgressDto"], $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectLearningProgressQuery(
             $object_id,
             $object_import_id,
             $object_ref_id,

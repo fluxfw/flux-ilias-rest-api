@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
 use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionAuthorityScopeIn;
 
-final class OrganisationalUnitPositionAuthorityScopeInMapping
+class OrganisationalUnitPositionAuthorityScopeInMapping
 {
 
     public static function mapExternalToInternal(LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in) : LegacyInternalOrganisationalUnitPositionAuthorityScopeIn

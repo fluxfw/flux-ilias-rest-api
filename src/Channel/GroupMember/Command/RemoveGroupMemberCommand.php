@@ -14,29 +14,39 @@ class RemoveGroupMemberCommand
 
     use GroupQuery;
 
-    private GroupService $group;
-    private UserService $user;
+    private GroupService $group_service;
+    private UserService $user_service;
 
 
-    public static function new(GroupService $group, UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ GroupService $group_service,
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->group_service = $group_service;
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        GroupService $group_service,
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->group = $group;
-        $command->user = $user;
-
-        return $command;
+        return new static(
+            $group_service,
+            $user_service
+        );
     }
 
 
     public function removeGroupMemberByIdByUserId(int $id, int $user_id) : ?GroupMemberIdDto
     {
         return $this->removeGroupMember(
-            $this->group->getGroupById(
+            $this->group_service->getGroupById(
                 $id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             )
         );
@@ -46,11 +56,11 @@ class RemoveGroupMemberCommand
     public function removeGroupMemberByIdByUserImportId(int $id, string $user_import_id) : ?GroupMemberIdDto
     {
         return $this->removeGroupMember(
-            $this->group->getGroupById(
+            $this->group_service->getGroupById(
                 $id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             )
         );
@@ -60,11 +70,11 @@ class RemoveGroupMemberCommand
     public function removeGroupMemberByImportIdByUserId(string $import_id, int $user_id) : ?GroupMemberIdDto
     {
         return $this->removeGroupMember(
-            $this->group->getGroupByImportId(
+            $this->group_service->getGroupByImportId(
                 $import_id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             )
         );
@@ -74,11 +84,11 @@ class RemoveGroupMemberCommand
     public function removeGroupMemberByImportIdByUserImportId(string $import_id, string $user_import_id) : ?GroupMemberIdDto
     {
         return $this->removeGroupMember(
-            $this->group->getGroupByImportId(
+            $this->group_service->getGroupByImportId(
                 $import_id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             )
         );
@@ -88,11 +98,11 @@ class RemoveGroupMemberCommand
     public function removeGroupMemberByRefIdByUserId(int $ref_id, int $user_id) : ?GroupMemberIdDto
     {
         return $this->removeGroupMember(
-            $this->group->getGroupByRefId(
+            $this->group_service->getGroupByRefId(
                 $ref_id,
                 false
             ),
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $user_id
             )
         );
@@ -102,11 +112,11 @@ class RemoveGroupMemberCommand
     public function removeGroupMemberByRefIdByUserImportId(int $ref_id, string $user_import_id) : ?GroupMemberIdDto
     {
         return $this->removeGroupMember(
-            $this->group->getGroupByRefId(
+            $this->group_service->getGroupByRefId(
                 $ref_id,
                 false
             ),
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $user_import_id
             )
         );

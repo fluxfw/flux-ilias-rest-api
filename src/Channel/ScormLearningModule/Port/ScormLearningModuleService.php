@@ -16,25 +16,35 @@ use ilDBInterface;
 class ScormLearningModuleService
 {
 
-    private ilDBInterface $database;
-    private ObjectService $object;
+    private ilDBInterface $ilias_database;
+    private ObjectService $object_service;
 
 
-    public static function new(ilDBInterface $database, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->object = $object;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $object_service
+        );
     }
 
 
     public function createScormLearningModuleToId(int $parent_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateScormLearningModuleCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createScormLearningModuleToId(
                 $parent_id,
@@ -46,7 +56,7 @@ class ScormLearningModuleService
     public function createScormLearningModuleToImportId(string $parent_import_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateScormLearningModuleCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createScormLearningModuleToImportId(
                 $parent_import_id,
@@ -58,7 +68,7 @@ class ScormLearningModuleService
     public function createScormLearningModuleToRefId(int $parent_ref_id, ScormLearningModuleDiffDto $diff) : ?ObjectIdDto
     {
         return CreateScormLearningModuleCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createScormLearningModuleToRefId(
                 $parent_ref_id,
@@ -70,7 +80,7 @@ class ScormLearningModuleService
     public function getScormLearningModuleById(int $id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return GetScormLearningModuleCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getScormLearningModuleById(
                 $id,
@@ -82,7 +92,7 @@ class ScormLearningModuleService
     public function getScormLearningModuleByImportId(string $import_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return GetScormLearningModuleCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getScormLearningModuleByImportId(
                 $import_id,
@@ -94,7 +104,7 @@ class ScormLearningModuleService
     public function getScormLearningModuleByRefId(int $ref_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         return GetScormLearningModuleCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getScormLearningModuleByRefId(
                 $ref_id,
@@ -106,7 +116,7 @@ class ScormLearningModuleService
     public function getScormLearningModules(?bool $in_trash = null) : array
     {
         return GetScormLearningModulesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getScormLearningModules(
                 $in_trash

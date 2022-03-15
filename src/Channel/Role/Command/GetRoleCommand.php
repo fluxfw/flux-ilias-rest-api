@@ -12,23 +12,30 @@ class GetRoleCommand
 
     use RoleQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getRoleById(int $id) : ?RoleDto
     {
         $role = null;
-        while (($role_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getRoleQuery(
+        while (($role_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getRoleQuery(
                 $id
             )))) !== null) {
             if ($role !== null) {
@@ -46,7 +53,7 @@ class GetRoleCommand
     public function getRoleByImportId(string $import_id) : ?RoleDto
     {
         $role = null;
-        while (($role_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getRoleQuery(
+        while (($role_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getRoleQuery(
                 null,
                 $import_id
             )))) !== null) {

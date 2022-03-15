@@ -32,61 +32,61 @@ trait CourseMemberQuery
         ?bool $notification = null
     ) : string {
         $wheres = [
-            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::CRS()->value, ilDBConstants::T_TEXT),
-            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
+            "object_data.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::CRS()->value, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
         if ($course_id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($course_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($course_id, ilDBConstants::T_INTEGER);
         }
 
         if ($course_import_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($course_import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($course_import_id, ilDBConstants::T_TEXT);
         }
 
         if ($course_ref_id !== null) {
-            $wheres[] = "object_reference.ref_id=" . $this->database->quote($course_ref_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($course_ref_id, ilDBConstants::T_INTEGER);
         }
 
         if ($user_id !== null) {
-            $wheres[] = "object_data_user.obj_id=" . $this->database->quote($user_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data_user.obj_id=" . $this->ilias_database->quote($user_id, ilDBConstants::T_INTEGER);
         }
 
         if ($user_import_id !== null) {
-            $wheres[] = "object_data_user.import_id=" . $this->database->quote($user_import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data_user.import_id=" . $this->ilias_database->quote($user_import_id, ilDBConstants::T_TEXT);
         }
 
         if ($member_role !== null) {
-            $wheres[] = "member=" . $this->database->quote($member_role, ilDBConstants::T_INTEGER);
+            $wheres[] = "member=" . $this->ilias_database->quote($member_role, ilDBConstants::T_INTEGER);
         }
 
         if ($tutor_role !== null) {
-            $wheres[] = "tutor=" . $this->database->quote($tutor_role, ilDBConstants::T_INTEGER);
+            $wheres[] = "tutor=" . $this->ilias_database->quote($tutor_role, ilDBConstants::T_INTEGER);
         }
 
         if ($administrator_role !== null) {
-            $wheres[] = "admin=" . $this->database->quote($administrator_role, ilDBConstants::T_INTEGER);
+            $wheres[] = "admin=" . $this->ilias_database->quote($administrator_role, ilDBConstants::T_INTEGER);
         }
 
         if ($learning_progress !== null) {
-            $wheres[] = "status=" . $this->database->quote(ObjectLearningProgressMapping::mapExternalToInternal($learning_progress)->value, ilDBConstants::T_INTEGER);
+            $wheres[] = "status=" . $this->ilias_database->quote(ObjectLearningProgressMapping::mapExternalToInternal($learning_progress)->value, ilDBConstants::T_INTEGER);
         }
 
         if ($passed !== null) {
-            $wheres[] = "passed=" . $this->database->quote($passed, ilDBConstants::T_INTEGER);
+            $wheres[] = "passed=" . $this->ilias_database->quote($passed, ilDBConstants::T_INTEGER);
         }
 
         if ($access_refused !== null) {
-            $wheres[] = "blocked=" . $this->database->quote($access_refused, ilDBConstants::T_INTEGER);
+            $wheres[] = "blocked=" . $this->ilias_database->quote($access_refused, ilDBConstants::T_INTEGER);
         }
 
         if ($tutorial_support !== null) {
-            $wheres[] = "contact=" . $this->database->quote($tutorial_support, ilDBConstants::T_INTEGER);
+            $wheres[] = "contact=" . $this->ilias_database->quote($tutorial_support, ilDBConstants::T_INTEGER);
         }
 
         if ($notification !== null) {
-            $wheres[] = "notification=" . $this->database->quote($notification, ilDBConstants::T_INTEGER);
+            $wheres[] = "notification=" . $this->ilias_database->quote($notification, ilDBConstants::T_INTEGER);
         }
 
         return "SELECT obj_members.*,object_data.obj_id,object_data.import_id,object_reference.ref_id,object_data_user.obj_id AS usr_id,object_data_user.import_id AS user_import_id,status

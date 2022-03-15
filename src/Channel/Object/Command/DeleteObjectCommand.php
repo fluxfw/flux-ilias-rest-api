@@ -16,23 +16,30 @@ class DeleteObjectCommand
 
     use ObjectQuery;
 
-    private ObjectService $object;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $object_service
+        );
     }
 
 
     public function deleteObjectById(int $id, bool $force = false) : ?ObjectIdDto
     {
         return $this->deleteObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 $force
             ),
@@ -44,7 +51,7 @@ class DeleteObjectCommand
     public function deleteObjectByImportId(string $import_id, bool $force = false) : ?ObjectIdDto
     {
         return $this->deleteObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 $force
             ),
@@ -56,7 +63,7 @@ class DeleteObjectCommand
     public function deleteObjectByRefId(int $ref_id, bool $force = false) : ?ObjectIdDto
     {
         return $this->deleteObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 $force
             ),

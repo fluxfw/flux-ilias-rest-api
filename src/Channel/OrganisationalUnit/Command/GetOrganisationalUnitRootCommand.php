@@ -9,22 +9,29 @@ use ilObjOrgUnit;
 class GetOrganisationalUnitRootCommand
 {
 
-    private OrganisationalUnitService $organisational_unit;
+    private OrganisationalUnitService $organisational_unit_service;
 
 
-    public static function new(OrganisationalUnitService $organisational_unit) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ OrganisationalUnitService $organisational_unit_service
+    ) {
+        $this->organisational_unit_service = $organisational_unit_service;
+    }
+
+
+    public static function new(
+        OrganisationalUnitService $organisational_unit_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->organisational_unit = $organisational_unit;
-
-        return $command;
+        return new static(
+            $organisational_unit_service
+        );
     }
 
 
     public function getOrganisationalUnitRoot() : ?OrganisationalUnitDto
     {
-        return $this->organisational_unit->getOrganisationalUnitByRefId(
+        return $this->organisational_unit_service->getOrganisationalUnitByRefId(
             ilObjOrgUnit::getRootOrgRefId()
         );
     }

@@ -14,23 +14,30 @@ class UploadScormLearningModuleCommand
 
     use ScormLearningModuleQuery;
 
-    private ScormLearningModuleService $scorm_learning_module;
+    private ScormLearningModuleService $scorm_learning_module_service;
 
 
-    public static function new(ScormLearningModuleService $scorm_learning_module) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ScormLearningModuleService $scorm_learning_module_service
+    ) {
+        $this->scorm_learning_module_service = $scorm_learning_module_service;
+    }
+
+
+    public static function new(
+        ScormLearningModuleService $scorm_learning_module_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->scorm_learning_module = $scorm_learning_module;
-
-        return $command;
+        return new static(
+            $scorm_learning_module_service
+        );
     }
 
 
     public function uploadScormLearningModuleById(int $id, string $file) : ?ObjectIdDto
     {
         return $this->uploadScormLearningModule(
-            $this->scorm_learning_module->getScormLearningModuleById(
+            $this->scorm_learning_module_service->getScormLearningModuleById(
                 $id,
                 false
             ),
@@ -42,7 +49,7 @@ class UploadScormLearningModuleCommand
     public function uploadScormLearningModuleByImportId(string $import_id, string $file) : ?ObjectIdDto
     {
         return $this->uploadScormLearningModule(
-            $this->scorm_learning_module->getScormLearningModuleByImportId(
+            $this->scorm_learning_module_service->getScormLearningModuleByImportId(
                 $import_id,
                 false
             ),
@@ -54,7 +61,7 @@ class UploadScormLearningModuleCommand
     public function uploadScormLearningModuleByRefId(int $ref_id, string $file) : ?ObjectIdDto
     {
         return $this->uploadScormLearningModule(
-            $this->scorm_learning_module->getScormLearningModuleByRefId(
+            $this->scorm_learning_module_service->getScormLearningModuleByRefId(
                 $ref_id,
                 false
             ),

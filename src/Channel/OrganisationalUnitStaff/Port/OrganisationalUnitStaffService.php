@@ -14,36 +14,47 @@ use ilDBInterface;
 class OrganisationalUnitStaffService
 {
 
-    private ilDBInterface $database;
-    private OrganisationalUnitService $organisational_unit;
-    private OrganisationalUnitPositionService $organisational_unit_position;
-    private UserService $user;
+    private ilDBInterface $ilias_database;
+    private OrganisationalUnitPositionService $organisational_unit_position_service;
+    private OrganisationalUnitService $organisational_unit_service;
+    private UserService $user_service;
+
+
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ OrganisationalUnitService $organisational_unit_service,
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ OrganisationalUnitPositionService $organisational_unit_position_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->organisational_unit_service = $organisational_unit_service;
+        $this->user_service = $user_service;
+        $this->organisational_unit_position_service = $organisational_unit_position_service;
+    }
 
 
     public static function new(
-        ilDBInterface $database,
-        OrganisationalUnitService $organisational_unit,
-        UserService $user,
-        OrganisationalUnitPositionService $organisational_unit_position
+        ilDBInterface $ilias_database,
+        OrganisationalUnitService $organisational_unit_service,
+        UserService $user_service,
+        OrganisationalUnitPositionService $organisational_unit_position_service
     ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->organisational_unit = $organisational_unit;
-        $service->user = $user;
-        $service->organisational_unit_position = $organisational_unit_position;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $organisational_unit_service,
+            $user_service,
+            $organisational_unit_position_service
+        );
     }
 
 
     public function addOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->addOrganisationalUnitStaffByExternalIdByUserId(
                 $external_id,
@@ -56,9 +67,9 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->addOrganisationalUnitStaffByExternalIdByUserImportId(
                 $external_id,
@@ -71,9 +82,9 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->addOrganisationalUnitStaffByIdByUserId(
                 $id,
@@ -86,9 +97,9 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->addOrganisationalUnitStaffByIdByUserImportId(
                 $id,
@@ -101,9 +112,9 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->addOrganisationalUnitStaffByRefIdByUserId(
                 $ref_id,
@@ -116,9 +127,9 @@ class OrganisationalUnitStaffService
     public function addOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return AddOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->addOrganisationalUnitStaffByRefIdByUserImportId(
                 $ref_id,
@@ -137,7 +148,7 @@ class OrganisationalUnitStaffService
         ?int $position_id = null
     ) : array {
         return GetOrganisationalUnitStaffCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getOrganisationalUnitStaff(
                 $organisational_unit_id,
@@ -153,9 +164,9 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByExternalIdByUserId(string $external_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->removeOrganisationalUnitStaffByExternalIdByUserId(
                 $external_id,
@@ -168,9 +179,9 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByExternalIdByUserImportId(string $external_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->removeOrganisationalUnitStaffByExternalIdByUserImportId(
                 $external_id,
@@ -183,9 +194,9 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByIdByUserId(int $id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->removeOrganisationalUnitStaffByIdByUserId(
                 $id,
@@ -198,9 +209,9 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByIdByUserImportId(int $id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->removeOrganisationalUnitStaffByIdByUserImportId(
                 $id,
@@ -213,9 +224,9 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByRefIdByUserId(int $ref_id, int $user_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->removeOrganisationalUnitStaffByRefIdByUserId(
                 $ref_id,
@@ -228,9 +239,9 @@ class OrganisationalUnitStaffService
     public function removeOrganisationalUnitStaffByRefIdByUserImportId(int $ref_id, string $user_import_id, int $position_id) : ?OrganisationalUnitStaffDto
     {
         return RemoveOrganisationalUnitStaffCommand::new(
-            $this->organisational_unit,
-            $this->user,
-            $this->organisational_unit_position
+            $this->organisational_unit_service,
+            $this->user_service,
+            $this->organisational_unit_position_service
         )
             ->removeOrganisationalUnitStaffByRefIdByUserImportId(
                 $ref_id,

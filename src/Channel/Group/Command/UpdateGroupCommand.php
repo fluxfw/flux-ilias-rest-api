@@ -13,23 +13,30 @@ class UpdateGroupCommand
 
     use GroupQuery;
 
-    private GroupService $group;
+    private GroupService $group_service;
 
 
-    public static function new(GroupService $group) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ GroupService $group_service
+    ) {
+        $this->group_service = $group_service;
+    }
+
+
+    public static function new(
+        GroupService $group_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->group = $group;
-
-        return $command;
+        return new static(
+            $group_service
+        );
     }
 
 
     public function updateGroupById(int $id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateGroup(
-            $this->group->getGroupById(
+            $this->group_service->getGroupById(
                 $id,
                 false
             ),
@@ -41,7 +48,7 @@ class UpdateGroupCommand
     public function updateGroupByImportId(string $import_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateGroup(
-            $this->group->getGroupByImportId(
+            $this->group_service->getGroupByImportId(
                 $import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class UpdateGroupCommand
     public function updateGroupByRefId(int $ref_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateGroup(
-            $this->group->getGroupByRefId(
+            $this->group_service->getGroupByRefId(
                 $ref_id,
                 false
             ),

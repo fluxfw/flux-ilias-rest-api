@@ -11,27 +11,40 @@ use FluxIliasRestApi\Channel\Setup\Command\UninstallHelperPluginCommand;
 class SetupService
 {
 
-    private ChangeService $change;
-    private ConfigService $config;
-    private CronService $cron;
+    private ChangeService $change_service;
+    private ConfigService $config_service;
+    private CronService $cron_service;
 
 
-    public static function new(ChangeService $change, ConfigService $config, CronService $cron) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ChangeService $change_service,
+        /*private readonly*/ ConfigService $config_service,
+        /*private readonly*/ CronService $cron_service
+    ) {
+        $this->change_service = $change_service;
+        $this->config_service = $config_service;
+        $this->cron_service = $cron_service;
+    }
+
+
+    public static function new(
+        ChangeService $change_service,
+        ConfigService $config_service,
+        CronService $cron_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->change = $change;
-        $service->config = $config;
-        $service->cron = $cron;
-
-        return $service;
+        return new static(
+            $change_service,
+            $config_service,
+            $cron_service
+        );
     }
 
 
     public function installHelperPlugin() : void
     {
         InstallHelperPluginCommand::new(
-            $this->change
+            $this->change_service
         )
             ->installHelperPlugin();
     }
@@ -40,9 +53,9 @@ class SetupService
     public function uninstallHelperPlugin() : void
     {
         UninstallHelperPluginCommand::new(
-            $this->change,
-            $this->config,
-            $this->cron
+            $this->change_service,
+            $this->config_service,
+            $this->cron_service
         )
             ->uninstallHelperPlugin();
     }

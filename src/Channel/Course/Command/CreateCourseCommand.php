@@ -13,23 +13,30 @@ class CreateCourseCommand
 
     use CourseQuery;
 
-    private ObjectService $object;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $object_service
+        );
     }
 
 
     public function createCourseToId(int $parent_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createCourse(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             ),
@@ -41,7 +48,7 @@ class CreateCourseCommand
     public function createCourseToImportId(string $parent_import_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createCourse(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class CreateCourseCommand
     public function createCourseToRefId(int $parent_ref_id, CourseDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createCourse(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             ),

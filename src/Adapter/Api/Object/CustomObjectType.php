@@ -11,6 +11,13 @@ class CustomObjectType implements ObjectType, JsonSerializable
     private string $_value;
 
 
+    private function __construct(
+        /*public readonly*/ string $value
+    ) {
+        $this->_value = $value;
+    }
+
+
     public static function factory(string $value) : ObjectType
     {
         return LegacyDefaultObjectType::tryFrom($value) ?? static::new(
@@ -19,13 +26,13 @@ class CustomObjectType implements ObjectType, JsonSerializable
     }
 
 
-    private static function new(string $value) : /*static*/ self
+    private static function new(
+        string $value
+    ) : /*static*/ self
     {
-        $status = new static();
-
-        $status->_value = $value;
-
-        return $status;
+        return new static(
+            $value
+        );
     }
 
 

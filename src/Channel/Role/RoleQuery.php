@@ -20,15 +20,15 @@ trait RoleQuery
     private function getRoleQuery(?int $id = null, ?string $import_id = null) : string
     {
         $wheres = [
-            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ROLE()->value, ilDBConstants::T_TEXT)
+            "object_data.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::ROLE()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
         }
 
         if ($import_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($import_id, ilDBConstants::T_TEXT);
         }
 
         return "SELECT object_data.*,object_data_parent.obj_id AS parent_obj_id,object_reference_parent.ref_id AS parent_ref_id,object_data_parent.import_id AS parent_import_id

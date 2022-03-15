@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\GroupMember;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
 
 // IL_GRP_ADMIN
 // IL_GRP_MEMBER
@@ -11,7 +11,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
  * @method static static ADMINISTRATOR() 4
  * @method static static MEMBER() 5
  */
-final class LegacyInternalGroupMemberType extends LegacyIntBackedEnum
+class LegacyInternalGroupMemberType extends LegacyIntBackedEnum
 {
 
 }

@@ -13,22 +13,29 @@ class GetCoursesCommand
     use CourseQuery;
     use ObjectQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getCourses(bool $container_settings = false, ?bool $in_trash = null) : array
     {
-        $courses = $this->database->fetchAll($this->database->query($this->getCourseQuery(
+        $courses = $this->ilias_database->fetchAll($this->ilias_database->query($this->getCourseQuery(
             null,
             null,
             null,
@@ -36,7 +43,7 @@ class GetCoursesCommand
         )));
         $course_ids = array_map(fn(array $course) : int => $course["obj_id"], $courses);
 
-        $container_settings_ = $container_settings ? $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery($course_ids))) : null;
+        $container_settings_ = $container_settings ? $this->ilias_database->fetchAll($this->ilias_database->query($this->getCourseContainerSettingQuery($course_ids))) : null;
 
         return array_map(fn(array $course) : CourseDto => $this->mapCourseDto(
             $course,

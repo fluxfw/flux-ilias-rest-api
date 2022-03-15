@@ -2,19 +2,23 @@
 
 namespace FluxIliasRestApi\Adapter\Collector;
 
-use FluxRestApi\Adapter\Collector\FolderRouteCollector;
-use FluxRestApi\Collector\RouteCollector;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
+use FluxIliasRestApi\Libs\FluxRestApi\Collector\RouteCollector;
 use ilPluginAdmin;
 use Throwable;
 
 class IliasPluginsRouteCollector implements RouteCollector
 {
 
+    private function __construct()
+    {
+
+    }
+
+
     public static function new() : /*static*/ self
     {
-        $collector = new static();
-
-        return $collector;
+        return new static();
     }
 
 
@@ -25,6 +29,7 @@ class IliasPluginsRouteCollector implements RouteCollector
             try {
                 $plugin = ilPluginAdmin::getPluginObject($plugin_data["component_type"], $plugin_data["component_name"], $plugin_data["slot_id"], $plugin_data["name"]);
             } catch (Throwable $ex) {
+
             }
 
             if ($plugin === null || !$plugin->isActive()) {

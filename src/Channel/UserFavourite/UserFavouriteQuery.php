@@ -12,28 +12,28 @@ trait UserFavouriteQuery
     private function getUserFavouriteQuery(?int $user_id = null, ?string $user_import_id = null, ?int $object_id = null, ?string $object_import_id = null, ?int $object_ref_id = null) : string
     {
         $wheres = [
-            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT),
             "object_reference.deleted IS NULL"
         ];
 
         if ($user_id !== null) {
-            $wheres[] = "object_data_user.obj_id=" . $this->database->quote($user_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data_user.obj_id=" . $this->ilias_database->quote($user_id, ilDBConstants::T_INTEGER);
         }
 
         if ($user_import_id !== null) {
-            $wheres[] = "object_data_user.import_id=" . $this->database->quote($user_import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data_user.import_id=" . $this->ilias_database->quote($user_import_id, ilDBConstants::T_TEXT);
         }
 
         if ($object_id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($object_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($object_id, ilDBConstants::T_INTEGER);
         }
 
         if ($object_import_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($object_import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($object_import_id, ilDBConstants::T_TEXT);
         }
 
         if ($object_ref_id !== null) {
-            $wheres[] = "object_reference.ref_id=" . $this->database->quote($object_ref_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($object_ref_id, ilDBConstants::T_INTEGER);
         }
 
         return "SELECT desktop_item.*,object_data.obj_id,object_data.import_id,object_reference.ref_id,object_data_user.obj_id AS usr_id,object_data_user.import_id AS user_import_id

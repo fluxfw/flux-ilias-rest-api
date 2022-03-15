@@ -17,27 +17,40 @@ use ILIAS\FileUpload\FileUpload;
 class FileService
 {
 
-    private ilDBInterface $database;
-    private ObjectService $object;
-    private FileUpload $upload;
+    private ilDBInterface $ilias_database;
+    private FileUpload $ilias_upload;
+    private ObjectService $object_service;
 
 
-    public static function new(ilDBInterface $database, FileUpload $upload, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ FileUpload $ilias_upload,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->ilias_upload = $ilias_upload;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        FileUpload $ilias_upload,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->upload = $upload;
-        $service->object = $object;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $ilias_upload,
+            $object_service
+        );
     }
 
 
     public function createFileToId(int $parent_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return CreateFileCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createFileToId(
                 $parent_id,
@@ -49,7 +62,7 @@ class FileService
     public function createFileToImportId(string $parent_import_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return CreateFileCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createFileToImportId(
                 $parent_import_id,
@@ -61,7 +74,7 @@ class FileService
     public function createFileToRefId(int $parent_ref_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return CreateFileCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createFileToRefId(
                 $parent_ref_id,
@@ -73,7 +86,7 @@ class FileService
     public function getFileById(int $id, ?bool $in_trash = null) : ?FileDto
     {
         return GetFileCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getFileById(
                 $id,
@@ -85,7 +98,7 @@ class FileService
     public function getFileByImportId(string $import_id, ?bool $in_trash = null) : ?FileDto
     {
         return GetFileCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getFileByImportId(
                 $import_id,
@@ -97,7 +110,7 @@ class FileService
     public function getFileByRefId(int $ref_id, ?bool $in_trash = null) : ?FileDto
     {
         return GetFileCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getFileByRefId(
                 $ref_id,
@@ -109,7 +122,7 @@ class FileService
     public function getFiles(?bool $in_trash = null) : array
     {
         return GetFilesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getFiles(
                 $in_trash
@@ -157,7 +170,7 @@ class FileService
     {
         return UploadFileCommand::new(
             $this,
-            $this->upload
+            $this->ilias_upload
         )
             ->uploadFileById(
                 $id,
@@ -171,7 +184,7 @@ class FileService
     {
         return UploadFileCommand::new(
             $this,
-            $this->upload
+            $this->ilias_upload
         )
             ->uploadFileByImportId(
                 $import_id,
@@ -185,7 +198,7 @@ class FileService
     {
         return UploadFileCommand::new(
             $this,
-            $this->upload
+            $this->ilias_upload
         )
             ->uploadFileByRefId(
                 $ref_id,

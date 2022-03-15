@@ -29,32 +29,32 @@ trait OrganisationalUnitStaffQuery
         ?int $position_id = null
     ) : string {
         $wheres = [
-            "object_data.type=" . $this->database->quote(LegacyDefaultInternalObjectType::ORGU()->value, ilDBConstants::T_TEXT),
-            "object_data_user.type=" . $this->database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT)
+            "object_data.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::ORGU()->value, ilDBConstants::T_TEXT),
+            "object_data_user.type=" . $this->ilias_database->quote(LegacyDefaultInternalObjectType::USR()->value, ilDBConstants::T_TEXT)
         ];
 
         if ($organisational_unit_id !== null) {
-            $wheres[] = "object_data.obj_id=" . $this->database->quote($organisational_unit_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($organisational_unit_id, ilDBConstants::T_INTEGER);
         }
 
         if ($organisational_unit_external_id !== null) {
-            $wheres[] = "object_data.import_id=" . $this->database->quote($organisational_unit_external_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data.import_id=" . $this->ilias_database->quote($organisational_unit_external_id, ilDBConstants::T_TEXT);
         }
 
         if ($organisational_unit_ref_id !== null) {
-            $wheres[] = "object_reference.ref_id=" . $this->database->quote($organisational_unit_ref_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($organisational_unit_ref_id, ilDBConstants::T_INTEGER);
         }
 
         if ($user_id !== null) {
-            $wheres[] = "object_data_user.obj_id=" . $this->database->quote($user_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "object_data_user.obj_id=" . $this->ilias_database->quote($user_id, ilDBConstants::T_INTEGER);
         }
 
         if ($user_import_id !== null) {
-            $wheres[] = "object_data_user.import_id=" . $this->database->quote($user_import_id, ilDBConstants::T_TEXT);
+            $wheres[] = "object_data_user.import_id=" . $this->ilias_database->quote($user_import_id, ilDBConstants::T_TEXT);
         }
 
         if ($position_id !== null) {
-            $wheres[] = "position_id=" . $this->database->quote($position_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "position_id=" . $this->ilias_database->quote($position_id, ilDBConstants::T_INTEGER);
         }
 
         return "SELECT il_orgu_ua.*,object_data.obj_id,object_data.import_id,object_reference.ref_id,object_data_user.obj_id AS usr_id,object_data_user.import_id AS user_import_id

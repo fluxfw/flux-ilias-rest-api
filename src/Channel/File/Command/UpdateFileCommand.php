@@ -13,23 +13,30 @@ class UpdateFileCommand
 
     use FileQuery;
 
-    private FileService $file;
+    private FileService $file_service;
 
 
-    public static function new(FileService $file) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ FileService $file_service
+    ) {
+        $this->file_service = $file_service;
+    }
+
+
+    public static function new(
+        FileService $file_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->file = $file;
-
-        return $command;
+        return new static(
+            $file_service
+        );
     }
 
 
     public function updateFileById(int $id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateFile(
-            $this->file->getFileById(
+            $this->file_service->getFileById(
                 $id,
                 false
             ),
@@ -41,7 +48,7 @@ class UpdateFileCommand
     public function updateFileByImportId(string $import_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateFile(
-            $this->file->getFileByImportId(
+            $this->file_service->getFileByImportId(
                 $import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class UpdateFileCommand
     public function updateFileByRefId(int $ref_id, FileDiffDto $diff) : ?ObjectIdDto
     {
         return $this->updateFile(
-            $this->file->getFileByRefId(
+            $this->file_service->getFileByRefId(
                 $ref_id,
                 false
             ),

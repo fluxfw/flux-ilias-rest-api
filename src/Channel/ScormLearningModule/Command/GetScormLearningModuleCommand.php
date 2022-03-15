@@ -14,23 +14,30 @@ class GetScormLearningModuleCommand
     use ObjectQuery;
     use ScormLearningModuleQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getScormLearningModuleById(int $id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         $scorm_learning_module = null;
-        while (($scorm_learning_module_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getScormLearningModuleQuery(
+        while (($scorm_learning_module_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getScormLearningModuleQuery(
                 $id,
                 null,
                 null,
@@ -51,7 +58,7 @@ class GetScormLearningModuleCommand
     public function getScormLearningModuleByImportId(string $import_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         $scorm_learning_module = null;
-        while (($scorm_learning_module_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getScormLearningModuleQuery(
+        while (($scorm_learning_module_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getScormLearningModuleQuery(
                 null,
                 $import_id,
                 null,
@@ -72,7 +79,7 @@ class GetScormLearningModuleCommand
     public function getScormLearningModuleByRefId(int $ref_id, ?bool $in_trash = null) : ?ScormLearningModuleDto
     {
         $scorm_learning_module = null;
-        while (($scorm_learning_module_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getScormLearningModuleQuery(
+        while (($scorm_learning_module_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getScormLearningModuleQuery(
                 null,
                 null,
                 $ref_id,

@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Api\Object;
 
-use FluxLegacyEnum\Backed\StringBackedEnumValue;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Backed\StringBackedEnumValue;
 
 interface ObjectType extends StringBackedEnumValue
 {

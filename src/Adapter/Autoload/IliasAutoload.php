@@ -3,9 +3,9 @@
 namespace FluxIliasRestApi\Adapter\Autoload;
 
 use Exception;
-use FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
-use FluxAutoloadApi\Adapter\Autoload\FileAutoload;
-use FluxAutoloadApi\Autoload\Autoload;
+use FluxIliasRestApi\Libs\FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
+use FluxIliasRestApi\Libs\FluxAutoloadApi\Adapter\Autoload\FileAutoload;
+use FluxIliasRestApi\Libs\FluxAutoloadApi\Autoload\Autoload;
 
 class IliasAutoload implements Autoload
 {
@@ -13,13 +13,20 @@ class IliasAutoload implements Autoload
     private string $folder;
 
 
-    public static function new(string $folder) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ string $folder
+    ) {
+        $this->folder = $folder;
+    }
+
+
+    public static function new(
+        string $folder
+    ) : /*static*/ self
     {
-        $handler = new static();
-
-        $handler->folder = $folder;
-
-        return $handler;
+        return new static(
+            $folder
+        );
     }
 
 

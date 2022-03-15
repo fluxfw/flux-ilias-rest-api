@@ -14,23 +14,30 @@ class GetCourseCommand
     use CourseQuery;
     use ObjectQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
     public function getCourseById(int $id, ?bool $in_trash = null) : ?CourseDto
     {
         $course = null;
-        while (($course_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCourseQuery(
+        while (($course_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getCourseQuery(
                 $id,
                 null,
                 null,
@@ -41,7 +48,7 @@ class GetCourseCommand
             }
             $course = $this->mapCourseDto(
                 $course_,
-                $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
             );
         }
 
@@ -52,7 +59,7 @@ class GetCourseCommand
     public function getCourseByImportId(string $import_id, ?bool $in_trash = null) : ?CourseDto
     {
         $course = null;
-        while (($course_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCourseQuery(
+        while (($course_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getCourseQuery(
                 null,
                 $import_id,
                 null,
@@ -63,7 +70,7 @@ class GetCourseCommand
             }
             $course = $this->mapCourseDto(
                 $course_,
-                $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
             );
         }
 
@@ -74,7 +81,7 @@ class GetCourseCommand
     public function getCourseByRefId(int $ref_id, ?bool $in_trash = null) : ?CourseDto
     {
         $course = null;
-        while (($course_ = $this->database->fetchAssoc($result ??= $this->database->query($this->getCourseQuery(
+        while (($course_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getCourseQuery(
                 null,
                 null,
                 $ref_id,
@@ -85,7 +92,7 @@ class GetCourseCommand
             }
             $course = $this->mapCourseDto(
                 $course_,
-                $this->database->fetchAll($this->database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
+                $this->ilias_database->fetchAll($this->ilias_database->query($this->getCourseContainerSettingQuery([$course_["obj_id"]])))
             );
         }
 

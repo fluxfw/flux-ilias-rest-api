@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\ObjectLearningProgress;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
 
 // ilLPStatus::LP_STATUS_NOT_ATTEMPTED_NUM
 // ilLPStatus::LP_STATUS_IN_PROGRESS_NUM
@@ -15,7 +15,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
  * @method static static COMPLETED() 2
  * @method static static FAILED() 3
  */
-final class LegacyInternalObjectLearningProgress extends LegacyIntBackedEnum
+class LegacyInternalObjectLearningProgress extends LegacyIntBackedEnum
 {
 
 }

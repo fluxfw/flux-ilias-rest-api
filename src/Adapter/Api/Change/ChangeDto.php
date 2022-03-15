@@ -15,18 +15,40 @@ class ChangeDto implements JsonSerializable
     private ?string $user_import_id;
 
 
-    public static function new(int $id, LegacyChangeType $type, float $time, int $user_id, ?string $user_import_id, object $data) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ int $id,
+        /*public readonly*/ LegacyChangeType $type,
+        /*public readonly*/ float $time,
+        /*public readonly*/ int $user_id,
+        /*public readonly*/ ?string $user_import_id,
+        /*public readonly*/ object $data
+    ) {
+        $this->id = $id;
+        $this->type = $type;
+        $this->time = $time;
+        $this->user_id = $user_id;
+        $this->user_import_id = $user_import_id;
+        $this->data = $data;
+    }
+
+
+    public static function new(
+        int $id,
+        LegacyChangeType $type,
+        float $time,
+        int $user_id,
+        ?string $user_import_id,
+        object $data
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->type = $type;
-        $dto->time = $time;
-        $dto->user_id = $user_id;
-        $dto->user_import_id = $user_import_id;
-        $dto->data = $data;
-
-        return $dto;
+        return new static(
+            $id,
+            $type,
+            $time,
+            $user_id,
+            $user_import_id,
+            $data
+        );
     }
 
 

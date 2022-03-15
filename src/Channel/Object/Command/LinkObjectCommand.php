@@ -14,29 +14,39 @@ class LinkObjectCommand
 
     use ObjectQuery;
 
-    private ObjectService $object;
-    private ilObjectDefinition $object_definition;
+    private ilObjectDefinition $ilias_object_definition;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object, ilObjectDefinition $object_definition) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ilObjectDefinition $ilias_object_definition
+    ) {
+        $this->object_service = $object_service;
+        $this->ilias_object_definition = $ilias_object_definition;
+    }
+
+
+    public static function new(
+        ObjectService $object_service,
+        ilObjectDefinition $ilias_object_definition
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-        $command->object_definition = $object_definition;
-
-        return $command;
+        return new static(
+            $object_service,
+            $ilias_object_definition
+        );
     }
 
 
     public function linkObjectByIdToId(int $id, int $parent_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             )
@@ -47,11 +57,11 @@ class LinkObjectCommand
     public function linkObjectByIdToImportId(int $id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             )
@@ -62,11 +72,11 @@ class LinkObjectCommand
     public function linkObjectByIdToRefId(int $id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             )
@@ -77,11 +87,11 @@ class LinkObjectCommand
     public function linkObjectByImportIdToId(string $import_id, int $parent_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             )
@@ -92,11 +102,11 @@ class LinkObjectCommand
     public function linkObjectByImportIdToImportId(string $import_id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             )
@@ -107,11 +117,11 @@ class LinkObjectCommand
     public function linkObjectByImportIdToRefId(string $import_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $import_id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             )
@@ -122,11 +132,11 @@ class LinkObjectCommand
     public function linkObjectByRefIdToId(int $ref_id, int $parent_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             )
@@ -137,11 +147,11 @@ class LinkObjectCommand
     public function linkObjectByRefIdToImportId(int $ref_id, string $parent_import_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             )
@@ -152,11 +162,11 @@ class LinkObjectCommand
     public function linkObjectByRefIdToRefId(int $ref_id, int $parent_ref_id) : ?ObjectIdDto
     {
         return $this->linkObject(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $ref_id,
                 false
             ),
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             )
@@ -182,7 +192,7 @@ class LinkObjectCommand
             return null;
         }
 
-        if (!$this->object_definition->allowLink($ilias_object->getType())) {
+        if (!$this->ilias_object_definition->allowLink($ilias_object->getType())) {
             throw new LogicException("Can't link object type " . $ilias_object->getType());
         }
 

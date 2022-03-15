@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
-use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
+use FluxIliasRestApi\Libs\FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
 
 // ilOrgUnitPosition::CORE_POSITION_EMPLOYEE
 // ilOrgUnitPosition::CORE_POSITION_SUPERIOR
@@ -11,7 +11,7 @@ use FluxLegacyEnum\Adapter\Backed\LegacyIntBackedEnum;
  * @method static static EMPLOYEE() 1
  * @method static static SUPERIOR() 2
  */
-final class LegacyInternalOrganisationalUnitPositionCoreIdentifier extends LegacyIntBackedEnum
+class LegacyInternalOrganisationalUnitPositionCoreIdentifier extends LegacyIntBackedEnum
 {
 
 }

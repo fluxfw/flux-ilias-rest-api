@@ -12,15 +12,28 @@ class OrganisationalUnitPositionAuthorityDto implements JsonSerializable
     private ?LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in;
 
 
-    public static function new(?int $id = null, ?int $over_position_id = null, ?LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in = null) : /*static*/ self
+    private function __construct(
+        /*public readonly*/ ?int $id,
+        /*public readonly*/ ?int $over_position_id,
+        /*public readonly*/ ?LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in
+    ) {
+        $this->id = $id;
+        $this->over_position_id = $over_position_id;
+        $this->scope_in = $scope_in;
+    }
+
+
+    public static function new(
+        ?int $id = null,
+        ?int $over_position_id = null,
+        ?LegacyOrganisationalUnitPositionAuthorityScopeIn $scope_in = null
+    ) : /*static*/ self
     {
-        $dto = new static();
-
-        $dto->id = $id;
-        $dto->over_position_id = $over_position_id;
-        $dto->scope_in = $scope_in;
-
-        return $dto;
+        return new static(
+            $id,
+            $over_position_id,
+            $scope_in
+        );
     }
 
 

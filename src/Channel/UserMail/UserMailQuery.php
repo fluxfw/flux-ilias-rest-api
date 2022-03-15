@@ -12,11 +12,11 @@ trait UserMailQuery
         $wheres = [];
 
         if ($user_id !== null) {
-            $wheres[] = "user_id=" . $this->database->quote($user_id, ilDBConstants::T_INTEGER);
+            $wheres[] = "user_id=" . $this->ilias_database->quote($user_id, ilDBConstants::T_INTEGER);
         }
 
         if ($status !== null) {
-            $wheres[] = "m_status=" . $this->database->quote($status, ilDBConstants::T_TEXT);
+            $wheres[] = "m_status=" . $this->ilias_database->quote($status, ilDBConstants::T_TEXT);
         }
 
         return "SELECT " . ($count ? "COUNT(mail_id) AS count" : "*") . "

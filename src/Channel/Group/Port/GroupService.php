@@ -15,25 +15,35 @@ use ilDBInterface;
 class GroupService
 {
 
-    private ilDBInterface $database;
-    private ObjectService $object;
+    private ilDBInterface $ilias_database;
+    private ObjectService $object_service;
 
 
-    public static function new(ilDBInterface $database, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->object = $object;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $object_service
+        );
     }
 
 
     public function createGroupToId(int $parent_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return CreateGroupCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createGroupToId(
                 $parent_id,
@@ -45,7 +55,7 @@ class GroupService
     public function createGroupToImportId(string $parent_import_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return CreateGroupCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createGroupToImportId(
                 $parent_import_id,
@@ -57,7 +67,7 @@ class GroupService
     public function createGroupToRefId(int $parent_ref_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return CreateGroupCommand::new(
-            $this->object
+            $this->object_service
         )
             ->createGroupToRefId(
                 $parent_ref_id,
@@ -69,7 +79,7 @@ class GroupService
     public function getGroupById(int $id, ?bool $in_trash = null) : ?GroupDto
     {
         return GetGroupCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getGroupById(
                 $id,
@@ -81,7 +91,7 @@ class GroupService
     public function getGroupByImportId(string $import_id, ?bool $in_trash = null) : ?GroupDto
     {
         return GetGroupCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getGroupByImportId(
                 $import_id,
@@ -93,7 +103,7 @@ class GroupService
     public function getGroupByRefId(int $ref_id, ?bool $in_trash = null) : ?GroupDto
     {
         return GetGroupCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getGroupByRefId(
                 $ref_id,
@@ -105,7 +115,7 @@ class GroupService
     public function getGroups(?bool $in_trash = null) : array
     {
         return GetGroupsCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getGroups(
                 $in_trash

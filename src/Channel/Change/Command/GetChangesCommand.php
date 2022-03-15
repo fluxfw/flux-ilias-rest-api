@@ -10,16 +10,23 @@ class GetChangesCommand
 
     use ChangeQuery;
 
-    private ilDBInterface $database;
+    private ilDBInterface $ilias_database;
 
 
-    public static function new(ilDBInterface $database) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database
+    ) {
+        $this->ilias_database = $ilias_database;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->database = $database;
-
-        return $command;
+        return new static(
+            $ilias_database
+        );
     }
 
 
@@ -29,7 +36,7 @@ class GetChangesCommand
             return null;
         }
 
-        return array_map([$this, "mapChangeDto"], $this->database->fetchAll($this->database->query($this->getChangeQuery(
+        return array_map([$this, "mapChangeDto"], $this->ilias_database->fetchAll($this->ilias_database->query($this->getChangeQuery(
             $from,
             $to,
             $after,

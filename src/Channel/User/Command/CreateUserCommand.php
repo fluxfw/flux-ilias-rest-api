@@ -13,18 +13,28 @@ class CreateUserCommand
 
     use UserQuery;
 
-    private ObjectService $object;
-    private RBACServices $rbac;
+    private RBACServices $ilias_rbac;
+    private ObjectService $object_service;
 
 
-    public static function new(RBACServices $rbac, ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ RBACServices $ilias_rbac,
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->ilias_rbac = $ilias_rbac;
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        RBACServices $ilias_rbac,
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->rbac = $rbac;
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $ilias_rbac,
+            $object_service
+        );
     }
 
 
@@ -43,7 +53,7 @@ class CreateUserCommand
         $ilias_user->create();
         $ilias_user->saveAsNew();
 
-        $this->rbac->admin()->assignUser(SYSTEM_USER_ID, $ilias_user->getId());
+        $this->ilias_rbac->admin()->assignUser(SYSTEM_USER_ID, $ilias_user->getId());
 
         return UserIdDto::new(
             $ilias_user->getId() ?: null,

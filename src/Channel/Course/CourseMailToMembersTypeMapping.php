@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\Course;
 
 use FluxIliasRestApi\Adapter\Api\Course\LegacyCourseMailToMembersType;
 
-final class CourseMailToMembersTypeMapping
+class CourseMailToMembersTypeMapping
 {
 
     public static function mapExternalToInternal(LegacyCourseMailToMembersType $mail_to_members_type) : LegacyInternalCourseMailToMembersType

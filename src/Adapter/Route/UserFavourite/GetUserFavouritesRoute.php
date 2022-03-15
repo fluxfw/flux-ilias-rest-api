@@ -2,27 +2,34 @@
 
 namespace FluxIliasRestApi\Adapter\Route\UserFavourite;
 
-use FluxIliasRestApi\Adapter\Api\Api;
-use FluxRestApi\Body\JsonBodyDto;
-use FluxRestApi\Request\RequestDto;
-use FluxRestApi\Response\ResponseDto;
-use FluxRestApi\Route\Route;
-use FluxRestBaseApi\Method\LegacyDefaultMethod;
-use FluxRestBaseApi\Method\Method;
+use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Request\RequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
 
 class GetUserFavouritesRoute implements Route
 {
 
-    private Api $api;
+    private IliasRestApi $ilias_rest_api;
 
 
-    public static function new(Api $api) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ IliasRestApi $ilias_rest_api
+    ) {
+        $this->ilias_rest_api = $ilias_rest_api;
+    }
+
+
+    public static function new(
+        IliasRestApi $ilias_rest_api
+    ) : /*static*/ self
     {
-        $route = new static();
-
-        $route->api = $api;
-
-        return $route;
+        return new static(
+            $ilias_rest_api
+        );
     }
 
 
@@ -60,7 +67,7 @@ class GetUserFavouritesRoute implements Route
     {
         return ResponseDto::new(
             JsonBodyDto::new(
-                $this->api->getUserFavourites(
+                $this->ilias_rest_api->getUserFavourites(
                     $request->getQueryParam(
                         "user_id"
                     ),

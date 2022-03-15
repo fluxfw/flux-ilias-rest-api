@@ -14,31 +14,47 @@ use ilFavouritesDBRepository;
 class UserFavouriteService
 {
 
-    private ilDBInterface $database;
-    private ilFavouritesDBRepository $favourite;
-    private ObjectService $object;
-    private UserService $user;
+    private ilDBInterface $ilias_database;
+    private ilFavouritesDBRepository $ilias_favourite;
+    private ObjectService $object_service;
+    private UserService $user_service;
 
 
-    public static function new(ilDBInterface $database, UserService $user, ObjectService $object, ilFavouritesDBRepository $favourite) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ilDBInterface $ilias_database,
+        /*private readonly*/ UserService $user_service,
+        /*private readonly*/ ObjectService $object_service,
+        /*private readonly*/ ilFavouritesDBRepository $ilias_favourite
+    ) {
+        $this->ilias_database = $ilias_database;
+        $this->user_service = $user_service;
+        $this->object_service = $object_service;
+        $this->ilias_favourite = $ilias_favourite;
+    }
+
+
+    public static function new(
+        ilDBInterface $ilias_database,
+        UserService $user_service,
+        ObjectService $object_service,
+        ilFavouritesDBRepository $ilias_favourite
+    ) : /*static*/ self
     {
-        $service = new static();
-
-        $service->database = $database;
-        $service->user = $user;
-        $service->object = $object;
-        $service->favourite = $favourite;
-
-        return $service;
+        return new static(
+            $ilias_database,
+            $user_service,
+            $object_service,
+            $ilias_favourite
+        );
     }
 
 
     public function addUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
         return AddUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->addUserFavouriteByIdByObjectId(
                 $id,
@@ -50,9 +66,9 @@ class UserFavouriteService
     public function addUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
         return AddUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->addUserFavouriteByIdByObjectImportId(
                 $id,
@@ -64,9 +80,9 @@ class UserFavouriteService
     public function addUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
         return AddUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->addUserFavouriteByIdByObjectRefId(
                 $id,
@@ -78,9 +94,9 @@ class UserFavouriteService
     public function addUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
         return AddUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->addUserFavouriteByImportIdByObjectId(
                 $import_id,
@@ -92,9 +108,9 @@ class UserFavouriteService
     public function addUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
         return AddUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->addUserFavouriteByImportIdByObjectImportId(
                 $import_id,
@@ -106,9 +122,9 @@ class UserFavouriteService
     public function addUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
         return AddUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->addUserFavouriteByImportIdByObjectRefId(
                 $import_id,
@@ -120,7 +136,7 @@ class UserFavouriteService
     public function getUserFavourites(?int $user_id = null, ?string $user_import_id = null, ?int $object_id = null, ?string $object_import_id = null, ?int $object_ref_id = null) : array
     {
         return GetUserFavouritesCommand::new(
-            $this->database
+            $this->ilias_database
         )
             ->getUserFavourites(
                 $user_id,
@@ -135,9 +151,9 @@ class UserFavouriteService
     public function removeUserFavouriteByIdByObjectId(int $id, int $object_id) : ?UserFavouriteDto
     {
         return RemoveUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->removeUserFavouriteByIdByObjectId(
                 $id,
@@ -149,9 +165,9 @@ class UserFavouriteService
     public function removeUserFavouriteByIdByObjectImportId(int $id, string $object_import_id) : ?UserFavouriteDto
     {
         return RemoveUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->removeUserFavouriteByIdByObjectImportId(
                 $id,
@@ -163,9 +179,9 @@ class UserFavouriteService
     public function removeUserFavouriteByIdByObjectRefId(int $id, int $object_ref_id) : ?UserFavouriteDto
     {
         return RemoveUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->removeUserFavouriteByIdByObjectRefId(
                 $id,
@@ -177,9 +193,9 @@ class UserFavouriteService
     public function removeUserFavouriteByImportIdByObjectId(string $import_id, int $object_id) : ?UserFavouriteDto
     {
         return RemoveUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->removeUserFavouriteByImportIdByObjectId(
                 $import_id,
@@ -191,9 +207,9 @@ class UserFavouriteService
     public function removeUserFavouriteByImportIdByObjectImportId(string $import_id, string $object_import_id) : ?UserFavouriteDto
     {
         return RemoveUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->removeUserFavouriteByImportIdByObjectImportId(
                 $import_id,
@@ -205,9 +221,9 @@ class UserFavouriteService
     public function removeUserFavouriteByImportIdByObjectRefId(string $import_id, int $object_ref_id) : ?UserFavouriteDto
     {
         return RemoveUserFavouriteCommand::new(
-            $this->user,
-            $this->object,
-            $this->favourite
+            $this->user_service,
+            $this->object_service,
+            $this->ilias_favourite
         )
             ->removeUserFavouriteByImportIdByObjectRefId(
                 $import_id,

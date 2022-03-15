@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Channel\ObjectLearningProgress;
 
 use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
 
-final class ObjectLearningProgressMapping
+class ObjectLearningProgressMapping
 {
 
     public static function mapExternalToInternal(LegacyObjectLearningProgress $learning_progress) : LegacyInternalObjectLearningProgress

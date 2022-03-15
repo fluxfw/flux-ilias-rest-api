@@ -13,23 +13,30 @@ class UpdateAvatarCommand
 
     use UserQuery;
 
-    private UserService $user;
+    private UserService $user_service;
 
 
-    public static function new(UserService $user) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ UserService $user_service
+    ) {
+        $this->user_service = $user_service;
+    }
+
+
+    public static function new(
+        UserService $user_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->user = $user;
-
-        return $command;
+        return new static(
+            $user_service
+        );
     }
 
 
     public function updateAvatarById(int $id, ?string $file) : ?UserIdDto
     {
         return $this->updateAvatar(
-            $this->user->getUserById(
+            $this->user_service->getUserById(
                 $id
             ),
             $file
@@ -40,7 +47,7 @@ class UpdateAvatarCommand
     public function updateAvatarByImportId(string $import_id, ?string $file) : ?UserIdDto
     {
         return $this->updateAvatar(
-            $this->user->getUserByImportId(
+            $this->user_service->getUserByImportId(
                 $import_id
             ),
             $file

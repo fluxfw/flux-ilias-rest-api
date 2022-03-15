@@ -10,13 +10,20 @@ class GetCronJobCommand
     private array $cron_jobs;
 
 
-    public static function new(array $cron_jobs) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ array $cron_jobs
+    ) {
+        $this->cron_jobs = $cron_jobs;
+    }
+
+
+    public static function new(
+        array $cron_jobs
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->cron_jobs = $cron_jobs;
-
-        return $command;
+        return new static(
+            $cron_jobs
+        );
     }
 
 

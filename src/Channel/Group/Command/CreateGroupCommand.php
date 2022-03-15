@@ -13,23 +13,30 @@ class CreateGroupCommand
 
     use GroupQuery;
 
-    private ObjectService $object;
+    private ObjectService $object_service;
 
 
-    public static function new(ObjectService $object) : /*static*/ self
+    private function __construct(
+        /*private readonly*/ ObjectService $object_service
+    ) {
+        $this->object_service = $object_service;
+    }
+
+
+    public static function new(
+        ObjectService $object_service
+    ) : /*static*/ self
     {
-        $command = new static();
-
-        $command->object = $object;
-
-        return $command;
+        return new static(
+            $object_service
+        );
     }
 
 
     public function createGroupToId(int $parent_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createGroup(
-            $this->object->getObjectById(
+            $this->object_service->getObjectById(
                 $parent_id,
                 false
             ),
@@ -41,7 +48,7 @@ class CreateGroupCommand
     public function createGroupToImportId(string $parent_import_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createGroup(
-            $this->object->getObjectByImportId(
+            $this->object_service->getObjectByImportId(
                 $parent_import_id,
                 false
             ),
@@ -53,7 +60,7 @@ class CreateGroupCommand
     public function createGroupToRefId(int $parent_ref_id, GroupDiffDto $diff) : ?ObjectIdDto
     {
         return $this->createGroup(
-            $this->object->getObjectByRefId(
+            $this->object_service->getObjectByRefId(
                 $parent_ref_id,
                 false
             ),
