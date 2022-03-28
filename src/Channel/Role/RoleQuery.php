@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Channel\Role;
 
-use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
-use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
+use FluxIliasRestApi\Adapter\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjRole;

@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\GroupMember;
 
-use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
-use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDto;
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\LegacyInternalObjectLearningProgress;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;

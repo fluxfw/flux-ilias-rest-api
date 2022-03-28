@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Channel\ScormLearningModule\Command;
 
-use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDto;
 use FluxIliasRestApi\Channel\ScormLearningModule\Port\ScormLearningModuleService;
 use FluxIliasRestApi\Channel\ScormLearningModule\ScormLearningModuleQuery;
 use ilObjSCORM2004LearningModule;

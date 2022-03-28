@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Channel\User\Command;
 
-use FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
-use FluxIliasRestApi\Adapter\Api\User\UserIdDto;
+use FluxIliasRestApi\Adapter\User\UserDiffDto;
+use FluxIliasRestApi\Adapter\User\UserIdDto;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use FluxIliasRestApi\Channel\User\UserQuery;
 use ILIAS\DI\RBACServices;

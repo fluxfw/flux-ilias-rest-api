@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxIliasRestApi\Adapter\Api\User\LegacyUserSelectedCountry;
+use FluxIliasRestApi\Adapter\User\LegacyUserSelectedCountry;
 
 class UserSelectedCountryMapping
 {

@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\UserRole;
 
-use FluxIliasRestApi\Adapter\Api\UserRole\UserRoleDto;
+use FluxIliasRestApi\Adapter\UserRole\UserRoleDto;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 

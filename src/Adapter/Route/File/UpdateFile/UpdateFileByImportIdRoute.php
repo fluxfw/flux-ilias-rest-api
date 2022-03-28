@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\File\UpdateFile;
 
-use FluxIliasRestApi\Adapter\Api\File\FileDiffDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\File\FileDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;

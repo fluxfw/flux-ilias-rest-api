@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxIliasRestApi\Adapter\Api\User\LegacyUserLanguage;
+use FluxIliasRestApi\Adapter\User\LegacyUserLanguage;
 
 class UserLanguageMapping
 {

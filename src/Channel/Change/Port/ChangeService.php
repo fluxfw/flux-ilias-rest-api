@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\Change\Port;
 
-use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Channel\Category\Port\CategoryService;
 use FluxIliasRestApi\Channel\Change\Command\CreateChangeDatabaseCommand;
 use FluxIliasRestApi\Channel\Change\Command\DropChangeDatabaseCommand;

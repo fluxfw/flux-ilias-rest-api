@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\Course;
 
-use FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
-use FluxIliasRestApi\Adapter\Api\Course\CourseDto;
-use FluxIliasRestApi\Adapter\Api\Course\LegacyCourseMailToMembersType;
+use FluxIliasRestApi\Adapter\Course\CourseDiffDto;
+use FluxIliasRestApi\Adapter\Course\CourseDto;
+use FluxIliasRestApi\Adapter\Course\LegacyCourseMailToMembersType;
 use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDate;

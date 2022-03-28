@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User\Command;
 
-use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Channel\User\UserQuery;
 use ilDBInterface;
 use LogicException;

@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\Group\Command;
 
-use FluxIliasRestApi\Adapter\Api\Group\GroupDto;
+use FluxIliasRestApi\Adapter\Group\GroupDto;
 use FluxIliasRestApi\Channel\Group\GroupQuery;
 use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;

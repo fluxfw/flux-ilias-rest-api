@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Channel\ObjectLearningProgress\Command;
 
-use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressIdDto;
-use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressQuery;

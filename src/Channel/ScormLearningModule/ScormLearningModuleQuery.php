@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\ScormLearningModule;
 
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\LegacyScormLearningModuleType;
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDiffDto;
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
+use FluxIliasRestApi\Adapter\ScormLearningModule\LegacyScormLearningModuleType;
+use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDiffDto;
+use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDto;
 use FluxIliasRestApi\Channel\Object\CustomInternalObjectType;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;

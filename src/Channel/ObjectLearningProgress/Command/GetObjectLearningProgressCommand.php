@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\ObjectLearningProgress\Command;
 
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressQuery;
 use ilDBInterface;
 

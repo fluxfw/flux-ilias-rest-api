@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\Category\Command;
 
-use FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Channel\Category\CategoryQuery;
 use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;

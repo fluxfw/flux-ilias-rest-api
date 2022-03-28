@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Route\Object\UpdateObject;
 
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
-use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;

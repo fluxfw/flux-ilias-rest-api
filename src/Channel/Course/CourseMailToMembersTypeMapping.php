@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\Course;
 
-use FluxIliasRestApi\Adapter\Api\Course\LegacyCourseMailToMembersType;
+use FluxIliasRestApi\Adapter\Course\LegacyCourseMailToMembersType;
 
 class CourseMailToMembersTypeMapping
 {

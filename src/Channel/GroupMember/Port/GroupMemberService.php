@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\GroupMember\Port;
 
-use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
-use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberIdDto;
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberIdDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Channel\Group\Port\GroupService;
 use FluxIliasRestApi\Channel\GroupMember\Command\AddGroupMemberCommand;
 use FluxIliasRestApi\Channel\GroupMember\Command\GetGroupMembersCommand;

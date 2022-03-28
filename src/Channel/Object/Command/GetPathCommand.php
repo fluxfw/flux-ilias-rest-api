@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\Object\Command;
 
-use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
 use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use ilDBInterface;

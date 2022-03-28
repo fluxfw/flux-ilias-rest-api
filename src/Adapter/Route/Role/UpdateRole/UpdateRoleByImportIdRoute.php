@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Route\Role\UpdateRole;
 
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
-use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Role\RoleDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;

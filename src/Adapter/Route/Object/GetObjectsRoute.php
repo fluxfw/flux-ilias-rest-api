@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Route\Object;
 
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
-use FluxIliasRestApi\Adapter\Api\Object\CustomObjectType;
+use FluxIliasRestApi\Adapter\Object\CustomObjectType;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\Method;

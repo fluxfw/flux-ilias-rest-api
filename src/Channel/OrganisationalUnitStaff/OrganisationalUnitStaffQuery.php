@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\OrganisationalUnitStaff;
 
-use FluxIliasRestApi\Adapter\Api\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilOrgUnitUserAssignment;

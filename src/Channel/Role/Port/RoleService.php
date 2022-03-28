@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Channel\Role\Port;
 
-use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
-use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use FluxIliasRestApi\Channel\Role\Command\CreateRoleCommand;
 use FluxIliasRestApi\Channel\Role\Command\GetGlobalRoleObjectCommand;

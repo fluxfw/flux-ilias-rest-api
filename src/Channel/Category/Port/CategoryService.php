@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\Category\Port;
 
-use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
-use FluxIliasRestApi\Adapter\Api\Category\CategoryDto;
-use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Channel\Category\Command\CreateCategoryCommand;
 use FluxIliasRestApi\Channel\Category\Command\GetCategoriesCommand;
 use FluxIliasRestApi\Channel\Category\Command\GetCategoryCommand;

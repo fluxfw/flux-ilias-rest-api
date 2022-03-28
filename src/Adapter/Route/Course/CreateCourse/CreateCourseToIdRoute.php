@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Course\CreateCourse;
 
-use FluxIliasRestApi\Adapter\Api\Course\CourseDiffDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Course\CourseDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;
