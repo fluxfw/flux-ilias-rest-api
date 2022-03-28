@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\UserFavourite\Command;
 
-use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use FluxIliasRestApi\Adapter\Api\User\UserDto;
-use FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\UserFavourite\UserFavouriteDto;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use FluxIliasRestApi\Channel\User\Port\UserService;
 use ilFavouritesDBRepository;

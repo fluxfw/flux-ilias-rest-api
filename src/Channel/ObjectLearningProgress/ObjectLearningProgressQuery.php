@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Channel\ObjectLearningProgress;
 
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\ObjectLearningProgressDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 

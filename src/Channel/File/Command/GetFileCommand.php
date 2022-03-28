@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\File\Command;
 
-use FluxIliasRestApi\Adapter\Api\File\FileDto;
+use FluxIliasRestApi\Adapter\File\FileDto;
 use FluxIliasRestApi\Channel\File\FileQuery;
 use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use ilDBInterface;

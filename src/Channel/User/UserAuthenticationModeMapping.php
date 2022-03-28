@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxIliasRestApi\Adapter\Api\User\LegacyUserAuthenticationMode;
+use FluxIliasRestApi\Adapter\User\LegacyUserAuthenticationMode;
 
 class UserAuthenticationModeMapping
 {

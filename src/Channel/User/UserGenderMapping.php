@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\User;
 
-use FluxIliasRestApi\Adapter\Api\User\LegacyUserGender;
+use FluxIliasRestApi\Adapter\User\LegacyUserGender;
 
 class UserGenderMapping
 {

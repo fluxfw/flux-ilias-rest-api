@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Category\CreateCategory;
 
-use FluxIliasRestApi\Adapter\Api\Category\CategoryDiffDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Category\CategoryDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;

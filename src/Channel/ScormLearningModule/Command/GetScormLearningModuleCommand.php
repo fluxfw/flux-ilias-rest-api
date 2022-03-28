@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\ScormLearningModule\Command;
 
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\ScormLearningModuleDto;
+use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDto;
 use FluxIliasRestApi\Channel\Object\ObjectQuery;
 use FluxIliasRestApi\Channel\ScormLearningModule\ScormLearningModuleQuery;
 use ilDBInterface;

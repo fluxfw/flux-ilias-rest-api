@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Channel\File\Command;
 
-use FluxIliasRestApi\Adapter\Api\File\FileDto;
-use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\File\FileDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Channel\File\FileQuery;
 use FluxIliasRestApi\Channel\File\Port\FileService;
 use ilCountPDFPagesPreProcessors;

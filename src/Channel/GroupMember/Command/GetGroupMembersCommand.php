@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\GroupMember\Command;
 
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Channel\GroupMember\GroupMemberQuery;
 use ilDBInterface;
 

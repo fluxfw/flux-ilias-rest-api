@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\CourseMember\Command;
 
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Channel\CourseMember\CourseMemberQuery;
 use ilDBInterface;
 

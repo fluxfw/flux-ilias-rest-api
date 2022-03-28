@@ -3,11 +3,11 @@
 namespace FluxIliasRestApi\Channel\User;
 
 use Exception;
-use FluxIliasRestApi\Adapter\Api\User\LegacyUserAuthenticationMode;
-use FluxIliasRestApi\Adapter\Api\User\LegacyUserGender;
-use FluxIliasRestApi\Adapter\Api\User\UserDefinedFieldDto;
-use FluxIliasRestApi\Adapter\Api\User\UserDiffDto;
-use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\User\LegacyUserAuthenticationMode;
+use FluxIliasRestApi\Adapter\User\LegacyUserGender;
+use FluxIliasRestApi\Adapter\User\UserDefinedFieldDto;
+use FluxIliasRestApi\Adapter\User\UserDiffDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use ilDBConstants;
 use ilObjUser;

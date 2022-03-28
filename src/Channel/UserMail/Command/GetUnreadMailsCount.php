@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\UserMail\Command;
 
-use FluxIliasRestApi\Adapter\Api\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Channel\User\Port\UserService;
 use FluxIliasRestApi\Channel\UserMail\LegacyInternalMailStatus;
 use FluxIliasRestApi\Channel\UserMail\UserMailQuery;

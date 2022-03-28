@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\UserFavourite\Port;
 
-use FluxIliasRestApi\Adapter\Api\UserFavourite\UserFavouriteDto;
+use FluxIliasRestApi\Adapter\UserFavourite\UserFavouriteDto;
 use FluxIliasRestApi\Channel\Object\Port\ObjectService;
 use FluxIliasRestApi\Channel\User\Port\UserService;
 use FluxIliasRestApi\Channel\UserFavourite\Command\AddUserFavouriteCommand;

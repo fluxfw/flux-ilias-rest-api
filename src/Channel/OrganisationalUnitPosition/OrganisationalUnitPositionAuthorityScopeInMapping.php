@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\OrganisationalUnitPosition;
 
-use FluxIliasRestApi\Adapter\Api\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionAuthorityScopeIn;
+use FluxIliasRestApi\Adapter\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionAuthorityScopeIn;
 
 class OrganisationalUnitPositionAuthorityScopeInMapping
 {

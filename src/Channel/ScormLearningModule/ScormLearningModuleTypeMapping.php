@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Channel\ScormLearningModule;
 
-use FluxIliasRestApi\Adapter\Api\ScormLearningModule\LegacyScormLearningModuleType;
+use FluxIliasRestApi\Adapter\ScormLearningModule\LegacyScormLearningModuleType;
 
 class ScormLearningModuleTypeMapping
 {

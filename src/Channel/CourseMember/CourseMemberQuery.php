@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\CourseMember;
 
-use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDiffDto;
-use FluxIliasRestApi\Adapter\Api\CourseMember\CourseMemberDto;
-use FluxIliasRestApi\Adapter\Api\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDiffDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Channel\Object\LegacyDefaultInternalObjectType;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\LegacyInternalObjectLearningProgress;
 use FluxIliasRestApi\Channel\ObjectLearningProgress\ObjectLearningProgressMapping;

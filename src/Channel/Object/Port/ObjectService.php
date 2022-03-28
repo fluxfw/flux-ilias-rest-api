@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Channel\Object\Port;
 
-use FluxIliasRestApi\Adapter\Api\Object\ObjectDiffDto;
-use FluxIliasRestApi\Adapter\Api\Object\ObjectDto;
-use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use FluxIliasRestApi\Adapter\Api\Object\ObjectType;
+use FluxIliasRestApi\Adapter\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Object\ObjectType;
 use FluxIliasRestApi\Channel\Object\Command\CloneObjectCommand;
 use FluxIliasRestApi\Channel\Object\Command\CreateObjectCommand;
 use FluxIliasRestApi\Channel\Object\Command\DeleteObjectCommand;

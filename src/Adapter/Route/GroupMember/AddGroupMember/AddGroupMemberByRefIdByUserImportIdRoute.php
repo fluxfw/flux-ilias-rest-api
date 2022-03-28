@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\GroupMember\AddGroupMember;
 
-use FluxIliasRestApi\Adapter\Api\GroupMember\GroupMemberDiffDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;

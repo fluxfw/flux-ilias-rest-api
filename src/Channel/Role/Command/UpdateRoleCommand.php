@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Channel\Role\Command;
 
-use FluxIliasRestApi\Adapter\Api\Object\ObjectIdDto;
-use FluxIliasRestApi\Adapter\Api\Role\RoleDiffDto;
-use FluxIliasRestApi\Adapter\Api\Role\RoleDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Channel\Role\Port\RoleService;
 use FluxIliasRestApi\Channel\Role\RoleQuery;
 
