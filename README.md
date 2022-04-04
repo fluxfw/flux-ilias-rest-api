@@ -7,7 +7,7 @@ ILIAS Rest Api
 In [flux-ilias](https://github.com/fluxapps/flux-ilias)
 
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest/api:latest /flux-ilias-rest-api "$ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api"
+COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api "$ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api"
 ```
 
 *You can install it somewhere in `Customizing` even with a different name*

@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\ObjectLearningProgress\UpdateObjectLearningProgress;
 
-use FluxIliasRestApi\Adapter\Api\IliasRestApi;
-use FluxIliasRestApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;
@@ -17,22 +17,22 @@ use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
 class UpdateObjectLearningProgressByRefIdByUserIdRoute implements Route
 {
 
-    private IliasRestApi $ilias_rest_api;
+    private IliasApi $ilias_api;
 
 
     private function __construct(
-        /*private readonly*/ IliasRestApi $ilias_rest_api
+        /*private readonly*/ IliasApi $ilias_api
     ) {
-        $this->ilias_rest_api = $ilias_rest_api;
+        $this->ilias_api = $ilias_api;
     }
 
 
     public static function new(
-        IliasRestApi $ilias_rest_api
+        IliasApi $ilias_api
     ) : /*static*/ self
     {
         return new static(
-            $ilias_rest_api
+            $ilias_api
         );
     }
 
@@ -65,7 +65,7 @@ class UpdateObjectLearningProgressByRefIdByUserIdRoute implements Route
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $id = $this->ilias_rest_api->updateObjectLearningProgressByRefIdByUserId(
+        $id = $this->ilias_api->updateObjectLearningProgressByRefIdByUserId(
             $request->getParam(
                 "ref_id"
             ),

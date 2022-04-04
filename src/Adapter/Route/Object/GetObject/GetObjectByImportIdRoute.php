@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Object\GetObject;
 
-use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\LegacyDefaultMethod;
@@ -15,22 +15,22 @@ use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
 class GetObjectByImportIdRoute implements Route
 {
 
-    private IliasRestApi $ilias_rest_api;
+    private IliasApi $ilias_api;
 
 
     private function __construct(
-        /*private readonly*/ IliasRestApi $ilias_rest_api
+        /*private readonly*/ IliasApi $ilias_api
     ) {
-        $this->ilias_rest_api = $ilias_rest_api;
+        $this->ilias_api = $ilias_api;
     }
 
 
     public static function new(
-        IliasRestApi $ilias_rest_api
+        IliasApi $ilias_api
     ) : /*static*/ self
     {
         return new static(
-            $ilias_rest_api
+            $ilias_api
         );
     }
 
@@ -61,7 +61,7 @@ class GetObjectByImportIdRoute implements Route
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $object = $this->ilias_rest_api->getObjectByImportId(
+        $object = $this->ilias_api->getObjectByImportId(
             $request->getParam(
                 "import_id"
             ),

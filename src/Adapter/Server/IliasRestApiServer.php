@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Server;
 
-use FluxIliasRestApi\Adapter\Api\IliasRestApi;
 use FluxIliasRestApi\Adapter\Authorization\IliasAuthorization;
 use FluxIliasRestApi\Adapter\Collector\IliasPluginsRouteCollector;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Collector\CombinedRouteCollector;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\DefaultRestApiServer;
@@ -29,7 +29,7 @@ class IliasRestApiServer
                 CombinedRouteCollector::new(
                     [
                         IliasRestApiServerRouteCollector::new(
-                            IliasRestApi::new()
+                            IliasApi::new()
                         ),
                         FolderRouteCollector::new(
                             __DIR__ . "/../routes"

@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Authorization;
 
 use Exception;
-use FluxIliasRestApi\Adapter\Autoload\IliasAutoload;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Autoload\IliasAutoload;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
 use FluxIliasRestApi\Libs\FluxRestApi\Authorization\Authorization;
 use FluxIliasRestApi\Libs\FluxRestApi\Request\RawRequestDto;

@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\GroupMember\UpdateGroupMember;
 
-use FluxIliasRestApi\Adapter\Api\IliasRestApi;
-use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\GroupMember\GroupMemberDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;
@@ -17,22 +17,22 @@ use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
 class UpdateGroupMemberByRefIdByUserIdRoute implements Route
 {
 
-    private IliasRestApi $ilias_rest_api;
+    private IliasApi $ilias_api;
 
 
     private function __construct(
-        /*private readonly*/ IliasRestApi $ilias_rest_api
+        /*private readonly*/ IliasApi $ilias_api
     ) {
-        $this->ilias_rest_api = $ilias_rest_api;
+        $this->ilias_api = $ilias_api;
     }
 
 
     public static function new(
-        IliasRestApi $ilias_rest_api
+        IliasApi $ilias_api
     ) : /*static*/ self
     {
         return new static(
-            $ilias_rest_api
+            $ilias_api
         );
     }
 
@@ -74,7 +74,7 @@ class UpdateGroupMemberByRefIdByUserIdRoute implements Route
             );
         }
 
-        $id = $this->ilias_rest_api->updateGroupMemberByRefIdByUserId(
+        $id = $this->ilias_api->updateGroupMemberByRefIdByUserId(
             $request->getParam(
                 "ref_id"
             ),
