@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnit\UpdateOrganisationalUnit;
 
-use FluxIliasRestApi\Adapter\Api\IliasRestApi;
-use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDiffDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\OrganisationalUnit\OrganisationalUnitDiffDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Body\LegacyDefaultBodyType;
@@ -17,22 +17,22 @@ use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
 class UpdateOrganisationalUnitByExternalIdRoute implements Route
 {
 
-    private IliasRestApi $ilias_rest_api;
+    private IliasApi $ilias_api;
 
 
     private function __construct(
-        /*private readonly*/ IliasRestApi $ilias_rest_api
+        /*private readonly*/ IliasApi $ilias_api
     ) {
-        $this->ilias_rest_api = $ilias_rest_api;
+        $this->ilias_api = $ilias_api;
     }
 
 
     public static function new(
-        IliasRestApi $ilias_rest_api
+        IliasApi $ilias_api
     ) : /*static*/ self
     {
         return new static(
-            $ilias_rest_api
+            $ilias_api
         );
     }
 
@@ -74,7 +74,7 @@ class UpdateOrganisationalUnitByExternalIdRoute implements Route
             );
         }
 
-        $id = $this->ilias_rest_api->updateOrganisationalUnitByExternalId(
+        $id = $this->ilias_api->updateOrganisationalUnitByExternalId(
             $request->getParam(
                 "external_id"
             ),

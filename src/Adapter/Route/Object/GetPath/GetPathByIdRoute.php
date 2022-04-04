@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Object\GetPath;
 
-use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\LegacyDefaultMethod;
@@ -15,22 +15,22 @@ use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
 class GetPathByIdRoute implements Route
 {
 
-    private IliasRestApi $ilias_rest_api;
+    private IliasApi $ilias_api;
 
 
     private function __construct(
-        /*private readonly*/ IliasRestApi $ilias_rest_api
+        /*private readonly*/ IliasApi $ilias_api
     ) {
-        $this->ilias_rest_api = $ilias_rest_api;
+        $this->ilias_api = $ilias_api;
     }
 
 
     public static function new(
-        IliasRestApi $ilias_rest_api
+        IliasApi $ilias_api
     ) : /*static*/ self
     {
         return new static(
-            $ilias_rest_api
+            $ilias_api
         );
     }
 
@@ -63,7 +63,7 @@ class GetPathByIdRoute implements Route
 
     public function handle(RequestDto $request) : ?ResponseDto
     {
-        $path = $this->ilias_rest_api->getPathById(
+        $path = $this->ilias_api->getPathById(
             $request->getParam(
                 "id"
             ),
