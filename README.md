@@ -18,7 +18,7 @@ COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flu
 
 ### Helper Plugin
 
-If you need additional features like changes, you need to install [flux-ilias-rest-helper-plugin](https://github.com/flux-eco/flux-ilias-rest-helper-plugin) too
+If you need additional features like changes, you need to install [flux-ilias-rest-helper-plugin](https://github.com/flux-caps/flux-ilias-rest-helper-plugin) too
 
 ## Call route
 
