@@ -5,12 +5,12 @@ namespace FluxIliasRestApi\Adapter\Route\Object\LinkObject;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\LegacyDefaultMethod;
-use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Method\Method;
-use FluxIliasRestApi\Libs\FluxRestApi\Libs\FluxRestBaseApi\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Request\RequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
+use FluxIliasRestApi\Libs\FluxRestApi\Status\LegacyDefaultStatus;
 
 class LinkObjectByIdToRefIdRoute implements Route
 {
