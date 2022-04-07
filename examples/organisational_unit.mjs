@@ -1,9 +1,9 @@
-const root = await (await fetch("?/organisational-unit/root")).json();
+const root = await (await fetch("/flux-ilias-rest-api/organisational-unit/root")).json();
 
-await (await fetch("?/organisational-units")).json();
+await (await fetch("/flux-ilias-rest-api/organisational-units")).json();
 
 const time = Date.now();
-const organisational_unit = await (await fetch(`?/organisational-unit/create/to-ref-id/${root.ref_id}`, {
+const organisational_unit = await (await fetch(`/flux-ilias-rest-api/organisational-unit/create/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -13,9 +13,9 @@ const organisational_unit = await (await fetch(`?/organisational-unit/create/to-
     })
 })).json();
 
-await (await fetch(`?/organisational-unit/by-id/${organisational_unit.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/organisational-unit/by-id/${organisational_unit.id}`)).json();
 
-await (await fetch(`?/organisational-unit/by-id/${organisational_unit.id}/update`, {
+await (await fetch(`/flux-ilias-rest-api/organisational-unit/by-id/${organisational_unit.id}/update`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",

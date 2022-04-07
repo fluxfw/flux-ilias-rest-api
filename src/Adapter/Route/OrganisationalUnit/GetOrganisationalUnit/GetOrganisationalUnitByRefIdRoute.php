@@ -3,14 +3,14 @@
 namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnit\GetOrganisationalUnit;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\LegacyDefaultMethod;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\Method;
-use FluxIliasRestApi\Libs\FluxRestApi\Request\RequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
-use FluxIliasRestApi\Libs\FluxRestApi\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
 
 class GetOrganisationalUnitByRefIdRoute implements Route
 {
@@ -59,7 +59,7 @@ class GetOrganisationalUnitByRefIdRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ?ResponseDto
+    public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
         $organisational_unit = $this->ilias_api->getOrganisationalUnitByRefId(
             $request->getParam(
@@ -68,13 +68,13 @@ class GetOrganisationalUnitByRefIdRoute implements Route
         );
 
         if ($organisational_unit !== null) {
-            return ResponseDto::new(
+            return ServerResponseDto::new(
                 JsonBodyDto::new(
                     $organisational_unit
                 )
             );
         } else {
-            return ResponseDto::new(
+            return ServerResponseDto::new(
                 TextBodyDto::new(
                     "Organisational unit not found"
                 ),

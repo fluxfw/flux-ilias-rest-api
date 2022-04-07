@@ -1,7 +1,7 @@
-await (await fetch("?/courses")).json();
+await (await fetch("/flux-ilias-rest-api/courses")).json();
 
 const time = Date.now();
-const course = await (await fetch(`?/course/create/to-ref-id/${root.ref_id}`, {
+const course = await (await fetch(`/flux-ilias-rest-api/course/create/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -13,9 +13,9 @@ const course = await (await fetch(`?/course/create/to-ref-id/${root.ref_id}`, {
     })
 })).json();
 
-await (await fetch(`?/course/by-id/${course.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/course/by-id/${course.id}`)).json();
 
-await (await fetch(`?/course/by-id/${course.id}/update`, {
+await (await fetch(`/flux-ilias-rest-api/course/by-id/${course.id}/update`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",

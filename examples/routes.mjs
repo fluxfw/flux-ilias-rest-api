@@ -1,1 +1,1 @@
-await (await fetch("?/routes")).json();
+await (await fetch("/flux-ilias-rest-api/routes")).json();

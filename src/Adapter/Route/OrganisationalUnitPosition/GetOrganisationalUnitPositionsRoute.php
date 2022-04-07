@@ -3,12 +3,12 @@
 namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnitPosition;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\LegacyDefaultMethod;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\Method;
-use FluxIliasRestApi\Libs\FluxRestApi\Request\RequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
 
 class GetOrganisationalUnitPositionsRoute implements Route
 {
@@ -59,9 +59,9 @@ class GetOrganisationalUnitPositionsRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ?ResponseDto
+    public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        return ResponseDto::new(
+        return ServerResponseDto::new(
             JsonBodyDto::new(
                 $this->ilias_api->getOrganisationalUnitPositions(
                     $request->getQueryParam(

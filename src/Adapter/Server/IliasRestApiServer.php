@@ -5,46 +5,56 @@ namespace FluxIliasRestApi\Adapter\Server;
 use FluxIliasRestApi\Adapter\Authorization\IliasAuthorization;
 use FluxIliasRestApi\Adapter\Collector\IliasPluginsRouteCollector;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Collector\CombinedRouteCollector;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\DefaultRestApiServer;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Api\RestApi;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\Authorization;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\CombinedRouteCollector;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\FolderRouteCollector;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\RouteCollector;
 
 class IliasRestApiServer
 {
 
-    private DefaultRestApiServer $default_rest_api_server;
+    private Authorization $authorization;
+    private RestApi $rest_api;
+    private RouteCollector $route_collector;
 
 
     private function __construct(
-        /*private readonly*/ DefaultRestApiServer $default_rest_api_server
+        /*private readonly*/ RestApi $rest_api,
+        /*private readonly*/ RouteCollector $route_collector,
+        /*private readonly*/ Authorization $authorization
     ) {
-        $this->default_rest_api_server = $default_rest_api_server;
+        $this->rest_api = $rest_api;
+        $this->route_collector = $route_collector;
+        $this->authorization = $authorization;
     }
 
 
     public static function new() : /*static*/ self
     {
         return new static(
-            DefaultRestApiServer::new(
-                CombinedRouteCollector::new(
-                    [
-                        IliasRestApiServerRouteCollector::new(
-                            IliasApi::new()
-                        ),
-                        FolderRouteCollector::new(
-                            __DIR__ . "/../routes"
-                        ),
-                        IliasPluginsRouteCollector::new()
-                    ]
-                ),
-                IliasAuthorization::new()
-            )
+            RestApi::new(),
+            CombinedRouteCollector::new(
+                [
+                    IliasRestApiServerRouteCollector::new(
+                        IliasApi::new()
+                    ),
+                    FolderRouteCollector::new(
+                        __DIR__ . "/../../../routes"
+                    ),
+                    IliasPluginsRouteCollector::new()
+                ]
+            ),
+            IliasAuthorization::new()
         );
     }
 
 
     public function handle() : void
     {
-        $this->default_rest_api_server->handle();
+        $this->rest_api->handleDefaultRequest(
+            $this->route_collector,
+            $this->authorization
+        );
     }
 }

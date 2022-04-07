@@ -3,14 +3,14 @@
 namespace FluxIliasRestApi\Adapter\Route\Change;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\LegacyDefaultMethod;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\Method;
-use FluxIliasRestApi\Libs\FluxRestApi\Request\RequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
-use FluxIliasRestApi\Libs\FluxRestApi\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
 
 class GetChangesRoute implements Route
 {
@@ -64,7 +64,7 @@ class GetChangesRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ?ResponseDto
+    public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
         $changes = $this->ilias_api->getChanges(
             $request->getQueryParam(
@@ -82,13 +82,13 @@ class GetChangesRoute implements Route
         );
 
         if ($changes !== null) {
-            return ResponseDto::new(
+            return ServerResponseDto::new(
                 JsonBodyDto::new(
                     $changes
                 )
             );
         } else {
-            return ResponseDto::new(
+            return ServerResponseDto::new(
                 TextBodyDto::new(
                     "Changes not found"
                 ),

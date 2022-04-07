@@ -225,7 +225,7 @@ use FluxIliasRestApi\Adapter\Route\UserRole\RemoveUserRole\RemoveUserRoleByIdByR
 use FluxIliasRestApi\Adapter\Route\UserRole\RemoveUserRole\RemoveUserRoleByImportIdByRoleIdRoute;
 use FluxIliasRestApi\Adapter\Route\UserRole\RemoveUserRole\RemoveUserRoleByImportIdByRoleImportIdRoute;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Collector\RouteCollector;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\RouteCollector;
 
 class IliasRestApiServerRouteCollector implements RouteCollector
 {

@@ -1,7 +1,7 @@
-await (await fetch("?/files")).json();
+await (await fetch("/flux-ilias-rest-api/files")).json();
 
 const time = Date.now();
-const file = await (await fetch(`?/file/create/to-ref-id/${root.ref_id}`, {
+const file = await (await fetch(`/flux-ilias-rest-api/file/create/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -31,7 +31,7 @@ const file = await (await fetch(`?/file/create/to-ref-id/${root.ref_id}`, {
             data.set("file", selector.files[0]);
             data.set("title", title.value);
             data.set("replace", checkbox.checked);
-            console.log(await (await fetch(`?/file/by-id/${file.id}/upload`, {
+            console.log(await (await fetch(`/flux-ilias-rest-api/file/by-id/${file.id}/upload`, {
                 method: "POST",
                 headers: {
                     "X-Http-Method-Override": "PUT"
@@ -44,9 +44,9 @@ const file = await (await fetch(`?/file/create/to-ref-id/${root.ref_id}`, {
     document.body.appendChild(button);
 }
 
-await (await fetch(`?/file/by-id/${file.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/file/by-id/${file.id}`)).json();
 
-await (await fetch(`?/file/by-id/${file.id}/update`, {
+await (await fetch(`/flux-ilias-rest-api/file/by-id/${file.id}/update`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
