@@ -1,11 +1,11 @@
-await (await fetch("?/users")).json();
+await (await fetch("/flux-ilias-rest-api/users")).json();
 
-await (await fetch("?/user/current/api")).json();
+await (await fetch("/flux-ilias-rest-api/user/current/api")).json();
 
-await (await fetch("?/user/current/web")).json();
+await (await fetch("/flux-ilias-rest-api/user/current/web")).json();
 
 const time = Date.now();
-const user = await (await fetch("?/user/create", {
+const user = await (await fetch("/flux-ilias-rest-api/user/create", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -19,9 +19,9 @@ const user = await (await fetch("?/user/create", {
     })
 })).json();
 
-await (await fetch(`?/user/by-id/${user.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}`)).json();
 
-await (await fetch(`?/user/by-id/${user.id}/update`, {
+await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ await (await fetch(`?/user/by-id/${user.id}/update`, {
         selector.addEventListener("change", async () => {
             const data = new FormData();
             data.set("file", selector.files[0]);
-            console.log(await (await fetch(`?/user/by-id/${user.id}/update/avatar`, {
+            console.log(await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update/avatar`, {
                 method: "POST",
                 headers: {
                     "X-Http-Method-Override": "PUT"
@@ -63,7 +63,7 @@ await (await fetch(`?/user/by-id/${user.id}/update`, {
     document.body.appendChild(image);
 }
 
-await (await fetch(`?/user/by-id/${user.id}/update/avatar`, {
+await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update/avatar`, {
     method: "POST",
     headers: {
         "X-Http-Method-Override": "PUT"

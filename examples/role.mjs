@@ -1,9 +1,9 @@
-const object = await (await fetch("?/role/global-object")).json();
+const object = await (await fetch("/flux-ilias-rest-api/role/global-object")).json();
 
-await (await fetch("?/roles")).json();
+await (await fetch("/flux-ilias-rest-api/roles")).json();
 
 const time = Date.now();
-const role = await (await fetch(`?/role/create/to-ref-id/${object.ref_id}`, {
+const role = await (await fetch(`/flux-ilias-rest-api/role/create/to-ref-id/${object.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -13,9 +13,9 @@ const role = await (await fetch(`?/role/create/to-ref-id/${object.ref_id}`, {
     })
 })).json();
 
-await (await fetch(`?/role/by-id/${role.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/role/by-id/${role.id}`)).json();
 
-await (await fetch(`?/role/by-id/${role.id}/update`, {
+await (await fetch(`/flux-ilias-rest-api/role/by-id/${role.id}/update`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",

@@ -1,9 +1,9 @@
-const root = await (await fetch("?/object/root")).json();
+const root = await (await fetch("/flux-ilias-rest-api/object/root")).json();
 
-await (await fetch("?/objects/category")).json();
+await (await fetch("/flux-ilias-rest-api/objects/category")).json();
 
 const time = Date.now();
-const object = await (await fetch(`?/object/create/category/to-ref-id/${root.ref_id}`, {
+const object = await (await fetch(`/flux-ilias-rest-api/object/create/category/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -13,13 +13,13 @@ const object = await (await fetch(`?/object/create/category/to-ref-id/${root.ref
     })
 })).json();
 
-await (await fetch(`?/object/by-id/${object.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}`)).json();
 
-await (await fetch(`?/object/children/by-ref-id/${root.ref_id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/object/children/by-ref-id/${root.ref_id}`)).json();
 
-await (await fetch(`?/object/path/by-ref-id/${object.ref_id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/object/path/by-ref-id/${object.ref_id}`)).json();
 
-await (await fetch(`?/object/by-id/${object.id}/update`, {
+await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/update`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -30,22 +30,22 @@ await (await fetch(`?/object/by-id/${object.id}/update`, {
     })
 })).json();
 
-const cloned_object = await (await fetch(`?/object/by-id/${object.id}/clone/to-ref-id/${root.ref_id}`, {
+const cloned_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/clone/to-ref-id/${root.ref_id}`, {
     method: "POST"
 })).json();
 
-const moved_object = await (await fetch(`?/object/by-id/${cloned_object.id}/move/to-id/${object.id}`, {
+const moved_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${cloned_object.id}/move/to-id/${object.id}`, {
     method: "POST",
     headers: {
         "X-Http-Method-Override": "PUT"
     }
 })).json();
 
-const linked_object = await (await fetch(`?/object/by-id/${cloned_object.id}/link/to-ref-id/${root.ref_id}`, {
+const linked_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${cloned_object.id}/link/to-ref-id/${root.ref_id}`, {
     method: "POST"
 })).json();
 
-await (await fetch(`?/object/by-id/${object.id}/delete`, {
+await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/delete`, {
     method: "POST",
     headers: {
         "X-Http-Method-Override": "DELETE"

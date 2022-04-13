@@ -3,14 +3,14 @@
 namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff\RemoveOrganisationalUnitStaff;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\LegacyDefaultMethod;
-use FluxIliasRestApi\Libs\FluxRestApi\Method\Method;
-use FluxIliasRestApi\Libs\FluxRestApi\Request\RequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Route\Route;
-use FluxIliasRestApi\Libs\FluxRestApi\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
 
 class RemoveOrganisationalUnitStaffByExternalIdByUserIdRoute implements Route
 {
@@ -59,7 +59,7 @@ class RemoveOrganisationalUnitStaffByExternalIdByUserIdRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ?ResponseDto
+    public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
         $id = $this->ilias_api->removeOrganisationalUnitStaffByExternalIdByUserId(
             $request->getParam(
@@ -74,13 +74,13 @@ class RemoveOrganisationalUnitStaffByExternalIdByUserIdRoute implements Route
         );
 
         if ($id !== null) {
-            return ResponseDto::new(
+            return ServerResponseDto::new(
                 JsonBodyDto::new(
                     $id
                 )
             );
         } else {
-            return ResponseDto::new(
+            return ServerResponseDto::new(
                 TextBodyDto::new(
                     "Organisational unit staff not found"
                 ),

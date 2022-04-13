@@ -1,7 +1,7 @@
-await (await fetch("?/groups")).json();
+await (await fetch("/flux-ilias-rest-api/groups")).json();
 
 const time = Date.now();
-const group = await (await fetch(`?/group/create/to-ref-id/${root.ref_id}`, {
+const group = await (await fetch(`/flux-ilias-rest-api/group/create/to-ref-id/${root.ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -11,9 +11,9 @@ const group = await (await fetch(`?/group/create/to-ref-id/${root.ref_id}`, {
     })
 })).json();
 
-await (await fetch(`?/group/by-id/${group.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}`)).json();
 
-await (await fetch(`?/group/by-id/${group.id}/update`, {
+await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/update`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",

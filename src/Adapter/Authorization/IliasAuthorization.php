@@ -4,10 +4,10 @@ namespace FluxIliasRestApi\Adapter\Authorization;
 
 use Exception;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Autoload\IliasAutoload;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\Authorization;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
-use FluxIliasRestApi\Libs\FluxRestApi\Authorization\Authorization;
-use FluxIliasRestApi\Libs\FluxRestApi\Request\RawRequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Response\ResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRawRequestDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
 use ilBrowser;
 use ilCronStartUp;
 use ilHelpGUI;
@@ -39,12 +39,12 @@ class IliasAuthorization implements Authorization
     }
 
 
-    public function authorize(RawRequestDto $request) : ?ResponseDto
+    public function authorize(ServerRawRequestDto $request) : ?ServerResponseDto
     {
         $authorization = $this->parseHttpBasicAuthorization(
             $request
         );
-        if ($authorization instanceof ResponseDto) {
+        if ($authorization instanceof ServerResponseDto) {
             return $authorization;
         }
 

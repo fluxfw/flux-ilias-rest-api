@@ -1,4 +1,4 @@
-await (await fetch(`?/group/by-id/${group.id}/add-member/by-id/${user.id}`, {
+await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/add-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -8,11 +8,11 @@ await (await fetch(`?/group/by-id/${group.id}/add-member/by-id/${user.id}`, {
     })
 })).json();
 
-await (await fetch(`?/group-members&group_id=${group.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/group-members?group_id=${group.id}`)).json();
 
-await (await fetch(`?/group-members&user_id=${user.id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/group-members?user_id=${user.id}`)).json();
 
-await (await fetch(`?/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
+await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ await (await fetch(`?/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
     })
 })).json();
 
-await (await fetch(`?/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
+await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ await (await fetch(`?/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
     })
 })).json();
 
-await (await fetch(`?/group/by-id/${group.id}/remove-member/by-id/${user.id}`, {
+await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/remove-member/by-id/${user.id}`, {
     method: "POST",
     headers: {
         "X-Http-Method-Override": "DELETE"

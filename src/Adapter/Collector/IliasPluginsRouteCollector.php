@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Collector;
 
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
-use FluxIliasRestApi\Libs\FluxRestApi\Collector\RouteCollector;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\FolderRouteCollector;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\RouteCollector;
 use ilPluginAdmin;
 use Throwable;
 
