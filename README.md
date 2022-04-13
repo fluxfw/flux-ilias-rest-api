@@ -102,8 +102,8 @@ In [flux-ilias-nginx-base](https://github.com/fluxapps/flux-ilias-nginx-base)
 RUN echo "rewrite ^/%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=\$1;" > /flux-ilias-nginx-base/src/custom/%name%.conf
 ```
 
-Make requests to `https://%host%/%name%` in your web code
+Make requests to `https://%host%/%name%/...` in your web code
 
-If the ILIAS public area is enabled, you get 401 status code in your web code, if the user is not logged in ILIAS
+If the ILIAS public area is enabled, you get the 401 HTTP status code in your web code, if the user is not logged in ILIAS
 
-On your api you can get the logged ILIAS user in custom HTTP header `X-Flux-Ilias-Api-User-Id` or `X-Flux-Ilias-Api-User-Import-Id`
+On your api you can get the logged ILIAS user in the custom HTTP header `X-Flux-Ilias-Api-User-Id` or `X-Flux-Ilias-Api-User-Import-Id`
