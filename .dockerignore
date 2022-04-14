@@ -1,4 +1,5 @@
 *
+!bin/install-to-flux-ilias-nginx-base.sh
 !src
 !src/**
 !autoload.php

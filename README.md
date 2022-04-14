@@ -15,7 +15,7 @@ COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flu
 In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 
 ```dockerfile
-RUN ln -s $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api/src/nginx.conf /flux-ilias-nginx-base/src/custom/flux-ilias-rest-api.conf
+RUN $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
 ```
 
 ### Helper Plugin
