@@ -9,7 +9,7 @@ ILIAS Rest Api
 In [flux-ilias](https://github.com/flux-caps/flux-ilias)
 
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api "$ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api"
+COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api
 ```
 
 In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
