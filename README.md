@@ -12,28 +12,26 @@ In [flux-ilias](https://github.com/flux-caps/flux-ilias)
 COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api
 ```
 
-### Rewrites
+### nginx
 
-#### nginx
-
-##### In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
+#### In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 
 ```dockerfile
 RUN $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
 ```
 
-##### Other
+#### Other
 
 ```nginx
-include /var/www/html/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/nginx.conf
+include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/nginx.conf
 ```
 
-#### apache
+### apache
 
 ```apache
-<Directory /var/www/html>
+<Directory %web_root%>
     RewriteEngine On
-    Include /var/www/html/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/apache.conf
+    Include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/apache.conf
 </Directory>
 ```
 
@@ -89,7 +87,11 @@ There is no need, but may you should enable ILIAS public area for avoid some pro
 
 ### Web
 
-Set environment value in [flux-ilias-ilias-base](https://github.com/flux-caps/flux-ilias-ilias-base)
+#### nginx
+
+##### In [flux-ilias](https://github.com/flux-caps/flux-ilias)
+
+In [flux-ilias-ilias-base](https://github.com/flux-caps/flux-ilias-ilias-base)
 
 ```yaml
 FLUX_ILIAS_API_PROXY_WEB_MAP_%key%=https://%host%/%name%-code
@@ -105,11 +107,51 @@ RUN echo "rewrite ^/%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route
 RUN echo "rewrite ^/%name%-code($|/(.*)$) /Customizing/global/%name%/\$2;" > /flux-ilias-nginx-base/src/custom/%name%-code.conf
 ```
 
+##### Other
+
+```nginx
+fastcgi_param FLUX_ILIAS_API_PROXY_WEB_MAP_%key% https://%host%/%name%-code;
+```
+
+```nginx
+rewrite ^/%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1;
+```
+
+```nginx
+rewrite ^/%name%-code($|/(.*)$) /Customizing/global/%name%/$2;
+```
+
+#### apache
+
+```apache
+SetEnv FLUX_ILIAS_API_PROXY_WEB_MAP_%key% https://%host%/%name%-code
+```
+
+```apache
+<Directory %web_root%>
+    RewriteEngine On
+    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1
+</Directory>
+```
+
+```apache
+<Directory %web_root%>
+    RewriteEngine On
+    RewriteRule ^%name%-code($|/(.*)$) /Customizing/global/%name%/$2
+</Directory>
+```
+
+#### Usage
+
 Add a manual ILIAS main menu link item with the url `https://%host%/%name%`
 
 ### Api
 
-Set environment value in [flux-ilias-ilias-base](https://github.com/flux-caps/flux-ilias-ilias-base)
+#### nginx
+
+##### In [flux-ilias](https://github.com/flux-caps/flux-ilias)
+
+In [flux-ilias-ilias-base](https://github.com/flux-caps/flux-ilias-ilias-base)
 
 ```yaml
 FLUX_ILIAS_API_PROXY_API_MAP_%key%=http://some-other-service
@@ -120,6 +162,31 @@ In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 ```dockerfile
 RUN echo "rewrite ^/%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=\$1;" > /flux-ilias-nginx-base/src/custom/%name%.conf
 ```
+
+##### Other
+
+```nginx
+fastcgi_param FLUX_ILIAS_API_PROXY_API_MAP_%key% http://some-other-service;
+```
+
+```nginx
+rewrite ^/%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1;
+```
+
+#### apache
+
+```apache
+SetEnv FLUX_ILIAS_API_PROXY_API_MAP_%key% http://some-other-service
+```
+
+```apache
+<Directory %web_root%>
+    RewriteEngine On
+    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1
+</Directory>
+```
+
+#### Usage
 
 Make requests to `https://%host%/%name%/...` in your web code
 
