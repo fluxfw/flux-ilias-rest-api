@@ -12,10 +12,29 @@ In [flux-ilias](https://github.com/flux-caps/flux-ilias)
 COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api
 ```
 
-In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
+### Rewrites
+
+#### nginx
+
+##### In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 
 ```dockerfile
 RUN $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
+```
+
+##### Other
+
+```nginx
+include /var/www/html/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/nginx.conf
+```
+
+#### apache
+
+```apache
+<Directory /var/www/html>
+    RewriteEngine On
+    Include /var/www/html/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/apache.conf
+</Directory>
 ```
 
 ### Helper Plugin
