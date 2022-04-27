@@ -8,21 +8,21 @@ FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS flux_autoload_api_build
 ENV FLUX_NAMESPACE_CHANGER_FROM_NAMESPACE FluxAutoloadApi
 ENV FLUX_NAMESPACE_CHANGER_TO_NAMESPACE FluxIliasRestApi\\Libs\\FluxAutoloadApi
 COPY --from=flux_autoload_api /flux-autoload-api /code
-RUN /flux-namespace-changer/bin/docker-entrypoint.php
+RUN /flux-namespace-changer/bin/change-namespace.php
 
 FROM $FLUX_ILIAS_API_IMAGE:latest AS flux_ilias_api
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS flux_ilias_api_build
 ENV FLUX_NAMESPACE_CHANGER_FROM_NAMESPACE FluxIliasApi
 ENV FLUX_NAMESPACE_CHANGER_TO_NAMESPACE FluxIliasRestApi\\Libs\\FluxIliasApi
 COPY --from=flux_ilias_api /flux-ilias-api /code
-RUN /flux-namespace-changer/bin/docker-entrypoint.php
+RUN /flux-namespace-changer/bin/change-namespace.php
 
 FROM $FLUX_REST_API_IMAGE:latest AS flux_rest_api
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS flux_rest_api_build
 ENV FLUX_NAMESPACE_CHANGER_FROM_NAMESPACE FluxRestApi
 ENV FLUX_NAMESPACE_CHANGER_TO_NAMESPACE FluxIliasRestApi\\Libs\\FluxRestApi
 COPY --from=flux_rest_api /flux-rest-api /code
-RUN /flux-namespace-changer/bin/docker-entrypoint.php
+RUN /flux-namespace-changer/bin/change-namespace.php
 
 FROM alpine:latest AS build
 
