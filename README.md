@@ -130,14 +130,14 @@ SetEnv FLUX_ILIAS_API_PROXY_WEB_MAP_%key% https://%host%/%name%-code
 ```apache
 <Directory %web_root%>
     RewriteEngine On
-    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1
+    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1 [QSA]
 </Directory>
 ```
 
 ```apache
 <Directory %web_root%>
     RewriteEngine On
-    RewriteRule ^%name%-code($|/(.*)$) /Customizing/global/%name%/$2
+    RewriteRule ^%name%-code($|/(.*)$) /Customizing/global/%name%/$2 [QSA]
 </Directory>
 ```
 
@@ -182,7 +182,7 @@ SetEnv FLUX_ILIAS_API_PROXY_API_MAP_%key% http://some-other-service
 ```apache
 <Directory %web_root%>
     RewriteEngine On
-    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1
+    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1 [QSA]
 </Directory>
 ```
 
