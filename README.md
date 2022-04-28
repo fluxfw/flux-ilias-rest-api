@@ -29,10 +29,8 @@ include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Con
 ### apache
 
 ```apache
-<Directory %web_root%>
-    RewriteEngine On
-    Include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/apache.conf
-</Directory>
+RewriteEngine On
+Include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/apache.conf
 ```
 
 ### Helper Plugin
@@ -128,17 +126,13 @@ SetEnv FLUX_ILIAS_API_PROXY_WEB_MAP_%key% https://%host%/%name%-code
 ```
 
 ```apache
-<Directory %web_root%>
-    RewriteEngine On
-    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1 [QSA]
-</Directory>
+RewriteEngine On
+RewriteRule ^/%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1 [QSA]
 ```
 
 ```apache
-<Directory %web_root%>
-    RewriteEngine On
-    RewriteRule ^%name%-code($|/(.*)$) /Customizing/global/%name%/$2 [QSA]
-</Directory>
+RewriteEngine On
+RewriteRule ^/%name%-code($|/(.*)$) /Customizing/global/%name%/$2 [QSA]
 ```
 
 #### Usage
@@ -180,10 +174,8 @@ SetEnv FLUX_ILIAS_API_PROXY_API_MAP_%key% http://some-other-service
 ```
 
 ```apache
-<Directory %web_root%>
-    RewriteEngine On
-    RewriteRule ^%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1 [QSA]
-</Directory>
+RewriteEngine On
+RewriteRule ^/%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1 [QSA]
 ```
 
 #### Usage
