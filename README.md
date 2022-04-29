@@ -6,11 +6,17 @@ ILIAS Rest Api
 
 ## Installation
 
-In [flux-ilias](https://github.com/flux-caps/flux-ilias)
+### flux-ilias-rest-api
+
+#### In [flux-ilias](https://github.com/flux-caps/flux-ilias)
 
 ```dockerfile
 COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api
 ```
+
+#### Other
+
+Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api and extract to %web_root%/Customizing/global/flux-ilias-rest-api
 
 ### nginx
 
