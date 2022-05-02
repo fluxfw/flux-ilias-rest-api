@@ -14,9 +14,15 @@ ILIAS Rest Api
 COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api
 ```
 
+or
+
+```dockerfile
+RUN (mkdir -p $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api && cd $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api && wget -O - https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api | tar -xz --strip-components=1)
+```
+
 #### Other
 
-Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api and extract to %web_root%/Customizing/global/flux-ilias-rest-api
+Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api and extract it to %web_root%/Customizing/global/flux-ilias-rest-api
 
 ### nginx
 
@@ -95,11 +101,15 @@ There is no need, but may you should enable ILIAS public area for avoid some pro
 
 ##### In [flux-ilias](https://github.com/flux-caps/flux-ilias)
 
+###### Environment variables
+
 In [flux-ilias-ilias-base](https://github.com/flux-caps/flux-ilias-ilias-base)
 
 ```yaml
 FLUX_ILIAS_API_PROXY_WEB_MAP_%key%=https://%host%/%name%-code
 ```
+
+###### flux-ilias-rest-helper-plugin
 
 In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 
@@ -107,19 +117,43 @@ In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 RUN echo "rewrite ^/%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=\$1;" > /flux-ilias-nginx-base/src/custom/%name%.conf
 ```
 
+###### Other service
+
+In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
+
+```dockerfile
+RUN echo "location /%name%-code/ {\n    proxy_pass http://%some-other-service%/;\n}" > /flux-ilias-nginx-base/src/custom/%name%-code.conf
+```
+
+or
+
 ```dockerfile
 RUN echo "rewrite ^/%name%-code($|/(.*)$) /Customizing/global/%name%/\$2;" > /flux-ilias-nginx-base/src/custom/%name%-code.conf
 ```
 
 ##### Other
 
+###### Environment variables
+
 ```nginx
 fastcgi_param FLUX_ILIAS_API_PROXY_WEB_MAP_%key% https://%host%/%name%-code;
 ```
 
+###### flux-ilias-rest-helper-plugin
+
 ```nginx
 rewrite ^/%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1;
 ```
+
+###### Other service
+
+```nginx
+location /%name%-code/ {
+    proxy_pass http://%some-other-service%/;
+}
+```
+
+or
 
 ```nginx
 rewrite ^/%name%-code($|/(.*)$) /Customizing/global/%name%/$2;
@@ -127,14 +161,27 @@ rewrite ^/%name%-code($|/(.*)$) /Customizing/global/%name%/$2;
 
 #### apache
 
+###### Environment variables
+
 ```apache
 SetEnv FLUX_ILIAS_API_PROXY_WEB_MAP_%key% https://%host%/%name%-code
 ```
+
+###### flux-ilias-rest-helper-plugin
 
 ```apache
 RewriteEngine On
 RewriteRule ^/%name%($|/.*$) /goto.php?target=flilre_web_proxy_%key%&route=$1 [QSA]
 ```
+
+###### Other service
+
+```apache
+ProxyPass /%name%-code http://%some-other-service%
+ProxyPassReverse /%name%-code http://%some-other-service%
+```
+
+or
 
 ```apache
 RewriteEngine On
@@ -151,11 +198,15 @@ Add a manual ILIAS main menu link item with the url `https://%host%/%name%`
 
 ##### In [flux-ilias](https://github.com/flux-caps/flux-ilias)
 
+###### Environment variables
+
 In [flux-ilias-ilias-base](https://github.com/flux-caps/flux-ilias-ilias-base)
 
 ```yaml
-FLUX_ILIAS_API_PROXY_API_MAP_%key%=http://some-other-service
+FLUX_ILIAS_API_PROXY_API_MAP_%key%=http://%some-other-service%
 ```
+
+###### flux-ilias-rest-helper-plugin
 
 In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 
@@ -165,9 +216,13 @@ RUN echo "rewrite ^/%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route
 
 ##### Other
 
+###### Environment variables
+
 ```nginx
-fastcgi_param FLUX_ILIAS_API_PROXY_API_MAP_%key% http://some-other-service;
+fastcgi_param FLUX_ILIAS_API_PROXY_API_MAP_%key% http://%some-other-service%;
 ```
+
+###### flux-ilias-rest-helper-plugin
 
 ```nginx
 rewrite ^/%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1;
@@ -175,9 +230,13 @@ rewrite ^/%name%($|/.*$) /goto.php?target=flilre_api_proxy_%key%&route=$1;
 
 #### apache
 
+###### Environment variables
+
 ```apache
-SetEnv FLUX_ILIAS_API_PROXY_API_MAP_%key% http://some-other-service
+SetEnv FLUX_ILIAS_API_PROXY_API_MAP_%key% http://%some-other-service%
 ```
+
+###### flux-ilias-rest-helper-plugin
 
 ```apache
 RewriteEngine On
