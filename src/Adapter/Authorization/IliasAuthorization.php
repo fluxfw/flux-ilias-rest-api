@@ -71,7 +71,7 @@ class IliasAuthorization implements Authorization
 
         global $DIC;
         if (intval($DIC->user()->getId()) === intval(SYSTEM_USER_ID)) {
-            throw new Exception("Root user is not allow");
+            throw new Exception("Root user is not allowed");
         }
         if (!$DIC->rbac()->review()->isAssigned($DIC->user()->getId(), SYSTEM_ROLE_ID)) {
             throw new Exception("Only admin users are allowed");
