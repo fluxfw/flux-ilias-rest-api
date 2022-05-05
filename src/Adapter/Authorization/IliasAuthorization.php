@@ -70,6 +70,9 @@ class IliasAuthorization implements Authorization
         (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
 
         global $DIC;
+        if (intval($DIC->user()->getId()) === intval(SYSTEM_USER_ID)) {
+            throw new Exception("Root user is not allow");
+        }
         if (!$DIC->rbac()->review()->isAssigned($DIC->user()->getId(), SYSTEM_ROLE_ID)) {
             throw new Exception("Only admin users are allowed");
         }
