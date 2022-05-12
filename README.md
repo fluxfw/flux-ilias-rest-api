@@ -79,14 +79,6 @@ With the follow route you can get all available routes
 
 `https://%host%/flux-ilias-rest-api/routes`
 
-### Custom routes location
-
-You can either place custom routes in `routes`
-
-And/or each ILIAS plugin can also have custom routes in its own `src/Adapter/Route` folder
-
-The folders are scanned recursive
-
 ### Example
 
 [examples](examples)
