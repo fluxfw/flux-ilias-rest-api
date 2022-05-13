@@ -40,7 +40,7 @@ class UpdateAvatarByIdRoute implements Route
     public function getDocuRequestBodyTypes() : ?array
     {
         return [
-            LegacyDefaultBodyType::FORM_DATA()
+            LegacyDefaultBodyType::FORM_DATA_2()
         ];
     }
 
