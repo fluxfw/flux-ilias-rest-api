@@ -2,12 +2,14 @@
 
 namespace FluxIliasRestApi\Adapter\Authorization;
 
-use Exception;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Autoload\IliasAutoload;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\Authorization;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRawRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
 use ilBrowser;
 use ilCronStartUp;
 use ilHelpGUI;
@@ -27,15 +29,23 @@ class IliasAuthorization implements Authorization
     private const SPLIT_CLIENT_USER = "/";
     use HttpBasicAuthorization;
 
-    private function __construct()
-    {
+    private IliasApi $ilias_api;
 
+
+    private function __construct(
+        /*private readonly*/ IliasApi $ilias_api
+    ) {
+        $this->ilias_api = $ilias_api;
     }
 
 
-    public static function new() : /*static*/ self
+    public static function new(
+        IliasApi $ilias_api
+    ) : /*static*/ self
     {
-        return new static();
+        return new static(
+            $ilias_api
+        );
     }
 
 
@@ -49,7 +59,12 @@ class IliasAuthorization implements Authorization
         }
 
         if (!str_contains($authorization->getUser(), static::SPLIT_CLIENT_USER)) {
-            throw new Exception("Missing client and user");
+            return ServerResponseDto::new(
+                TextBodyDto::new(
+                    "Missing client or user"
+                ),
+                LegacyDefaultStatus::_400()
+            );
         }
 
         $user = explode(static::SPLIT_CLIENT_USER, $authorization->getUser());
@@ -57,7 +72,12 @@ class IliasAuthorization implements Authorization
         $user = implode(static::SPLIT_CLIENT_USER, $user);
 
         if (empty($client) || empty($user)) {
-            throw new Exception("Missing client or user");
+            return ServerResponseDto::new(
+                TextBodyDto::new(
+                    "Missing client or user"
+                ),
+                LegacyDefaultStatus::_400()
+            );
         }
 
         ini_set("session.use_cookies", 0);
@@ -69,14 +89,34 @@ class IliasAuthorization implements Authorization
 
         (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
 
-        global $DIC;
-        if (intval($DIC->user()->getId()) === intval(SYSTEM_USER_ID)) {
-            throw new Exception("Root user is not allowed");
+        $user = $this->ilias_api->getCurrentApiUser();
+        if ($user === null || $user->getId() === intval(SYSTEM_USER_ID)) {
+            return ServerResponseDto::new(
+                TextBodyDto::new(
+                    "No access"
+                ),
+                LegacyDefaultStatus::_403()
+            );
         }
-        if (!$DIC->rbac()->review()->isAssigned($DIC->user()->getId(), SYSTEM_ROLE_ID)) {
-            throw new Exception("Only admin users are allowed");
+        if (empty($this->ilias_api->getUserRoles($user->getId(), null, SYSTEM_ROLE_ID))) {
+            return ServerResponseDto::new(
+                TextBodyDto::new(
+                    "No access"
+                ),
+                LegacyDefaultStatus::_403()
+            );
         }
 
+        if (!$this->ilias_api->isEnableRestApi()) {
+            return ServerResponseDto::new(
+                TextBodyDto::new(
+                    "Not enabled"
+                ),
+                LegacyDefaultStatus::_403()
+            );
+        }
+
+        global $DIC;
         $this->fixDicUI(
             $DIC
         );

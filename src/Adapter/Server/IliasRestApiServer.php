@@ -29,12 +29,16 @@ class IliasRestApiServer
 
     public static function new() : /*static*/ self
     {
+        $ilias_api = IliasApi::new();
+
         return new static(
             RestApi::new(),
             IliasRestApiServerRouteCollector::new(
-                IliasApi::new()
+                $ilias_api
             ),
-            IliasAuthorization::new()
+            IliasAuthorization::new(
+                $ilias_api
+            )
         );
     }
 
