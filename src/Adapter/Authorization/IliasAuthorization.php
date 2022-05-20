@@ -11,6 +11,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRawRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
 use ilBrowser;
+use ilCronException;
 use ilCronStartUp;
 use ilHelpGUI;
 use ILIAS\DI\Container;
@@ -87,7 +88,18 @@ class IliasAuthorization implements Authorization
         )
             ->autoload();
 
-        (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
+        try {
+            (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
+        } catch (ilCronException $ex) {
+            file_put_contents("php://stdout", $ex);
+
+            return ServerResponseDto::new(
+                TextBodyDto::new(
+                    "No access"
+                ),
+                LegacyDefaultStatus::_403()
+            );
+        }
 
         $user = $this->ilias_api->getCurrentApiUser();
         if ($user === null || $user->getId() === intval(SYSTEM_USER_ID)) {
