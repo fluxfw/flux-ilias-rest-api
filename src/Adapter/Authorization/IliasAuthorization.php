@@ -5,7 +5,7 @@ namespace FluxIliasRestApi\Adapter\Authorization;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Autoload\IliasAutoload;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\Authorization;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\HttpBasic\HttpBasicAuthorization;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRawRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -28,7 +28,7 @@ class IliasAuthorization implements Authorization
 {
 
     private const SPLIT_CLIENT_USER = "/";
-    use HttpBasicAuthorization;
+    use ParseHttpBasicAuthorization;
 
     private IliasApi $ilias_api;
 
