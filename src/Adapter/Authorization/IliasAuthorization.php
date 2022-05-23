@@ -62,7 +62,7 @@ class IliasAuthorization implements Authorization
         if (!str_contains($authorization->getUser(), static::SPLIT_CLIENT_USER)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
-                    "Missing client or user"
+                    "Missing authorization client or user"
                 ),
                 LegacyDefaultStatus::_400()
             );
@@ -75,7 +75,7 @@ class IliasAuthorization implements Authorization
         if (empty($client) || empty($user)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
-                    "Missing client or user"
+                    "Missing authorization client or user"
                 ),
                 LegacyDefaultStatus::_400()
             );
