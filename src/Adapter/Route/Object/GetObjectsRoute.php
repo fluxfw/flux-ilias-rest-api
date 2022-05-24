@@ -65,9 +65,11 @@ class GetObjectsRoute implements Route
         return ServerResponseDto::new(
             JsonBodyDto::new(
                 $this->ilias_api->getObjects(
-                    CustomObjectType::factory($request->getParam(
-                        "type"
-                    )),
+                    CustomObjectType::factory(
+                        $request->getParam(
+                            "type"
+                        )
+                    ),
                     $request->getQueryParam(
                         "ref_ids"
                     ) === "true",
