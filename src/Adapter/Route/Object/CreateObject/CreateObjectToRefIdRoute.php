@@ -76,9 +76,11 @@ class CreateObjectToRefIdRoute implements Route
         }
 
         $id = $this->ilias_api->createObjectToRefId(
-            CustomObjectType::factory($request->getParam(
-                "type"
-            )),
+            CustomObjectType::factory(
+                $request->getParam(
+                    "type"
+                )
+            ),
             $request->getParam(
                 "parent_ref_id"
             ),

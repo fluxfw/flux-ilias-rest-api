@@ -76,9 +76,11 @@ class CreateObjectToIdRoute implements Route
         }
 
         $id = $this->ilias_api->createObjectToId(
-            CustomObjectType::factory($request->getParam(
-                "type"
-            )),
+            CustomObjectType::factory(
+                $request->getParam(
+                    "type"
+                )
+            ),
             $request->getParam(
                 "parent_id"
             ),
