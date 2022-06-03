@@ -3,9 +3,14 @@
 namespace FluxIliasRestApi\Adapter\Route\User;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -33,20 +38,46 @@ class GetUsersRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return null;
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return [
-            "access_limited_object_ids",
-            "multi_fields",
-            "preferences",
-            "user_defined_fields"
-        ];
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Get users",
+            null,
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "access_limited_object_ids",
+                    "bool",
+                    "Include access limited objects ids"
+                ),
+                RouteParamDocumentationDto::new(
+                    "multi_fields",
+                    "bool",
+                    "Include multi fields"
+                ),
+                RouteParamDocumentationDto::new(
+                    "preferences",
+                    "bool",
+                    "Include preferences"
+                ),
+                RouteParamDocumentationDto::new(
+                    "user_defined_fields",
+                    "bool",
+                    "Include user defined fields"
+                )
+            ],
+            null,
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    UserDto::class . "[]",
+                    "Users"
+                )
+            ]
+        );
     }
 
 

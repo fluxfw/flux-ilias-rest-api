@@ -3,10 +3,15 @@
 namespace FluxIliasRestApi\Adapter\Route\Object\GetPath;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\ObjectDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -35,17 +40,43 @@ class GetPathByIdRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return null;
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return [
-            "ref_ids"
-        ];
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Get tree path of object by id",
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "id",
+                    "int",
+                    "Object id"
+                )
+            ],
+            [
+                RouteParamDocumentationDto::new(
+                    "ref_ids",
+                    "bool",
+                    "Include ref ids"
+                )
+            ],
+            null,
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    ObjectDto::class . "[]",
+                    "Objects"
+                ),
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::TEXT(),
+                    LegacyDefaultStatus::_404(),
+                    null,
+                    "Object not found"
+                )
+            ]
+        );
     }
 
 

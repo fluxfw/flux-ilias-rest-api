@@ -4,9 +4,14 @@ namespace FluxIliasRestApi\Adapter\Route\ObjectLearningProgress;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -34,22 +39,56 @@ class GetObjectLearningProgressRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return null;
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return [
-            "learning_progress",
-            "object_id",
-            "object_import_id",
-            "object_ref_id",
-            "user_id",
-            "user_import_id"
-        ];
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Get learning progresses",
+            null,
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "learning_progress",
+                    LegacyObjectLearningProgress::class,
+                    "Only users have learning progress"
+                ),
+                RouteParamDocumentationDto::new(
+                    "object_id",
+                    "int",
+                    "Only users in object by id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "object_import_id",
+                    "string",
+                    "Only users in object by import id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "object_ref_id",
+                    "int",
+                    "Only users in object by ref id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "user_id",
+                    "int",
+                    "Only user by id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "user_import_id",
+                    "string",
+                    "Only user by import id"
+                )
+            ],
+            null,
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    ObjectLearningProgressDto::class . "[]",
+                    "Learning progresses"
+                )
+            ]
+        );
     }
 
 

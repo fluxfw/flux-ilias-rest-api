@@ -3,10 +3,15 @@
 namespace FluxIliasRestApi\Adapter\Route\Category\GetCategory;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -35,15 +40,37 @@ class GetCategoryByRefIdRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return null;
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return null;
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Get category by ref id",
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "ref_id",
+                    "int",
+                    "Category ref id"
+                )
+            ],
+            null,
+            null,
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    CategoryDto::class,
+                    "Category"
+                ),
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::TEXT(),
+                    LegacyDefaultStatus::_404(),
+                    null,
+                    "Category not found"
+                )
+            ]
+        );
     }
 
 
