@@ -3,9 +3,14 @@
 namespace FluxIliasRestApi\Adapter\Route\UserRole;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\UserRole\UserRoleDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -33,21 +38,46 @@ class GetUserRolesRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return null;
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return [
-            "role_id",
-            "role_import_id",
-            "role_ref_id",
-            "user_id",
-            "user_import_id"
-        ];
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Get user roles",
+            null,
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "role_id",
+                    "int",
+                    "Only users in role by id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "role_import_id",
+                    "string",
+                    "Only users in role by import id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "user_id",
+                    "int",
+                    "Only roles has user by id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "user_import_id",
+                    "string",
+                    "Only roles has user by import id"
+                )
+            ],
+            null,
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    UserRoleDto::class . "[]",
+                    "User roles"
+                )
+            ]
+        );
     }
 
 

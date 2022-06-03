@@ -3,10 +3,15 @@
 namespace FluxIliasRestApi\Adapter\Route\Object\CloneObject;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -35,18 +40,53 @@ class CloneObjectByRefIdToRefIdRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return null;
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return [
-            "link",
-            "prefer_link"
-        ];
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Clone object by ref id to object by ref id",
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "ref_id",
+                    "int",
+                    "Object ref id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "parent_ref_id",
+                    "int",
+                    "Parent object ref id"
+                )
+            ],
+            [
+                RouteParamDocumentationDto::new(
+                    "link",
+                    "bool",
+                    "Link childrens if clone is not possible"
+                ),
+                RouteParamDocumentationDto::new(
+                    "prefer_link",
+                    "bool",
+                    "Prefer link childrens to clone if possible"
+                )
+            ],
+            null,
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    ObjectIdDto::class,
+                    "Object ids"
+                ),
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::TEXT(),
+                    LegacyDefaultStatus::_404(),
+                    null,
+                    "Object not found"
+                )
+            ]
+        );
     }
 
 

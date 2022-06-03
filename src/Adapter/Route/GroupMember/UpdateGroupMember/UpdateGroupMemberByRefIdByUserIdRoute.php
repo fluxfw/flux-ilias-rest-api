@@ -4,11 +4,17 @@ namespace FluxIliasRestApi\Adapter\Route\GroupMember\UpdateGroupMember;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\GroupMember\GroupMemberDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\GroupMember\GroupMemberIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteContentTypeDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
@@ -37,17 +43,54 @@ class UpdateGroupMemberByRefIdByUserIdRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return [
-            LegacyDefaultBodyType::JSON()
-        ];
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return null;
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Update group member by group ref id and user id",
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "ref_id",
+                    "int",
+                    "Group ref id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "user_id",
+                    "int",
+                    "User id"
+                )
+            ],
+            null,
+            [
+                RouteContentTypeDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    GroupMemberDto::class,
+                    "Group member"
+                )
+            ],
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    GroupMemberIdDto::class,
+                    "Group member ids"
+                ),
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::TEXT(),
+                    LegacyDefaultStatus::_404(),
+                    null,
+                    "Group member not found"
+                ),
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::TEXT(),
+                    LegacyDefaultStatus::_400(),
+                    null,
+                    "No json body"
+                )
+            ]
+        );
     }
 
 

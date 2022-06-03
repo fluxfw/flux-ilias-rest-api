@@ -52,6 +52,17 @@ class IliasAuthorization implements Authorization
 
     public function authorize(ServerRawRequestDto $request) : ?ServerResponseDto
     {
+        if (
+            $request->getRoute() === "/"
+            /*|| $request->getRoute() === "/routes"
+            || $request->getRoute() === "/routes/"*/
+            || $request->getRoute() === "/routes/ui"
+            || $request->getRoute() === "/routes/ui/"
+            || str_starts_with($request->getRoute(), "/routes/ui/")
+        ) {
+            return null;
+        }
+
         $authorization = $this->parseHttpBasicAuthorization(
             $request
         );

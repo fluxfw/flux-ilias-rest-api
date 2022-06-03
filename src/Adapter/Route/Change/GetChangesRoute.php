@@ -3,14 +3,17 @@
 namespace FluxIliasRestApi\Adapter\Route\Change;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Change\ChangeDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
 
 class GetChangesRoute implements Route
 {
@@ -35,20 +38,46 @@ class GetChangesRoute implements Route
     }
 
 
-    public function getDocuRequestBodyTypes() : ?array
+    public function getDocumentation() : ?RouteDocumentationDto
     {
-        return null;
-    }
-
-
-    public function getDocuRequestQueryParams() : ?array
-    {
-        return [
-            "after",
-            "before",
-            "from",
-            "to"
-        ];
+        return RouteDocumentationDto::new(
+            $this->getRoute(),
+            $this->getMethod(),
+            "Get changes",
+            null,
+            null,
+            [
+                RouteParamDocumentationDto::new(
+                    "after",
+                    "float",
+                    "Only changes after timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "before",
+                    "float",
+                    "Only changes before timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "from",
+                    "float",
+                    "Only changes from timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "to",
+                    "float",
+                    "Only changes to timestamp"
+                )
+            ],
+            null,
+            [
+                RouteResponseDocumentationDto::new(
+                    LegacyDefaultBodyType::JSON(),
+                    null,
+                    ChangeDto::class . "[]",
+                    "Changes"
+                )
+            ]
+        );
     }
 
 
@@ -66,34 +95,23 @@ class GetChangesRoute implements Route
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        $changes = $this->ilias_api->getChanges(
-            $request->getQueryParam(
-                "from"
-            ),
-            $request->getQueryParam(
-                "to"
-            ),
-            $request->getQueryParam(
-                "after"
-            ),
-            $request->getQueryParam(
-                "before"
+        return ServerResponseDto::new(
+            JsonBodyDto::new(
+                $this->ilias_api->getChanges(
+                    $request->getQueryParam(
+                        "from"
+                    ),
+                    $request->getQueryParam(
+                        "to"
+                    ),
+                    $request->getQueryParam(
+                        "after"
+                    ),
+                    $request->getQueryParam(
+                        "before"
+                    )
+                )
             )
         );
-
-        if ($changes !== null) {
-            return ServerResponseDto::new(
-                JsonBodyDto::new(
-                    $changes
-                )
-            );
-        } else {
-            return ServerResponseDto::new(
-                TextBodyDto::new(
-                    "Changes not found"
-                ),
-                LegacyDefaultStatus::_404()
-            );
-        }
     }
 }
