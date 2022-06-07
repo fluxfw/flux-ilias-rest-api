@@ -115,7 +115,7 @@ class UpdateObjectByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            ObjectDiffDto::newFromData(
+            ObjectDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

@@ -115,7 +115,7 @@ class UpdateGroupByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            GroupDiffDto::newFromData(
+            GroupDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

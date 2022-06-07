@@ -115,7 +115,7 @@ class CreateScormLearningModuleToIdRoute implements Route
             $request->getParam(
                 "parent_id"
             ),
-            ScormLearningModuleDiffDto::newFromData(
+            ScormLearningModuleDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

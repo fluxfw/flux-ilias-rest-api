@@ -115,7 +115,7 @@ class CreateFileToRefIdRoute implements Route
             $request->getParam(
                 "parent_ref_id"
             ),
-            FileDiffDto::newFromData(
+            FileDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

@@ -115,7 +115,7 @@ class UpdateScormLearningModuleByImportIdRoute implements Route
             $request->getParam(
                 "import_id"
             ),
-            ScormLearningModuleDiffDto::newFromData(
+            ScormLearningModuleDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

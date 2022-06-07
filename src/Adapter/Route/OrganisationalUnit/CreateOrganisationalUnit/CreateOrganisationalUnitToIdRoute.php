@@ -115,7 +115,7 @@ class CreateOrganisationalUnitToIdRoute implements Route
             $request->getParam(
                 "parent_id"
             ),
-            OrganisationalUnitDiffDto::newFromData(
+            OrganisationalUnitDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

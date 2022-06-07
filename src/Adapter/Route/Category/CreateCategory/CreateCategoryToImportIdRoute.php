@@ -115,7 +115,7 @@ class CreateCategoryToImportIdRoute implements Route
             $request->getParam(
                 "parent_import_id"
             ),
-            CategoryDiffDto::newFromData(
+            CategoryDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

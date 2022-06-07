@@ -115,7 +115,7 @@ class UpdateCategoryByImportIdRoute implements Route
             $request->getParam(
                 "import_id"
             ),
-            CategoryDiffDto::newFromData(
+            CategoryDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

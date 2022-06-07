@@ -115,7 +115,7 @@ class CreateOrganisationalUnitToExternalIdRoute implements Route
             $request->getParam(
                 "parent_external_id"
             ),
-            OrganisationalUnitDiffDto::newFromData(
+            OrganisationalUnitDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

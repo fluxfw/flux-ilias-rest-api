@@ -115,7 +115,7 @@ class UpdateCategoryByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            CategoryDiffDto::newFromData(
+            CategoryDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

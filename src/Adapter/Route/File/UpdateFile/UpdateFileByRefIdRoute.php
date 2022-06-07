@@ -115,7 +115,7 @@ class UpdateFileByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            FileDiffDto::newFromData(
+            FileDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

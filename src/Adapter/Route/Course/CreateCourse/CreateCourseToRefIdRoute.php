@@ -115,7 +115,7 @@ class CreateCourseToRefIdRoute implements Route
             $request->getParam(
                 "parent_ref_id"
             ),
-            CourseDiffDto::newFromData(
+            CourseDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

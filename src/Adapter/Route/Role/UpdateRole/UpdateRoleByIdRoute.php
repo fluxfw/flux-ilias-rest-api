@@ -115,7 +115,7 @@ class UpdateRoleByIdRoute implements Route
             $request->getParam(
                 "id"
             ),
-            RoleDiffDto::newFromData(
+            RoleDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

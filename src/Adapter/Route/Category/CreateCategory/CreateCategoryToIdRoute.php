@@ -115,7 +115,7 @@ class CreateCategoryToIdRoute implements Route
             $request->getParam(
                 "parent_id"
             ),
-            CategoryDiffDto::newFromData(
+            CategoryDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

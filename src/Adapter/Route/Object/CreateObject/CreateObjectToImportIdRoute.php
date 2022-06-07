@@ -127,7 +127,7 @@ class CreateObjectToImportIdRoute implements Route
             $request->getParam(
                 "parent_import_id"
             ),
-            ObjectDiffDto::newFromData(
+            ObjectDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

@@ -115,7 +115,7 @@ class CreateCourseToImportIdRoute implements Route
             $request->getParam(
                 "parent_import_id"
             ),
-            CourseDiffDto::newFromData(
+            CourseDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

@@ -115,7 +115,7 @@ class UpdateFileByIdRoute implements Route
             $request->getParam(
                 "id"
             ),
-            FileDiffDto::newFromData(
+            FileDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

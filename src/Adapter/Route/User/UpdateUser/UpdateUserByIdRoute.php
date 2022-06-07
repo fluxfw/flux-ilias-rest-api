@@ -115,7 +115,7 @@ class UpdateUserByIdRoute implements Route
             $request->getParam(
                 "id"
             ),
-            UserDiffDto::newFromData(
+            UserDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

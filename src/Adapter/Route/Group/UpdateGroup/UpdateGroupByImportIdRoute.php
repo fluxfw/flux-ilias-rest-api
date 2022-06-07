@@ -115,7 +115,7 @@ class UpdateGroupByImportIdRoute implements Route
             $request->getParam(
                 "import_id"
             ),
-            GroupDiffDto::newFromData(
+            GroupDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

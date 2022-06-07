@@ -115,7 +115,7 @@ class UpdateScormLearningModuleByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            ScormLearningModuleDiffDto::newFromData(
+            ScormLearningModuleDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

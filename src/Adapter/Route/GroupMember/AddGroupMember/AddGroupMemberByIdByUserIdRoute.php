@@ -124,7 +124,7 @@ class AddGroupMemberByIdByUserIdRoute implements Route
             $request->getParam(
                 "user_id"
             ),
-            GroupMemberDiffDto::newFromData(
+            GroupMemberDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

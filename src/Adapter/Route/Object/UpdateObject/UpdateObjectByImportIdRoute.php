@@ -115,7 +115,7 @@ class UpdateObjectByImportIdRoute implements Route
             $request->getParam(
                 "import_id"
             ),
-            ObjectDiffDto::newFromData(
+            ObjectDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

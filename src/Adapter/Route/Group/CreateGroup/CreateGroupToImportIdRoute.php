@@ -115,7 +115,7 @@ class CreateGroupToImportIdRoute implements Route
             $request->getParam(
                 "parent_import_id"
             ),
-            GroupDiffDto::newFromData(
+            GroupDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );
