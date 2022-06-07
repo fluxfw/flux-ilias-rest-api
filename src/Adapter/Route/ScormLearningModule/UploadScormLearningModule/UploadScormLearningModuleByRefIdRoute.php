@@ -102,7 +102,7 @@ class UploadScormLearningModuleByRefIdRoute implements Route
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        if (!($request->getParsedBody() instanceof FormDataBodyDto)) {
+        if (!($request->parsed_body instanceof FormDataBodyDto)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No form data body"
@@ -115,7 +115,7 @@ class UploadScormLearningModuleByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            $request->getParsedBody()->getFiles()["file"]["tmp_name"]
+            $request->parsed_body->files["file"]["tmp_name"]
         );
 
         if ($id !== null) {

@@ -102,7 +102,7 @@ class UploadFileByImportIdRoute implements Route
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        if (!($request->getParsedBody() instanceof FormDataBodyDto)) {
+        if (!($request->parsed_body instanceof FormDataBodyDto)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No form data body"
@@ -115,8 +115,8 @@ class UploadFileByImportIdRoute implements Route
             $request->getParam(
                 "import_id"
             ),
-            $request->getParsedBody()->getData()["title"] ?? null,
-            $request->getParsedBody()->getData()["replace"] === "true"
+            $request->parsed_body->data["title"] ?? null,
+            $request->parsed_body->data["replace"] === "true"
         );
 
         if ($id !== null) {

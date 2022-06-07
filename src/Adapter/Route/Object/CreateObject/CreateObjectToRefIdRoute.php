@@ -109,7 +109,7 @@ class CreateObjectToRefIdRoute implements Route
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        if (!($request->getParsedBody() instanceof JsonBodyDto)) {
+        if (!($request->parsed_body instanceof JsonBodyDto)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No json body"
@@ -128,7 +128,7 @@ class CreateObjectToRefIdRoute implements Route
                 "parent_ref_id"
             ),
             ObjectDiffDto::newFromData(
-                $request->getParsedBody()->getData()
+                $request->parsed_body->data
             )
         );
 

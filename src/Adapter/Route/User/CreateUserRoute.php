@@ -89,7 +89,7 @@ class CreateUserRoute implements Route
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        if (!($request->getParsedBody() instanceof JsonBodyDto)) {
+        if (!($request->parsed_body instanceof JsonBodyDto)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No json body"
@@ -102,7 +102,7 @@ class CreateUserRoute implements Route
             JsonBodyDto::new(
                 $this->ilias_api->createUser(
                     UserDiffDto::newFromData(
-                        $request->getParsedBody()->getData()
+                        $request->parsed_body->data
                     )
                 )
             )
