@@ -115,7 +115,7 @@ class CreateFileToImportIdRoute implements Route
             $request->getParam(
                 "parent_import_id"
             ),
-            FileDiffDto::newFromData(
+            FileDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

@@ -115,7 +115,7 @@ class UpdateCourseByImportIdRoute implements Route
             $request->getParam(
                 "import_id"
             ),
-            CourseDiffDto::newFromData(
+            CourseDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

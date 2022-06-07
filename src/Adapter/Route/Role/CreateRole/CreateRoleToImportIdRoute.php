@@ -115,7 +115,7 @@ class CreateRoleToImportIdRoute implements Route
             $request->getParam(
                 "object_import_id"
             ),
-            RoleDiffDto::newFromData(
+            RoleDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

@@ -101,7 +101,7 @@ class CreateUserRoute implements Route
         return ServerResponseDto::new(
             JsonBodyDto::new(
                 $this->ilias_api->createUser(
-                    UserDiffDto::newFromData(
+                    UserDiffDto::newFromObject(
                         $request->parsed_body->data
                     )
                 )

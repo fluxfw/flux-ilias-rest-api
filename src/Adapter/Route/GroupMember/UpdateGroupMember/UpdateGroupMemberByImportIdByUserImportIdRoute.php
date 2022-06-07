@@ -124,7 +124,7 @@ class UpdateGroupMemberByImportIdByUserImportIdRoute implements Route
             $request->getParam(
                 "user_import_id"
             ),
-            GroupMemberDiffDto::newFromData(
+            GroupMemberDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

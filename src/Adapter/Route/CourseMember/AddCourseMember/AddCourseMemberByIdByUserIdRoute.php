@@ -124,7 +124,7 @@ class AddCourseMemberByIdByUserIdRoute implements Route
             $request->getParam(
                 "user_id"
             ),
-            CourseMemberDiffDto::newFromData(
+            CourseMemberDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

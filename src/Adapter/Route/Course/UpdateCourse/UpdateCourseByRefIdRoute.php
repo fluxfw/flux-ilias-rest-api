@@ -115,7 +115,7 @@ class UpdateCourseByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            CourseDiffDto::newFromData(
+            CourseDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

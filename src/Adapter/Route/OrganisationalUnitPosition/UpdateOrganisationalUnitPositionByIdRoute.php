@@ -115,7 +115,7 @@ class UpdateOrganisationalUnitPositionByIdRoute implements Route
             $request->getParam(
                 "id"
             ),
-            OrganisationalUnitPositionDiffDto::newFromData(
+            OrganisationalUnitPositionDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

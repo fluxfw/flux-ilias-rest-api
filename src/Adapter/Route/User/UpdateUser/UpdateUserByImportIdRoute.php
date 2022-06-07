@@ -115,7 +115,7 @@ class UpdateUserByImportIdRoute implements Route
             $request->getParam(
                 "import_id"
             ),
-            UserDiffDto::newFromData(
+            UserDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

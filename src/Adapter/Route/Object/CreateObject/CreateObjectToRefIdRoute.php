@@ -127,7 +127,7 @@ class CreateObjectToRefIdRoute implements Route
             $request->getParam(
                 "parent_ref_id"
             ),
-            ObjectDiffDto::newFromData(
+            ObjectDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

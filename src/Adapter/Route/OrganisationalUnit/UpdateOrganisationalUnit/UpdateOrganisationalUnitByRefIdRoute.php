@@ -115,7 +115,7 @@ class UpdateOrganisationalUnitByRefIdRoute implements Route
             $request->getParam(
                 "ref_id"
             ),
-            OrganisationalUnitDiffDto::newFromData(
+            OrganisationalUnitDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

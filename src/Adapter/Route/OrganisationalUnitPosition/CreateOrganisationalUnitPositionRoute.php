@@ -101,7 +101,7 @@ class CreateOrganisationalUnitPositionRoute implements Route
         return ServerResponseDto::new(
             JsonBodyDto::new(
                 $this->ilias_api->createOrganisationalUnitPosition(
-                    OrganisationalUnitPositionDiffDto::newFromData(
+                    OrganisationalUnitPositionDiffDto::newFromObject(
                         $request->parsed_body->data
                     )
                 )

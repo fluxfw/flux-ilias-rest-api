@@ -115,7 +115,7 @@ class UpdateOrganisationalUnitByExternalIdRoute implements Route
             $request->getParam(
                 "external_id"
             ),
-            OrganisationalUnitDiffDto::newFromData(
+            OrganisationalUnitDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

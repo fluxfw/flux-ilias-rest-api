@@ -115,7 +115,7 @@ class CreateGroupToRefIdRoute implements Route
             $request->getParam(
                 "parent_ref_id"
             ),
-            GroupDiffDto::newFromData(
+            GroupDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );

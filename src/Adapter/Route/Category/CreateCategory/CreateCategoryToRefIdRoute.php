@@ -115,7 +115,7 @@ class CreateCategoryToRefIdRoute implements Route
             $request->getParam(
                 "parent_ref_id"
             ),
-            CategoryDiffDto::newFromData(
+            CategoryDiffDto::newFromObject(
                 $request->parsed_body->data
             )
         );
