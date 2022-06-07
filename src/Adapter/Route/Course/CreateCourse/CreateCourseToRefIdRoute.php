@@ -102,7 +102,7 @@ class CreateCourseToRefIdRoute implements Route
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        if (!($request->getParsedBody() instanceof JsonBodyDto)) {
+        if (!($request->parsed_body instanceof JsonBodyDto)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No json body"
@@ -116,7 +116,7 @@ class CreateCourseToRefIdRoute implements Route
                 "parent_ref_id"
             ),
             CourseDiffDto::newFromData(
-                $request->getParsedBody()->getData()
+                $request->parsed_body->data
             )
         );
 

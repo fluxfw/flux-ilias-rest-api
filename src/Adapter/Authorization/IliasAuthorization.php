@@ -53,12 +53,12 @@ class IliasAuthorization implements Authorization
     public function authorize(ServerRawRequestDto $request) : ?ServerResponseDto
     {
         if (
-            $request->getRoute() === "/"
-            /*|| $request->getRoute() === "/routes"
-            || $request->getRoute() === "/routes/"*/
-            || $request->getRoute() === "/routes/ui"
-            || $request->getRoute() === "/routes/ui/"
-            || str_starts_with($request->getRoute(), "/routes/ui/")
+            $request->route === "/"
+            /*|| $request->route === "/routes"
+            || $request->route === "/routes/"*/
+            || $request->route === "/routes/ui"
+            || $request->route === "/routes/ui/"
+            || str_starts_with($request->route, "/routes/ui/")
         ) {
             return null;
         }
@@ -70,7 +70,7 @@ class IliasAuthorization implements Authorization
             return $authorization;
         }
 
-        if (!str_contains($authorization->getUser(), static::SPLIT_CLIENT_USER)) {
+        if (!str_contains($authorization->user, static::SPLIT_CLIENT_USER)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "Missing authorization client or user"
@@ -79,7 +79,7 @@ class IliasAuthorization implements Authorization
             );
         }
 
-        $user = explode(static::SPLIT_CLIENT_USER, $authorization->getUser());
+        $user = explode(static::SPLIT_CLIENT_USER, $authorization->user);
         $client = array_shift($user);
         $user = implode(static::SPLIT_CLIENT_USER, $user);
 
@@ -100,7 +100,7 @@ class IliasAuthorization implements Authorization
             ->autoload();
 
         try {
-            (new ilCronStartUp($client, $user, $authorization->getPassword()))->authenticate();
+            (new ilCronStartUp($client, $user, $authorization->password))->authenticate();
         } catch (ilCronException $ex) {
             file_put_contents("php://stdout", $ex);
 
