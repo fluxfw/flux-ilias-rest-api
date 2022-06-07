@@ -113,7 +113,7 @@ class IliasAuthorization implements Authorization
         }
 
         $user = $this->ilias_api->getCurrentApiUser();
-        if ($user === null || $user->getId() === intval(SYSTEM_USER_ID)) {
+        if ($user === null || $user->id === intval(SYSTEM_USER_ID)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No access"
@@ -121,7 +121,7 @@ class IliasAuthorization implements Authorization
                 LegacyDefaultStatus::_403()
             );
         }
-        if (empty($this->ilias_api->getUserRoles($user->getId(), null, SYSTEM_ROLE_ID))) {
+        if (empty($this->ilias_api->getUserRoles($user->id, null, SYSTEM_ROLE_ID))) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No access"
