@@ -55,6 +55,16 @@ use FluxIliasRestApi\Adapter\Route\File\UpdateFile\UpdateFileByRefIdRoute;
 use FluxIliasRestApi\Adapter\Route\File\UploadFile\UploadFileByIdRoute;
 use FluxIliasRestApi\Adapter\Route\File\UploadFile\UploadFileByImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\File\UploadFile\UploadFileByRefIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\CreateFluxIliasRestObject\CreateFluxIliasRestObjectToIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\CreateFluxIliasRestObject\CreateFluxIliasRestObjectToImportIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\CreateFluxIliasRestObject\CreateFluxIliasRestObjectToRefIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\GetFluxIliasRestObject\GetFluxIliasRestObjectByIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\GetFluxIliasRestObject\GetFluxIliasRestObjectByImportIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\GetFluxIliasRestObject\GetFluxIliasRestObjectByRefIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\GetFluxIliasRestObjectsRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\UpdateFluxIliasRestObject\UpdateFluxIliasRestObjectByIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\UpdateFluxIliasRestObject\UpdateFluxIliasRestObjectByImportIdRoute;
+use FluxIliasRestApi\Adapter\Route\FluxIliasRestObject\UpdateFluxIliasRestObject\UpdateFluxIliasRestObjectByRefIdRoute;
 use FluxIliasRestApi\Adapter\Route\Group\CreateGroup\CreateGroupToIdRoute;
 use FluxIliasRestApi\Adapter\Route\Group\CreateGroup\CreateGroupToImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Group\CreateGroup\CreateGroupToRefIdRoute;
@@ -414,6 +424,37 @@ class IliasRestApiServerRouteCollector implements RouteCollector
                 $this->ilias_api
             ),
             UploadFileByRefIdRoute::new(
+                $this->ilias_api
+            ),
+
+            GetFluxIliasRestObjectsRoute::new(
+                $this->ilias_api
+            ),
+            CreateFluxIliasRestObjectToIdRoute::new(
+                $this->ilias_api
+            ),
+            CreateFluxIliasRestObjectToImportIdRoute::new(
+                $this->ilias_api
+            ),
+            CreateFluxIliasRestObjectToRefIdRoute::new(
+                $this->ilias_api
+            ),
+            GetFluxIliasRestObjectByIdRoute::new(
+                $this->ilias_api
+            ),
+            GetFluxIliasRestObjectByImportIdRoute::new(
+                $this->ilias_api
+            ),
+            GetFluxIliasRestObjectByRefIdRoute::new(
+                $this->ilias_api
+            ),
+            UpdateFluxIliasRestObjectByIdRoute::new(
+                $this->ilias_api
+            ),
+            UpdateFluxIliasRestObjectByImportIdRoute::new(
+                $this->ilias_api
+            ),
+            UpdateFluxIliasRestObjectByRefIdRoute::new(
                 $this->ilias_api
             ),
 
