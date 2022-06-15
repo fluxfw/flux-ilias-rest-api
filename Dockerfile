@@ -6,7 +6,6 @@ ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api
 
 FROM $FLUX_AUTOLOAD_API_IMAGE:latest AS flux_autoload_api
 FROM $FLUX_ILIAS_API_IMAGE:latest AS flux_ilias_api
-FROM $FLUX_PHP_BACKPORT_IMAGE AS flux_php_backport
 FROM $FLUX_REST_API_IMAGE:latest AS flux_rest_api
 
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS build_namespaces
