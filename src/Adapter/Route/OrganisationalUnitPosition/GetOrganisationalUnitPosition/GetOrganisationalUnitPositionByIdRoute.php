@@ -32,8 +32,7 @@ class GetOrganisationalUnitPositionByIdRoute implements Route
 
     public static function new(
         IliasApi $ilias_api
-    ) : /*static*/ self
-    {
+    ) : static {
         return new static(
             $ilias_api
         );

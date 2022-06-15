@@ -27,7 +27,7 @@ class IliasRestApiServer
     }
 
 
-    public static function new() : /*static*/ self
+    public static function new() : static
     {
         $ilias_api = IliasApi::new();
 
