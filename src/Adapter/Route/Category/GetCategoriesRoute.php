@@ -17,13 +17,10 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
 class GetCategoriesRoute implements Route
 {
 
-    private IliasApi $ilias_api;
-
-
     private function __construct(
-        /*private readonly*/ IliasApi $ilias_api
+        private readonly IliasApi $ilias_api
     ) {
-        $this->ilias_api = $ilias_api;
+
     }
 
 
