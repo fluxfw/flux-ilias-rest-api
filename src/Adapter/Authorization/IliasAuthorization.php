@@ -30,13 +30,10 @@ class IliasAuthorization implements Authorization
     private const SPLIT_CLIENT_USER = "/";
     use ParseHttpBasicAuthorization;
 
-    private IliasApi $ilias_api;
-
-
     private function __construct(
-        /*private readonly*/ IliasApi $ilias_api
+        private readonly IliasApi $ilias_api
     ) {
-        $this->ilias_api = $ilias_api;
+
     }
 
 
