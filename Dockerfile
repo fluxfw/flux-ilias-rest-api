@@ -39,7 +39,7 @@ COPY --from=composer /code/polyfill-php80 /flux-ilias-rest-api/libs/polyfill-php
 COPY --from=composer /code/polyfill-php81 /flux-ilias-rest-api/libs/polyfill-php81
 COPY . /flux-ilias-rest-api
 
-RUN php-backport /flux-ilias-rest-api
+RUN php-backport /flux-ilias-rest-api FluxIliasRestApi\\Libs\\FluxLegacyEnum
 
 FROM scratch
 
