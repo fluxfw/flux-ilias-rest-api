@@ -8,10 +8,10 @@ FROM $FLUX_AUTOLOAD_API_IMAGE:latest AS flux_autoload_api
 FROM $FLUX_ILIAS_API_IMAGE:latest AS flux_ilias_api
 FROM $FLUX_REST_API_IMAGE:latest AS flux_rest_api
 
-FROM composer:latest AS php_polyfill
+FROM composer:latest AS composer
 
-RUN (mkdir -p /code/polyfill-php80 && cd /code/polyfill-php80 && wget -O - https://github.com/symfony/polyfill-php80/archive/main.tar.gz | tar -xz --strip-components=1 && composer install --no-dev)
-RUN (mkdir -p /code/polyfill-php81 && cd /code/polyfill-php81 && wget -O - https://github.com/symfony/polyfill-php81/archive/main.tar.gz | tar -xz --strip-components=1 && composer install --no-dev)
+RUN (mkdir -p /code/polyfill-php80 && cd /code/polyfill-php80 && composer require symfony/polyfill-php80 --ignore-platform-reqs)
+RUN (mkdir -p /code/polyfill-php81 && cd /code/polyfill-php81 && composer require symfony/polyfill-php81 --ignore-platform-reqs)
 
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS build_namespaces
 
@@ -29,8 +29,8 @@ FROM $FLUX_PHP_BACKPORT_IMAGE AS build
 COPY --from=build_namespaces /code/flux-autoload-api /flux-ilias-rest-api/libs/flux-autoload-api
 COPY --from=build_namespaces /code/flux-ilias-api /flux-ilias-rest-api/libs/flux-ilias-api
 COPY --from=build_namespaces /code/flux-rest-api /flux-ilias-rest-api/libs/flux-rest-api
-COPY --from=php_polyfill /code/polyfill-php80 /flux-ilias-rest-api/libs/polyfill-php80
-COPY --from=php_polyfill /code/polyfill-php81 /flux-ilias-rest-api/libs/polyfill-php81
+COPY --from=composer /code/polyfill-php80 /flux-ilias-rest-api/libs/polyfill-php80
+COPY --from=composer /code/polyfill-php81 /flux-ilias-rest-api/libs/polyfill-php81
 COPY . /flux-ilias-rest-api
 
 RUN php-backport /flux-ilias-rest-api
