@@ -4,10 +4,10 @@ namespace FluxIliasRestApi\Adapter\Route\GroupMember;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\GroupMember\GroupMemberDto;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -66,7 +66,7 @@ class GetGroupMembersRoute implements Route
                 ),
                 RouteParamDocumentationDto::new(
                     "learning_progress",
-                    LegacyObjectLearningProgress::class,
+                    ObjectLearningProgress::class,
                     "Only members have learning progress"
                 ),
                 RouteParamDocumentationDto::new(
@@ -98,7 +98,7 @@ class GetGroupMembersRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     GroupMemberDto::class . "[]",
                     "Course members"
@@ -110,7 +110,7 @@ class GetGroupMembersRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 
@@ -148,7 +148,7 @@ class GetGroupMembersRoute implements Route
                     )) === "true" ? true : ($administrator_role === "false" ? false : null),
                     ($learning_progress = $request->getQueryParam(
                         "learning_progress"
-                    )) !== null ? LegacyObjectLearningProgress::from($learning_progress) : null,
+                    )) !== null ? ObjectLearningProgress::from($learning_progress) : null,
                     ($tutorial_support = $request->getQueryParam(
                         "tutorial_support"
                     )) === "true" ? true : ($tutorial_support === "false" ? false : null),

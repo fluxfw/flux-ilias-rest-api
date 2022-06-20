@@ -1,11 +1,13 @@
 ARG FLUX_AUTOLOAD_API_IMAGE=docker-registry.fluxpublisher.ch/flux-autoload/api
 ARG FLUX_ILIAS_API_IMAGE=docker-registry.fluxpublisher.ch/flux-ilias-api/api
+ARG FLUX_LEGACY_ENUM_IMAGE=docker-registry.fluxpublisher.ch/flux-enum/legacy
 ARG FLUX_NAMESPACE_CHANGER_IMAGE=docker-registry.fluxpublisher.ch/flux-namespace-changer
 ARG FLUX_PHP_BACKPORT_IMAGE=docker-registry.fluxpublisher.ch/flux-php-backport
 ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api
 
 FROM $FLUX_AUTOLOAD_API_IMAGE:latest AS flux_autoload_api
 FROM $FLUX_ILIAS_API_IMAGE:latest AS flux_ilias_api
+FROM $FLUX_LEGACY_ENUM_IMAGE:latest AS flux_legacy_enum
 FROM $FLUX_REST_API_IMAGE:latest AS flux_rest_api
 
 FROM composer:latest AS composer
@@ -21,6 +23,9 @@ RUN change-namespace /code/flux-autoload-api FluxAutoloadApi FluxIliasRestApi\\L
 COPY --from=flux_ilias_api /flux-ilias-api /code/flux-ilias-api
 RUN change-namespace /code/flux-ilias-api FluxIliasApi FluxIliasRestApi\\Libs\\FluxIliasApi
 
+COPY --from=flux_legacy_enum /flux-legacy-enum /code/flux-legacy-enum
+RUN change-namespace /code/flux-legacy-enum FluxLegacyEnum FluxIliasRestApi\\Libs\\FluxLegacyEnum
+
 COPY --from=flux_rest_api /flux-rest-api /code/flux-rest-api
 RUN change-namespace /code/flux-rest-api FluxRestApi FluxIliasRestApi\\Libs\\FluxRestApi
 
@@ -28,6 +33,7 @@ FROM $FLUX_PHP_BACKPORT_IMAGE AS build
 
 COPY --from=build_namespaces /code/flux-autoload-api /flux-ilias-rest-api/libs/flux-autoload-api
 COPY --from=build_namespaces /code/flux-ilias-api /flux-ilias-rest-api/libs/flux-ilias-api
+COPY --from=build_namespaces /code/flux-legacy-enum /flux-ilias-rest-api/libs/flux-legacy-enum
 COPY --from=build_namespaces /code/flux-rest-api /flux-ilias-rest-api/libs/flux-rest-api
 COPY --from=composer /code/polyfill-php80 /flux-ilias-rest-api/libs/polyfill-php80
 COPY --from=composer /code/polyfill-php81 /flux-ilias-rest-api/libs/polyfill-php81

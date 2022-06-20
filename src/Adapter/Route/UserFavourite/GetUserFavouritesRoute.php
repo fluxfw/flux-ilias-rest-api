@@ -3,11 +3,10 @@
 namespace FluxIliasRestApi\Adapter\Route\UserFavourite;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectMember\ObjectMemberDto;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\UserFavourite\UserFavouriteDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -73,7 +72,7 @@ class GetUserFavouritesRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     UserFavouriteDto::class . "[]",
                     "User favourites"
@@ -85,7 +84,7 @@ class GetUserFavouritesRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 

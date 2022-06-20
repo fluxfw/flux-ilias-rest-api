@@ -4,10 +4,10 @@ namespace FluxIliasRestApi\Adapter\Route\CourseMember;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\CourseMember\CourseMemberDto;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -71,7 +71,7 @@ class GetCourseMembersRoute implements Route
                 ),
                 RouteParamDocumentationDto::new(
                     "learning_progress",
-                    LegacyObjectLearningProgress::class,
+                    ObjectLearningProgress::class,
                     "Only members have learning progress"
                 ),
                 RouteParamDocumentationDto::new(
@@ -113,7 +113,7 @@ class GetCourseMembersRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     CourseMemberDto::class . "[]",
                     "Course members"
@@ -125,7 +125,7 @@ class GetCourseMembersRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 
@@ -166,7 +166,7 @@ class GetCourseMembersRoute implements Route
                     )) === "true" ? true : ($administrator_role === "false" ? false : null),
                     ($learning_progress = $request->getQueryParam(
                         "learning_progress"
-                    )) !== null ? LegacyObjectLearningProgress::from($learning_progress) : null,
+                    )) !== null ? ObjectLearningProgress::from($learning_progress) : null,
                     ($passed = $request->getQueryParam(
                         "passed"
                     )) === "true" ? true : ($passed === "false" ? false : null),

@@ -3,11 +3,11 @@
 namespace FluxIliasRestApi\Adapter\Route\ObjectLearningProgress;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -46,7 +46,7 @@ class GetObjectLearningProgressRoute implements Route
             [
                 RouteParamDocumentationDto::new(
                     "learning_progress",
-                    LegacyObjectLearningProgress::class,
+                    ObjectLearningProgress::class,
                     "Only users have learning progress"
                 ),
                 RouteParamDocumentationDto::new(
@@ -78,7 +78,7 @@ class GetObjectLearningProgressRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     ObjectLearningProgressDto::class . "[]",
                     "Learning progresses"
@@ -90,7 +90,7 @@ class GetObjectLearningProgressRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 
@@ -122,7 +122,7 @@ class GetObjectLearningProgressRoute implements Route
                     ),
                     ($learning_progress = $request->getQueryParam(
                         "learning_progress"
-                    )) !== null ? LegacyObjectLearningProgress::from($learning_progress) : null
+                    )) !== null ? ObjectLearningProgress::from($learning_progress) : null
                 )
             )
         );

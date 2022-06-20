@@ -4,11 +4,11 @@ namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnitPosition\GetOrganisat
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\OrganisationalUnitPosition\LegacyOrganisationalUnitPositionCoreIdentifier;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -16,7 +16,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
 {
@@ -47,7 +47,7 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
             [
                 RouteParamDocumentationDto::new(
                     "core_identifier",
-                    LegacyOrganisationalUnitPositionCoreIdentifier::class,
+                    OrganisationalUnitPositionCoreIdentifier::class,
                     "Organisational unit position core identifier"
                 )
             ],
@@ -55,14 +55,14 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     OrganisationalUnitDto::class,
                     "Organisational unit position"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_404(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_404,
                     null,
                     "Organisational unit position not found"
                 )
@@ -73,7 +73,7 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 
@@ -86,7 +86,7 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
         $organisational_unit_position = $this->ilias_api->getOrganisationalUnitPositionByCoreIdentifier(
-            LegacyOrganisationalUnitPositionCoreIdentifier::from($request->getParam(
+            OrganisationalUnitPositionCoreIdentifier::from($request->getParam(
                 "core_identifier"
             ))
         );
@@ -102,7 +102,7 @@ class GetOrganisationalUnitPositionByCoreIdentifierRoute implements Route
                 TextBodyDto::new(
                     "Organisational unit position not found"
                 ),
-                LegacyDefaultStatus::_404()
+                DefaultStatus::_404
             );
         }
     }

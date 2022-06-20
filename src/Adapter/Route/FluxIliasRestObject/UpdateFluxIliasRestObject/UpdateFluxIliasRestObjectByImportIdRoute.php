@@ -7,8 +7,8 @@ use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\FluxIliasRestObject\FluxIliasRest
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteContentTypeDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
@@ -17,7 +17,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class UpdateFluxIliasRestObjectByImportIdRoute implements Route
 {
@@ -55,27 +55,27 @@ class UpdateFluxIliasRestObjectByImportIdRoute implements Route
             null,
             [
                 RouteContentTypeDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     FluxIliasRestObjectDiffDto::class,
                     "flux-ilias-rest-object difference"
                 )
             ],
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     ObjectIdDto::class,
                     "Object ids"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_404(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_404,
                     null,
                     "flux-ilias-rest-object not found"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_400(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_400,
                     null,
                     "No json body"
                 )
@@ -86,7 +86,7 @@ class UpdateFluxIliasRestObjectByImportIdRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::PATCH();
+        return DefaultMethod::PATCH;
     }
 
 
@@ -103,7 +103,7 @@ class UpdateFluxIliasRestObjectByImportIdRoute implements Route
                 TextBodyDto::new(
                     "No json body"
                 ),
-                LegacyDefaultStatus::_400()
+                DefaultStatus::_400
             );
         }
 
@@ -127,7 +127,7 @@ class UpdateFluxIliasRestObjectByImportIdRoute implements Route
                 TextBodyDto::new(
                     "flux-ilias-rest-object not found"
                 ),
-                LegacyDefaultStatus::_404()
+                DefaultStatus::_404
             );
         }
     }

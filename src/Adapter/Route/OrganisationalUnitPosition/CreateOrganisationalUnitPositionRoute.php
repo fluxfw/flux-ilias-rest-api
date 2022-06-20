@@ -7,8 +7,8 @@ use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\OrganisationalUnitPosition\Organi
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteContentTypeDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
@@ -16,7 +16,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class CreateOrganisationalUnitPositionRoute implements Route
 {
@@ -48,21 +48,21 @@ class CreateOrganisationalUnitPositionRoute implements Route
             null,
             [
                 RouteContentTypeDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     OrganisationalUnitPositionDiffDto::class,
                     "Organisational unit position difference"
                 )
             ],
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     OrganisationalUnitPositionIdDto::class,
                     "Organisational unit position ids"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_400(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_400,
                     null,
                     "No json body"
                 )
@@ -73,7 +73,7 @@ class CreateOrganisationalUnitPositionRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::POST();
+        return DefaultMethod::POST;
     }
 
 
@@ -90,7 +90,7 @@ class CreateOrganisationalUnitPositionRoute implements Route
                 TextBodyDto::new(
                     "No json body"
                 ),
-                LegacyDefaultStatus::_400()
+                DefaultStatus::_400
             );
         }
 
