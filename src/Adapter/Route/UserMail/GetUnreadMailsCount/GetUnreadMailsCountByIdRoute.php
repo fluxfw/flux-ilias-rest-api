@@ -5,8 +5,8 @@ namespace FluxIliasRestApi\Adapter\Route\UserMail\GetUnreadMailsCount;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -14,7 +14,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class GetUnreadMailsCountByIdRoute implements Route
 {
@@ -53,14 +53,14 @@ class GetUnreadMailsCountByIdRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     "int",
                     "Count"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_404(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_404,
                     null,
                     "User not found"
                 )
@@ -71,7 +71,7 @@ class GetUnreadMailsCountByIdRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 
@@ -100,7 +100,7 @@ class GetUnreadMailsCountByIdRoute implements Route
                 TextBodyDto::new(
                     "User not found"
                 ),
-                LegacyDefaultStatus::_404()
+                DefaultStatus::_404
             );
         }
     }

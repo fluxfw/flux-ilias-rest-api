@@ -5,8 +5,8 @@ namespace FluxIliasRestApi\Adapter\Route\Role;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
@@ -45,7 +45,7 @@ class GetRolesRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     RoleDto::class . "[]",
                     "Roles"
@@ -57,7 +57,7 @@ class GetRolesRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 

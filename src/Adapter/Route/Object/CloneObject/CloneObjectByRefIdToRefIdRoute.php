@@ -6,8 +6,8 @@ use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -15,7 +15,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class CloneObjectByRefIdToRefIdRoute implements Route
 {
@@ -70,14 +70,14 @@ class CloneObjectByRefIdToRefIdRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     ObjectIdDto::class,
                     "Object ids"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_404(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_404,
                     null,
                     "Object not found"
                 )
@@ -88,7 +88,7 @@ class CloneObjectByRefIdToRefIdRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::POST();
+        return DefaultMethod::POST;
     }
 
 
@@ -126,7 +126,7 @@ class CloneObjectByRefIdToRefIdRoute implements Route
                 TextBodyDto::new(
                     "Object not found"
                 ),
-                LegacyDefaultStatus::_404()
+                DefaultStatus::_404
             );
         }
     }

@@ -8,8 +8,8 @@ use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\CourseMember\CourseMemberDto;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\CourseMember\CourseMemberIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteContentTypeDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
@@ -18,7 +18,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class AddCourseMemberByImportIdByUserImportIdRoute implements Route
 {
@@ -61,27 +61,27 @@ class AddCourseMemberByImportIdByUserImportIdRoute implements Route
             null,
             [
                 RouteContentTypeDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     CourseMemberDto::class,
                     "Course member"
                 )
             ],
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     CourseMemberIdDto::class,
                     "Course member ids"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_404(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_404,
                     null,
                     "Course member not found"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_400(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_400,
                     null,
                     "No json body"
                 )
@@ -92,7 +92,7 @@ class AddCourseMemberByImportIdByUserImportIdRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::POST();
+        return DefaultMethod::POST;
     }
 
 
@@ -109,7 +109,7 @@ class AddCourseMemberByImportIdByUserImportIdRoute implements Route
                 TextBodyDto::new(
                     "No json body"
                 ),
-                LegacyDefaultStatus::_400()
+                DefaultStatus::_400
             );
         }
 
@@ -136,7 +136,7 @@ class AddCourseMemberByImportIdByUserImportIdRoute implements Route
                 TextBodyDto::new(
                     "Course member not found"
                 ),
-                LegacyDefaultStatus::_404()
+                DefaultStatus::_404
             );
         }
     }

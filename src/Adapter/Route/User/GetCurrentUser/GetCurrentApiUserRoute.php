@@ -6,15 +6,15 @@ use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class GetCurrentApiUserRoute implements Route
 {
@@ -47,14 +47,14 @@ class GetCurrentApiUserRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     UserDto::class,
                     "User"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_403(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_403,
                     null,
                     "Invalid authorization"
                 )
@@ -65,7 +65,7 @@ class GetCurrentApiUserRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::GET();
+        return DefaultMethod::GET;
     }
 
 
@@ -90,7 +90,7 @@ class GetCurrentApiUserRoute implements Route
                 TextBodyDto::new(
                     "Invalid authorization"
                 ),
-                LegacyDefaultStatus::_403()
+                DefaultStatus::_403
             );
         }
     }

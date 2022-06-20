@@ -9,7 +9,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\ParseHttpBasic\Parse
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRawRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 use ilBrowser;
 use ilCronException;
 use ilCronStartUp;
@@ -71,7 +71,7 @@ class IliasAuthorization implements Authorization
                 TextBodyDto::new(
                     "Missing authorization client or user"
                 ),
-                LegacyDefaultStatus::_400()
+                DefaultStatus::_400
             );
         }
 
@@ -84,7 +84,7 @@ class IliasAuthorization implements Authorization
                 TextBodyDto::new(
                     "Missing authorization client or user"
                 ),
-                LegacyDefaultStatus::_400()
+                DefaultStatus::_400
             );
         }
 
@@ -104,7 +104,7 @@ class IliasAuthorization implements Authorization
                 TextBodyDto::new(
                     "No access"
                 ),
-                LegacyDefaultStatus::_403()
+                DefaultStatus::_403
             );
         }
 
@@ -114,7 +114,7 @@ class IliasAuthorization implements Authorization
                 TextBodyDto::new(
                     "No access"
                 ),
-                LegacyDefaultStatus::_403()
+                DefaultStatus::_403
             );
         }
         if (empty($this->ilias_api->getUserRoles($user->id, null, SYSTEM_ROLE_ID))) {
@@ -122,7 +122,7 @@ class IliasAuthorization implements Authorization
                 TextBodyDto::new(
                     "No access"
                 ),
-                LegacyDefaultStatus::_403()
+                DefaultStatus::_403
             );
         }
 
@@ -131,7 +131,7 @@ class IliasAuthorization implements Authorization
                 TextBodyDto::new(
                     "Not enabled"
                 ),
-                LegacyDefaultStatus::_403()
+                DefaultStatus::_403
             );
         }
 

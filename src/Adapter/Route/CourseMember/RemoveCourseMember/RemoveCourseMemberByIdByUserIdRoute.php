@@ -6,8 +6,8 @@ use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\CourseMember\CourseMemberIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -15,7 +15,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class RemoveCourseMemberByIdByUserIdRoute implements Route
 {
@@ -59,14 +59,14 @@ class RemoveCourseMemberByIdByUserIdRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     CourseMemberIdDto::class,
                     "Course member ids"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_404(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_404,
                     null,
                     "Course member not found"
                 )
@@ -77,7 +77,7 @@ class RemoveCourseMemberByIdByUserIdRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::DELETE();
+        return DefaultMethod::DELETE;
     }
 
 
@@ -109,7 +109,7 @@ class RemoveCourseMemberByIdByUserIdRoute implements Route
                 TextBodyDto::new(
                     "Course member not found"
                 ),
-                LegacyDefaultStatus::_404()
+                DefaultStatus::_404
             );
         }
     }

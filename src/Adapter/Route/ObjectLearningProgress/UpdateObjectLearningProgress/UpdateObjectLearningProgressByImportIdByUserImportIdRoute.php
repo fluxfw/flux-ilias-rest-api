@@ -3,12 +3,12 @@
 namespace FluxIliasRestApi\Adapter\Route\ObjectLearningProgress\UpdateObjectLearningProgress;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\LegacyObjectLearningProgress;
+use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\LegacyDefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\LegacyDefaultMethod;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
@@ -16,7 +16,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseD
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\LegacyDefaultStatus;
+use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
 
 class UpdateObjectLearningProgressByImportIdByUserImportIdRoute implements Route
 {
@@ -52,7 +52,7 @@ class UpdateObjectLearningProgressByImportIdByUserImportIdRoute implements Route
                 ),
                 RouteParamDocumentationDto::new(
                     "learning_progress",
-                    LegacyObjectLearningProgress::class,
+                    ObjectLearningProgress::class,
                     "Object learning progress"
                 ),
                 RouteParamDocumentationDto::new(
@@ -65,14 +65,14 @@ class UpdateObjectLearningProgressByImportIdByUserImportIdRoute implements Route
             null,
             [
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::JSON(),
+                    DefaultBodyType::JSON,
                     null,
                     ObjectLearningProgressIdDto::class,
                     "Learning progress ids"
                 ),
                 RouteResponseDocumentationDto::new(
-                    LegacyDefaultBodyType::TEXT(),
-                    LegacyDefaultStatus::_404(),
+                    DefaultBodyType::TEXT,
+                    DefaultStatus::_404,
                     null,
                     "Learning progress not found"
                 )
@@ -83,7 +83,7 @@ class UpdateObjectLearningProgressByImportIdByUserImportIdRoute implements Route
 
     public function getMethod() : Method
     {
-        return LegacyDefaultMethod::PATCH();
+        return DefaultMethod::PATCH;
     }
 
 
@@ -102,7 +102,7 @@ class UpdateObjectLearningProgressByImportIdByUserImportIdRoute implements Route
             $request->getParam(
                 "user_import_id"
             ),
-            LegacyObjectLearningProgress::from($request->getParam(
+            ObjectLearningProgress::from($request->getParam(
                 "learning_progress"
             ))
         );
@@ -118,7 +118,7 @@ class UpdateObjectLearningProgressByImportIdByUserImportIdRoute implements Route
                 TextBodyDto::new(
                     "Learning progress not found"
                 ),
-                LegacyDefaultStatus::_404()
+                DefaultStatus::_404
             );
         }
     }
