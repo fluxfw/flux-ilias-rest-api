@@ -31,15 +31,17 @@ RUN change-namespace /code/flux-rest-api FluxRestApi FluxIliasRestApi\\Libs\\Flu
 
 FROM $FLUX_PHP_BACKPORT_IMAGE AS build
 
-COPY --from=build_namespaces /code/flux-autoload-api /flux-ilias-rest-api/libs/flux-autoload-api
-COPY --from=build_namespaces /code/flux-ilias-api /flux-ilias-rest-api/libs/flux-ilias-api
-COPY --from=build_namespaces /code/flux-legacy-enum /flux-ilias-rest-api/libs/flux-legacy-enum
-COPY --from=build_namespaces /code/flux-rest-api /flux-ilias-rest-api/libs/flux-rest-api
-COPY --from=composer /code/polyfill-php80 /flux-ilias-rest-api/libs/polyfill-php80
-COPY --from=composer /code/polyfill-php81 /flux-ilias-rest-api/libs/polyfill-php81
-COPY . /flux-ilias-rest-api
+COPY --from=build_namespaces /code/flux-autoload-api /build/flux-ilias-rest-api/libs/flux-autoload-api
+COPY --from=build_namespaces /code/flux-ilias-api /build/flux-ilias-rest-api/libs/flux-ilias-api
+COPY --from=build_namespaces /code/flux-legacy-enum /build/flux-ilias-rest-api/libs/flux-legacy-enum
+COPY --from=build_namespaces /code/flux-rest-api /build/flux-ilias-rest-api/libs/flux-rest-api
+COPY --from=composer /code/polyfill-php80 /build/flux-ilias-rest-api/libs/polyfill-php80
+COPY --from=composer /code/polyfill-php81 /build/flux-ilias-rest-api/libs/polyfill-php81
+COPY . /build/flux-ilias-rest-api
 
-RUN php-backport /flux-ilias-rest-api FluxIliasRestApi\\Libs\\FluxLegacyEnum
+RUN php-backport /build/flux-ilias-rest-api FluxIliasRestApi\\Libs\\FluxLegacyEnum
+
+RUN (cd /build && tar -czf flux-ilias-rest-api.tar.gz flux-ilias-rest-api)
 
 FROM scratch
 
@@ -47,7 +49,7 @@ LABEL org.opencontainers.image.source="https://github.com/flux-caps/flux-ilias-r
 LABEL maintainer="fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
 LABEL flux-docker-registry-rest-api-build-path="/flux-ilias-rest-api"
 
-COPY --from=build /flux-ilias-rest-api /flux-ilias-rest-api
+COPY --from=build /build /
 
 ARG COMMIT_SHA
 LABEL org.opencontainers.image.revision="$COMMIT_SHA"
