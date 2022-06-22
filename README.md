@@ -6,30 +6,32 @@ ILIAS Rest Api
 
 ## Installation
 
+Hint: Use `latest` as `%tag%` (or omit it) for get the latest build
+
 ### flux-ilias-rest-api
 
-#### In [flux-ilias](https://github.com/flux-caps/flux-ilias)
-
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest /flux-ilias-rest-api $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api
+COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:%tag% /flux-ilias-rest-api %web_root%/Customizing/global/flux-ilias-rest-api
 ```
 
 or
 
 ```dockerfile
-RUN (mkdir -p $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api && cd $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api && wget -O - https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api | tar -xz --strip-components=1)
+RUN (mkdir -p %web_root%/Customizing/global/flux-ilias-rest-api && cd %web_root%/Customizing/global/flux-ilias-rest-api && wget -O - https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=%tag% | tar -xz --strip-components=1)
 ```
 
-#### Other
+or
 
-Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api and extract it to %web_root%/Customizing/global/flux-ilias-rest-api
+Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=%tag% and extract it to `%web_root%/Customizing/global/flux-ilias-rest-api`
+
+Hint: If you use `wget` without pipe use `--content-disposition` to get the correct file name
 
 ### nginx
 
 #### In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
 
 ```dockerfile
-RUN $ILIAS_WEB_DIR/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
+RUN %web_root%/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
 ```
 
 #### Other
