@@ -1,4 +1,5 @@
 {
+    "version": "2022-06-22-1",
     "description": "ILIAS Rest Api",
     "topics": [
         "api",
