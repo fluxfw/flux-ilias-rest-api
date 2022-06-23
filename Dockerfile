@@ -15,7 +15,7 @@ FROM composer:latest AS composer
 RUN (mkdir -p /code/polyfill-php80 && cd /code/polyfill-php80 && composer require symfony/polyfill-php80:v1.26.0 --ignore-platform-reqs)
 RUN (mkdir -p /code/polyfill-php81 && cd /code/polyfill-php81 && composer require symfony/polyfill-php81:v1.26.0 --ignore-platform-reqs)
 
-FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS build_namespaces
+FROM $FLUX_NAMESPACE_CHANGER_IMAGE:v2022-06-23-1 AS build_namespaces
 
 COPY --from=flux_autoload_api /flux-autoload-api /code/flux-autoload-api
 RUN change-namespace /code/flux-autoload-api FluxAutoloadApi FluxIliasRestApi\\Libs\\FluxAutoloadApi
@@ -29,7 +29,7 @@ RUN change-namespace /code/flux-legacy-enum FluxLegacyEnum FluxIliasRestApi\\Lib
 COPY --from=flux_rest_api /flux-rest-api /code/flux-rest-api
 RUN change-namespace /code/flux-rest-api FluxRestApi FluxIliasRestApi\\Libs\\FluxRestApi
 
-FROM $FLUX_PHP_BACKPORT_IMAGE AS build
+FROM $FLUX_PHP_BACKPORT_IMAGE:v2022-06-23-1 AS build
 
 COPY --from=build_namespaces /code/flux-autoload-api /build/flux-ilias-rest-api/libs/flux-autoload-api
 COPY --from=build_namespaces /code/flux-ilias-api /build/flux-ilias-rest-api/libs/flux-ilias-api
