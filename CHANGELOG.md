@@ -6,6 +6,7 @@ Changes:
 
 - Locked flux-namespace-changer version
 - Locked flux-php-backport version
+- Remove create-gitlab-artifact-from-build
 
 Get build:
 
