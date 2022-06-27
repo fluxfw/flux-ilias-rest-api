@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Route\UserRole;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\UserRole\UserRoleDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\UserRole\UserRoleDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;

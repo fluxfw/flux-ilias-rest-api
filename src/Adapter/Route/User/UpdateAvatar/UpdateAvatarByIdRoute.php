@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Route\User\UpdateAvatar;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\User\UserIdDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\User\UserIdDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\FormDataBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;

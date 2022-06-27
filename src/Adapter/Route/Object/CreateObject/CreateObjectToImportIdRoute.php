@@ -3,10 +3,10 @@
 namespace FluxIliasRestApi\Adapter\Route\Object\CreateObject;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\CustomObjectType;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\ObjectDiffDto;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\ObjectIdDto;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Object\ObjectType;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Object\CustomObjectType;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Object\ObjectDiffDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Object\ObjectType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;

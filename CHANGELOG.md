@@ -11,6 +11,17 @@ Get build:
 - Docker image: `docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest`
 - Archive: https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=latest
 
+## v2022-06-27-1
+
+Changes:
+
+- Split dtos to flux-ilias-base-api
+
+Get build:
+
+- Docker image: `docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:v2022-06-27-1`
+- Archive: https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=v2022-06-27-1
+
 ## v2022-06-23-1
 
 Changes:
