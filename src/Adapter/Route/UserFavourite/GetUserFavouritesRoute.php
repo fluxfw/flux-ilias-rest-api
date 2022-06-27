@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Adapter\Route\UserFavourite;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\UserFavourite\UserFavouriteDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\UserFavourite\UserFavouriteDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;

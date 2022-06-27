@@ -6,7 +6,7 @@ ARG FLUX_PHP_BACKPORT_IMAGE=docker-registry.fluxpublisher.ch/flux-php-backport
 ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api
 
 FROM $FLUX_AUTOLOAD_API_IMAGE:v2022-06-22-1 AS flux_autoload_api
-FROM $FLUX_ILIAS_API_IMAGE:v2022-06-23-1 AS flux_ilias_api
+FROM $FLUX_ILIAS_API_IMAGE:v2022-06-27-1 AS flux_ilias_api
 FROM $FLUX_LEGACY_ENUM_IMAGE:v2022-06-22-1 AS flux_legacy_enum
 FROM $FLUX_REST_API_IMAGE:v2022-06-22-1 AS flux_rest_api
 
