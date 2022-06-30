@@ -11,6 +11,17 @@ Get build:
 - Docker image: `docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:latest`
 - Archive: https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=latest
 
+## v2022-06-30-2
+
+Changes:
+
+- Permission
+
+Get build:
+
+- Docker image: `docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:v2022-06-30-2`
+- Archive: https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=v2022-06-30-2
+
 ## v2022-06-30-1
 
 Changes:
