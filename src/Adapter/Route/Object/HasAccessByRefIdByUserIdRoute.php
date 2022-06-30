@@ -16,7 +16,7 @@ use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
 
-class HasAccessInObjectRoute implements Route
+class HasAccessByRefIdByUserIdRoute implements Route
 {
 
     private function __construct(
@@ -89,7 +89,7 @@ class HasAccessInObjectRoute implements Route
     {
         return ServerResponseDto::new(
             JsonBodyDto::new(
-                $this->ilias_api->hasAccessInObject(
+                $this->ilias_api->hasAccessByRefIdByUserId(
                     $request->getParam(
                         "ref_id"
                     ),
