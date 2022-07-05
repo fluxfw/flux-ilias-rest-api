@@ -11,18 +11,18 @@ Hint: Use `latest` as `%tag%` (or omit it) for get the latest build
 ### flux-ilias-rest-api
 
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-api/rest-api:%tag% /flux-ilias-rest-api %web_root%/Customizing/global/flux-ilias-rest-api
+COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest-api:%tag% /flux-ilias-rest-api %web_root%/Customizing/global/flux-ilias-rest-api
 ```
 
 or
 
 ```dockerfile
-RUN (mkdir -p %web_root%/Customizing/global/flux-ilias-rest-api && cd %web_root%/Customizing/global/flux-ilias-rest-api && wget -O - https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=%tag% | tar -xz --strip-components=1)
+RUN (mkdir -p %web_root%/Customizing/global/flux-ilias-rest-api && cd %web_root%/Customizing/global/flux-ilias-rest-api && wget -O - https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-rest-api.tar.gz?tag=%tag% | tar -xz --strip-components=1)
 ```
 
 or
 
-Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-api/rest-api.tar.gz?tag=%tag% and extract it to `%web_root%/Customizing/global/flux-ilias-rest-api`
+Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-ilias-rest-api.tar.gz?tag=%tag% and extract it to `%web_root%/Customizing/global/flux-ilias-rest-api`
 
 Hint: If you use `wget` without pipe use `--content-disposition` to get the correct file name
 
