@@ -1,9 +1,9 @@
-ARG FLUX_AUTOLOAD_API_IMAGE=docker-registry.fluxpublisher.ch/flux-autoload/api
+ARG FLUX_AUTOLOAD_API_IMAGE=docker-registry.fluxpublisher.ch/flux-autoload-api
 ARG FLUX_ILIAS_API_IMAGE=docker-registry.fluxpublisher.ch/flux-ilias-api
-ARG FLUX_LEGACY_ENUM_IMAGE=docker-registry.fluxpublisher.ch/flux-enum/legacy
+ARG FLUX_LEGACY_ENUM_IMAGE=docker-registry.fluxpublisher.ch/flux-legacy-enum
 ARG FLUX_NAMESPACE_CHANGER_IMAGE=docker-registry.fluxpublisher.ch/flux-namespace-changer
 ARG FLUX_PHP_BACKPORT_IMAGE=docker-registry.fluxpublisher.ch/flux-php-backport
-ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api
+ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest-api
 
 FROM $FLUX_AUTOLOAD_API_IMAGE:v2022-06-22-1 AS flux_autoload_api
 FROM $FLUX_ILIAS_API_IMAGE:v2022-07-05-1 AS flux_ilias_api
