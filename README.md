@@ -9,12 +9,6 @@ ILIAS Rest Api
 ### flux-ilias-rest-api
 
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-ilias-rest-api:%tag% /flux-ilias-rest-api %web_root%/Customizing/global/flux-ilias-rest-api
-```
-
-or
-
-```dockerfile
 RUN (mkdir -p %web_root%/Customizing/global/flux-ilias-rest-api && cd %web_root%/Customizing/global/flux-ilias-rest-api && wget -O - https://github.com/flux-caps/flux-ilias-rest-api/releases/download/%tag%/flux-ilias-rest-api-%tag%-build.tar.gz | tar -xz --strip-components=1)
 ```
 
