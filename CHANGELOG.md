@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2022-07-11-1
+
+Changes:
+
+- web proxy permanent link
+
 ## v2022-07-07-1
 
 Changes:
