@@ -4,9 +4,9 @@ namespace FluxIliasRestApi;
 
 require_once __DIR__ . "/../libs/polyfill-php80/vendor/autoload.php";
 require_once __DIR__ . "/../libs/polyfill-php81/vendor/autoload.php";
+require_once __DIR__ . "/../libs/flux-legacy-enum/autoload.php";
 
 require_once __DIR__ . "/../libs/flux-autoload-api/autoload.php";
-require_once __DIR__ . "/../libs/flux-legacy-enum/autoload.php";
 require_once __DIR__ . "/../libs/flux-ilias-api/autoload.php";
 require_once __DIR__ . "/../libs/flux-rest-api/autoload.php";
 
