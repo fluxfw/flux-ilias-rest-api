@@ -1,54 +1,25 @@
-ARG FLUX_AUTOLOAD_API_IMAGE
-ARG FLUX_ILIAS_API_IMAGE
-ARG FLUX_LEGACY_ENUM_IMAGE
-ARG FLUX_NAMESPACE_CHANGER_IMAGE=docker-registry.fluxpublisher.ch/flux-namespace-changer
-ARG FLUX_PHP_BACKPORT_IMAGE=docker-registry.fluxpublisher.ch/flux-php-backport
-ARG FLUX_REST_API_IMAGE
+FROM composer:latest AS build
 
-FROM $FLUX_AUTOLOAD_API_IMAGE:v2022-06-22-1 AS flux_autoload_api
-FROM $FLUX_ILIAS_API_IMAGE:v2022-07-11-1 AS flux_ilias_api
-FROM $FLUX_LEGACY_ENUM_IMAGE:v2022-06-27-1 AS flux_legacy_enum
-FROM $FLUX_REST_API_IMAGE:v2022-06-29-2 AS flux_rest_api
+RUN (mkdir -p /flux-namespace-changer && cd /flux-namespace-changer && wget -O - https://github.com/flux-eco/flux-namespace-changer/releases/download/v2022-07-12-1/flux-namespace-changer-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1)
 
-FROM composer:latest AS composer
+RUN (mkdir -p /flux-php-backport && cd /flux-php-backport && wget -O - https://github.com/flux-eco/flux-php-backport/releases/download/v2022-07-12-1/flux-php-backport-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1)
 
-RUN (mkdir -p /code/polyfill-php80 && cd /code/polyfill-php80 && composer require symfony/polyfill-php80:v1.26.0 --ignore-platform-reqs)
-RUN (mkdir -p /code/polyfill-php81 && cd /code/polyfill-php81 && composer require symfony/polyfill-php81:v1.26.0 --ignore-platform-reqs)
+RUN (mkdir -p /build/flux-ilias-rest-api/libs/polyfill-php80 && cd /build/flux-ilias-rest-api/libs/polyfill-php80 && composer require symfony/polyfill-php80:v1.26.0 --ignore-platform-reqs)
 
-FROM $FLUX_NAMESPACE_CHANGER_IMAGE:v2022-06-23-1 AS build_namespaces
+RUN (mkdir -p /build/flux-ilias-rest-api/libs/polyfill-php81 && cd /build/flux-ilias-rest-api/libs/polyfill-php81 && composer require symfony/polyfill-php81:v1.26.0 --ignore-platform-reqs)
 
-COPY --from=flux_autoload_api /flux-autoload-api /code/flux-autoload-api
-RUN change-namespace /code/flux-autoload-api FluxAutoloadApi FluxIliasRestApi\\Libs\\FluxAutoloadApi
+RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-autoload-api && cd /build/flux-ilias-rest-api/libs/flux-autoload-api && wget -O - https://github.com/flux-eco/flux-autoload-api/releases/download/v2022-07-12-1/flux-autoload-api-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxAutoloadApi FluxIliasRestApi\\Libs\\FluxAutoloadApi)
 
-COPY --from=flux_ilias_api /flux-ilias-api /code/flux-ilias-api
-RUN change-namespace /code/flux-ilias-api FluxIliasApi FluxIliasRestApi\\Libs\\FluxIliasApi
+RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-ilias-api && cd /build/flux-ilias-rest-api/libs/flux-ilias-api && wget -O - https://github.com/flux-eco/flux-ilias-api/releases/download/v2022-07-12-1/flux-ilias-api-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxIliasApi FluxIliasRestApi\\Libs\\FluxIliasApi)
 
-COPY --from=flux_legacy_enum /flux-legacy-enum /code/flux-legacy-enum
-RUN change-namespace /code/flux-legacy-enum FluxLegacyEnum FluxIliasRestApi\\Libs\\FluxLegacyEnum
+RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-legacy-enum && cd /build/flux-ilias-rest-api/libs/flux-legacy-enum && wget -O - https://github.com/flux-eco/flux-legacy-enum/releases/download/v2022-07-12-1/flux-legacy-enum-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxLegacyEnum FluxIliasRestApi\\Libs\\FluxLegacyEnum)
 
-COPY --from=flux_rest_api /flux-rest-api /code/flux-rest-api
-RUN change-namespace /code/flux-rest-api FluxRestApi FluxIliasRestApi\\Libs\\FluxRestApi
+RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-rest-api && cd /build/flux-ilias-rest-api/libs/flux-rest-api && wget -O - https://github.com/flux-eco/flux-rest-api/releases/download/v2022-07-12-1/flux-rest-api-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxRestApi FluxIliasRestApi\\Libs\\FluxRestApi)
 
-FROM $FLUX_PHP_BACKPORT_IMAGE:v2022-06-23-1 AS build
-
-COPY --from=build_namespaces /code/flux-autoload-api /build/flux-ilias-rest-api/libs/flux-autoload-api
-COPY --from=build_namespaces /code/flux-ilias-api /build/flux-ilias-rest-api/libs/flux-ilias-api
-COPY --from=build_namespaces /code/flux-legacy-enum /build/flux-ilias-rest-api/libs/flux-legacy-enum
-COPY --from=build_namespaces /code/flux-rest-api /build/flux-ilias-rest-api/libs/flux-rest-api
-COPY --from=composer /code/polyfill-php80 /build/flux-ilias-rest-api/libs/polyfill-php80
-COPY --from=composer /code/polyfill-php81 /build/flux-ilias-rest-api/libs/polyfill-php81
 COPY . /build/flux-ilias-rest-api
 
-RUN php-backport /build/flux-ilias-rest-api FluxIliasRestApi\\Libs\\FluxLegacyEnum
-
-RUN (cd /build && tar -czf flux-ilias-rest-api.tar.gz flux-ilias-rest-api)
+RUN /flux-php-backport/bin/php-backport.php /build/flux-ilias-rest-api FluxIliasRestApi\\Libs\\FluxLegacyEnum
 
 FROM scratch
 
-LABEL org.opencontainers.image.source="https://github.com/flux-caps/flux-ilias-rest-api"
-LABEL maintainer="fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
-
 COPY --from=build /build /
-
-ARG COMMIT_SHA
-LABEL org.opencontainers.image.revision="$COMMIT_SHA"
