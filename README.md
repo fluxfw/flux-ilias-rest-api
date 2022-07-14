@@ -9,16 +9,16 @@ ILIAS Rest Api
 ### flux-ilias-rest-api
 
 ```dockerfile
-RUN (mkdir -p %web_root%/Customizing/global/flux-ilias-rest-api && cd %web_root%/Customizing/global/flux-ilias-rest-api && wget -O - https://github.com/flux-eco/flux-ilias-rest-api/releases/download/%tag%/flux-ilias-rest-api-%tag%-build.tar.gz | tar -xz --strip-components=1)
+RUN (mkdir -p %web_root%/Customizing/global/flux-ilias-rest-api && cd %web_root%/Customizing/global/flux-ilias-rest-api && wget -O - https://github.com/fluxfw/flux-ilias-rest-api/releases/download/%tag%/flux-ilias-rest-api-%tag%-build.tar.gz | tar -xz --strip-components=1)
 ```
 
 or
 
-Download https://github.com/flux-eco/flux-ilias-rest-api/releases/download/%tag%/flux-ilias-rest-api-%tag%-build.tar.gz and extract it to `%web_root%/Customizing/global/flux-ilias-rest-api`
+Download https://github.com/fluxfw/flux-ilias-rest-api/releases/download/%tag%/flux-ilias-rest-api-%tag%-build.tar.gz and extract it to `%web_root%/Customizing/global/flux-ilias-rest-api`
 
 ### nginx
 
-#### In [flux-ilias-nginx-base](https://github.com/flux-caps/flux-ilias-nginx-base)
+#### In [flux-ilias-nginx-base](https://github.com/fluxfw/flux-ilias-nginx-base)
 
 ```dockerfile
 RUN %web_root%/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
@@ -39,7 +39,7 @@ Include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Con
 
 ### Helper Plugin
 
-You need to install [flux-ilias-rest-helper-plugin](https://github.com/flux-eco/flux-ilias-rest-helper-plugin) and [flux-ilias-rest-object-helper-plugin](https://github.com/flux-eco/flux-ilias-rest-object-helper-plugin) too
+You need to install [flux-ilias-rest-helper-plugin](https://github.com/fluxfw/flux-ilias-rest-helper-plugin) and [flux-ilias-rest-object-helper-plugin](https://github.com/fluxfw/flux-ilias-rest-object-helper-plugin) too
 
 ### Config
 
