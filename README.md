@@ -11,7 +11,7 @@ ILIAS Rest Api
 #### In [flux-ilias-ilias-base](https://github.com/fluxfw/flux-ilias-ilias-base)
 
 ```dockerfile
-RUN /flux-ilias-ilias-base/bin/download-flux-ilias-rest-api.sh %tag%
+RUN /flux-ilias-ilias-base/bin/install-flux-ilias-rest-api.sh %tag%
 ```
 
 #### Other
