@@ -8,6 +8,14 @@ ILIAS Rest Api
 
 ### flux-ilias-rest-api
 
+#### In [flux-ilias-ilias-base](https://github.com/fluxfw/flux-ilias-ilias-base)
+
+```dockerfile
+RUN /flux-ilias-ilias-base/bin/download-flux-ilias-rest-api.sh %tag%
+```
+
+#### Other
+
 ```dockerfile
 RUN (mkdir -p %web_root%/Customizing/global/flux-ilias-rest-api && cd %web_root%/Customizing/global/flux-ilias-rest-api && wget -O - https://github.com/fluxfw/flux-ilias-rest-api/releases/download/%tag%/flux-ilias-rest-api-%tag%-build.tar.gz | tar -xz --strip-components=1)
 ```
