@@ -47,7 +47,7 @@ Include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Con
 
 ### Helper Plugin
 
-You need to install [flux-ilias-rest-helper-plugin](https://github.com/fluxfw/flux-ilias-rest-helper-plugin) and [flux-ilias-rest-object-helper-plugin](https://github.com/fluxfw/flux-ilias-rest-object-helper-plugin) too
+You need to install [flux-ilias-rest-helper-plugin](https://github.com/fluxfw/flux-ilias-rest-helper-plugin)
 
 ### Config
 
