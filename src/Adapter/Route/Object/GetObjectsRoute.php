@@ -52,6 +52,11 @@ class GetObjectsRoute implements Route
             ],
             [
                 RouteParamDocumentationDto::new(
+                    "title",
+                    "string",
+                    "Filter by title"
+                ),
+                RouteParamDocumentationDto::new(
                     "ref_ids",
                     "bool",
                     "Include ref ids"
@@ -91,6 +96,9 @@ class GetObjectsRoute implements Route
                         $request->getParam(
                             "type"
                         )
+                    ),
+                    $request->getQueryParam(
+                        "title"
                     ),
                     $request->getQueryParam(
                         "ref_ids"
