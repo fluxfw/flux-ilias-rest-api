@@ -29,7 +29,7 @@ Download https://github.com/fluxfw/flux-ilias-rest-api/releases/download/%tag%/f
 #### In [flux-ilias-nginx-base](https://github.com/fluxfw/flux-ilias-nginx-base)
 
 ```dockerfile
-RUN %web_root%/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
+RUN /var/www/html/Customizing/global/flux-ilias-rest-api/bin/install-to-flux-ilias-nginx-base.sh
 ```
 
 #### Other
