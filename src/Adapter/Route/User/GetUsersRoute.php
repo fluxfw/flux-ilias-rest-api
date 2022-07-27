@@ -44,6 +44,21 @@ class GetUsersRoute implements Route
             null,
             [
                 RouteParamDocumentationDto::new(
+                    "external_account",
+                    "string",
+                    "Filter by external account"
+                ),
+                RouteParamDocumentationDto::new(
+                    "login",
+                    "string",
+                    "Filter by login"
+                ),
+                RouteParamDocumentationDto::new(
+                    "email",
+                    "string",
+                    "Filter by email"
+                ),
+                RouteParamDocumentationDto::new(
                     "access_limited_object_ids",
                     "bool",
                     "Include access limited objects ids"
@@ -94,6 +109,15 @@ class GetUsersRoute implements Route
         return ServerResponseDto::new(
             JsonBodyDto::new(
                 $this->ilias_api->getUsers(
+                    $request->getQueryParam(
+                        "external_account"
+                    ),
+                    $request->getQueryParam(
+                        "login"
+                    ),
+                    $request->getQueryParam(
+                        "email"
+                    ),
                     $request->getQueryParam(
                         "access_limited_object_ids"
                     ) === "true",

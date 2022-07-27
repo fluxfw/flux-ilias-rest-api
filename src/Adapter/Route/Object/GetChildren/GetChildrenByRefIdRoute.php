@@ -3,7 +3,9 @@
 namespace FluxIliasRestApi\Adapter\Route\Object\GetChildren;
 
 use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Object\CustomObjectType;
 use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Object\ObjectType;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
@@ -52,6 +54,16 @@ class GetChildrenByRefIdRoute implements Route
             ],
             [
                 RouteParamDocumentationDto::new(
+                    "type",
+                    ObjectType::class,
+                    "Filter by type"
+                ),
+                RouteParamDocumentationDto::new(
+                    "title",
+                    "string",
+                    "Filter by title"
+                ),
+                RouteParamDocumentationDto::new(
                     "ref_ids",
                     "bool",
                     "Include ref ids"
@@ -93,6 +105,14 @@ class GetChildrenByRefIdRoute implements Route
         $children = $this->ilias_api->getChildrenByRefId(
             $request->getParam(
                 "ref_id"
+            ),
+            ($type = $request->getQueryParam(
+                "type"
+            )) !== null ? CustomObjectType::factory(
+                $type
+            ) : null,
+            $request->getQueryParam(
+                "title"
             ),
             $request->getQueryParam(
                 "ref_ids"
