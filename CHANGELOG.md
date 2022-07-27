@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2022-07-27-2
+
+Changes:
+
+- Move install-to-flux-ilias-nginx-base.sh to /flux-ilias-nginx-base/bin/install-flux-ilias-rest-api.sh
+
 ## v2022-07-27-1
 
 Changes:
