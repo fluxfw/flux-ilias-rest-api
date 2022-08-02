@@ -59,6 +59,11 @@ class GetUsersRoute implements Route
                     "Filter by email"
                 ),
                 RouteParamDocumentationDto::new(
+                    "matriculation_number",
+                    "string",
+                    "Filter by matriculation number"
+                ),
+                RouteParamDocumentationDto::new(
                     "access_limited_object_ids",
                     "bool",
                     "Include access limited objects ids"
@@ -117,6 +122,9 @@ class GetUsersRoute implements Route
                     ),
                     $request->getQueryParam(
                         "email"
+                    ),
+                    $request->getQueryParam(
+                        "matriculation_number"
                     ),
                     $request->getQueryParam(
                         "access_limited_object_ids"

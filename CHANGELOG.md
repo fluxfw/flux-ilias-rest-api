@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2022-08-02-1
+
+Changes:
+
+- Get users by matriculation number
+
 ## v2022-07-27-2
 
 Changes:
