@@ -2,7 +2,7 @@ FROM composer:latest AS build
 
 RUN (mkdir -p /flux-namespace-changer && cd /flux-namespace-changer && wget -O - https://github.com/fluxfw/flux-namespace-changer/releases/download/v2022-07-12-1/flux-namespace-changer-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1)
 
-RUN (mkdir -p /flux-php-backport && cd /flux-php-backport && wget -O - https://github.com/fluxfw/flux-php-backport/releases/download/v2022-12-12-1/flux-php-backport-v2022-12-12-1-build.tar.gz | tar -xz --strip-components=1)
+RUN (mkdir -p /flux-php-backport && cd /flux-php-backport && wget -O - https://github.com/fluxfw/flux-php-backport/releases/download/v2022-12-12-2/flux-php-backport-v2022-12-12-2-build.tar.gz | tar -xz --strip-components=1)
 
 RUN (mkdir -p /build/flux-ilias-rest-api/libs/polyfill-php80 && cd /build/flux-ilias-rest-api/libs/polyfill-php80 && composer require symfony/polyfill-php80:v1.27.0 --ignore-platform-reqs)
 
