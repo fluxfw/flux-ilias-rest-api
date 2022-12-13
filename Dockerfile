@@ -12,7 +12,7 @@ RUN (mkdir -p /build/flux-ilias-rest-api/libs/polyfill-php82 && cd /build/flux-i
 
 RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-autoload-api && cd /build/flux-ilias-rest-api/libs/flux-autoload-api && wget -O - https://github.com/fluxfw/flux-autoload-api/releases/download/v2022-12-12-1/flux-autoload-api-v2022-12-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxAutoloadApi FluxIliasRestApi\\Libs\\FluxAutoloadApi)
 
-RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-ilias-api && cd /build/flux-ilias-rest-api/libs/flux-ilias-api && wget -O - https://github.com/fluxfw/flux-ilias-api/releases/download/v2022-12-12-1/flux-ilias-api-v2022-12-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxIliasApi FluxIliasRestApi\\Libs\\FluxIliasApi)
+RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-ilias-api && cd /build/flux-ilias-rest-api/libs/flux-ilias-api && wget -O - https://github.com/fluxfw/flux-ilias-api/releases/download/v2022-12-13-1/flux-ilias-api-v2022-12-13-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxIliasApi FluxIliasRestApi\\Libs\\FluxIliasApi)
 
 RUN (mkdir -p /build/flux-ilias-rest-api/libs/flux-legacy-enum && cd /build/flux-ilias-rest-api/libs/flux-legacy-enum && wget -O - https://github.com/fluxfw/flux-legacy-enum/releases/download/v2022-12-12-1/flux-legacy-enum-v2022-12-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxLegacyEnum FluxIliasRestApi\\Libs\\FluxLegacyEnum)
 
