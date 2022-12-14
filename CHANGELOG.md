@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2022-12-14-1
+
+Changes:
+
+- redirect flux-ilias-rest-login
+
 ## v2022-12-13-1
 
 Changes:
