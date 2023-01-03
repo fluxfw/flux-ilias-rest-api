@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-01-03-1
+
+Changes:
+
+- Fix update user login
+
 ## v2022-12-14-1
 
 Changes:
