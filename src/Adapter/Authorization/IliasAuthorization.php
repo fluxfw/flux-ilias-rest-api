@@ -2,14 +2,14 @@
 
 namespace FluxIliasRestApi\Adapter\Authorization;
 
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Autoload\IliasAutoload;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\Authorization;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRawRequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
+use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Autoload\IliasAutoload;
+use FluxRestApi\Adapter\Authorization\Authorization;
+use FluxRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization;
+use FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxRestApi\Adapter\Server\ServerRawRequestDto;
+use FluxRestApi\Adapter\Server\ServerResponseDto;
+use FluxRestApi\Adapter\Status\DefaultStatus;
 use ilBrowser;
 use ilCronException;
 use ilCronStartUp;
@@ -31,17 +31,17 @@ class IliasAuthorization implements Authorization
     use ParseHttpBasicAuthorization;
 
     private function __construct(
-        private readonly IliasApi $ilias_api
+        private readonly IliasRestApi $ilias_rest_api
     ) {
 
     }
 
 
     public static function new(
-        IliasApi $ilias_api
+        IliasRestApi $ilias_rest_api
     ) : static {
         return new static(
-            $ilias_api
+            $ilias_rest_api
         );
     }
 
@@ -108,7 +108,7 @@ class IliasAuthorization implements Authorization
             );
         }
 
-        $user = $this->ilias_api->getCurrentApiUser();
+        $user = $this->ilias_rest_api->getCurrentApiUser();
         if ($user === null || $user->id === intval(SYSTEM_USER_ID)) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
@@ -117,7 +117,7 @@ class IliasAuthorization implements Authorization
                 DefaultStatus::_403
             );
         }
-        if (empty($this->ilias_api->getUserRoles($user->id, null, SYSTEM_ROLE_ID))) {
+        if (empty($this->ilias_rest_api->getUserRoles($user->id, null, SYSTEM_ROLE_ID))) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No access"
@@ -126,7 +126,7 @@ class IliasAuthorization implements Authorization
             );
         }
 
-        if (!$this->ilias_api->isEnableRestApi()) {
+        if (!$this->ilias_rest_api->isEnableRestApi()) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "Not enabled"

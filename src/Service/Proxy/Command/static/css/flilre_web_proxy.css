@@ -1,0 +1,9 @@
+:root {
+	--FLUX_ILIAS_REST_WEB_PROXY_IFRAME_HEIGHT_OFFSET: 220px;
+}
+
+#flilre_web_proxy_iframe {
+	border: none;
+	height: calc(100vh - var(--FLUX_ILIAS_REST_WEB_PROXY_IFRAME_HEIGHT_OFFSET));
+	width:  100%;
+}

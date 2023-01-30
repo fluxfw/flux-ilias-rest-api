@@ -1,0 +1,60 @@
+.form_field {
+	align-items:    start;
+	display:        flex;
+	flex-direction: row;
+	flex-wrap:      wrap;
+	margin-bottom:  10px;
+}
+
+.form_field_label {
+	flex-grow:    0;
+	flex-shrink:  0;
+	max-width:    20%;
+	margin-right: 10px;
+	width:        140px;
+}
+
+.form_field_button {
+	display:        flex;
+	flex-direction: row;
+	flex-wrap:      wrap;
+	flex-grow:      0;
+	flex-shrink:    0;
+	width:          70px;
+}
+
+.form_field_button > button {
+	flex-grow:   0;
+	flex-shrink: 0;
+	height:      20px;
+	margin:      0 2px 0 0;
+	padding:     0;
+	width:       20px;
+}
+
+.form_field_field {
+	flex-grow:   1;
+	flex-shrink: 0;
+	width:       0;
+}
+
+.form_field_field > input[type=text],
+.form_field_field > input[type=url],
+select,
+textarea {
+	max-width: 100%;
+	width:     400px;
+}
+
+input:invalid, select:invalid {
+	border-color: red;
+}
+
+textarea {
+	resize: vertical;
+}
+
+code, em {
+	white-space: pre-line;
+	word-wrap:   break-word;
+}

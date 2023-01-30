@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>flux-ilias-rest-config</title>
+	<link href="css/flilre_config.css" rel="stylesheet">
+</head>
+<body>
+<div id="flilre_config">
+	<template data-form-template>
+		<form>
+			<h2>Rest api</h2>
+			<div>
+				<details>
+					<summary>Infos</summary>
+					<div class="form_field"></div>
+					<div>
+						<em>The API uses the basic HTTP authorization</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>It uses the ILIAS "cron context" for login in ILIAS</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>You need to prefix the ILIAS client to the user</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The <code>Authorization</code> header looks like <code>Basic %client%/%user%:%password%</code> (Base64 encoded)</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Only ILIAS admin users (expect root) can use the api</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>You should create/use a separate ILIAS user</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Call <code>/flux-ilias-rest-api/routes/ui</code> to see available routes</em>
+					</div>
+				</details>
+			</div>
+			<div class="form_field"></div>
+			<div class="form_field"></div>
+			<div class="form_field">
+				<div class="form_field_label">Enable</div>
+				<div class="form_field_field">
+					<input name="enable_rest_api" type="checkbox">
+				</div>
+			</div>
+			<h2>Proxy</h2>
+			<h3>Web</h3>
+			<div>
+				<details>
+					<summary>Infos</summary>
+					<div class="form_field"></div>
+					<div>
+						<em>You can develop your own UI and can integrate it with this without rely on ILIAS directly</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Call <code>/flux-ilias-rest-web-proxy/%target_key%/...</code> will render the ILIAS UI with an iframe with your UI</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Any non-ILIAS query parameter will passed</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Optional you can activate an ILIAS main menu item for it</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>If you use menu item and disable it for public, the user needs to be logged in ILIAS to see the menu item or call the proxy url, but be familiar, your iframe url is not protected and can be called directly for public without this permission check (Even you don't use the menu item, the iframe url is still accessible directly for public)</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The custom rewrite url is used in the menu item if you wish a different as the default</em>
+					</div>
+				</details>
+			</div>
+			<div class="form_field"></div>
+			<div class="form_field"></div>
+			<div class="form_field">
+				<div class="form_field_label">Map</div>
+				<div class="form_field_field">
+					<div data-web_proxy_map>
+						<template>
+							<div>
+								<div class="form_field">
+									<div class="form_field_button">
+										<button data-move-entry-up type="button">/\</button>
+										<button data-move-entry-down type="button">\/</button>
+										<button data-remove-entry type="button">X</button>
+									</div>
+									<div class="form_field_label">Target key</div>
+									<div class="form_field_field">
+										<input data-entry-target_key required type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">iframe url</div>
+									<div class="form_field_field">
+										<input data-entry-iframe_url required type="url">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Page title</div>
+									<div class="form_field_field">
+										<input data-entry-page_title type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Short title</div>
+									<div class="form_field_field">
+										<input data-entry-short_title type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">View title</div>
+									<div class="form_field_field">
+										<input data-entry-view_title type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Custom rewrite url</div>
+									<div class="form_field_field">
+										<input data-entry-rewrite_url type="url">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Menu item</div>
+									<div class="form_field_field">
+										<input data-entry-menu_item type="checkbox">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Menu title</div>
+									<div class="form_field_field">
+										<input data-entry-menu_title type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Custom menu icon url</div>
+									<div class="form_field_field">
+										<input data-entry-menu_icon_url type="url">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Visible menu item on public area</div>
+									<div class="form_field_field">
+										<input data-entry-visible_public_menu_item type="checkbox">
+										<div>
+											<em data-entry-visible-public-menu-item-info></em>
+										</div>
+									</div>
+								</div>
+								<div class="form_field"></div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">iframe height offset</div>
+				<div class="form_field_field">
+					<input min="0" name="web_proxy_iframe_height_offset" required type="number"> px
+					<div>
+						<em>iframe height: <code data-entry-web-proxy-iframe-height></code></em>
+					</div>
+				</div>
+			</div>
+			<h3>Api</h3>
+			<div>
+				<details>
+					<summary>Infos</summary>
+					<div class="form_field"></div>
+					<div>
+						<em>You can make api requests by calling <code>/flux-ilias-rest-api-proxy/%target_key%/...</code></em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Any non-ILIAS query parameter will passed</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>You can access the user id with the follow custom HTTP headers
+							<ul>
+								<li>X-Flux-Ilias-Rest-Api-User-Id</li>
+								<li>X-Flux-Ilias-Rest-Api-User-Import-Id</li>
+							</ul>
+						</em>
+					</div>
+					<div>
+						<em>You can use the flux-ilias-rest-api to make other requests to ILIAS</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>There is no need, but may you should enable ILIAS public area for avoid some problems to get the correct response if the user is not logged in ILIAS</em>
+					</div>
+				</details>
+			</div>
+			<div class="form_field"></div>
+			<div class="form_field"></div>
+			<div class="form_field">
+				<div class="form_field_label">Map</div>
+				<div class="form_field_field">
+					<div data-api_proxy_map>
+						<template>
+							<div>
+								<div class="form_field">
+									<div class="form_field_button">
+										<button data-move-entry-up type="button">/\</button>
+										<button data-move-entry-down type="button">\/</button>
+										<button data-remove-entry type="button">X</button>
+									</div>
+									<div class="form_field_label">Target key</div>
+									<div class="form_field_field">
+										<input data-entry-target_key required type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Url</div>
+									<div class="form_field_field">
+										<input data-entry-url required type="url">
+									</div>
+								</div>
+								<div class="form_field"></div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+			<h2>flux-ilias-rest-object Proxy</h2>
+			<div>
+				<details>
+					<summary>Infos</summary>
+					<div class="form_field"></div>
+					<div>
+						<em>You can configure multiple web and api proxy here and need to select which you want to use per object</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The key is used for the relationship to the object</em>
+					</div>
+				</details>
+			</div>
+			<div class="form_field"></div>
+			<h3>Web</h3>
+			<div>
+				<details>
+					<summary>Infos</summary>
+					<div class="form_field"></div>
+					<div>
+						<em>You can develop your own object UI and can integrate it with this without rely on ILIAS directly</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The object (Or call <code>/flux-ilias-rest-object-web-proxy/%ref_id%/...</code>) will render the ILIAS UI with an iframe with your UI</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>If enabled, you can access the passed <code>ref_id</code> query parameter to detect in which object the user is</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Any other non-ILIAS query parameter will be passed too</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The user needs read permissions in the object, but be familiar, your iframe url is not protected and can be called directly without this permission check</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The custom rewrite url is used in the object if you wish a different as the default (Use the <code>%ref_id%</code> placeholder)</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The custom icon url is used, if the web proxy map is selected in the object and is available in the object context</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The custom default icon url is used in the default object context or the object has no selected web proxy map or is not available in the object context</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>If both custom icon url or custom default icon url are not available, the icon for the weblink object type is used</em>
+					</div>
+				</details>
+			</div>
+			<div class="form_field"></div>
+			<div class="form_field"></div>
+			<div class="form_field">
+				<div class="form_field_label">Custom default icon url</div>
+				<div class="form_field_field">
+					<input name="flux_ilias_rest_object_default_icon_url" type="url">
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">Custom object type title</div>
+				<div class="form_field_field">
+					<input name="flux_ilias_rest_object_type_title" type="text">
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">Custom multiple objects type title</div>
+				<div class="form_field_field">
+					<input name="flux_ilias_rest_object_multiple_type_title" type="text">
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">Map</div>
+				<div class="form_field_field">
+					<div data-flux_ilias_rest_object_web_proxy_maps>
+						<template>
+							<div>
+								<div class="form_field">
+									<div class="form_field_button">
+										<button data-move-entry-up type="button">/\</button>
+										<button data-move-entry-down type="button">\/</button>
+										<button data-remove-entry type="button">X</button>
+									</div>
+									<div class="form_field_label">Key</div>
+									<div class="form_field_field">
+										<input data-entry-key required type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">iframe url</div>
+									<div class="form_field_field">
+										<input data-entry-iframe_url required type="url">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Page title</div>
+									<div class="form_field_field">
+										<input data-entry-page_title type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Short title</div>
+									<div class="form_field_field">
+										<input data-entry-short_title type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">View title</div>
+									<div class="form_field_field">
+										<input data-entry-view_title type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Pass ref id</div>
+									<div class="form_field_field">
+										<input data-entry-pass_ref_id type="checkbox">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Custom icon url</div>
+									<div class="form_field_field">
+										<input data-entry-icon_url type="url">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Custom rewrite url</div>
+									<div class="form_field_field">
+										<input data-entry-rewrite_url type="url">
+									</div>
+								</div>
+								<div class="form_field"></div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+			<h3>Api</h3>
+			<div>
+				<details>
+					<summary>Infos</summary>
+					<div class="form_field"></div>
+					<div>
+						<em>You can make api requests by calling <code>/flux-ilias-rest-object-api-proxy/%ref_id%/...</code></em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>Any non-ILIAS query parameter will passed</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>The user needs read permissions in the object, but be sure, your backend is only reachable internally for protect it</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>You can access the user id and the object id with the follow custom HTTP headers
+							<ul>
+								<li>X-Flux-Ilias-Rest-Api-User-Id</li>
+								<li>X-Flux-Ilias-Rest-Api-User-Import-Id</li>
+								<li>X-Flux-Ilias-Rest-Api-Object-Id</li>
+								<li>X-Flux-Ilias-Rest-Api-Object-Import-Id</li>
+								<li>X-Flux-Ilias-Rest-Api-Object-Ref-Id</li>
+							</ul>
+						</em>
+					</div>
+					<div>
+						<em>You can use the flux-ilias-rest-api to make other requests to ILIAS</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>There is no need, but may you should enable ILIAS public area for avoid some problems to get the correct response if the user is not logged in ILIAS</em>
+					</div>
+				</details>
+			</div>
+			<div class="form_field"></div>
+			<div class="form_field"></div>
+			<div class="form_field">
+				<div class="form_field_label">Map</div>
+				<div class="form_field_field">
+					<div data-flux_ilias_rest_object_api_proxy_maps>
+						<template>
+							<div>
+								<div class="form_field">
+									<div class="form_field_button">
+										<button data-move-entry-up type="button">/\</button>
+										<button data-move-entry-down type="button">\/</button>
+										<button data-remove-entry type="button">X</button>
+									</div>
+									<div class="form_field_label">Key</div>
+									<div class="form_field_field">
+										<input data-entry-key required type="text">
+									</div>
+								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Url</div>
+									<div class="form_field_field">
+										<input data-entry-url required type="url">
+									</div>
+								</div>
+								<div class="form_field"></div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+			<h2>Changes</h2>
+			<div class="form_field">
+				<div class="form_field_label">Log changes</div>
+				<div class="form_field_field">
+					<input name="enable_log_changes" type="checkbox">
+				</div>
+			</div>
+			<h3>Transfer changes</h3>
+			<div class="form_field">
+				<div class="form_field_label">Enable</div>
+				<div class="form_field_field">
+					<input name="enable_transfer_changes" type="checkbox">
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">Post changes to url</div>
+				<div class="form_field_field">
+					<input name="transfer_changes_post_url" type="url">
+				</div>
+			</div>
+			<div data-transfer_changes_schedule></div>
+			<h3>Purge changes</h3>
+			<div class="form_field">
+				<div class="form_field_label">Enable</div>
+				<div class="form_field_field">
+					<input name="enable_purge_changes" type="checkbox">
+				</div>
+			</div>
+			<div data-purge_changes_schedule></div>
+			<div class="form_field">
+				<div class="form_field_label">Keep changes inside</div>
+				<div class="form_field_field">
+					<input min="0" name="keep_changes_inside_days" required type="number"> days
+				</div>
+			</div>
+			<div class="form_field">
+				<button data-store type="button">Store</button>
+			</div>
+			<template data-entries-template>
+				<div>
+					<div data-entries></div>
+					<div class="form_field_button">
+						<button data-add-entry type="button">+</button>
+					</div>
+				</div>
+			</template>
+			<template data-schedule-template>
+				<div>
+					<div class="form_field">
+						<div class="form_field_label">Schedule</div>
+						<div class="form_field_field">
+							<select data-type name="type" required></select>
+						</div>
+					</div>
+					<div class="form_field">
+						<div class="form_field_label">Schedule Interval</div>
+						<div class="form_field_field">
+							<input data-interval min="0" name="interval" type="number">
+						</div>
+					</div>
+				</div>
+			</template>
+		</form>
+	</template>
+</div>
+<script src="js/flilre_config.mjs" type="module"></script>
+</body>
+</html>

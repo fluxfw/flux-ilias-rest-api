@@ -6,6 +6,15 @@ Changes:
 
 \-
 
+## v2023-01-30-1
+
+Changes:
+
+- Change `X-Flux-Ilias-Api` headers to `X-Flux-Ilias-Rest-Api`
+- Include `flux-ilias-api`
+- Remove `flux-autoload-api`
+- Remove `flux-namespace-changer`
+
 ## v2023-01-03-1
 
 Changes:
