@@ -2,33 +2,33 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Role;
 
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\Role\RoleDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
+use FluxIliasBaseApi\Adapter\Role\RoleDto;
+use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxRestApi\Adapter\Method\DefaultMethod;
+use FluxRestApi\Adapter\Method\Method;
+use FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
+use FluxRestApi\Adapter\Route\Route;
+use FluxRestApi\Adapter\Server\ServerRequestDto;
+use FluxRestApi\Adapter\Server\ServerResponseDto;
 
 class GetRolesRoute implements Route
 {
 
     private function __construct(
-        private readonly IliasApi $ilias_api
+        private readonly IliasRestApi $ilias_rest_api
     ) {
 
     }
 
 
     public static function new(
-        IliasApi $ilias_api
+        IliasRestApi $ilias_rest_api
     ) : static {
         return new static(
-            $ilias_api
+            $ilias_rest_api
         );
     }
 
@@ -71,7 +71,7 @@ class GetRolesRoute implements Route
     {
         return ServerResponseDto::new(
             JsonBodyDto::new(
-                $this->ilias_api->getRoles()
+                $this->ilias_rest_api->getRoles()
             )
         );
     }

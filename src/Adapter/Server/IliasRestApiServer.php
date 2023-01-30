@@ -2,11 +2,11 @@
 
 namespace FluxIliasRestApi\Adapter\Server;
 
+use FluxIliasRestApi\Adapter\Api\IliasRestApi;
 use FluxIliasRestApi\Adapter\Authorization\IliasAuthorization;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Api\RestApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Authorization\Authorization;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\RouteCollector;
+use FluxRestApi\Adapter\Api\RestApi;
+use FluxRestApi\Adapter\Authorization\Authorization;
+use FluxRestApi\Adapter\Route\Collector\RouteCollector;
 
 class IliasRestApiServer
 {
@@ -22,15 +22,15 @@ class IliasRestApiServer
 
     public static function new() : static
     {
-        $ilias_api = IliasApi::new();
+        $ilias_rest_api = IliasRestApi::new();
 
         return new static(
             RestApi::new(),
             IliasRestApiServerRouteCollector::new(
-                $ilias_api
+                $ilias_rest_api
             ),
             IliasAuthorization::new(
-                $ilias_api
+                $ilias_rest_api
             )
         );
     }

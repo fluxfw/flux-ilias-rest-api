@@ -2,36 +2,36 @@
 
 namespace FluxIliasRestApi\Adapter\Route\CourseMember\RemoveCourseMember;
 
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxIliasApi\Libs\FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Method\Method;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Route;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerRequestDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Status\DefaultStatus;
+use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
+use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxRestApi\Adapter\Body\TextBodyDto;
+use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxRestApi\Adapter\Method\DefaultMethod;
+use FluxRestApi\Adapter\Method\Method;
+use FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
+use FluxRestApi\Adapter\Route\Route;
+use FluxRestApi\Adapter\Server\ServerRequestDto;
+use FluxRestApi\Adapter\Server\ServerResponseDto;
+use FluxRestApi\Adapter\Status\DefaultStatus;
 
 class RemoveCourseMemberByImportIdByUserImportIdRoute implements Route
 {
 
     private function __construct(
-        private readonly IliasApi $ilias_api
+        private readonly IliasRestApi $ilias_rest_api
     ) {
 
     }
 
 
     public static function new(
-        IliasApi $ilias_api
+        IliasRestApi $ilias_rest_api
     ) : static {
         return new static(
-            $ilias_api
+            $ilias_rest_api
         );
     }
 
@@ -89,7 +89,7 @@ class RemoveCourseMemberByImportIdByUserImportIdRoute implements Route
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        $id = $this->ilias_api->removeCourseMemberByImportIdByUserImportId(
+        $id = $this->ilias_rest_api->removeCourseMemberByImportIdByUserImportId(
             $request->getParam(
                 "import_id"
             ),

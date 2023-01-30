@@ -2,6 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Server;
 
+use FluxIliasRestApi\Adapter\Api\IliasRestApi;
 use FluxIliasRestApi\Adapter\Route\Category\CreateCategory\CreateCategoryToIdRoute;
 use FluxIliasRestApi\Adapter\Route\Category\CreateCategory\CreateCategoryToImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Category\CreateCategory\CreateCategoryToRefIdRoute;
@@ -235,24 +236,23 @@ use FluxIliasRestApi\Adapter\Route\UserRole\RemoveUserRole\RemoveUserRoleByIdByR
 use FluxIliasRestApi\Adapter\Route\UserRole\RemoveUserRole\RemoveUserRoleByIdByRoleImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\UserRole\RemoveUserRole\RemoveUserRoleByImportIdByRoleIdRoute;
 use FluxIliasRestApi\Adapter\Route\UserRole\RemoveUserRole\RemoveUserRoleByImportIdByRoleImportIdRoute;
-use FluxIliasRestApi\Libs\FluxIliasApi\Adapter\Api\IliasApi;
-use FluxIliasRestApi\Libs\FluxRestApi\Adapter\Route\Collector\RouteCollector;
+use FluxRestApi\Adapter\Route\Collector\RouteCollector;
 
 class IliasRestApiServerRouteCollector implements RouteCollector
 {
 
     private function __construct(
-        private readonly IliasApi $ilias_api
+        private readonly IliasRestApi $ilias_rest_api
     ) {
 
     }
 
 
     public static function new(
-        IliasApi $ilias_api
+        IliasRestApi $ilias_rest_api
     ) : static {
         return new static(
-            $ilias_api
+            $ilias_rest_api
         );
     }
 
@@ -261,721 +261,721 @@ class IliasRestApiServerRouteCollector implements RouteCollector
     {
         return [
             GetCategoriesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateCategoryToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateCategoryToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateCategoryToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCategoryByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCategoryByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCategoryByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCategoryByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCategoryByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCategoryByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetChangesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetCoursesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateCourseToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateCourseToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateCourseToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCourseByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCourseByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCourseByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetCourseMembersRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddCourseMemberByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddCourseMemberByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddCourseMemberByImportIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddCourseMemberByImportIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddCourseMemberByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddCourseMemberByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveCourseMemberByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveCourseMemberByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveCourseMemberByImportIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveCourseMemberByImportIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveCourseMemberByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveCourseMemberByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseMemberByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseMemberByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseMemberByImportIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseMemberByImportIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseMemberByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateCourseMemberByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetFilesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateFileToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateFileToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateFileToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetFileByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetFileByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetFileByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateFileByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateFileByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateFileByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UploadFileByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UploadFileByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UploadFileByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetFluxIliasRestObjectsRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateFluxIliasRestObjectToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateFluxIliasRestObjectToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateFluxIliasRestObjectToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetFluxIliasRestObjectByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetFluxIliasRestObjectByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetFluxIliasRestObjectByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateFluxIliasRestObjectByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateFluxIliasRestObjectByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateFluxIliasRestObjectByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetGroupsRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateGroupToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateGroupToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateGroupToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetGroupByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetGroupByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetGroupByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetGroupMembersRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddGroupMemberByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddGroupMemberByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddGroupMemberByImportIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddGroupMemberByImportIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddGroupMemberByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddGroupMemberByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveGroupMemberByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveGroupMemberByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveGroupMemberByImportIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveGroupMemberByImportIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveGroupMemberByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveGroupMemberByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupMemberByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupMemberByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupMemberByImportIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupMemberByImportIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupMemberByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateGroupMemberByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetObjectsRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetRootObjectRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             HasAccessByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByImportIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByImportIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByImportIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByRefIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByRefIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CloneObjectByRefIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateObjectToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateObjectToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateObjectToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             DeleteObjectByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             DeleteObjectByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             DeleteObjectByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetChildrenByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetChildrenByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetChildrenByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetObjectByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetObjectByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetObjectByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetPathByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetPathByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetPathByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByImportIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByImportIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByImportIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByRefIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByRefIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             LinkObjectByRefIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByImportIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByImportIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByImportIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByRefIdToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByRefIdToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             MoveObjectByRefIdToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetObjectLearningProgressRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectLearningProgressByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectLearningProgressByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectLearningProgressByImportIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectLearningProgressByImportIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectLearningProgressByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateObjectLearningProgressByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetOrganisationalUnitRootRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetOrganisationalUnitsRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateOrganisationalUnitToExternalIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateOrganisationalUnitToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateOrganisationalUnitToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetOrganisationalUnitByExternalIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetOrganisationalUnitByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetOrganisationalUnitByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateOrganisationalUnitByExternalIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateOrganisationalUnitByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateOrganisationalUnitByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             CreateOrganisationalUnitPositionRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             DeleteOrganisationalUnitPositionByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetOrganisationalUnitPositionsRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateOrganisationalUnitPositionByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetOrganisationalUnitPositionByCoreIdentifierRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetOrganisationalUnitPositionByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetOrganisationalUnitStaffRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddOrganisationalUnitStaffByExternalIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddOrganisationalUnitStaffByExternalIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddOrganisationalUnitStaffByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddOrganisationalUnitStaffByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddOrganisationalUnitStaffByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddOrganisationalUnitStaffByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveOrganisationalUnitStaffByExternalIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveOrganisationalUnitStaffByExternalIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveOrganisationalUnitStaffByIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveOrganisationalUnitStaffByIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveOrganisationalUnitStaffByRefIdByUserIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveOrganisationalUnitStaffByRefIdByUserImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetGlobalRoleObjectRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetRolesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateRoleToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateRoleToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateRoleToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetRoleByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetRoleByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateRoleByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateRoleByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetScormLearningModulesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateScormLearningModuleToIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateScormLearningModuleToImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             CreateScormLearningModuleToRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetScormLearningModuleByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetScormLearningModuleByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetScormLearningModuleByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateScormLearningModuleByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateScormLearningModuleByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateScormLearningModuleByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UploadScormLearningModuleByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UploadScormLearningModuleByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UploadScormLearningModuleByRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             CreateUserRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetUsersRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCurrentApiUserRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetCurrentWebUserRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetUserByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetUserByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateAvatarByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateAvatarByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateUserByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             UpdateUserByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetUserFavouritesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserFavouriteByIdByObjectIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserFavouriteByIdByObjectImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserFavouriteByIdByObjectRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserFavouriteByImportIdByObjectIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserFavouriteByImportIdByObjectImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserFavouriteByImportIdByObjectRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserFavouriteByIdByObjectIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserFavouriteByIdByObjectImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserFavouriteByIdByObjectRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserFavouriteByImportIdByObjectIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserFavouriteByImportIdByObjectImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserFavouriteByImportIdByObjectRefIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetUnreadMailsCountByIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             GetUnreadMailsCountByImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
 
             GetUserRolesRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserRoleByIdByRoleIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserRoleByIdByRoleImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserRoleByImportIdByRoleIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             AddUserRoleByImportIdByRoleImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserRoleByIdByRoleIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserRoleByIdByRoleImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserRoleByImportIdByRoleIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             ),
             RemoveUserRoleByImportIdByRoleImportIdRoute::new(
-                $this->ilias_api
+                $this->ilias_rest_api
             )
         ];
     }

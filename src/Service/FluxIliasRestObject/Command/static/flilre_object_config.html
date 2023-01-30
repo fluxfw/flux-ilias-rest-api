@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>flux-ilias-rest-object-config</title>
+	<link href="css/flilre_object_config.css" rel="stylesheet">
+</head>
+<body>
+<div id="flilre_object_config">
+	<template data-form-template>
+		<form>
+			<div class="form_field">
+				<div class="form_field_label">Title</div>
+				<div class="form_field_field">
+					<input name="title" required type="text">
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">Description</div>
+				<div class="form_field_field">
+					<textarea name="description"></textarea>
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">Web proxy map</div>
+				<div class="form_field_field">
+					<select name="web_proxy_map_key" required></select>
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">Api proxy map</div>
+				<div class="form_field_field">
+					<select name="api_proxy_map_key">
+						<option></option>
+					</select>
+				</div>
+			</div>
+			<div class="form_field">
+				<button data-store type="button">Store</button>
+			</div>
+		</form>
+	</template>
+</div>
+<script src="js/flilre_object_config.mjs" type="module"></script>
+</body>
+</html>
