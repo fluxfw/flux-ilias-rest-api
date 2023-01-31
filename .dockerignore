@@ -1,6 +1,7 @@
 *
+!bin/install-libraries.sh
+!bin/php-backport.sh
 !src
 !src/**
 !autoload.php
 !index.php
-src/Service/Login
