@@ -2,7 +2,8 @@
 
 set -e
 
-root="`dirname "$0"`/.."
+bin="`dirname "$0"`"
+root="$bin/.."
 libs="$root/.."
 
 "$libs/flux-php-backport/bin/php-backport.php" "$libs"

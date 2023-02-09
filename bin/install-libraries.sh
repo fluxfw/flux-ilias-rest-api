@@ -2,12 +2,13 @@
 
 set -e
 
-root="`dirname "$0"`/.."
+bin="`dirname "$0"`"
+root="$bin/.."
 libs="$root/.."
 
 checkAlreadyInstalled() {
     if [ `ls "$libs" | wc -l` != "1" ]; then
-        echo "Already installed"
+        echo "Already installed" >&2
         exit 1
     fi
 }
@@ -22,15 +23,15 @@ installLibrary() {
 
 checkAlreadyInstalled
 
-installLibrary flux-authentication-frontend-api https://github.com/fluxfw/flux-authentication-frontend-api/archive/refs/tags/v2022-12-20-1.tar.gz
+installLibrary flux-authentication-frontend-api https://github.com/fluxfw/flux-authentication-frontend-api/archive/refs/tags/v2023-02-09-1.tar.gz
 
-installLibrary flux-ilias-base-api https://github.com/fluxfw/flux-ilias-base-api/archive/refs/tags/v2023-01-30-1.tar.gz
+installLibrary flux-ilias-base-api https://github.com/fluxfw/flux-ilias-base-api/archive/refs/tags/v2023-02-09-1.tar.gz
 
-installLibrary flux-legacy-enum https://github.com/fluxfw/flux-legacy-enum/archive/refs/tags/v2023-01-30-1.tar.gz
+installLibrary flux-legacy-enum https://github.com/fluxfw/flux-legacy-enum/archive/refs/tags/v2023-02-09-1.tar.gz
 
-installLibrary flux-php-backport https://github.com/fluxfw/flux-php-backport/archive/refs/tags/v2023-01-31-1.tar.gz
+installLibrary flux-php-backport https://github.com/fluxfw/flux-php-backport/archive/refs/tags/v2023-02-09-1.tar.gz
 
-installLibrary flux-rest-api https://github.com/fluxfw/flux-rest-api/archive/refs/tags/v2023-01-30-1.tar.gz
+installLibrary flux-rest-api https://github.com/fluxfw/flux-rest-api/archive/refs/tags/v2023-02-09-1.tar.gz
 
 installComposerLibrary polyfill-php80 symfony/polyfill-php80:v1.27.0
 

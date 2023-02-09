@@ -11,6 +11,8 @@ RUN /build/flux-ilias-rest-api-build/libs/flux-ilias-rest-api/bin/php-backport.s
 
 RUN cp -L -R /build/flux-ilias-rest-api-build/libs/flux-ilias-rest-api /build/flux-ilias-rest-api && rm -rf /build/flux-ilias-rest-api/bin && rm -rf /build/flux-ilias-rest-api-build
 
+RUN (cd /build && tar -czf build.tar.gz flux-ilias-rest-api && rm -rf flux-ilias-rest-api)
+
 FROM scratch
 
 COPY --from=build /build /
