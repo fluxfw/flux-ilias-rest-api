@@ -20,4 +20,4 @@ fi
 
 docker build "$root" --pull -t "$image:$tag"
 
-(cd "$build" && copy-from-docker-image "$image:$tag" /build.tar.gz "$build_name")
+copy-from-docker-image "$image:$tag" /build.tar.gz "$build/$build_name"
