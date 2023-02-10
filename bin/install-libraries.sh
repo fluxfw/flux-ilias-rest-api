@@ -25,7 +25,7 @@ checkAlreadyInstalled
 
 installLibrary flux-authentication-frontend-api https://github.com/fluxfw/flux-authentication-frontend-api/archive/refs/tags/v2023-02-09-1.tar.gz
 
-installLibrary flux-ilias-base-api https://github.com/fluxfw/flux-ilias-base-api/archive/refs/tags/v2023-02-09-1.tar.gz
+installLibrary flux-ilias-base-api https://github.com/fluxfw/flux-ilias-base-api/archive/refs/tags/v2023-02-10-1.tar.gz
 
 installLibrary flux-legacy-enum https://github.com/fluxfw/flux-legacy-enum/archive/refs/tags/v2023-02-09-1.tar.gz
 

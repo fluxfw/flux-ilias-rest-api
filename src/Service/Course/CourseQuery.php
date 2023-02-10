@@ -133,6 +133,10 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $ilias_course->setUseNews($diff->news);
         }
 
+        if ($diff->news_block !== null) {
+            $ilias_course->setNewsBlockActivated($diff->news_block);
+        }
+
         if ($diff->manage_custom_metadata !== null) {
             $ilias_course::_writeContainerSetting($ilias_course->getId(), ilObjectServiceSettingsGUI::CUSTOM_METADATA, $diff->manage_custom_metadata);
         }
@@ -268,6 +272,10 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             ),
             $getCourseContainerSetting(
                 ilObjectServiceSettingsGUI::USE_NEWS,
+                false
+            ),
+            $getCourseContainerSetting(
+                ilObjectServiceSettingsGUI::NEWS_VISIBILITY,
                 false
             ),
             $getCourseContainerSetting(
