@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-02-10-1
+
+Changes:
+
+- Fix course news
+
 ## v2023-02-09-1
 
 Changes:

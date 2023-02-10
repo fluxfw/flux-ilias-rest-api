@@ -130,7 +130,7 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
         }
 
         if ($diff->news !== null) {
-            $ilias_course::_writeContainerSetting($ilias_course->getId(), ilObjectServiceSettingsGUI::USE_NEWS, $diff->news);
+            $ilias_course->setUseNews($diff->news);
         }
 
         if ($diff->manage_custom_metadata !== null) {
