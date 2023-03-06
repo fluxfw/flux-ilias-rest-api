@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Route\GroupMember;
 
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberDto;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;

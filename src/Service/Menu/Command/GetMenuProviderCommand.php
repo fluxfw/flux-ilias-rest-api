@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Service\Menu\Command;
 
-use FluxIliasBaseApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Adapter\Menu\MenuProvider;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\ConfigForm\Port\ConfigFormService;
 use FluxIliasRestApi\Service\Proxy\Port\ProxyService;
 use ILIAS\DI\Container;

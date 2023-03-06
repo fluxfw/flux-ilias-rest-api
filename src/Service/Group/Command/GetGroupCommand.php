@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\Group\Command;
 
-use FluxIliasBaseApi\Adapter\Group\GroupDto;
+use FluxIliasRestApi\Adapter\Group\GroupDto;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Group\GroupQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;

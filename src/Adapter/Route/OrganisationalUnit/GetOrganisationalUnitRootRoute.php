@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnit;
 
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

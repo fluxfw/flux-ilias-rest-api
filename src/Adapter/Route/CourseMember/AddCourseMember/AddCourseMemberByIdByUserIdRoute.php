@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Adapter\Route\CourseMember\AddCourseMember;
 
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberDiffDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDiffDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberIdDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

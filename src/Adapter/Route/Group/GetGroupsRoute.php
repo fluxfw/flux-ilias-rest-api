@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Group;
 
-use FluxIliasBaseApi\Adapter\Group\GroupDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Group\GroupDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;

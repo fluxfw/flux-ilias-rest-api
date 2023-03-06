@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\User\Command;
 
-use FluxIliasBaseApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\User\Port\UserService;
 use FluxIliasRestApi\Service\User\UserQuery;
 use ilDBInterface;

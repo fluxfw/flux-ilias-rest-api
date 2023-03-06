@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Service\GroupMember\Port;
 
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberDiffDto;
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberDto;
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberIdDto;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberIdDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxIliasRestApi\Service\Group\Port\GroupService;
 use FluxIliasRestApi\Service\GroupMember\Command\AddGroupMemberCommand;
 use FluxIliasRestApi\Service\GroupMember\Command\GetGroupMembersCommand;

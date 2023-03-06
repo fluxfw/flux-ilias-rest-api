@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\OrganisationalUnit\Command;
 
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
 use FluxIliasRestApi\Service\OrganisationalUnit\OrganisationalUnitQuery;
 use ilDBInterface;

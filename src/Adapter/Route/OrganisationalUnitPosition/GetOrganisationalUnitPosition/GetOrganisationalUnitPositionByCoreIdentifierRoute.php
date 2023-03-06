@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnitPosition\GetOrganisationalUnitPosition;
 
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

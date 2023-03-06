@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\Permission;
 
-use FluxIliasBaseApi\Adapter\Permission\CustomPermission;
-use FluxIliasBaseApi\Adapter\Permission\DefaultPermission;
-use FluxIliasBaseApi\Adapter\Permission\Permission;
+use FluxIliasRestApi\Adapter\Permission\CustomPermission;
+use FluxIliasRestApi\Adapter\Permission\DefaultPermission;
+use FluxIliasRestApi\Adapter\Permission\Permission;
 
 class PermissionMapping
 {

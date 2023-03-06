@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Route\ScormLearningModule\CreateScormLearningModule;
 
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
-use FluxIliasBaseApi\Adapter\ScormLearningModule\ScormLearningModuleDiffDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDiffDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

@@ -6,6 +6,13 @@ Changes:
 
 \-
 
+## v2023-03-06-1
+
+Changes:
+
+- `hasAccessByRefIdsByUserId`
+- Include `flux-ilias-base-api`
+
 ## v2023-02-10-2
 
 Changes:

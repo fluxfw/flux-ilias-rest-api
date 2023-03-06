@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\User;
 
-use FluxIliasBaseApi\Adapter\User\UserSelectedCountry;
+use FluxIliasRestApi\Adapter\User\UserSelectedCountry;
 
 class UserSelectedCountryMapping
 {

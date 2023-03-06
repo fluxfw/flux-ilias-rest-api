@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\User\UpdateAvatar;
 
-use FluxIliasBaseApi\Adapter\User\UserIdDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\User\UserIdDto;
 use FluxRestApi\Adapter\Body\FormDataBodyDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;

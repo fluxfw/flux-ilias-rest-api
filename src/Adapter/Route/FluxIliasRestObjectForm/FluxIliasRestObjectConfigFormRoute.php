@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Route\FluxIliasRestObjectForm;
 
-use FluxIliasBaseApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
+use FluxIliasRestApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
 use FluxIliasRestApi\Service\FluxIliasRestObject\Port\FluxIliasRestObjectService;
 use FluxIliasRestApi\Service\Proxy\Port\ProxyService;
 use FluxRestApi\Adapter\Body\HtmlBodyDto;

@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\Proxy\Port;
 
-use FluxIliasBaseApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\ConfigForm\Port\ConfigFormService;
 use FluxIliasRestApi\Service\FluxIliasRestObject\Port\FluxIliasRestObjectService;
 use FluxIliasRestApi\Service\Proxy\Command\GetWebProxyCommand;

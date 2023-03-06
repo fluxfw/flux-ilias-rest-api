@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Service\FluxIliasRestObject;
 
-use FluxIliasBaseApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDiffDto;
-use FluxIliasBaseApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
+use FluxIliasRestApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDiffDto;
+use FluxIliasRestApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
 use FluxIliasRestApi\Service\Object\CustomInternalObjectType;
 use FluxIliasRestApi\Service\Object\DefaultInternalObjectType;
 use FluxIliasRestApi\Service\ObjectConfig\ObjectConfigKey;

@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Route\ObjectLearningProgress;
 
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;

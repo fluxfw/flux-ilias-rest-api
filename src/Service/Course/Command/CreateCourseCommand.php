@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\Course\Command;
 
-use FluxIliasBaseApi\Adapter\Course\CourseDiffDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Course\CourseDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Service\Course\CourseQuery;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;

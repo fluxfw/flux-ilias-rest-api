@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\ObjectLearningProgress\Port;
 
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
 use FluxIliasRestApi\Service\ObjectLearningProgress\Command\GetObjectLearningProgressCommand;
 use FluxIliasRestApi\Service\ObjectLearningProgress\Command\UpdateObjectLearningProgressCommand;

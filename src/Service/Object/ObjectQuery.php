@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\Object;
 
-use FluxIliasBaseApi\Adapter\Object\ObjectDiffDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectType;
+use FluxIliasRestApi\Adapter\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Object\ObjectType;
 use ilCopyWizardOptions;
 use ilDBConstants;
 use ilLink;

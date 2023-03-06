@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Service\OrganisationalUnitStaff\Command;
 
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
-use FluxIliasBaseApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\OrganisationalUnit\Port\OrganisationalUnitService;
 use FluxIliasRestApi\Service\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
 use FluxIliasRestApi\Service\OrganisationalUnitStaff\OrganisationalUnitStaffQuery;

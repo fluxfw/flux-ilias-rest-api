@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\Group\Port;
 
-use FluxIliasBaseApi\Adapter\Group\GroupDiffDto;
-use FluxIliasBaseApi\Adapter\Group\GroupDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Group\GroupDiffDto;
+use FluxIliasRestApi\Adapter\Group\GroupDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Service\Group\Command\CreateGroupCommand;
 use FluxIliasRestApi\Service\Group\Command\GetGroupCommand;
 use FluxIliasRestApi\Service\Group\Command\GetGroupsCommand;

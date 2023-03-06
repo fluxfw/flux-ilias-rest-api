@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\User;
 
-use FluxIliasBaseApi\Adapter\User\UserLanguage;
+use FluxIliasRestApi\Adapter\User\UserLanguage;
 
 class UserLanguageMapping
 {

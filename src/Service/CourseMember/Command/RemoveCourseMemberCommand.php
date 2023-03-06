@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\CourseMember\Command;
 
-use FluxIliasBaseApi\Adapter\Course\CourseDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
-use FluxIliasBaseApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\Course\CourseDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberIdDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\Course\CourseQuery;
 use FluxIliasRestApi\Service\Course\Port\CourseService;
 use FluxIliasRestApi\Service\User\Port\UserService;

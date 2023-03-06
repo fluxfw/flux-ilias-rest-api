@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Change;
 
-use FluxIliasBaseApi\Adapter\Change\ChangeDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Change\ChangeDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;

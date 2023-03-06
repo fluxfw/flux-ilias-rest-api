@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Route\FluxIliasRestObjectForm;
 
-use FluxIliasBaseApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
+use FluxIliasRestApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
 use FluxIliasRestApi\Service\FluxIliasRestObject\Port\FluxIliasRestObjectService;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Method\DefaultMethod;

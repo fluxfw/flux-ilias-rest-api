@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Role;
 
-use FluxIliasBaseApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Role\RoleDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;

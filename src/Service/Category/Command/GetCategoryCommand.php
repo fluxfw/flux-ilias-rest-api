@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\Category\Command;
 
-use FluxIliasBaseApi\Adapter\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Service\Category\CategoryQuery;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;

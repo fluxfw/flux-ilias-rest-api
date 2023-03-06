@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\GroupMember\RemoveGroupMember;
 
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberIdDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberIdDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

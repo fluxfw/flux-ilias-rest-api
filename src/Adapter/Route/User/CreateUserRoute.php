@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Route\User;
 
-use FluxIliasBaseApi\Adapter\User\UserDiffDto;
-use FluxIliasBaseApi\Adapter\User\UserIdDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\User\UserDiffDto;
+use FluxIliasRestApi\Adapter\User\UserIdDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

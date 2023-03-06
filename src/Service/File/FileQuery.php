@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Service\File;
 
-use FluxIliasBaseApi\Adapter\File\FileDiffDto;
-use FluxIliasBaseApi\Adapter\File\FileDto;
+use FluxIliasRestApi\Adapter\File\FileDiffDto;
+use FluxIliasRestApi\Adapter\File\FileDto;
 use FluxIliasRestApi\Service\Object\CustomInternalObjectType;
 use FluxIliasRestApi\Service\Object\DefaultInternalObjectType;
 use ilDBConstants;

@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Category;
 
-use FluxIliasBaseApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Category\CategoryDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;

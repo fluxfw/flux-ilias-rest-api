@@ -2,52 +2,52 @@
 
 namespace FluxIliasRestApi\Adapter\Api;
 
-use FluxIliasBaseApi\Adapter\Category\CategoryDiffDto;
-use FluxIliasBaseApi\Adapter\Category\CategoryDto;
-use FluxIliasBaseApi\Adapter\Change\ChangeDto;
-use FluxIliasBaseApi\Adapter\Course\CourseDiffDto;
-use FluxIliasBaseApi\Adapter\Course\CourseDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberDiffDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
-use FluxIliasBaseApi\Adapter\File\FileDiffDto;
-use FluxIliasBaseApi\Adapter\File\FileDto;
-use FluxIliasBaseApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDiffDto;
-use FluxIliasBaseApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
-use FluxIliasBaseApi\Adapter\Group\GroupDiffDto;
-use FluxIliasBaseApi\Adapter\Group\GroupDto;
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberDiffDto;
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberDto;
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberIdDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectDiffDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectType;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDiffDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitIdDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionDiffDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionIdDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
-use FluxIliasBaseApi\Adapter\Permission\Permission;
-use FluxIliasBaseApi\Adapter\Role\RoleDiffDto;
-use FluxIliasBaseApi\Adapter\Role\RoleDto;
-use FluxIliasBaseApi\Adapter\ScormLearningModule\ScormLearningModuleDiffDto;
-use FluxIliasBaseApi\Adapter\ScormLearningModule\ScormLearningModuleDto;
-use FluxIliasBaseApi\Adapter\User\UserDiffDto;
-use FluxIliasBaseApi\Adapter\User\UserDto;
-use FluxIliasBaseApi\Adapter\User\UserIdDto;
-use FluxIliasBaseApi\Adapter\UserFavourite\UserFavouriteDto;
-use FluxIliasBaseApi\Adapter\UserRole\UserRoleDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Change\ChangeDto;
+use FluxIliasRestApi\Adapter\Course\CourseDiffDto;
+use FluxIliasRestApi\Adapter\Course\CourseDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDiffDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberIdDto;
 use FluxIliasRestApi\Adapter\CronConfig\Wrapper\IliasCronWrapper;
 use FluxIliasRestApi\Adapter\CronConfig\Wrapper\LegacyIliasCronWrapper;
 use FluxIliasRestApi\Adapter\CronConfig\Wrapper\NewIliasCronWrapper;
+use FluxIliasRestApi\Adapter\File\FileDiffDto;
+use FluxIliasRestApi\Adapter\File\FileDto;
+use FluxIliasRestApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDiffDto;
+use FluxIliasRestApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
+use FluxIliasRestApi\Adapter\Group\GroupDiffDto;
+use FluxIliasRestApi\Adapter\Group\GroupDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDiffDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberIdDto;
 use FluxIliasRestApi\Adapter\Menu\MenuProvider;
+use FluxIliasRestApi\Adapter\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Object\ObjectType;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDiffDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitIdDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionCoreIdentifier;
+use FluxIliasRestApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionDiffDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitPosition\OrganisationalUnitPositionIdDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use FluxIliasRestApi\Adapter\Permission\Permission;
+use FluxIliasRestApi\Adapter\Role\RoleDiffDto;
+use FluxIliasRestApi\Adapter\Role\RoleDto;
+use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDiffDto;
+use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDto;
+use FluxIliasRestApi\Adapter\User\UserDiffDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserIdDto;
+use FluxIliasRestApi\Adapter\UserFavourite\UserFavouriteDto;
+use FluxIliasRestApi\Adapter\UserRole\UserRoleDto;
 use FluxIliasRestApi\Service\Category\Port\CategoryService;
 use FluxIliasRestApi\Service\Change\Port\ChangeService;
 use FluxIliasRestApi\Service\Config\Port\ConfigService;
@@ -1716,6 +1716,21 @@ class IliasRestApi
         return $this->getObjectService()
             ->hasAccessByRefIdByUserId(
                 $ref_id,
+                $user_id,
+                $permission
+            );
+    }
+
+
+    /**
+     * @param int[] $ref_ids
+     * @return int[]
+     */
+    public function hasAccessByRefIdsByUserId(array $ref_ids, int $user_id, Permission $permission) : array
+    {
+        return $this->getObjectService()
+            ->hasAccessByRefIdsByUserId(
+                $ref_ids,
                 $user_id,
                 $permission
             );

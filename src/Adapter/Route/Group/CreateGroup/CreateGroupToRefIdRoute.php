@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Group\CreateGroup;
 
-use FluxIliasBaseApi\Adapter\Group\GroupDiffDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Group\GroupDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

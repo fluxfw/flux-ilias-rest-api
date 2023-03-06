@@ -3,7 +3,7 @@
 namespace FluxIliasRestApi\Service\CustomMetadata;
 
 use Exception;
-use FluxIliasBaseApi\Adapter\CustomMetadata\CustomMetadataDto;
+use FluxIliasRestApi\Adapter\CustomMetadata\CustomMetadataDto;
 use ilADT;
 use ilADTEnum;
 use ilADTFloat;

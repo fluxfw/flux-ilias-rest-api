@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\ConfigForm\Port;
 
-use FluxIliasBaseApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\Change\Port\ChangeService;
 use FluxIliasRestApi\Service\ConfigForm\Command\GetConfigFormMenuItemsCommand;
 use FluxIliasRestApi\Service\ConfigForm\Command\GetConfigFormValuesCommand;

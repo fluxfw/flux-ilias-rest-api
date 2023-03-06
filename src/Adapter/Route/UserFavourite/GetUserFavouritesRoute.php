@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\UserFavourite;
 
-use FluxIliasBaseApi\Adapter\UserFavourite\UserFavouriteDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\UserFavourite\UserFavouriteDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;

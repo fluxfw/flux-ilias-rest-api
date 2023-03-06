@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\Category\Command;
 
-use FluxIliasBaseApi\Adapter\Category\CategoryDiffDto;
-use FluxIliasBaseApi\Adapter\Category\CategoryDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Service\Category\CategoryQuery;
 use FluxIliasRestApi\Service\Category\Port\CategoryService;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;

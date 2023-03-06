@@ -2,13 +2,13 @@
 
 namespace FluxIliasRestApi\Service\Change\Command;
 
-use FluxIliasBaseApi\Adapter\Change\ChangeType;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberIdDto;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
-use FluxIliasBaseApi\Adapter\User\UserDto;
-use FluxIliasBaseApi\Adapter\UserRole\UserRoleDto;
+use FluxIliasRestApi\Adapter\Change\ChangeType;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberIdDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberIdDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressIdDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\UserRole\UserRoleDto;
 use FluxIliasRestApi\Service\Category\Port\CategoryService;
 use FluxIliasRestApi\Service\Change\ChangeQuery;
 use FluxIliasRestApi\Service\Change\Port\ChangeService;

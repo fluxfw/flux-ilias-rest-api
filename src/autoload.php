@@ -8,8 +8,6 @@ require_once __DIR__ . "/Libs/polyfill-php81/autoload.php";
 
 require_once __DIR__ . "/Libs/polyfill-php82/autoload.php";
 
-require_once __DIR__ . "/Libs/flux-ilias-base-api/autoload.php";
-
 require_once __DIR__ . "/Libs/flux-legacy-enum/autoload.php";
 
 require_once __DIR__ . "/Libs/flux-rest-api/autoload.php";

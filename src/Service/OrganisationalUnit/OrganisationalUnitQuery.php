@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Service\OrganisationalUnit;
 
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDiffDto;
-use FluxIliasBaseApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDiffDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
 use FluxIliasRestApi\Service\Object\CustomInternalObjectType;
 use FluxIliasRestApi\Service\Object\DefaultInternalObjectType;
 use ilDBConstants;

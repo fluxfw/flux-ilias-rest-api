@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\OrganisationalUnitStaff\Port;
 
-use FluxIliasBaseApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
+use FluxIliasRestApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
 use FluxIliasRestApi\Service\OrganisationalUnit\Port\OrganisationalUnitService;
 use FluxIliasRestApi\Service\OrganisationalUnitPosition\Port\OrganisationalUnitPositionService;
 use FluxIliasRestApi\Service\OrganisationalUnitStaff\Command\AddOrganisationalUnitStaffCommand;

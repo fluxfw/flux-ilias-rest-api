@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Authorization\ConfigForm;
 
-use FluxIliasBaseApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\ConfigForm\Port\ConfigFormService;
 use FluxRestApi\Adapter\Authorization\Authorization;
 use FluxRestApi\Adapter\Body\TextBodyDto;

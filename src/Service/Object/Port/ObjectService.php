@@ -2,11 +2,11 @@
 
 namespace FluxIliasRestApi\Service\Object\Port;
 
-use FluxIliasBaseApi\Adapter\Object\ObjectDiffDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectType;
-use FluxIliasBaseApi\Adapter\Permission\Permission;
+use FluxIliasRestApi\Adapter\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Object\ObjectType;
+use FluxIliasRestApi\Adapter\Permission\Permission;
 use FluxIliasRestApi\Service\Object\Command\CloneObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\CreateObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\DeleteObjectCommand;
@@ -16,6 +16,7 @@ use FluxIliasRestApi\Service\Object\Command\GetObjectsCommand;
 use FluxIliasRestApi\Service\Object\Command\GetPathCommand;
 use FluxIliasRestApi\Service\Object\Command\GetRootObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\HasAccessByRefIdByUserIdCommand;
+use FluxIliasRestApi\Service\Object\Command\HasAccessByRefIdsByUserIdCommand;
 use FluxIliasRestApi\Service\Object\Command\LinkObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\MoveObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\UpdateObjectCommand;
@@ -467,6 +468,23 @@ class ObjectService
         )
             ->hasAccessByRefIdByUserId(
                 $ref_id,
+                $user_id,
+                $permission
+            );
+    }
+
+
+    /**
+     * @param int[] $ref_ids
+     * @return int[]
+     */
+    public function hasAccessByRefIdsByUserId(array $ref_ids, int $user_id, Permission $permission) : array
+    {
+        return HasAccessByRefIdsByUserIdCommand::new(
+            $this
+        )
+            ->hasAccessByRefIdsByUserId(
+                $ref_ids,
                 $user_id,
                 $permission
             );

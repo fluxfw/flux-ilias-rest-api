@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\Group\Command;
 
-use FluxIliasBaseApi\Adapter\Group\GroupDiffDto;
-use FluxIliasBaseApi\Adapter\Group\GroupDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Group\GroupDiffDto;
+use FluxIliasRestApi\Adapter\Group\GroupDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Group\GroupQuery;
 use FluxIliasRestApi\Service\Group\Port\GroupService;

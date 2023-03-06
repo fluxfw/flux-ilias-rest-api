@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Service\CourseMember\Port;
 
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberDiffDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberDto;
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDiffDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDto;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberIdDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 use FluxIliasRestApi\Service\Course\Port\CourseService;
 use FluxIliasRestApi\Service\CourseMember\Command\AddCourseMemberCommand;
 use FluxIliasRestApi\Service\CourseMember\Command\GetCourseMembersCommand;

@@ -121,7 +121,8 @@ use FluxIliasRestApi\Adapter\Route\Object\GetPath\GetPathByIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\GetPath\GetPathByImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\GetPath\GetPathByRefIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\GetRootObjectRoute;
-use FluxIliasRestApi\Adapter\Route\Object\HasAccessByRefIdByUserIdRoute;
+use FluxIliasRestApi\Adapter\Route\Object\HasAccess\HasAccessByRefIdByUserIdRoute;
+use FluxIliasRestApi\Adapter\Route\Object\HasAccess\HasAccessByRefIdsByUserIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\LinkObject\LinkObjectByIdToIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\LinkObject\LinkObjectByIdToImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\LinkObject\LinkObjectByIdToRefIdRoute;
@@ -551,6 +552,9 @@ class IliasRestApiServerRouteCollector implements RouteCollector
                 $this->ilias_rest_api
             ),
             HasAccessByRefIdByUserIdRoute::new(
+                $this->ilias_rest_api
+            ),
+            HasAccessByRefIdsByUserIdRoute::new(
                 $this->ilias_rest_api
             ),
             CloneObjectByIdToIdRoute::new(

@@ -2,9 +2,9 @@
 
 namespace FluxIliasRestApi\Service\GroupMember\Command;
 
-use FluxIliasBaseApi\Adapter\Group\GroupDto;
-use FluxIliasBaseApi\Adapter\GroupMember\GroupMemberIdDto;
-use FluxIliasBaseApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Adapter\Group\GroupDto;
+use FluxIliasRestApi\Adapter\GroupMember\GroupMemberIdDto;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\Group\GroupQuery;
 use FluxIliasRestApi\Service\Group\Port\GroupService;
 use FluxIliasRestApi\Service\User\Port\UserService;

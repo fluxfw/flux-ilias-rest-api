@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\Object\Command;
 
-use FluxIliasBaseApi\Adapter\Permission\Permission;
+use FluxIliasRestApi\Adapter\Permission\Permission;
 use FluxIliasRestApi\Service\Permission\PermissionMapping;
 use ilAccessHandler;
 

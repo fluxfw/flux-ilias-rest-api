@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Service\Category;
 
-use FluxIliasBaseApi\Adapter\Category\CategoryDiffDto;
-use FluxIliasBaseApi\Adapter\Category\CategoryDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDiffDto;
+use FluxIliasRestApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Service\Object\CustomInternalObjectType;
 use FluxIliasRestApi\Service\Object\DefaultInternalObjectType;
 use ilDBConstants;

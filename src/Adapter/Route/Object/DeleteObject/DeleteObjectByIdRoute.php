@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Object\DeleteObject;
 
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

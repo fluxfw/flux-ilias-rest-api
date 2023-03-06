@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Service\ObjectLearningProgress\Command;
 
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgressDto;
 use FluxIliasRestApi\Service\ObjectLearningProgress\ObjectLearningProgressQuery;
 use ilDBInterface;
 

@@ -2,11 +2,11 @@
 
 namespace FluxIliasRestApi\Adapter\Route\Object\CreateObject;
 
-use FluxIliasBaseApi\Adapter\Object\CustomObjectType;
-use FluxIliasBaseApi\Adapter\Object\ObjectDiffDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectIdDto;
-use FluxIliasBaseApi\Adapter\Object\ObjectType;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Object\CustomObjectType;
+use FluxIliasRestApi\Adapter\Object\ObjectDiffDto;
+use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Adapter\Object\ObjectType;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;

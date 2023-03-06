@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\Role\Command;
 
-use FluxIliasBaseApi\Adapter\Role\RoleDto;
+use FluxIliasRestApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Service\Role\RoleQuery;
 use ilDBInterface;
 

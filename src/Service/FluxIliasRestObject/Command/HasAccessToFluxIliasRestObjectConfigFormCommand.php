@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\FluxIliasRestObject\Command;
 
-use FluxIliasBaseApi\Adapter\Permission\DefaultPermission;
+use FluxIliasRestApi\Adapter\Permission\DefaultPermission;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
 
 class HasAccessToFluxIliasRestObjectConfigFormCommand

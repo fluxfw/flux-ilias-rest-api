@@ -2,7 +2,7 @@
 
 namespace FluxIliasRestApi\Service\ObjectLearningProgress;
 
-use FluxIliasBaseApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
+use FluxIliasRestApi\Adapter\ObjectLearningProgress\ObjectLearningProgress;
 
 class ObjectLearningProgressMapping
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxIliasRestApi\Adapter\Route\Object;
+namespace FluxIliasRestApi\Adapter\Route\Object\HasAccess;
 
-use FluxIliasBaseApi\Adapter\Permission\CustomPermission;
-use FluxIliasBaseApi\Adapter\Permission\Permission;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Permission\CustomPermission;
+use FluxIliasRestApi\Adapter\Permission\Permission;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;
@@ -16,7 +16,7 @@ use FluxRestApi\Adapter\Route\Route;
 use FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxRestApi\Adapter\Server\ServerResponseDto;
 
-class HasAccessByRefIdByUserIdRoute implements Route
+class HasAccessByRefIdsByUserIdRoute implements Route
 {
 
     private function __construct(
@@ -40,13 +40,13 @@ class HasAccessByRefIdByUserIdRoute implements Route
         return RouteDocumentationDto::new(
             $this->getRoute(),
             $this->getMethod(),
-            "Has user permission in object",
+            "Has user permission in objects",
             null,
             [
                 RouteParamDocumentationDto::new(
-                    "ref_id",
-                    "int",
-                    "Object ref id"
+                    "ref_ids",
+                    "int[]",
+                    "Object ref ids split by -"
                 ),
                 RouteParamDocumentationDto::new(
                     "user_id",
@@ -65,8 +65,8 @@ class HasAccessByRefIdByUserIdRoute implements Route
                 RouteResponseDocumentationDto::new(
                     DefaultBodyType::JSON,
                     null,
-                    "bool",
-                    "Has access"
+                    "int[]",
+                    "Object ref ids has access"
                 )
             ]
         );
@@ -81,7 +81,7 @@ class HasAccessByRefIdByUserIdRoute implements Route
 
     public function getRoute() : string
     {
-        return "/object/by-ref-id/{ref_id}/has-access/by-id/{user_id}/{permission}";
+        return "/object/by-ref-ids/{ref_ids}/has-access/by-id/{user_id}/{permission}";
     }
 
 
@@ -89,10 +89,10 @@ class HasAccessByRefIdByUserIdRoute implements Route
     {
         return ServerResponseDto::new(
             JsonBodyDto::new(
-                $this->ilias_rest_api->hasAccessByRefIdByUserId(
-                    $request->getParam(
-                        "ref_id"
-                    ),
+                $this->ilias_rest_api->hasAccessByRefIdsByUserId(
+                    array_map("intval", explode("-", $request->getParam(
+                        "ref_ids"
+                    ))),
                     $request->getParam(
                         "user_id"
                     ),

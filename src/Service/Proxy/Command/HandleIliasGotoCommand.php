@@ -2,10 +2,10 @@
 
 namespace FluxIliasRestApi\Service\Proxy\Command;
 
-use FluxIliasBaseApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Adapter\Authorization\ConfigForm\ConfigFormAuthorization;
 use FluxIliasRestApi\Adapter\Route\ConfigForm\ConfigFormRouteCollector;
 use FluxIliasRestApi\Adapter\Route\FluxIliasRestObjectForm\FluxIliasRestObjectConfigFormRouteCollector;
+use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\ConfigForm\Port\ConfigFormService;
 use FluxIliasRestApi\Service\FluxIliasRestObject\Port\FluxIliasRestObjectService;
 use FluxIliasRestApi\Service\Proxy\Port\ProxyService;

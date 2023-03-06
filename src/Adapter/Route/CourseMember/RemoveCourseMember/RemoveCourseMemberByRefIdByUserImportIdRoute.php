@@ -2,8 +2,8 @@
 
 namespace FluxIliasRestApi\Adapter\Route\CourseMember\RemoveCourseMember;
 
-use FluxIliasBaseApi\Adapter\CourseMember\CourseMemberIdDto;
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\CourseMember\CourseMemberIdDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
