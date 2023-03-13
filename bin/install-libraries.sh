@@ -23,7 +23,7 @@ installLibrary() {
 
 checkAlreadyInstalled
 
-installLibrary flux-authentication-frontend-api https://github.com/fluxfw/flux-authentication-frontend-api/archive/refs/tags/v2023-02-09-1.tar.gz
+installLibrary flux-authentication-frontend-api https://github.com/fluxfw/flux-authentication-frontend-api/archive/refs/tags/v2023-03-13-1.tar.gz
 
 installLibrary flux-legacy-enum https://github.com/fluxfw/flux-legacy-enum/archive/refs/tags/v2023-02-09-1.tar.gz
 
