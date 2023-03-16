@@ -6,5 +6,5 @@ enum CourseMailToMembersType: string
 {
 
     case ALL = "all";
-    case TUTORS_AND_ADMINISTRATORS = "tutors_and_administrators";
+    case TUTORS_AND_ADMINISTRATORS = "tutors-and-administrators";
 }

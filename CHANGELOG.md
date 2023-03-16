@@ -4,7 +4,7 @@
 
 Changes:
 
-\-
+- Replace `_` with `-` in enums
 
 ## v2023-03-06-1
 
