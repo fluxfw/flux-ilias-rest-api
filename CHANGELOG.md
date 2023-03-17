@@ -4,7 +4,14 @@
 
 Changes:
 
+\-
+
+## v2023-03-17-1
+
+Changes:
+
 - Replace `_` with `-` in enums
+- `flux-authentication-frontend`
 
 ## v2023-03-06-1
 

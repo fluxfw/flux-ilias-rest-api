@@ -1,1 +1,1 @@
-../../../../../../flux-authentication-frontend-api/src/Adapter/Authentication/AUTHENTICATION_SUCCESS.mjs
+../../../../../../flux-authentication-frontend/src/Authentication/AUTHENTICATION_SUCCESS.mjs
