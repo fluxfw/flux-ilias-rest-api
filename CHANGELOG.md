@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-03-23-1
+
+Changes:
+
+- `flux-loading-spinner`
+
 ## v2023-03-17-1
 
 Changes:

@@ -1,20 +1,5 @@
-.loading {
-	animation:     loading 1s infinite;
-	border-radius: 20px;
-	border-top:    1px solid currentColor;
-	height:        20px;
-	margin:        5px;
-	padding:       0;
-	width:         20px;
-}
-
-@keyframes loading {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+flux-loading-spinner {
+	width: calc(var(--flux-loading-spinner-size) * 2);
 }
 
 .error {

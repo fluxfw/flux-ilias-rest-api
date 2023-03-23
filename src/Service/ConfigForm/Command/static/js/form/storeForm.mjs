@@ -1,8 +1,8 @@
-import {getEntriesFormValue} from "../../../../../flux-ilias-rest-web-proxy/static/js/form/entries/getEntriesFormValue.mjs";
-import {getScheduleFormValue} from "./schedule/getScheduleFormValue.mjs";
-import {insertError} from "../../../../../flux-ilias-rest-web-proxy/static/js/loading/insertError.mjs";
-import {insertLoading} from "./../../../../flux-ilias-rest-web-proxy/static/js/loading/insertLoading.mjs";
-import {storeValues} from "../fetch/storeValues.mjs";
+import { FluxLoadingSpinnerElement } from "../../../../flux-ilias-rest-web-proxy/static/Libs/flux-loading-spinner/src/FluxLoadingSpinnerElement.mjs";
+import { getEntriesFormValue } from "../../../../../flux-ilias-rest-web-proxy/static/js/form/entries/getEntriesFormValue.mjs";
+import { getScheduleFormValue } from "./schedule/getScheduleFormValue.mjs";
+import { insertError } from "../../../../../flux-ilias-rest-web-proxy/static/js/loading/insertError.mjs";
+import { storeValues } from "../fetch/storeValues.mjs";
 
 export async function storeForm(form_el) {
     if (!form_el.checkValidity()) {
@@ -37,14 +37,16 @@ export async function storeForm(form_el) {
         web_proxy_map: getEntriesFormValue("web_proxy_map", ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item"], form_el)
     };
 
-    const loading_el = insertLoading(form_el);
+    const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
+    form_el.appendChild(flux_loading_spinner_element);
+
     try {
         await storeValues(values);
     } catch (err) {
         insertError(err, "Form could not be stored", form_el);
         return;
     } finally {
-        loading_el.remove();
+        flux_loading_spinner_element.remove();
     }
 
     for (const input_el of form_el.elements) {

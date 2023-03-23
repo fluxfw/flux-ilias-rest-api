@@ -1,6 +1,6 @@
-import {insertError} from "../../../../../flux-ilias-rest-web-proxy/static/js/loading/insertError.mjs";
-import {insertLoading} from "./../../../../flux-ilias-rest-web-proxy/static/js/loading/insertLoading.mjs";
-import {storeValues} from "../fetch/storeValues.mjs";
+import { FluxLoadingSpinnerElement } from "../../../../flux-ilias-rest-web-proxy/static/Libs/flux-loading-spinner/src/FluxLoadingSpinnerElement.mjs";
+import { insertError } from "../../../../../flux-ilias-rest-web-proxy/static/js/loading/insertError.mjs";
+import { storeValues } from "../fetch/storeValues.mjs";
 
 export async function storeForm(ref_id, form_el) {
     if (!form_el.checkValidity()) {
@@ -19,14 +19,16 @@ export async function storeForm(ref_id, form_el) {
         web_proxy_map_key: form_el.elements.web_proxy_map_key.value
     };
 
-    const loading_el = insertLoading(form_el);
+    const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
+    form_el.appendChild(flux_loading_spinner_element);
+
     try {
         await storeValues(ref_id, values);
     } catch (err) {
         insertError(err, "Form could not be stored", form_el);
         return;
     } finally {
-        loading_el.remove();
+        flux_loading_spinner_element.remove();
     }
 
     for (const input_el of form_el.elements) {

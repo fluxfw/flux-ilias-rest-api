@@ -1,15 +1,17 @@
-import {getValues} from "./fetch/getValues.mjs";
-import {initForm} from "./form/initForm.mjs";
-import {insertError} from "../../../../flux-ilias-rest-web-proxy/static/js/loading/insertError.mjs";
-import {insertLoading} from "./../../../flux-ilias-rest-web-proxy/static/js/loading/insertLoading.mjs";
-import {storeForm} from "./form/storeForm.mjs";
+import { FluxLoadingSpinnerElement } from "../../../../flux-ilias-rest-web-proxy/static/Libs/flux-loading-spinner/src/FluxLoadingSpinnerElement.mjs";
+import { getValues } from "./fetch/getValues.mjs";
+import { initForm } from "./form/initForm.mjs";
+import { insertError } from "../../../../flux-ilias-rest-web-proxy/static/js/loading/insertError.mjs";
+import { storeForm } from "./form/storeForm.mjs";
 
 async function flilre_object_config() {
     const el = document.getElementById("flilre_object_config");
 
     const ref_id = new URL(location).searchParams.get("ref_id");
 
-    const loading_el = insertLoading(el);
+    const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
+    el.appendChild(flux_loading_spinner_element);
+
     let values;
     try {
         values = await getValues(ref_id);
@@ -17,7 +19,7 @@ async function flilre_object_config() {
         insertError(err, "Form could not be loaded", el);
         return;
     } finally {
-        loading_el.remove();
+        flux_loading_spinner_element.remove();
     }
 
     const form_template_el = el.querySelector("[data-form-template]");
