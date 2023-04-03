@@ -27,7 +27,7 @@ installLibrary flux-authentication-frontend https://github.com/fluxfw/flux-authe
 
 installLibrary flux-css-api https://github.com/fluxfw/flux-css-api/archive/refs/tags/v2023-03-22-1.tar.gz
 
-installLibrary flux-http-api https://github.com/fluxfw/flux-http-api/archive/refs/tags/v2023-03-20-1.tar.gz
+installLibrary flux-http-api https://github.com/fluxfw/flux-http-api/archive/refs/tags/v2023-04-03-1.tar.gz
 
 installLibrary flux-legacy-enum https://github.com/fluxfw/flux-legacy-enum/archive/refs/tags/v2023-02-09-1.tar.gz
 
