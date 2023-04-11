@@ -1,8 +1,8 @@
 const TYPES = {
     daily: "Daily",
-    every_x_minutes: "Every x minutes",
-    every_x_hours: "Every x hours",
-    every_x_days: "Every x days",
+    "every-x-minutes": "Every x minutes",
+    "every-x-hours": "Every x hours",
+    "every-x-days": "Every x days",
     monthly: "Monthly",
     quarterly: "Quarterly",
     weekly: "Weekly",

@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-04-11-2
+
+Changes:
+
+- Replace `_` with `-` in enums
+
 ## v2023-04-11-1
 
 Changes:
