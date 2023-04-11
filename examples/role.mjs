@@ -1,9 +1,9 @@
-const object = await (await fetch("/flux-ilias-rest-api/role/global-object")).json();
+const constants = await (await fetch("/flux-ilias-rest-api/constants")).json();
 
 await (await fetch("/flux-ilias-rest-api/roles")).json();
 
 const time = Date.now();
-const role = await (await fetch(`/flux-ilias-rest-api/role/create/to-ref-id/${object.ref_id}`, {
+const role = await (await fetch(`/flux-ilias-rest-api/role/create/to-ref-id/${constants.roles_object_ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"

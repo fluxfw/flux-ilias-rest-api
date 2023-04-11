@@ -8,6 +8,7 @@ use FluxIliasRestApi\Service\ConfigForm\Command\GetConfigFormMenuItemsCommand;
 use FluxIliasRestApi\Service\ConfigForm\Command\GetConfigFormValuesCommand;
 use FluxIliasRestApi\Service\ConfigForm\Command\HasAccessToConfigFormCommand;
 use FluxIliasRestApi\Service\ConfigForm\Command\StoreConfigFormValuesCommand;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\FluxIliasRestObject\Port\FluxIliasRestObjectService;
 use FluxIliasRestApi\Service\ProxyConfig\Port\ProxyConfigService;
 use FluxIliasRestApi\Service\RestConfig\Port\RestConfigService;
@@ -20,6 +21,7 @@ class ConfigFormService
 
     private function __construct(
         private readonly ChangeService $change_service,
+        private readonly ConstantsService $constants_service,
         private readonly FluxIliasRestObjectService $flux_ilias_rest_object_service,
         private readonly ProxyConfigService $proxy_config_service,
         private readonly RestConfigService $rest_config_service,
@@ -31,6 +33,7 @@ class ConfigFormService
 
     public static function new(
         ChangeService $change_service,
+        ConstantsService $constants_service,
         FluxIliasRestObjectService $flux_ilias_rest_object_service,
         ProxyConfigService $proxy_config_service,
         RestConfigService $rest_config_service,
@@ -38,6 +41,7 @@ class ConfigFormService
     ) : static {
         return new static(
             $change_service,
+            $constants_service,
             $flux_ilias_rest_object_service,
             $proxy_config_service,
             $rest_config_service,
@@ -73,7 +77,9 @@ class ConfigFormService
 
     public function hasAccessToConfigForm(?UserDto $user) : bool
     {
-        return HasAccessToConfigFormCommand::new()
+        return HasAccessToConfigFormCommand::new(
+            $this->constants_service
+        )
             ->hasAccessToConfigForm(
                 $user
             );

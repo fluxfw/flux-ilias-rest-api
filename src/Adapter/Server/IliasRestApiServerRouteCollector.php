@@ -14,6 +14,7 @@ use FluxIliasRestApi\Adapter\Route\Category\UpdateCategory\UpdateCategoryByIdRou
 use FluxIliasRestApi\Adapter\Route\Category\UpdateCategory\UpdateCategoryByImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Category\UpdateCategory\UpdateCategoryByRefIdRoute;
 use FluxIliasRestApi\Adapter\Route\Change\GetChangesRoute;
+use FluxIliasRestApi\Adapter\Route\Constants\GetConstantsRoute;
 use FluxIliasRestApi\Adapter\Route\Course\CreateCourse\CreateCourseToIdRoute;
 use FluxIliasRestApi\Adapter\Route\Course\CreateCourse\CreateCourseToImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Course\CreateCourse\CreateCourseToRefIdRoute;
@@ -120,7 +121,6 @@ use FluxIliasRestApi\Adapter\Route\Object\GetObjectsRoute;
 use FluxIliasRestApi\Adapter\Route\Object\GetPath\GetPathByIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\GetPath\GetPathByImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\GetPath\GetPathByRefIdRoute;
-use FluxIliasRestApi\Adapter\Route\Object\GetRootObjectRoute;
 use FluxIliasRestApi\Adapter\Route\Object\HasAccess\HasAccessByRefIdByUserIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\HasAccess\HasAccessByRefIdsByUserIdRoute;
 use FluxIliasRestApi\Adapter\Route\Object\LinkObject\LinkObjectByIdToIdRoute;
@@ -157,7 +157,6 @@ use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\CreateOrganisationalUnit\C
 use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\GetOrganisationalUnit\GetOrganisationalUnitByExternalIdRoute;
 use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\GetOrganisationalUnit\GetOrganisationalUnitByIdRoute;
 use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\GetOrganisationalUnit\GetOrganisationalUnitByRefIdRoute;
-use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\GetOrganisationalUnitRootRoute;
 use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\GetOrganisationalUnitsRoute;
 use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\UpdateOrganisationalUnit\UpdateOrganisationalUnitByExternalIdRoute;
 use FluxIliasRestApi\Adapter\Route\OrganisationalUnit\UpdateOrganisationalUnit\UpdateOrganisationalUnitByIdRoute;
@@ -184,7 +183,6 @@ use FluxIliasRestApi\Adapter\Route\OrganisationalUnitStaff\RemoveOrganisationalU
 use FluxIliasRestApi\Adapter\Route\Role\CreateRole\CreateRoleToIdRoute;
 use FluxIliasRestApi\Adapter\Route\Role\CreateRole\CreateRoleToImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Role\CreateRole\CreateRoleToRefIdRoute;
-use FluxIliasRestApi\Adapter\Route\Role\GetGlobalRoleObjectRoute;
 use FluxIliasRestApi\Adapter\Route\Role\GetRole\GetRoleByIdRoute;
 use FluxIliasRestApi\Adapter\Route\Role\GetRole\GetRoleByImportIdRoute;
 use FluxIliasRestApi\Adapter\Route\Role\GetRolesRoute;
@@ -293,6 +291,10 @@ class IliasRestApiServerRouteCollector implements RouteCollector
             ),
 
             GetChangesRoute::new(
+                $this->ilias_rest_api
+            ),
+
+            GetConstantsRoute::new(
                 $this->ilias_rest_api
             ),
 
@@ -548,9 +550,6 @@ class IliasRestApiServerRouteCollector implements RouteCollector
             GetObjectsRoute::new(
                 $this->ilias_rest_api
             ),
-            GetRootObjectRoute::new(
-                $this->ilias_rest_api
-            ),
             HasAccessByRefIdByUserIdRoute::new(
                 $this->ilias_rest_api
             ),
@@ -715,9 +714,6 @@ class IliasRestApiServerRouteCollector implements RouteCollector
                 $this->ilias_rest_api
             ),
 
-            GetOrganisationalUnitRootRoute::new(
-                $this->ilias_rest_api
-            ),
             GetOrganisationalUnitsRoute::new(
                 $this->ilias_rest_api
             ),
@@ -808,9 +804,6 @@ class IliasRestApiServerRouteCollector implements RouteCollector
                 $this->ilias_rest_api
             ),
 
-            GetGlobalRoleObjectRoute::new(
-                $this->ilias_rest_api
-            ),
             GetRolesRoute::new(
                 $this->ilias_rest_api
             ),

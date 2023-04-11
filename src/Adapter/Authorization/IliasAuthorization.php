@@ -108,8 +108,10 @@ class IliasAuthorization implements Authorization
             );
         }
 
+        $constants = $this->ilias_rest_api->getConstants();
+
         $user = $this->ilias_rest_api->getCurrentApiUser();
-        if ($user === null || $user->id === intval(SYSTEM_USER_ID)) {
+        if ($user === null || $user->id === $constants->root_user_id) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No access"
@@ -117,7 +119,7 @@ class IliasAuthorization implements Authorization
                 DefaultStatus::_403
             );
         }
-        if (empty($this->ilias_rest_api->getUserRoles($user->id, null, SYSTEM_ROLE_ID))) {
+        if (empty($this->ilias_rest_api->getUserRoles($user->id, null, $constants->administrator_role_id))) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No access"

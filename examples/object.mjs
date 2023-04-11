@@ -1,9 +1,9 @@
-const root = await (await fetch("/flux-ilias-rest-api/object/root")).json();
+const constants = await (await fetch("/flux-ilias-rest-api/constants")).json();
 
 await (await fetch("/flux-ilias-rest-api/objects/category")).json();
 
 const time = Date.now();
-const object = await (await fetch(`/flux-ilias-rest-api/object/create/category/to-ref-id/${root.ref_id}`, {
+const object = await (await fetch(`/flux-ilias-rest-api/object/create/category/to-ref-id/${constants.root_object_ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -15,7 +15,7 @@ const object = await (await fetch(`/flux-ilias-rest-api/object/create/category/t
 
 await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}`)).json();
 
-await (await fetch(`/flux-ilias-rest-api/object/children/by-ref-id/${root.ref_id}`)).json();
+await (await fetch(`/flux-ilias-rest-api/object/children/by-ref-id/${constants.root_object_ref_id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/object/path/by-ref-id/${object.ref_id}`)).json();
 
@@ -30,7 +30,7 @@ await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/update`, {
     })
 })).json();
 
-const cloned_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/clone/to-ref-id/${root.ref_id}`, {
+const cloned_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/clone/to-ref-id/${constants.root_object_ref_id}`, {
     method: "POST"
 })).json();
 
@@ -41,7 +41,7 @@ const moved_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${clo
     }
 })).json();
 
-const linked_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${cloned_object.id}/link/to-ref-id/${root.ref_id}`, {
+const linked_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${cloned_object.id}/link/to-ref-id/${constants.root_object_ref_id}`, {
     method: "POST"
 })).json();
 

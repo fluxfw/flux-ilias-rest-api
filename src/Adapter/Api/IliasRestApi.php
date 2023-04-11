@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Adapter\Api;
 use FluxIliasRestApi\Adapter\Category\CategoryDiffDto;
 use FluxIliasRestApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Adapter\Change\ChangeDto;
+use FluxIliasRestApi\Adapter\Constants\ConstantsDto;
 use FluxIliasRestApi\Adapter\Course\CourseDiffDto;
 use FluxIliasRestApi\Adapter\Course\CourseDto;
 use FluxIliasRestApi\Adapter\CourseMember\CourseMemberDiffDto;
@@ -52,6 +53,7 @@ use FluxIliasRestApi\Service\Category\Port\CategoryService;
 use FluxIliasRestApi\Service\Change\Port\ChangeService;
 use FluxIliasRestApi\Service\Config\Port\ConfigService;
 use FluxIliasRestApi\Service\ConfigForm\Port\ConfigFormService;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\Course\Port\CourseService;
 use FluxIliasRestApi\Service\CourseMember\Port\CourseMemberService;
 use FluxIliasRestApi\Service\Cron\Port\CronService;
@@ -958,6 +960,13 @@ class IliasRestApi
     }
 
 
+    public function getConstants() : ConstantsDto
+    {
+        return $this->getConstantsService()
+            ->getConstants();
+    }
+
+
     public function getCourseById(int $id, ?bool $in_trash = null) : ?CourseDto
     {
         return $this->getCourseService()
@@ -1060,7 +1069,7 @@ class IliasRestApi
     public function getCurrentApiUser() : ?UserDto
     {
         $id = $this->getIliasUser()->getId();
-        if (intval($id) === intval(ANONYMOUS_USER_ID)) {
+        if (intval($id) === $this->getConstants()->anonymous_user_id) {
             return null;
         }
 
@@ -1204,13 +1213,6 @@ class IliasRestApi
                 $container_settings,
                 $in_trash
             );
-    }
-
-
-    public function getGlobalRoleObject() : ?ObjectDto
-    {
-        return $this->getRoleService()
-            ->getGlobalRoleObject();
     }
 
 
@@ -1422,13 +1424,6 @@ class IliasRestApi
     }
 
 
-    public function getOrganisationalUnitRoot() : ?OrganisationalUnitDto
-    {
-        return $this->getOrganisationalUnitService()
-            ->getOrganisationalUnitRoot();
-    }
-
-
     /**
      * @return OrganisationalUnitStaffDto[]
      */
@@ -1529,13 +1524,6 @@ class IliasRestApi
     {
         return $this->getRoleService()
             ->getRoles();
-    }
-
-
-    public function getRootObject() : ?ObjectDto
-    {
-        return $this->getObjectService()
-            ->getRootObject();
     }
 
 
@@ -2848,6 +2836,7 @@ class IliasRestApi
     {
         return ConfigFormService::new(
             $this->getChangeService(),
+            $this->getConstantsService(),
             $this->getFluxIliasRestObjectService(),
             $this->getProxyConfigService(),
             $this->getRestConfigService(),
@@ -2859,6 +2848,12 @@ class IliasRestApi
     private function getConfigService() : ConfigService
     {
         return ConfigService::new();
+    }
+
+
+    private function getConstantsService() : ConstantsService
+    {
+        return ConstantsService::new();
     }
 
 
@@ -3190,6 +3185,7 @@ class IliasRestApi
     private function getUserService() : UserService
     {
         return UserService::new(
+            $this->getConstantsService(),
             $this->getIliasDatabase(),
             $this->getIliasRbac(),
             $this->getObjectService()

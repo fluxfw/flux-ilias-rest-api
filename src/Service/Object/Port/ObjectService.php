@@ -14,7 +14,6 @@ use FluxIliasRestApi\Service\Object\Command\GetChildrenCommand;
 use FluxIliasRestApi\Service\Object\Command\GetObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\GetObjectsCommand;
 use FluxIliasRestApi\Service\Object\Command\GetPathCommand;
-use FluxIliasRestApi\Service\Object\Command\GetRootObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\HasAccessByRefIdByUserIdCommand;
 use FluxIliasRestApi\Service\Object\Command\HasAccessByRefIdsByUserIdCommand;
 use FluxIliasRestApi\Service\Object\Command\LinkObjectCommand;
@@ -449,15 +448,6 @@ class ObjectService
                 $ref_ids,
                 $in_trash
             );
-    }
-
-
-    public function getRootObject() : ?ObjectDto
-    {
-        return GetRootObjectCommand::new(
-            $this
-        )
-            ->getRootObject();
     }
 
 

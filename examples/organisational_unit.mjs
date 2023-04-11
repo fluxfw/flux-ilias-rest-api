@@ -1,9 +1,9 @@
-const root = await (await fetch("/flux-ilias-rest-api/organisational-unit/root")).json();
+const constants = await (await fetch("/flux-ilias-rest-api/constants")).json();
 
 await (await fetch("/flux-ilias-rest-api/organisational-units")).json();
 
 const time = Date.now();
-const organisational_unit = await (await fetch(`/flux-ilias-rest-api/organisational-unit/create/to-ref-id/${root.ref_id}`, {
+const organisational_unit = await (await fetch(`/flux-ilias-rest-api/organisational-unit/create/to-ref-id/${constants.organisational_unit_root_object_ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"

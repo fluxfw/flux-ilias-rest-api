@@ -3,17 +3,19 @@
 namespace FluxIliasRestApi\Service\User\Command;
 
 use FluxIliasRestApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\User\Port\UserService;
 use FluxIliasRestApi\Service\User\UserQuery;
 use ilDBInterface;
 use LogicException;
 
-class GetCurrentUserCommand
+class GetCurrentWebUserCommand
 {
 
     use UserQuery;
 
     private function __construct(
+        private readonly ConstantsService $constants_service,
         private readonly ilDBInterface $ilias_database,
         private readonly UserService $user_service
     ) {
@@ -22,10 +24,12 @@ class GetCurrentUserCommand
 
 
     public static function new(
+        ConstantsService $constants_service,
         ilDBInterface $ilias_database,
         UserService $user_service
     ) : static {
         return new static(
+            $constants_service,
             $ilias_database,
             $user_service
         );
@@ -48,7 +52,7 @@ class GetCurrentUserCommand
             $user_id = $session["user_id"];
         }
 
-        if (empty($user_id) || intval($user_id) === intval(ANONYMOUS_USER_ID)) {
+        if (empty($user_id) || intval($user_id) === $this->constants_service->getConstants()->anonymous_user_id) {
             return null;
         }
 

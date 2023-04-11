@@ -8,7 +8,6 @@ use FluxIliasRestApi\Adapter\Role\RoleDiffDto;
 use FluxIliasRestApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
 use FluxIliasRestApi\Service\Role\Command\CreateRoleCommand;
-use FluxIliasRestApi\Service\Role\Command\GetGlobalRoleObjectCommand;
 use FluxIliasRestApi\Service\Role\Command\GetRoleCommand;
 use FluxIliasRestApi\Service\Role\Command\GetRolesCommand;
 use FluxIliasRestApi\Service\Role\Command\UpdateRoleCommand;
@@ -76,15 +75,6 @@ class RoleService
                 $object_ref_id,
                 $diff
             );
-    }
-
-
-    public function getGlobalRoleObject() : ?ObjectDto
-    {
-        return GetGlobalRoleObjectCommand::new(
-            $this->object_service
-        )
-            ->getGlobalRoleObject();
     }
 
 

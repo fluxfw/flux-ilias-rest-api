@@ -1,11 +1,10 @@
 <?php
 
-namespace FluxIliasRestApi\Adapter\Route\OrganisationalUnit;
+namespace FluxIliasRestApi\Adapter\Route\Constants;
 
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
-use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
+use FluxIliasRestApi\Adapter\Constants\ConstantsDto;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxRestApi\Adapter\Body\TextBodyDto;
 use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxRestApi\Adapter\Method\Method;
@@ -14,9 +13,8 @@ use FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
 use FluxRestApi\Adapter\Route\Route;
 use FluxRestApi\Adapter\Server\ServerRequestDto;
 use FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxRestApi\Adapter\Status\DefaultStatus;
 
-class GetOrganisationalUnitRootRoute implements Route
+class GetConstantsRoute implements Route
 {
 
     private function __construct(
@@ -40,7 +38,7 @@ class GetOrganisationalUnitRootRoute implements Route
         return RouteDocumentationDto::new(
             $this->getRoute(),
             $this->getMethod(),
-            "Get root organisational unit",
+            "Get constants",
             null,
             null,
             null,
@@ -49,8 +47,8 @@ class GetOrganisationalUnitRootRoute implements Route
                 RouteResponseDocumentationDto::new(
                     DefaultBodyType::JSON,
                     null,
-                    OrganisationalUnitDto::class,
-                    "Organisational unit"
+                    ConstantsDto::class,
+                    "Constants"
                 )
             ]
         );
@@ -65,27 +63,16 @@ class GetOrganisationalUnitRootRoute implements Route
 
     public function getRoute() : string
     {
-        return "/organisational-unit/root";
+        return "/constants";
     }
 
 
     public function handle(ServerRequestDto $request) : ?ServerResponseDto
     {
-        $organisational_unit = $this->ilias_rest_api->getOrganisationalUnitRoot();
-
-        if ($organisational_unit !== null) {
-            return ServerResponseDto::new(
-                JsonBodyDto::new(
-                    $organisational_unit
-                )
-            );
-        } else {
-            return ServerResponseDto::new(
-                TextBodyDto::new(
-                    "Organisational unit not found"
-                ),
-                DefaultStatus::_404
-            );
-        }
+        return ServerResponseDto::new(
+            JsonBodyDto::new(
+                $this->ilias_rest_api->getConstants()
+            )
+        );
     }
 }

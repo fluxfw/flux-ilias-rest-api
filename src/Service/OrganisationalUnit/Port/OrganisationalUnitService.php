@@ -7,7 +7,6 @@ use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
 use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitIdDto;
 use FluxIliasRestApi\Service\OrganisationalUnit\Command\CreateOrganisationalUnitCommand;
 use FluxIliasRestApi\Service\OrganisationalUnit\Command\GetOrganisationalUnitCommand;
-use FluxIliasRestApi\Service\OrganisationalUnit\Command\GetOrganisationalUnitRootCommand;
 use FluxIliasRestApi\Service\OrganisationalUnit\Command\GetOrganisationalUnitsCommand;
 use FluxIliasRestApi\Service\OrganisationalUnit\Command\UpdateOrganisationalUnitCommand;
 use ilDBInterface;
@@ -97,15 +96,6 @@ class OrganisationalUnitService
             ->getOrganisationalUnitByRefId(
                 $ref_id
             );
-    }
-
-
-    public function getOrganisationalUnitRoot() : ?OrganisationalUnitDto
-    {
-        return GetOrganisationalUnitRootCommand::new(
-            $this
-        )
-            ->getOrganisationalUnitRoot();
     }
 
 

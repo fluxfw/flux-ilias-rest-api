@@ -5,9 +5,10 @@ namespace FluxIliasRestApi\Service\User\Port;
 use FluxIliasRestApi\Adapter\User\UserDiffDto;
 use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Adapter\User\UserIdDto;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
 use FluxIliasRestApi\Service\User\Command\CreateUserCommand;
-use FluxIliasRestApi\Service\User\Command\GetCurrentUserCommand;
+use FluxIliasRestApi\Service\User\Command\GetCurrentWebUserCommand;
 use FluxIliasRestApi\Service\User\Command\GetUserCommand;
 use FluxIliasRestApi\Service\User\Command\GetUsersCommand;
 use FluxIliasRestApi\Service\User\Command\UpdateAvatarCommand;
@@ -19,6 +20,7 @@ class UserService
 {
 
     private function __construct(
+        private readonly ConstantsService $constants_service,
         private readonly ilDBInterface $ilias_database,
         private readonly RBACServices $ilias_rbac,
         private readonly ObjectService $object_service
@@ -28,11 +30,13 @@ class UserService
 
 
     public static function new(
+        ConstantsService $constants_service,
         ilDBInterface $ilias_database,
         RBACServices $ilias_rbac,
         ObjectService $object_service
     ) : static {
         return new static(
+            $constants_service,
             $ilias_database,
             $ilias_rbac,
             $object_service
@@ -54,7 +58,8 @@ class UserService
 
     public function getCurrentWebUser(?string $session_id) : ?UserDto
     {
-        return GetCurrentUserCommand::new(
+        return GetCurrentWebUserCommand::new(
+            $this->constants_service,
             $this->ilias_database,
             $this
         )
