@@ -80,12 +80,12 @@ export function initEntriesForm(name, entries_template_el, keys, values, form_el
     }
 
     function moveEntryUp(entry_el) {
-        entry_el.previousElementSibling?.insertAdjacentElement("beforebegin", entry_el);
+        entry_el.previousElementSibling?.before(entry_el);
         updateButtons();
     }
 
     function moveEntryDown(entry_el) {
-        entry_el.nextElementSibling?.insertAdjacentElement("afterend", entry_el);
+        entry_el.nextElementSibling?.after(entry_el);
         updateButtons();
     }
 
