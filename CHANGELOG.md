@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-04-19-1
+
+Changes:
+
+- Api proxy authentication
+
 ## v2023-04-11-2
 
 Changes:

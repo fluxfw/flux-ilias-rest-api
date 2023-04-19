@@ -19,12 +19,12 @@ export async function storeForm(form_el) {
     }
 
     const values = {
-        api_proxy_map: getEntriesFormValue("api_proxy_map", ["target_key", "url"], form_el),
+        api_proxy_map: getEntriesFormValue("api_proxy_map", ["target_key", "url", "user", "password"], form_el),
         enable_log_changes: form_el.elements.enable_log_changes.checked,
         enable_purge_changes: form_el.elements.enable_purge_changes.checked,
         enable_rest_api: form_el.elements.enable_rest_api.checked,
         enable_transfer_changes: form_el.elements.enable_transfer_changes.checked,
-        flux_ilias_rest_object_api_proxy_maps: getEntriesFormValue("flux_ilias_rest_object_api_proxy_maps", ["key", "url"], form_el),
+        flux_ilias_rest_object_api_proxy_maps: getEntriesFormValue("flux_ilias_rest_object_api_proxy_maps", ["key", "url", "user", "password"], form_el),
         flux_ilias_rest_object_default_icon_url: form_el.elements.flux_ilias_rest_object_default_icon_url.value,
         flux_ilias_rest_object_multiple_type_title: form_el.elements.flux_ilias_rest_object_multiple_type_title.value,
         flux_ilias_rest_object_type_title: form_el.elements.flux_ilias_rest_object_type_title.value,

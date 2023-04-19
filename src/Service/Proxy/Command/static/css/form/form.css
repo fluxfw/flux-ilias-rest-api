@@ -38,6 +38,7 @@
 	width:       0;
 }
 
+.form_field_field > input[type=password],
 .form_field_field > input[type=text],
 .form_field_field > input[type=url],
 select,

@@ -13,6 +13,9 @@ use FluxIliasRestApi\Service\Proxy\ProxyTarget;
 use FluxIliasRestApi\Service\ProxyConfig\Port\ProxyConfigService;
 use FluxRestApi\Adapter\Api\RestApi;
 use FluxRestApi\Adapter\Authorization\Authorization;
+use FluxRestApi\Adapter\Authorization\ParseHttp\ParseHttpAuthorization_;
+use FluxRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization_;
+use FluxRestApi\Adapter\Authorization\Schema\DefaultAuthorizationSchema;
 use FluxRestApi\Adapter\Body\BodyDto;
 use FluxRestApi\Adapter\Body\HtmlBodyDto;
 use FluxRestApi\Adapter\Body\TextBodyDto;
@@ -245,7 +248,9 @@ class HandleIliasGotoCommand
                     $request
                 ),
                 $request->body,
-                [
+                (($api_proxy_map->user !== null || $api_proxy_map->password !== null) ? [
+                    DefaultHeaderKey::AUTHORIZATION->value => DefaultAuthorizationSchema::BASIC->value . ParseHttpAuthorization_::SPLIT_SCHEMA_PARAMETERS . base64_encode(($api_proxy_map->user ?? "") . ParseHttpBasicAuthorization_::SPLIT_USER_PASSWORD . ($api_proxy_map->password ?? ""))
+                ] : []) + [
                     "X-Flux-Ilias-Rest-Api-User-Id"          => $user->id,
                     "X-Flux-Ilias-Rest-Api-User-Import-Id"   => $user->import_id ?? ""
                 ] + array_filter($request->headers, fn(string $key) : bool => in_array($key, [
@@ -257,7 +262,8 @@ class HandleIliasGotoCommand
                 null,
                 true,
                 false,
-                true,
+                false,
+                false,
                 false
             )
         );
@@ -362,7 +368,9 @@ class HandleIliasGotoCommand
                     $request
                 ),
                 $request->body,
-                [
+                (($api_proxy_map->user !== null || $api_proxy_map->password !== null) ? [
+                    DefaultHeaderKey::AUTHORIZATION->value => DefaultAuthorizationSchema::BASIC->value . ParseHttpAuthorization_::SPLIT_SCHEMA_PARAMETERS . base64_encode(($api_proxy_map->user ?? "") . ParseHttpBasicAuthorization_::SPLIT_USER_PASSWORD . ($api_proxy_map->password ?? ""))
+                ] : []) + [
                     "X-Flux-Ilias-Rest-Api-Object-Id"        => $object->id ?? "",
                     "X-Flux-Ilias-Rest-Api-Object-Import-Id" => $object->import_id ?? "",
                     "X-Flux-Ilias-Rest-Api-Object-Ref-Id"    => $object->ref_id ?? "",
@@ -377,7 +385,8 @@ class HandleIliasGotoCommand
                 null,
                 true,
                 false,
-                true,
+                false,
+                false,
                 false
             )
         );

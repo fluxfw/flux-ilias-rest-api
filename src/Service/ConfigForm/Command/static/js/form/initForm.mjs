@@ -1,5 +1,5 @@
-import {initEntriesForm} from "../../../../../flux-ilias-rest-web-proxy/static/js/form/entries/initEntriesForm.mjs";
-import {initScheduleForm} from "./schedule/initScheduleForm.mjs";
+import { initEntriesForm } from "../../../../../flux-ilias-rest-web-proxy/static/js/form/entries/initEntriesForm.mjs";
+import { initScheduleForm } from "./schedule/initScheduleForm.mjs";
 
 export function initForm(form_template_el, action, values) {
     const form_el = form_template_el.content.firstElementChild.cloneNode(true);
@@ -24,7 +24,7 @@ export function initForm(form_template_el, action, values) {
     form_el.elements.enable_transfer_changes.addEventListener("input", changedEnableTransferChanges);
     changedEnableTransferChanges();
 
-    initEntriesForm("api_proxy_map", entries_template_el, ["target_key", "url"], values, form_el);
+    initEntriesForm("api_proxy_map", entries_template_el, ["target_key", "url", "user", "password"], values, form_el);
     initEntriesForm("web_proxy_map", entries_template_el, ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item"], values, form_el, (entry_el) => {
         const menu_icon_url_el = entry_el.querySelector("[data-entry-menu_icon_url]");
         const menu_item_el = entry_el.querySelector("[data-entry-menu_item]");
@@ -56,7 +56,7 @@ export function initForm(form_template_el, action, values) {
         }
     });
 
-    initEntriesForm("flux_ilias_rest_object_api_proxy_maps", entries_template_el, ["key", "url"], values, form_el);
+    initEntriesForm("flux_ilias_rest_object_api_proxy_maps", entries_template_el, ["key", "url", "user", "password"], values, form_el);
     initEntriesForm("flux_ilias_rest_object_web_proxy_maps", entries_template_el, ["icon_url", "iframe_url", "key", "page_title", "pass_ref_id", "rewrite_url", "short_title", "view_title"], values, form_el);
 
     initScheduleForm("purge_changes_schedule", schedule_template_el, values, form_el);

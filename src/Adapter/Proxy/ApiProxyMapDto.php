@@ -7,7 +7,9 @@ class ApiProxyMapDto
 
     private function __construct(
         public readonly string $target_key,
-        public readonly string $url
+        public readonly string $url,
+        public readonly ?string $user,
+        public readonly ?string $password
     ) {
 
     }
@@ -15,11 +17,15 @@ class ApiProxyMapDto
 
     public static function new(
         string $target_key,
-        string $url
+        string $url,
+        ?string $user,
+        ?string $password
     ) : static {
         return new static(
             $target_key,
-            $url
+            $url,
+            $user,
+            $password
         );
     }
 
@@ -29,7 +35,9 @@ class ApiProxyMapDto
     ) : static {
         return static::new(
             $api_proxy_map->target_key ?? "",
-            $api_proxy_map->url ?? ""
+            $api_proxy_map->url ?? "",
+            ($api_proxy_map->user ?? null) ?: null,
+            ($api_proxy_map->password ?? null) ?: null
         );
     }
 }
