@@ -22,11 +22,14 @@ class UserAuthenticationModeMapping
     private static function INTERNAL_EXTERNAL() : array
     {
         return [
+            InternalUserAuthenticationMode::APACHE->value     => UserAuthenticationMode::APACHE->value,
             InternalUserAuthenticationMode::CAS->value        => UserAuthenticationMode::CAS->value,
             InternalUserAuthenticationMode::DEFAULT->value    => UserAuthenticationMode::DEFAULT->value,
+            InternalUserAuthenticationMode::ECS->value        => UserAuthenticationMode::ECS->value,
             InternalUserAuthenticationMode::LDAP->value       => UserAuthenticationMode::LDAP->value,
             InternalUserAuthenticationMode::LOCAL->value      => UserAuthenticationMode::LOCAL->value,
-            InternalUserAuthenticationMode::OPENID->value     => UserAuthenticationMode::OPENID->value,
+            InternalUserAuthenticationMode::LTI->value        => UserAuthenticationMode::LTI->value,
+            InternalUserAuthenticationMode::OIDC->value       => UserAuthenticationMode::OPEN_ID_CONNECT->value,
             InternalUserAuthenticationMode::RADIUS->value     => UserAuthenticationMode::RADIUS->value,
             InternalUserAuthenticationMode::SAML->value       => UserAuthenticationMode::SAML->value,
             InternalUserAuthenticationMode::SCRIPT->value     => UserAuthenticationMode::SCRIPT->value,

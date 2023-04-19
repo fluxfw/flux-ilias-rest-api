@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-04-19-2
+
+Changes:
+
+- Authentication modes
+
 ## v2023-04-19-1
 
 Changes:
