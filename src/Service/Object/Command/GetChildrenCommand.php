@@ -33,9 +33,10 @@ class GetChildrenCommand
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenById(int $id, ?ObjectType $type = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenById(int $id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object_service->getObjectById(
             $id,
@@ -49,7 +50,7 @@ class GetChildrenCommand
             $object->id,
             null,
             null,
-            $type,
+            $types,
             $title,
             $ref_ids,
             $in_trash
@@ -58,9 +59,10 @@ class GetChildrenCommand
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByImportId(string $import_id, ?ObjectType $type = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByImportId(string $import_id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object_service->getObjectByImportId(
             $import_id,
@@ -74,7 +76,7 @@ class GetChildrenCommand
             null,
             $object->import_id,
             null,
-            $type,
+            $types,
             $title,
             $ref_ids,
             $in_trash
@@ -83,9 +85,10 @@ class GetChildrenCommand
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByRefId(int $ref_id, ?ObjectType $type = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByRefId(int $ref_id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object_service->getObjectByRefId(
             $ref_id,
@@ -99,7 +102,7 @@ class GetChildrenCommand
             null,
             null,
             $object->ref_id,
-            $type,
+            $types,
             $title,
             $ref_ids,
             $in_trash
@@ -108,13 +111,14 @@ class GetChildrenCommand
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]
      */
     private function getChildren(
         ?int $id = null,
         ?string $import_id = null,
         ?int $ref_id = null,
-        ?ObjectType $type = null,
+        ?array $types = null,
         ?string $title = null,
         bool $ref_ids = false,
         ?bool $in_trash = null
@@ -123,7 +127,7 @@ class GetChildrenCommand
             $id,
             $import_id,
             $ref_id,
-            $type,
+            $types,
             $title,
             $in_trash
         )));

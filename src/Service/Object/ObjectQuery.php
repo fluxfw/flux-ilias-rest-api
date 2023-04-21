@@ -80,11 +80,14 @@ trait ObjectQuery
     }
 
 
+    /**
+     * @param ObjectType[]|null $types
+     */
     private function getObjectChildrenQuery(
         ?int $id = null,
         ?string $import_id = null,
         ?int $ref_id = null,
-        ?ObjectType $type = null,
+        ?array $types = null,
         ?string $title = null,
         ?bool $in_trash = null
     ) : string {
@@ -102,8 +105,8 @@ trait ObjectQuery
             $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
-        if ($type !== null) {
-            $wheres[] = "object_data_child.type=" . $this->ilias_database->quote(ObjectTypeMapping::mapExternalToInternal($type)->value, ilDBConstants::T_TEXT);
+        if ($types !== null) {
+            $wheres[] = $this->ilias_database->in("object_data_child.type", array_map(fn(ObjectType $type) : string => ObjectTypeMapping::mapExternalToInternal($type)->value, $types), false, ilDBConstants::T_TEXT);
         }
 
         if ($title !== null) {
@@ -143,20 +146,20 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
     }
 
 
+    /**
+     * @param ObjectType[]|null $types
+     * @param int[]|null $ref_ids
+     */
     private function getObjectQuery(
-        ?ObjectType $type = null,
         ?int $id = null,
         ?string $import_id = null,
         ?int $ref_id = null,
+        ?array $types = null,
         ?string $title = null,
         ?array $ref_ids = null,
         ?bool $in_trash = null
     ) : string {
         $wheres = [];
-
-        if ($type !== null) {
-            $wheres[] = "object_data.type=" . $this->ilias_database->quote(ObjectTypeMapping::mapExternalToInternal($type)->value, ilDBConstants::T_TEXT);
-        }
 
         if ($id !== null) {
             $wheres[] = "object_data.obj_id=" . $this->ilias_database->quote($id, ilDBConstants::T_INTEGER);
@@ -168,6 +171,10 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
 
         if ($ref_id !== null) {
             $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($ref_id, ilDBConstants::T_INTEGER);
+        }
+
+        if ($types !== null) {
+            $wheres[] = $this->ilias_database->in("object_data.type", array_map(fn(ObjectType $type) : string => ObjectTypeMapping::mapExternalToInternal($type)->value, $types), false, ilDBConstants::T_TEXT);
         }
 
         if ($title !== null) {

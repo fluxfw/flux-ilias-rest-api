@@ -913,14 +913,15 @@ class IliasRestApi
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenById(int $id, ?ObjectType $type = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenById(int $id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObjectService()
             ->getChildrenById(
                 $id,
-                $type,
+                $types,
                 $title,
                 $ref_ids,
                 $in_trash
@@ -929,14 +930,15 @@ class IliasRestApi
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByImportId(string $import_id, ?ObjectType $type = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByImportId(string $import_id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObjectService()
             ->getChildrenByImportId(
                 $import_id,
-                $type,
+                $types,
                 $title,
                 $ref_ids,
                 $in_trash
@@ -945,14 +947,15 @@ class IliasRestApi
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByRefId(int $ref_id, ?ObjectType $type = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByRefId(int $ref_id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObjectService()
             ->getChildrenByRefId(
                 $ref_id,
-                $type,
+                $types,
                 $title,
                 $ref_ids,
                 $in_trash
@@ -1353,13 +1356,14 @@ class IliasRestApi
 
 
     /**
+     * @param ObjectType[]|null $types
      * @return ObjectDto[]
      */
-    public function getObjects(ObjectType $type, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
+    public function getObjects(?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         return $this->getObjectService()
             ->getObjects(
-                $type,
+                $types,
                 $title,
                 $ref_ids,
                 $in_trash

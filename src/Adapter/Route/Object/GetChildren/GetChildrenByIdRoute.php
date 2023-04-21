@@ -54,9 +54,9 @@ class GetChildrenByIdRoute implements Route
             ],
             [
                 RouteParamDocumentationDto::new(
-                    "type",
-                    ObjectType::class,
-                    "Filter by type"
+                    "types",
+                    ObjectType::class . "[]",
+                    "Filter by object types split by ,"
                 ),
                 RouteParamDocumentationDto::new(
                     "title",
@@ -106,11 +106,11 @@ class GetChildrenByIdRoute implements Route
             $request->getParam(
                 "id"
             ),
-            ($type = $request->getQueryParam(
-                "type"
-            )) !== null ? CustomObjectType::factory(
+            ($types = $request->getQueryParam(
+                "types"
+            )) !== null ? array_map(fn(string $type) : ObjectType => CustomObjectType::factory(
                 $type
-            ) : null,
+            ), explode(",", $types)) : null,
             $request->getQueryParam(
                 "title"
             ),

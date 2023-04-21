@@ -1,6 +1,8 @@
 const constants = await (await fetch("/flux-ilias-rest-api/constants")).json();
 
-await (await fetch("/flux-ilias-rest-api/objects/category")).json();
+await (await fetch("/flux-ilias-rest-api/objects")).json();
+
+await (await fetch("/flux-ilias-rest-api/objects?types=category")).json();
 
 const time = Date.now();
 const object = await (await fetch(`/flux-ilias-rest-api/object/create/category/to-ref-id/${constants.root_object_ref_id}`, {

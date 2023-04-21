@@ -34,8 +34,8 @@ class GetObjectCommand
     {
         $object = null;
         while (($object_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getObjectQuery(
-                null,
                 $id,
+                null,
                 null,
                 null,
                 null,
@@ -61,8 +61,8 @@ class GetObjectCommand
         $object = null;
         while (($object_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getObjectQuery(
                 null,
-                null,
                 $import_id,
+                null,
                 null,
                 null,
                 null,
@@ -88,8 +88,8 @@ class GetObjectCommand
         while (($object_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getObjectQuery(
                 null,
                 null,
-                null,
                 $ref_id,
+                null,
                 null,
                 null,
                 $in_trash
