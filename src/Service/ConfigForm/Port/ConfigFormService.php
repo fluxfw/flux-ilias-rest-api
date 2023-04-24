@@ -4,7 +4,7 @@ namespace FluxIliasRestApi\Service\ConfigForm\Port;
 
 use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Service\Change\Port\ChangeService;
-use FluxIliasRestApi\Service\ConfigForm\Command\GetConfigFormMenuItemsCommand;
+use FluxIliasRestApi\Service\ConfigForm\Command\GetConfigFormMenuItemCommand;
 use FluxIliasRestApi\Service\ConfigForm\Command\GetConfigFormValuesCommand;
 use FluxIliasRestApi\Service\ConfigForm\Command\HasAccessToConfigFormCommand;
 use FluxIliasRestApi\Service\ConfigForm\Command\StoreConfigFormValuesCommand;
@@ -52,7 +52,7 @@ class ConfigFormService
 
     public function getConfigFormMenuItem(IdentificationProviderInterface $if, ?UserDto $user) : MainMenuLink
     {
-        return GetConfigFormMenuItemsCommand::new(
+        return GetConfigFormMenuItemCommand::new(
             $this,
             $this->ilias_dic
         )

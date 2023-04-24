@@ -210,9 +210,8 @@ class HandleIliasGotoCommand
         }
 
         if (($api_proxy_map = $this->proxy_config_service->getApiProxyMapByKey(
-                $target_key
-            )) === null
-        ) {
+            $target_key
+        )) === null) {
             $this->bodyResponse(
                 TextBodyDto::new(
                     "No access"
@@ -327,12 +326,10 @@ class HandleIliasGotoCommand
             $ref_id
         );
 
-        if ($object === null || $user === null
-            || ($api_proxy_map = $this->flux_ilias_rest_object_service->getFluxIliasRestObjectApiProxyMap(
-                $object,
-                $user->id
-            )) === null
-        ) {
+        if ($object === null || $user === null || ($api_proxy_map = $this->flux_ilias_rest_object_service->getFluxIliasRestObjectApiProxyMap(
+            $object,
+            $user->id
+        )) === null) {
             $this->bodyResponse(
                 TextBodyDto::new(
                     "No access"
@@ -412,12 +409,10 @@ class HandleIliasGotoCommand
             $ref_id
         );
 
-        if ($object === null || $user === null
-            || !$this->flux_ilias_rest_object_service->hasAccessToFluxIliasRestObjectConfigForm(
-                $object->ref_id,
-                $user->id
-            )
-        ) {
+        if ($object === null || $user === null || !$this->flux_ilias_rest_object_service->hasAccessToFluxIliasRestObjectConfigForm(
+            $object->ref_id,
+            $user->id
+        )) {
             return;
         }
 
@@ -440,12 +435,10 @@ class HandleIliasGotoCommand
             $ref_id
         );
 
-        if ($object === null || $user === null
-            || ($web_proxy_map = $this->flux_ilias_rest_object_service->getFluxIliasRestObjectWebProxyMap(
-                $object,
-                $user->id
-            )) === null
-        ) {
+        if ($object === null || $user === null || ($web_proxy_map = $this->flux_ilias_rest_object_service->getFluxIliasRestObjectWebProxyMap(
+            $object,
+            $user->id
+        )) === null) {
             return;
         }
 
@@ -515,13 +508,11 @@ class HandleIliasGotoCommand
     private function handleWebProxy(?UserDto $user, ServerRawRequestDto $request, string $target_key) : void
     {
         if (($web_proxy_map = $this->proxy_config_service->getWebProxyMapByKey(
-                $target_key
-            )) === null
-        ) {
-            return;
-        }
-
-        if (!$web_proxy_map->visible_public_menu_item && $user === null) {
+            $target_key
+        )) === null || !$this->proxy_service->isWebProxyMenuVisible(
+            $web_proxy_map,
+            $user
+        )) {
             return;
         }
 

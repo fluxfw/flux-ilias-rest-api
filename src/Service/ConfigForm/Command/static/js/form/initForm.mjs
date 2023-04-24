@@ -25,12 +25,14 @@ export function initForm(form_template_el, action, values) {
     changedEnableTransferChanges();
 
     initEntriesForm("api_proxy_map", entries_template_el, ["target_key", "url", "user", "password"], values, form_el);
-    initEntriesForm("web_proxy_map", entries_template_el, ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item"], values, form_el, (entry_el) => {
+    initEntriesForm("web_proxy_map", entries_template_el, ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item", "visible_administrator_role_only_menu_item"], values, form_el, (entry_el) => {
         const menu_icon_url_el = entry_el.querySelector("[data-entry-menu_icon_url]");
         const menu_item_el = entry_el.querySelector("[data-entry-menu_item]");
         const menu_title_el = entry_el.querySelector("[data-entry-menu_title]");
         const visible_public_menu_item_el = entry_el.querySelector("[data-entry-visible_public_menu_item]");
         const visible_public_menu_item_info_el = entry_el.querySelector("[data-entry-visible-public-menu-item-info]");
+        const visible_administrator_role_only_menu_item_el = entry_el.querySelector("[data-entry-visible_administrator_role_only_menu_item]");
+        const visible_administrator_role_only_menu_item_info_el = entry_el.querySelector("[data-entry-visible-administrator-role-only-menu-item-info]");
 
         menu_item_el.addEventListener("input", changedMenuItem);
         changedMenuItem();
@@ -38,21 +40,39 @@ export function initForm(form_template_el, action, values) {
         visible_public_menu_item_el.addEventListener("input", changedVisiblePublicMenuItem);
         changedVisiblePublicMenuItem();
 
+        visible_administrator_role_only_menu_item_el.addEventListener("input", changedVisibleaAministratorRoleOnlyMenuItem);
+        changedVisibleaAministratorRoleOnlyMenuItem();
+
         function changedMenuItem() {
             const old_disabled = menu_title_el.disabled;
 
-            menu_title_el.disabled = menu_icon_url_el.disabled = visible_public_menu_item_el.disabled = !menu_item_el.checked;
+            menu_title_el.disabled = menu_icon_url_el.disabled = visible_public_menu_item_el.disabled = visible_public_menu_item_el.disabled = !menu_item_el.checked;
 
             if (old_disabled !== menu_title_el.disabled) {
                 menu_title_el.value = menu_icon_url_el.value = "";
-                visible_public_menu_item_el.checked = false;
+                visible_public_menu_item_el.checked = visible_administrator_role_only_menu_item_el.checked = false;
             }
 
             changedVisiblePublicMenuItem();
+            changedVisibleaAministratorRoleOnlyMenuItem();
         }
 
         function changedVisiblePublicMenuItem() {
-            visible_public_menu_item_info_el.innerText = menu_item_el.checked && !visible_public_menu_item_el.checked ? "Note: Your iframe url is still accessible for public nevertheless you disabled it" : "";
+            visible_public_menu_item_info_el.innerText = menu_item_el.checked && !visible_public_menu_item_el.checked ? "Note: Your iframe url is still accessible for public" : "";
+
+            if (visible_public_menu_item_el.checked && visible_administrator_role_only_menu_item_el.checked) {
+                visible_administrator_role_only_menu_item_el.checked = false;
+                changedVisibleaAministratorRoleOnlyMenuItem();
+            }
+        }
+
+        function changedVisibleaAministratorRoleOnlyMenuItem() {
+            visible_administrator_role_only_menu_item_info_el.innerText = menu_item_el.checked && visible_administrator_role_only_menu_item_el.checked ? "Note: Your iframe url is still accessible for non-administrator users or public" : "";
+
+            if (visible_administrator_role_only_menu_item_el.checked && visible_public_menu_item_el.checked) {
+                visible_public_menu_item_el.checked = false;
+                changedVisiblePublicMenuItem();
+            }
         }
     });
 

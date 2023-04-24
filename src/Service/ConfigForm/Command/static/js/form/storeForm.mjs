@@ -34,7 +34,7 @@ export async function storeForm(form_el) {
         transfer_changes_post_url: form_el.elements.transfer_changes_post_url.value,
         transfer_changes_schedule: getScheduleFormValue("transfer_changes_schedule", form_el),
         web_proxy_iframe_height_offset: form_el.elements.web_proxy_iframe_height_offset.valueAsNumber,
-        web_proxy_map: getEntriesFormValue("web_proxy_map", ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item"], form_el)
+        web_proxy_map: getEntriesFormValue("web_proxy_map", ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item", "visible_administrator_role_only_menu_item"], form_el)
     };
 
     const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();

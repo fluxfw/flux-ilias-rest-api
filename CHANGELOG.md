@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-04-24-1
+
+Changes:
+
+- Visible menu item only for users with administrator role
+
 ## v2023-04-21-1
 
 Changes:

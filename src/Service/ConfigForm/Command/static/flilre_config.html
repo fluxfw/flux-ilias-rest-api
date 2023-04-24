@@ -74,7 +74,11 @@
 					</div>
 					<div class="form_field"></div>
 					<div>
-						<em>If you use menu item and disable it for public, the user needs to be logged in ILIAS to see the menu item or call the proxy url, but be familiar, your iframe url is not protected and can be called directly for public without this permission check (Even you don't use the menu item, the iframe url is still accessible directly for public)</em>
+						<em>If you use menu item and disable it for public, the user needs to be logged in ILIAS to see the menu item or call the web proxy url, but be familiar, your iframe url is not protected and can be called directly for public without this permission check (Even you don't use the menu item, the iframe url is still accessible directly for public)</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
+						<em>If you use menu item and restrict it only for user with administrator role, the user needs to be logged in ILIAS and need to have the administrator role to see the menu item or call the web proxy url, but be familiar, your iframe url is not protected and can be called directly for public without this permission check (Even you don't use the menu item, the iframe url is still accessible directly for non-administrator users or public). And your backend needs to check it too</em>
 					</div>
 					<div class="form_field"></div>
 					<div>
@@ -167,6 +171,16 @@
 										</div>
 									</div>
 								</div>
+								<div class="form_field">
+									<div class="form_field_button"></div>
+									<div class="form_field_label">Visible menu item only for users with administrator role</div>
+									<div class="form_field_field">
+										<input data-entry-visible_administrator_role_only_menu_item type="checkbox">
+										<div>
+											<em data-entry-visible-administrator-role-only-menu-item-info></em>
+										</div>
+									</div>
+								</div>
 								<div class="form_field"></div>
 							</div>
 						</template>
@@ -196,6 +210,10 @@
 					</div>
 					<div class="form_field"></div>
 					<div>
+						<em>The user needs to be logged in ILIAS, but be sure, your backend is only reachable internally or at least use basic HTTP authentication for protect it</em>
+					</div>
+					<div class="form_field"></div>
+					<div>
 						<em>You can access the user id with the follow custom HTTP headers
 							<ul>
 								<li>X-Flux-Ilias-Rest-Api-User-Id</li>
@@ -210,8 +228,9 @@
 					<div>
 						<em>There is no need, but may you should enable ILIAS public area for avoid some problems to get the correct response if the user is not logged in ILIAS</em>
 					</div>
+					<div class="form_field"></div>
 					<div>
-						<em>If your api server using Basic authentication, you can enter its user and password</em>
+						<em>If your backend using basic HTTP authentication, you can enter its user and password</em>
 					</div>
 				</details>
 			</div>
@@ -298,7 +317,7 @@
 					</div>
 					<div class="form_field"></div>
 					<div>
-						<em>The user needs read permissions in the object, but be familiar, your iframe url is not protected and can be called directly without this permission check</em>
+						<em>The user needs to be logged in ILIAS and needs read permissions in the object, but be familiar, your iframe url is not protected and can be called directly without this permission check</em>
 					</div>
 					<div class="form_field"></div>
 					<div>
@@ -424,7 +443,7 @@
 					</div>
 					<div class="form_field"></div>
 					<div>
-						<em>The user needs read permissions in the object, but be sure, your backend is only reachable internally for protect it</em>
+						<em>The user needs to be logged in ILIAS and needs read permissions in the object, but be sure, your backend is only reachable internally or at least use basic HTTP authentication for protect it</em>
 					</div>
 					<div class="form_field"></div>
 					<div>
@@ -445,8 +464,9 @@
 					<div>
 						<em>There is no need, but may you should enable ILIAS public area for avoid some problems to get the correct response if the user is not logged in ILIAS</em>
 					</div>
+					<div class="form_field"></div>
 					<div>
-						<em>If your api server using Basic authentication, you can enter its user and password</em>
+						<em>If your backend using basic HTTP authentication, you can enter its user and password</em>
 					</div>
 				</details>
 			</div>

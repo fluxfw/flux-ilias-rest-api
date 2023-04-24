@@ -3,6 +3,7 @@
 namespace FluxIliasRestApi\Service\Proxy\Command;
 
 use FluxIliasRestApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Service\Proxy\Port\ProxyService;
 use FluxIliasRestApi\Service\Proxy\ProxyTarget;
 use FluxIliasRestApi\Service\ProxyConfig\Port\ProxyConfigService;
 use ILIAS\DI\Container;
@@ -14,6 +15,7 @@ class GetWebProxyMenuItemsCommand
 
     private function __construct(
         private readonly ProxyConfigService $proxy_config_service,
+        private readonly ProxyService $proxy_service,
         private readonly Container $ilias_dic
     ) {
 
@@ -22,10 +24,12 @@ class GetWebProxyMenuItemsCommand
 
     public static function new(
         ProxyConfigService $proxy_config_service,
+        ProxyService $proxy_service,
         Container $ilias_dic
     ) : static {
         return new static(
             $proxy_config_service,
+            $proxy_service,
             $ilias_dic
         );
     }
@@ -50,7 +54,10 @@ class GetWebProxyMenuItemsCommand
                 ->withAction($web_proxy_map->getRewriteUrlWithDefault())
                 ->withSymbol($symbol)
                 ->withAvailableCallable(fn() : bool => $web_proxy_map->menu_item)
-                ->withVisibilityCallable(fn() : bool => $web_proxy_map->visible_public_menu_item || $user !== null);
+                ->withVisibilityCallable(fn() : bool => $this->proxy_service->isWebProxyMenuVisible(
+                    $web_proxy_map,
+                    $user
+                ));
         }
 
         return $menu_items;

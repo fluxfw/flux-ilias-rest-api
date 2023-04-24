@@ -11,7 +11,7 @@ use ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Link as MainMenuLink;
 use ILIAS\MainMenu\Provider\StandardTopItemsProvider;
 use ILIAS\UI\Component\Symbol\Icon\Standard;
 
-class GetConfigFormMenuItemsCommand
+class GetConfigFormMenuItemCommand
 {
 
     private function __construct(

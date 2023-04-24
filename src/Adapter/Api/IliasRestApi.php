@@ -3106,6 +3106,8 @@ class IliasRestApi
             $this->getConfigFormService(),
             $this->getProxyConfigService(),
             $this->getFluxIliasRestObjectService(),
+            $this->getConstantsService(),
+            $this->getUserRoleService(),
             $this->getIliasDic()
         );
     }

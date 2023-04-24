@@ -15,7 +15,8 @@ class WebProxyMapDto
         public readonly bool $menu_item,
         public readonly ?string $menu_title,
         public readonly ?string $menu_icon_url,
-        public readonly bool $visible_public_menu_item
+        public readonly bool $visible_public_menu_item,
+        public readonly bool $visible_administrator_role_only_menu_item
     ) {
 
     }
@@ -31,7 +32,8 @@ class WebProxyMapDto
         ?bool $menu_item,
         ?string $menu_title,
         ?string $menu_icon_url,
-        ?bool $visible_public_menu_item
+        ?bool $visible_public_menu_item,
+        ?bool $visible_administrator_role_only_menu_item
     ) : static {
         return new static(
             $target_key,
@@ -43,7 +45,8 @@ class WebProxyMapDto
             $menu_item ?? false,
             $menu_title,
             $menu_icon_url,
-            $visible_public_menu_item ?? false
+            $visible_public_menu_item ?? false,
+            $visible_administrator_role_only_menu_item ?? false
         );
     }
 
@@ -61,7 +64,8 @@ class WebProxyMapDto
             $web_proxy_map->menu_item ?? null,
             ($web_proxy_map->menu_title ?? null) ?: null,
             ($web_proxy_map->menu_icon_url ?? null) ?: null,
-            $web_proxy_map->visible_public_menu_item ?? null
+            $web_proxy_map->visible_public_menu_item ?? null,
+            $web_proxy_map->visible_administrator_role_only_menu_item ?? null
         );
     }
 
