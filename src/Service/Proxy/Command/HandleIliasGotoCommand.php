@@ -24,7 +24,6 @@ use FluxRestApi\Adapter\Header\DefaultHeaderKey;
 use FluxRestApi\Adapter\Route\Collector\RouteCollector;
 use FluxRestApi\Adapter\Server\ServerRawRequestDto;
 use FluxRestApi\Adapter\Server\ServerRawResponseDto;
-use FluxRestApi\Adapter\Server\ServerResponseDto;
 use FluxRestApi\Adapter\Status\DefaultStatus;
 use FluxRestApi\Adapter\Status\Status;
 use ilGlobalTemplateInterface;
@@ -223,20 +222,6 @@ class HandleIliasGotoCommand
             exit;
         }
 
-        $response = $this->rest_api->handleMethodOverride(
-            $request
-        );
-        if ($response instanceof ServerResponseDto) {
-            $this->bodyResponse(
-                $response->body,
-                $request,
-                $response->status
-            );
-
-            exit;
-        }
-        $request = $response ?? $request;
-
         $response = $this->rest_api->makeRequest(
             ClientRequestDto::new(
                 rtrim($api_proxy_map->url, "/") . (!empty($route = trim($request->getQueryParam(
@@ -340,20 +325,6 @@ class HandleIliasGotoCommand
 
             exit;
         }
-
-        $response = $this->rest_api->handleMethodOverride(
-            $request
-        );
-        if ($response instanceof ServerResponseDto) {
-            $this->bodyResponse(
-                $response->body,
-                $request,
-                $response->status
-            );
-
-            exit;
-        }
-        $request = $response ?? $request;
 
         $response = $this->rest_api->makeRequest(
             ClientRequestDto::new(

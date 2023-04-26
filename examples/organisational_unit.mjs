@@ -16,10 +16,9 @@ const organisational_unit = await (await fetch(`/flux-ilias-rest-api/organisatio
 await (await fetch(`/flux-ilias-rest-api/organisational-unit/by-id/${organisational_unit.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/organisational-unit/by-id/${organisational_unit.id}/update`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         description: "Some description of the organisational unit"

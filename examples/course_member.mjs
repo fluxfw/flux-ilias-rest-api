@@ -13,10 +13,9 @@ await (await fetch(`/flux-ilias-rest-api/course-members?course_id=${course.id}`)
 await (await fetch(`/flux-ilias-rest-api/course-members?user_id=${user.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/course/by-id/${course.id}/update-member/by-id/${user.id}`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         administrator_role: false,
@@ -26,10 +25,9 @@ await (await fetch(`/flux-ilias-rest-api/course/by-id/${course.id}/update-member
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/course/by-id/${course.id}/update-member/by-id/${user.id}`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         learning_progress: "completed",
@@ -38,8 +36,5 @@ await (await fetch(`/flux-ilias-rest-api/course/by-id/${course.id}/update-member
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/course/by-id/${course.id}/remove-member/by-id/${user.id}`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
+    method: "DELETE"
 })).json();

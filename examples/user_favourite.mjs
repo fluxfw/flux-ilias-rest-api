@@ -7,8 +7,5 @@ await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/add-favourite/by-
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/remove-favourite/by-id/${object.id}`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
+    method: "DELETE"
 })).json();

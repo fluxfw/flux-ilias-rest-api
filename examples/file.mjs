@@ -1,7 +1,9 @@
+const constants = await (await fetch("/flux-ilias-rest-api/constants")).json();
+
 await (await fetch("/flux-ilias-rest-api/files")).json();
 
 const time = Date.now();
-const file = await (await fetch(`/flux-ilias-rest-api/file/create/to-ref-id/${root.ref_id}`, {
+const file = await (await fetch(`/flux-ilias-rest-api/file/create/to-ref-id/${constants.root_object_ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -32,10 +34,7 @@ const file = await (await fetch(`/flux-ilias-rest-api/file/create/to-ref-id/${ro
             data.set("title", title.value);
             data.set("replace", checkbox.checked);
             console.log(await (await fetch(`/flux-ilias-rest-api/file/by-id/${file.id}/upload`, {
-                method: "POST",
-                headers: {
-                    "X-Http-Method-Override": "PUT"
-                },
+                method: "PUT",
                 body: data
             })).json());
         });
@@ -47,10 +46,9 @@ const file = await (await fetch(`/flux-ilias-rest-api/file/create/to-ref-id/${ro
 await (await fetch(`/flux-ilias-rest-api/file/by-id/${file.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/file/by-id/${file.id}/update`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         description: "Some description of the file"

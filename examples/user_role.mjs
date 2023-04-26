@@ -7,8 +7,5 @@ await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/add-role/by-id/${
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/remove-role/by-id/${role.id}`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
+    method: "DELETE"
 })).json();

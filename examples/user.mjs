@@ -22,10 +22,9 @@ const user = await (await fetch("/flux-ilias-rest-api/user/create", {
 await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         first_name: "User",
@@ -45,10 +44,7 @@ await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update`, {
             const data = new FormData();
             data.set("file", selector.files[0]);
             console.log(await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update/avatar`, {
-                method: "POST",
-                headers: {
-                    "X-Http-Method-Override": "PUT"
-                },
+                method: "PUT",
                 body: data
             })).json());
         });
@@ -64,9 +60,6 @@ await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update`, {
 }
 
 await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update/avatar`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "PUT"
-    },
+    method: "PUT",
     body: new FormData()
 })).json();

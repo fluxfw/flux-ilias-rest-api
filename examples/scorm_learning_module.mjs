@@ -1,7 +1,9 @@
+const constants = await (await fetch("/flux-ilias-rest-api/constants")).json();
+
 await (await fetch("/flux-ilias-rest-api/scorm-learning-modules")).json();
 
 const time = Date.now();
-const scorm_learning_module = await (await fetch(`/flux-ilias-rest-api/scorm-learning-module/create/to-ref-id/${root.ref_id}`, {
+const scorm_learning_module = await (await fetch(`/flux-ilias-rest-api/scorm-learning-module/create/to-ref-id/${constants.root_object_ref_id}`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -23,10 +25,7 @@ const scorm_learning_module = await (await fetch(`/flux-ilias-rest-api/scorm-lea
             const data = new FormData();
             data.set("file", selector.files[0]);
             console.log(await (await fetch(`/flux-ilias-rest-api/scorm-learning-module/by-id/${scorm_learning_module.id}/upload`, {
-                method: "POST",
-                headers: {
-                    "X-Http-Method-Override": "PUT"
-                },
+                method: "PUT",
                 body: data
             })).json());
         });
@@ -38,10 +37,9 @@ const scorm_learning_module = await (await fetch(`/flux-ilias-rest-api/scorm-lea
 await (await fetch(`/flux-ilias-rest-api/scorm-learning-module/by-id/${scorm_learning_module.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/scorm-learning-module/by-id/${scorm_learning_module.id}/update`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         description: "Some description of the scorm learning module"

@@ -22,10 +22,9 @@ await (await fetch(`/flux-ilias-rest-api/object/children/by-ref-id/${constants.r
 await (await fetch(`/flux-ilias-rest-api/object/path/by-ref-id/${object.ref_id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/update`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         description: "Some description of the category"
@@ -37,10 +36,7 @@ const cloned_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${ob
 })).json();
 
 const moved_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${cloned_object.id}/move/to-id/${object.id}`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "PUT"
-    }
+    method: "PUT"
 })).json();
 
 const linked_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${cloned_object.id}/link/to-ref-id/${constants.root_object_ref_id}`, {
@@ -48,8 +44,5 @@ const linked_object = await (await fetch(`/flux-ilias-rest-api/object/by-id/${cl
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/object/by-id/${object.id}/delete`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
+    method: "DELETE"
 })).json();

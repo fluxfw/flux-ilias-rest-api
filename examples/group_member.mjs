@@ -13,10 +13,9 @@ await (await fetch(`/flux-ilias-rest-api/group-members?group_id=${group.id}`)).j
 await (await fetch(`/flux-ilias-rest-api/group-members?user_id=${user.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         administrator_role: true,
@@ -25,10 +24,9 @@ await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/update-member/b
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/update-member/by-id/${user.id}`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         learning_progress: "completed"
@@ -36,8 +34,5 @@ await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/update-member/b
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/group/by-id/${group.id}/remove-member/by-id/${user.id}`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
+    method: "DELETE"
 })).json();

@@ -16,10 +16,9 @@ const role = await (await fetch(`/flux-ilias-rest-api/role/create/to-ref-id/${co
 await (await fetch(`/flux-ilias-rest-api/role/by-id/${role.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/role/by-id/${role.id}/update`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         description: "Some description of the role"

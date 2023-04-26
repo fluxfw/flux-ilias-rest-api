@@ -20,10 +20,9 @@ const organisational_unit_position = await (await fetch("/flux-ilias-rest-api/or
 await (await fetch(`/flux-ilias-rest-api/organisational-unit-position/by-id/${organisational_unit_position.id}`)).json();
 
 await (await fetch(`/flux-ilias-rest-api/organisational-unit-position/by-id/${organisational_unit_position.id}/update`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
-        "Content-Type": "application/json",
-        "X-Http-Method-Override": "PATCH"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         description: "Some description of the organisational unit position"
@@ -31,8 +30,5 @@ await (await fetch(`/flux-ilias-rest-api/organisational-unit-position/by-id/${or
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/organisational-unit-position/by-id/${organisational_unit_position.id}/delete`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
+    method: "DELETE"
 })).json();

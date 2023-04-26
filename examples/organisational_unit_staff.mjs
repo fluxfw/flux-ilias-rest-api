@@ -11,8 +11,5 @@ await (await fetch(`/flux-ilias-rest-api/organisational-unit/by-id/${organisatio
 })).json();
 
 await (await fetch(`/flux-ilias-rest-api/organisational-unit/by-id/${organisational_unit.id}/remove-staff/by-id/${user.id}/${organisational_unit_position.id}`, {
-    method: "POST",
-    headers: {
-        "X-Http-Method-Override": "DELETE"
-    }
+    method: "DELETE"
 })).json();
