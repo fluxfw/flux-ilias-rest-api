@@ -5,8 +5,12 @@ namespace FluxIliasRestApi\Service\Change\Command;
 use FluxIliasRestApi\Service\Change\ChangeQuery;
 use FluxIliasRestApi\Service\Change\Port\ChangeService;
 use FluxRestApi\Adapter\Api\RestApi;
+use FluxRestApi\Adapter\Authorization\ParseHttp\ParseHttpAuthorization_;
+use FluxRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization_;
+use FluxRestApi\Adapter\Authorization\Schema\DefaultAuthorizationSchema;
 use FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxRestApi\Adapter\Client\ClientRequestDto;
+use FluxRestApi\Adapter\Header\DefaultHeaderKey;
 use FluxRestApi\Adapter\Method\DefaultMethod;
 use ilDBInterface;
 
@@ -39,7 +43,9 @@ class TransferChangesCommand
 
     public function transferChanges() : ?int
     {
-        if (empty($this->change_service->getTransferChangesPostUrl())) {
+        $post_url = $this->change_service->getTransferChangesPostUrl();
+
+        if (empty($post_url)) {
             return null;
         }
 
@@ -49,28 +55,34 @@ class TransferChangesCommand
             $this->change_service->getLastTransferredChangeTime()
         );
 
-        $this->rest_api->makeRequest(
-            ClientRequestDto::new(
-                $this->change_service->getTransferChangesPostUrl(),
-                DefaultMethod::POST,
-                null,
-                null,
-                null,
-                JsonBodyDto::new(
-                    $changes
-                ),
-                null,
-                null,
-                false,
-                true,
-                false,
-                false,
-                false
-            )
-        );
-
         $count = count($changes);
+
         if ($count > 0) {
+            $user = $this->change_service->getTransferChangesUser();
+            $password = $this->change_service->getTransferChangesPassword();
+
+            $this->rest_api->makeRequest(
+                ClientRequestDto::new(
+                    $post_url,
+                    DefaultMethod::POST,
+                    null,
+                    null,
+                    (($user !== null || $password !== null) ? [
+                        DefaultHeaderKey::AUTHORIZATION->value => DefaultAuthorizationSchema::BASIC->value . ParseHttpAuthorization_::SPLIT_SCHEMA_PARAMETERS . base64_encode(($user ?? "") . ParseHttpBasicAuthorization_::SPLIT_USER_PASSWORD . ($password ?? ""))
+                    ] : []),
+                    JsonBodyDto::new(
+                        $changes
+                    ),
+                    null,
+                    null,
+                    false,
+                    true,
+                    false,
+                    false,
+                    false
+                )
+            );
+
             $this->change_service->setLastTransferredChangeTime(
                 $changes[$count - 1]->time
             );

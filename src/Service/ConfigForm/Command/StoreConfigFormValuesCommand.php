@@ -94,6 +94,10 @@ class StoreConfigFormValuesCommand
             ($interval = $values->{ConfigKey::PURGE_CHANGES_SCHEDULE->value}->interval ?? null) !== null ? intval($interval) : null
         );
 
+        $this->change_service->setTransferChangesPassword(
+            ($values->{ConfigKey::TRANSFER_CHANGES_PASSWORD->value} ?? null) ?: null
+        );
+
         $this->change_service->setTransferChangesPostUrl(
             strval($values->{ConfigKey::TRANSFER_CHANGES_POST_URL->value} ?? null)
         );
@@ -103,6 +107,10 @@ class StoreConfigFormValuesCommand
                 $values->{ConfigKey::TRANSFER_CHANGES_SCHEDULE->value}->type ?? null
             ),
             ($interval = $values->{ConfigKey::TRANSFER_CHANGES_SCHEDULE->value}->interval ?? null) !== null ? intval($interval) : null
+        );
+
+        $this->change_service->setTransferChangesUser(
+            ($values->{ConfigKey::TRANSFER_CHANGES_USER->value} ?? null) ?: null
         );
 
         $this->proxy_config_service->setWebProxyIframeHeightOffset(

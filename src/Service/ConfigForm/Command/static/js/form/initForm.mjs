@@ -18,7 +18,9 @@ export function initForm(form_template_el, action, values) {
     form_el.elements.flux_ilias_rest_object_multiple_type_title.value = values.flux_ilias_rest_object_multiple_type_title;
     form_el.elements.flux_ilias_rest_object_type_title.value = values.flux_ilias_rest_object_type_title;
     form_el.elements.keep_changes_inside_days.valueAsNumber = values.keep_changes_inside_days;
+    form_el.elements.transfer_changes_password.value = values.transfer_changes_password;
     form_el.elements.transfer_changes_post_url.value = values.transfer_changes_post_url;
+    form_el.elements.transfer_changes_user.value = values.transfer_changes_user;
     form_el.elements.web_proxy_iframe_height_offset.valueAsNumber = values.web_proxy_iframe_height_offset;
 
     form_el.elements.enable_transfer_changes.addEventListener("input", changedEnableTransferChanges);

@@ -51,8 +51,10 @@ class GetConfigFormValuesCommand
             ConfigKey::FLUX_ILIAS_REST_OBJECT_WEB_PROXY_MAPS->value      => $this->flux_ilias_rest_object_service->getFluxIliasRestObjectWebProxyMaps(),
             ConfigKey::KEEP_CHANGES_INSIDE_DAYS->value                   => $this->change_service->getKeepChangesInsideDays(),
             ConfigKey::PURGE_CHANGES_SCHEDULE->value                     => $this->change_service->getPurgeChangesSchedule(),
+            ConfigKey::TRANSFER_CHANGES_PASSWORD->value                  => $this->change_service->getTransferChangesPassword(),
             ConfigKey::TRANSFER_CHANGES_POST_URL->value                  => $this->change_service->getTransferChangesPostUrl(),
             ConfigKey::TRANSFER_CHANGES_SCHEDULE->value                  => $this->change_service->getTransferChangesSchedule(),
+            ConfigKey::TRANSFER_CHANGES_USER->value                      => $this->change_service->getTransferChangesUser(),
             ConfigKey::WEB_PROXY_IFRAME_HEIGHT_OFFSET->value             => $this->proxy_config_service->getWebProxyIframeHeightOffset(),
             ConfigKey::WEB_PROXY_MAP->value                              => $this->proxy_config_service->getWebProxyMap()
         ];

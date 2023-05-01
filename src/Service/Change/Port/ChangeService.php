@@ -17,8 +17,10 @@ use FluxIliasRestApi\Service\Change\Command\GetLastTransferredChangeTimeCommand;
 use FluxIliasRestApi\Service\Change\Command\GetPurgeChangesCronJobCommand;
 use FluxIliasRestApi\Service\Change\Command\GetPurgeChangesScheduleCommand;
 use FluxIliasRestApi\Service\Change\Command\GetTransferChangesCronJobCommand;
+use FluxIliasRestApi\Service\Change\Command\GetTransferChangesPasswordCommand;
 use FluxIliasRestApi\Service\Change\Command\GetTransferChangesPostUrlCommand;
 use FluxIliasRestApi\Service\Change\Command\GetTransferChangesScheduleCommand;
+use FluxIliasRestApi\Service\Change\Command\GetTransferChangesUserCommand;
 use FluxIliasRestApi\Service\Change\Command\HandleIliasEventCommand;
 use FluxIliasRestApi\Service\Change\Command\IsEnableLogChangesCommand;
 use FluxIliasRestApi\Service\Change\Command\IsEnablePurgeChangesCommand;
@@ -30,8 +32,10 @@ use FluxIliasRestApi\Service\Change\Command\SetEnableTransferChangesCommand;
 use FluxIliasRestApi\Service\Change\Command\SetKeepChangesInsideDaysCommand;
 use FluxIliasRestApi\Service\Change\Command\SetLastTransferredChangeTimeCommand;
 use FluxIliasRestApi\Service\Change\Command\SetPurgeChangesScheduleCommand;
+use FluxIliasRestApi\Service\Change\Command\SetTransferChangesPasswordCommand;
 use FluxIliasRestApi\Service\Change\Command\SetTransferChangesPostUrlCommand;
 use FluxIliasRestApi\Service\Change\Command\SetTransferChangesScheduleCommand;
+use FluxIliasRestApi\Service\Change\Command\SetTransferChangesUserCommand;
 use FluxIliasRestApi\Service\Change\Command\TransferChangesCommand;
 use FluxIliasRestApi\Service\Config\Port\ConfigService;
 use FluxIliasRestApi\Service\Course\Port\CourseService;
@@ -219,6 +223,15 @@ class ChangeService
     }
 
 
+    public function getTransferChangesPassword() : ?string
+    {
+        return GetTransferChangesPasswordCommand::new(
+            $this->config_service
+        )
+            ->getTransferChangesPassword();
+    }
+
+
     public function getTransferChangesPostUrl() : string
     {
         return GetTransferChangesPostUrlCommand::new(
@@ -235,6 +248,15 @@ class ChangeService
             $this->cron_config_service
         )
             ->getTransferChangesSchedule();
+    }
+
+
+    public function getTransferChangesUser() : ?string
+    {
+        return GetTransferChangesUserCommand::new(
+            $this->config_service
+        )
+            ->getTransferChangesUser();
     }
 
 
@@ -377,13 +399,24 @@ class ChangeService
     }
 
 
-    public function setTransferChangesPostUrl(string $transfer_changes_url) : void
+    public function setTransferChangesPassword(?string $transfer_changes_password) : void
+    {
+        SetTransferChangesPasswordCommand::new(
+            $this->config_service
+        )
+            ->setTransferChangesPassword(
+                $transfer_changes_password
+            );
+    }
+
+
+    public function setTransferChangesPostUrl(string $transfer_changes_post_url) : void
     {
         SetTransferChangesPostUrlCommand::new(
             $this->config_service
         )
             ->setTransferChangesPostUrl(
-                $transfer_changes_url
+                $transfer_changes_post_url
             );
     }
 
@@ -397,6 +430,17 @@ class ChangeService
             ->setTransferChangesSchedule(
                 $type,
                 $interval
+            );
+    }
+
+
+    public function setTransferChangesUser(?string $transfer_changes_user) : void
+    {
+        SetTransferChangesUserCommand::new(
+            $this->config_service
+        )
+            ->setTransferChangesUser(
+                $transfer_changes_user
             );
     }
 

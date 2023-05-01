@@ -31,7 +31,9 @@ export async function storeForm(form_el) {
         flux_ilias_rest_object_web_proxy_maps: getEntriesFormValue("flux_ilias_rest_object_web_proxy_maps", ["icon_url", "iframe_url", "key", "page_title", "pass_ref_id", "rewrite_url", "short_title", "view_title"], form_el),
         keep_changes_inside_days: form_el.elements.keep_changes_inside_days.valueAsNumber,
         purge_changes_schedule: getScheduleFormValue("purge_changes_schedule", form_el),
+        transfer_changes_password: form_el.elements.transfer_changes_password.value,
         transfer_changes_post_url: form_el.elements.transfer_changes_post_url.value,
+        transfer_changes_user: form_el.elements.transfer_changes_user.value,
         transfer_changes_schedule: getScheduleFormValue("transfer_changes_schedule", form_el),
         web_proxy_iframe_height_offset: form_el.elements.web_proxy_iframe_height_offset.valueAsNumber,
         web_proxy_map: getEntriesFormValue("web_proxy_map", ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item", "visible_administrator_role_only_menu_item"], form_el)

@@ -18,8 +18,10 @@ enum ConfigKey: string
     case KEEP_CHANGES_INSIDE_DAYS = "keep_changes_inside_days";
     case LAST_TRANSFERRED_CHANGE_TIME = "last_transferred_change_time";
     case PURGE_CHANGES_SCHEDULE = "purge_changes_schedule";
+    case TRANSFER_CHANGES_PASSWORD = "transfer_changes_password";
     case TRANSFER_CHANGES_POST_URL = "transfer_changes_post_url";
     case TRANSFER_CHANGES_SCHEDULE = "transfer_changes_schedule";
+    case TRANSFER_CHANGES_USER = "transfer_changes_user";
     case WEB_PROXY_IFRAME_HEIGHT_OFFSET = "web_proxy_iframe_height_offset";
     case WEB_PROXY_MAP = "web_proxy_map";
 }
