@@ -230,6 +230,16 @@ WHERE session_id=" . $this->ilias_database->quote($session_id,
             $ilias_user->setBirthday(date("Y-m-d", $diff->birthday));
         }
 
+        if ($diff->birthday_unset !== null) {
+            if ($diff->birthday !== null) {
+                throw new LogicException("Can't both set and unset birthday");
+            }
+
+            if ($diff->birthday_unset) {
+                $ilias_user->setBirthday(null);
+            }
+        }
+
         if ($diff->institution !== null) {
             $ilias_user->setInstitution($diff->institution);
         }
