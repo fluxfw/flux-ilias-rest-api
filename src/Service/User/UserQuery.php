@@ -227,7 +227,7 @@ WHERE session_id=" . $this->ilias_database->quote($session_id,
         }
 
         if ($diff->birthday !== null) {
-            $ilias_user->setBirthday($diff->birthday);
+            $ilias_user->setBirthday(date("Y-m-d", $diff->birthday));
         }
 
         if ($diff->institution !== null) {
