@@ -110,7 +110,7 @@ trait ObjectQuery
         }
 
         if ($title !== null) {
-            $wheres[] = "object_data_child.title=" . $this->ilias_database->quote($title, ilDBConstants::T_TEXT);
+            $wheres[] = $this->ilias_database->like("object_data_child.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $title) . "%");
         }
 
         if ($in_trash !== null) {
@@ -178,7 +178,7 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
         }
 
         if ($title !== null) {
-            $wheres[] = "object_data.title=" . $this->ilias_database->quote($title, ilDBConstants::T_TEXT);
+            $wheres[] = $this->ilias_database->like("object_data.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $title) . "%");
         }
 
         if ($ref_ids !== null) {
