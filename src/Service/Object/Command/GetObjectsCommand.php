@@ -32,12 +32,12 @@ class GetObjectsCommand
      * @param ObjectType[]|null $types
      * @return ObjectDto[]
      */
-    public function getObjects(?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
+    public function getObjects(?int $id = null, ?string $import_id = null, int $ref_id = null, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         $objects = $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectQuery(
-            null,
-            null,
-            null,
+            $id,
+            $import_id,
+            $ref_id,
             $types,
             $title,
             null,

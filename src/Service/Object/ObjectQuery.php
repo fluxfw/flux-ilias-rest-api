@@ -82,15 +82,9 @@ trait ObjectQuery
 
     /**
      * @param ObjectType[]|null $types
+     * @param int[]|null $children_ref_ids
      */
-    private function getObjectChildrenQuery(
-        ?int $id = null,
-        ?string $import_id = null,
-        ?int $ref_id = null,
-        ?array $types = null,
-        ?string $title = null,
-        ?bool $in_trash = null
-    ) : string {
+    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, ?array $children_ref_ids = null, ?bool $in_trash = null) : string {
         $wheres = [];
 
         if ($id !== null) {
@@ -105,12 +99,28 @@ trait ObjectQuery
             $wheres[] = "object_reference.ref_id=" . $this->ilias_database->quote($ref_id, ilDBConstants::T_INTEGER);
         }
 
-        if ($types !== null) {
-            $wheres[] = $this->ilias_database->in("object_data_child.type", array_map(fn(ObjectType $type) : string => ObjectTypeMapping::mapExternalToInternal($type)->value, $types), false, ilDBConstants::T_TEXT);
+        if ($children_id !== null) {
+            $wheres[] = "object_data_child.obj_id=" . $this->ilias_database->quote($children_id, ilDBConstants::T_INTEGER);
         }
 
-        if ($title !== null) {
-            $wheres[] = $this->ilias_database->like("object_data_child.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $title) . "%");
+        if ($children_import_id !== null) {
+            $wheres[] = "object_data_child.import_id=" . $this->ilias_database->quote($children_import_id, ilDBConstants::T_TEXT);
+        }
+
+        if ($children_ref_id !== null) {
+            $wheres[] = "object_reference_child.ref_id=" . $this->ilias_database->quote($children_ref_id, ilDBConstants::T_INTEGER);
+        }
+
+        if ($children_types !== null) {
+            $wheres[] = $this->ilias_database->in("object_data_child.type", array_map(fn(ObjectType $type) : string => ObjectTypeMapping::mapExternalToInternal($type)->value, $children_types), false, ilDBConstants::T_TEXT);
+        }
+
+        if ($children_title !== null) {
+            $wheres[] = $this->ilias_database->like("object_data_child.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $children_title) . "%");
+        }
+
+        if ($children_ref_ids !== null) {
+            $wheres[] = $this->ilias_database->in("object_reference_child.ref_id", $children_ref_ids, false, ilDBConstants::T_INTEGER);
         }
 
         if ($in_trash !== null) {
@@ -150,15 +160,7 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
      * @param ObjectType[]|null $types
      * @param int[]|null $ref_ids
      */
-    private function getObjectQuery(
-        ?int $id = null,
-        ?string $import_id = null,
-        ?int $ref_id = null,
-        ?array $types = null,
-        ?string $title = null,
-        ?array $ref_ids = null,
-        ?bool $in_trash = null
-    ) : string {
+    private function getObjectQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $types = null, ?string $title = null, ?array $ref_ids = null, ?bool $in_trash = null) : string {
         $wheres = [];
 
         if ($id !== null) {

@@ -36,7 +36,7 @@ class GetChildrenCommand
      * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenById(int $id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenById(int $id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object_service->getObjectById(
             $id,
@@ -50,8 +50,11 @@ class GetChildrenCommand
             $object->id,
             null,
             null,
-            $types,
-            $title,
+            $children_id,
+            $children_import_id,
+            $children_ref_id,
+            $children_types,
+            $children_title,
             $ref_ids,
             $in_trash
         );
@@ -62,7 +65,7 @@ class GetChildrenCommand
      * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByImportId(string $import_id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByImportId(string $import_id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object_service->getObjectByImportId(
             $import_id,
@@ -76,8 +79,11 @@ class GetChildrenCommand
             null,
             $object->import_id,
             null,
-            $types,
-            $title,
+            $children_id,
+            $children_import_id,
+            $children_ref_id,
+            $children_types,
+            $children_title,
             $ref_ids,
             $in_trash
         );
@@ -88,7 +94,7 @@ class GetChildrenCommand
      * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByRefId(int $ref_id, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByRefId(int $ref_id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         $object = $this->object_service->getObjectByRefId(
             $ref_id,
@@ -102,8 +108,11 @@ class GetChildrenCommand
             null,
             null,
             $object->ref_id,
-            $types,
-            $title,
+            $children_id,
+            $children_import_id,
+            $children_ref_id,
+            $children_types,
+            $children_title,
             $ref_ids,
             $in_trash
         );
@@ -114,21 +123,18 @@ class GetChildrenCommand
      * @param ObjectType[]|null $types
      * @return ObjectDto[]
      */
-    private function getChildren(
-        ?int $id = null,
-        ?string $import_id = null,
-        ?int $ref_id = null,
-        ?array $types = null,
-        ?string $title = null,
-        bool $ref_ids = false,
-        ?bool $in_trash = null
-    ) : array {
+    private function getChildren(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
+    {
         $objects = $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectChildrenQuery(
             $id,
             $import_id,
             $ref_id,
-            $types,
-            $title,
+            $children_id,
+            $children_import_id,
+            $children_ref_id,
+            $children_types,
+            $children_title,
+            null,
             $in_trash
         )));
         $object_ids = array_map(fn(array $object) : int => $object["obj_id"], $objects);

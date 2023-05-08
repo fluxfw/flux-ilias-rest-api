@@ -46,6 +46,21 @@ class GetObjectsRoute implements Route
             null,
             [
                 RouteParamDocumentationDto::new(
+                    "id",
+                    "int",
+                    "Filter object to id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "import_id",
+                    "string",
+                    "Filter object to import id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "ref_id",
+                    "int",
+                    "Filter object to ref id"
+                ),
+                RouteParamDocumentationDto::new(
                     "types",
                     ObjectType::class . "[]",
                     "Filter by object types split by ,"
@@ -91,6 +106,15 @@ class GetObjectsRoute implements Route
         return ServerResponseDto::new(
             JsonBodyDto::new(
                 $this->ilias_rest_api->getObjects(
+                    $request->getQueryParam(
+                        "id"
+                    ),
+                    $request->getQueryParam(
+                        "import_id"
+                    ),
+                    $request->getQueryParam(
+                        "ref_id"
+                    ),
                     ($types = $request->getQueryParam(
                         "types"
                     )) !== null ? array_map(fn(string $type) : ObjectType => CustomObjectType::factory(

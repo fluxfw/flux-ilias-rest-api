@@ -54,6 +54,21 @@ class GetChildrenByImportIdRoute implements Route
             ],
             [
                 RouteParamDocumentationDto::new(
+                    "id",
+                    "int",
+                    "Filter object to id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "import_id",
+                    "string",
+                    "Filter object to import id"
+                ),
+                RouteParamDocumentationDto::new(
+                    "ref_id",
+                    "int",
+                    "Filter object to ref id"
+                ),
+                RouteParamDocumentationDto::new(
                     "types",
                     ObjectType::class . "[]",
                     "Filter by object types split by ,"
@@ -105,6 +120,15 @@ class GetChildrenByImportIdRoute implements Route
         $children = $this->ilias_rest_api->getChildrenByImportId(
             $request->getParam(
                 "import_id"
+            ),
+            $request->getQueryParam(
+                "id"
+            ),
+            $request->getQueryParam(
+                "import_id"
+            ),
+            $request->getQueryParam(
+                "ref_id"
             ),
             ($types = $request->getQueryParam(
                 "types"
