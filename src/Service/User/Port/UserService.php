@@ -123,6 +123,7 @@ class UserService
     public function updateAvatarById(int $id, ?string $file) : ?UserIdDto
     {
         return UpdateAvatarCommand::new(
+            $this->constants_service,
             $this
         )
             ->updateAvatarById(
@@ -135,6 +136,7 @@ class UserService
     public function updateAvatarByImportId(string $import_id, ?string $file) : ?UserIdDto
     {
         return UpdateAvatarCommand::new(
+            $this->constants_service,
             $this
         )
             ->updateAvatarByImportId(
@@ -147,8 +149,9 @@ class UserService
     public function updateUserById(int $id, UserDiffDto $diff) : ?UserIdDto
     {
         return UpdateUserCommand::new(
-            $this,
-            $this->object_service
+            $this->constants_service,
+            $this->object_service,
+            $this
         )
             ->updateUserById(
                 $id,
@@ -160,8 +163,9 @@ class UserService
     public function updateUserByImportId(string $import_id, UserDiffDto $diff) : ?UserIdDto
     {
         return UpdateUserCommand::new(
-            $this,
-            $this->object_service
+            $this->constants_service,
+            $this->object_service,
+            $this
         )
             ->updateUserByImportId(
                 $import_id,

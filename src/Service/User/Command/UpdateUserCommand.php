@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\User\Command;
 use FluxIliasRestApi\Adapter\User\UserDiffDto;
 use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Adapter\User\UserIdDto;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
 use FluxIliasRestApi\Service\User\Port\UserService;
 use FluxIliasRestApi\Service\User\UserQuery;
@@ -15,20 +16,23 @@ class UpdateUserCommand
     use UserQuery;
 
     private function __construct(
-        private readonly UserService $user_service,
-        private readonly ObjectService $object_service
+        private readonly ConstantsService $constants_service,
+        private readonly ObjectService $object_service,
+        private readonly UserService $user_service
     ) {
 
     }
 
 
     public static function new(
-        UserService $user_service,
-        ObjectService $object_service
+        ConstantsService $constants_service,
+        ObjectService $object_service,
+        UserService $user_service
     ) : static {
         return new static(
-            $user_service,
-            $object_service
+            $constants_service,
+            $object_service,
+            $user_service
         );
     }
 
@@ -57,7 +61,7 @@ class UpdateUserCommand
 
     private function updateUser(?UserDto $user, UserDiffDto $diff) : ?UserIdDto
     {
-        if ($user === null) {
+        if ($user === null || $user->id === $this->constants_service->getConstants()->root_user_id) {
             return null;
         }
 

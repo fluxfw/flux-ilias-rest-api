@@ -4,6 +4,7 @@ namespace FluxIliasRestApi\Service\User\Command;
 
 use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Adapter\User\UserIdDto;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\User\Port\UserService;
 use FluxIliasRestApi\Service\User\UserQuery;
 use ilObjUser;
@@ -14,6 +15,7 @@ class UpdateAvatarCommand
     use UserQuery;
 
     private function __construct(
+        private readonly ConstantsService $constants_service,
         private readonly UserService $user_service
     ) {
 
@@ -21,9 +23,11 @@ class UpdateAvatarCommand
 
 
     public static function new(
+        ConstantsService $constants_service,
         UserService $user_service
     ) : static {
         return new static(
+            $constants_service,
             $user_service
         );
     }
@@ -53,7 +57,7 @@ class UpdateAvatarCommand
 
     private function updateAvatar(?UserDto $user, ?string $file) : ?UserIdDto
     {
-        if ($user === null) {
+        if ($user === null || $user->id === $this->constants_service->getConstants()->root_user_id) {
             return null;
         }
 

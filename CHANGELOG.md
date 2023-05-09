@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-05-09-1
+
+Changes:
+
+- Disable update root user
+
 ## v2023-05-08-1
 
 Changes:
