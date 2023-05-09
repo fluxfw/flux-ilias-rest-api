@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\Object\Command;
 use FluxIliasRestApi\Adapter\Object\ObjectDiffDto;
 use FluxIliasRestApi\Adapter\Object\ObjectDto;
 use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
@@ -17,20 +18,23 @@ class UpdateObjectCommand
     use ObjectQuery;
 
     private function __construct(
-        private readonly ObjectService $object_service,
-        private readonly ilDBInterface $ilias_database
+        private readonly ConstantsService $constants_service,
+        private readonly ilDBInterface $ilias_database,
+        private readonly ObjectService $object_service
     ) {
 
     }
 
 
     public static function new(
-        ObjectService $object_service,
-        ilDBInterface $ilias_database
+        ConstantsService $constants_service,
+        ilDBInterface $ilias_database,
+        ObjectService $object_service
     ) : static {
         return new static(
-            $object_service,
-            $ilias_database
+            $constants_service,
+            $ilias_database,
+            $object_service
         );
     }
 
@@ -73,7 +77,9 @@ class UpdateObjectCommand
 
     private function updateObject(?ObjectDto $object, ObjectDiffDto $diff) : ?ObjectIdDto
     {
-        if ($object === null) {
+        $constants = $this->constants_service->getConstants();
+
+        if ($object === null || $object->id === $constants->root_user_id || $object->id === $constants->rest_user_user_id) {
             return null;
         }
 

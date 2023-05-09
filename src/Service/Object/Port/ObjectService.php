@@ -7,6 +7,7 @@ use FluxIliasRestApi\Adapter\Object\ObjectDto;
 use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
 use FluxIliasRestApi\Adapter\Object\ObjectType;
 use FluxIliasRestApi\Adapter\Permission\Permission;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\Object\Command\CloneObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\CreateObjectCommand;
 use FluxIliasRestApi\Service\Object\Command\DeleteObjectCommand;
@@ -29,29 +30,32 @@ class ObjectService
 {
 
     private function __construct(
+        private readonly ConstantsService $constants_service,
+        private readonly ilAccessHandler $ilias_access,
         private readonly ilDBInterface $ilias_database,
-        private readonly ilTree $ilias_tree,
-        private readonly ilObjUser $ilias_user,
         private readonly ilObjectDefinition $ilias_object_definition,
-        private readonly ilAccessHandler $ilias_access
+        private readonly ilTree $ilias_tree,
+        private readonly ilObjUser $ilias_user
     ) {
 
     }
 
 
     public static function new(
+        ConstantsService $constants_service,
+        ilAccessHandler $ilias_access,
         ilDBInterface $ilias_database,
-        ilTree $ilias_tree,
-        ilObjUser $ilias_user,
         ilObjectDefinition $ilias_object_definition,
-        ilAccessHandler $ilias_access
+        ilTree $ilias_tree,
+        ilObjUser $ilias_user
     ) : static {
         return new static(
+            $constants_service,
+            $ilias_access,
             $ilias_database,
-            $ilias_tree,
-            $ilias_user,
             $ilias_object_definition,
-            $ilias_access
+            $ilias_tree,
+            $ilias_user
         );
     }
 
@@ -254,6 +258,7 @@ class ObjectService
     public function deleteObjectById(int $id, bool $force = false) : ?ObjectIdDto
     {
         return DeleteObjectCommand::new(
+            $this->constants_service,
             $this
         )
             ->deleteObjectById(
@@ -266,6 +271,7 @@ class ObjectService
     public function deleteObjectByImportId(string $import_id, bool $force = false) : ?ObjectIdDto
     {
         return DeleteObjectCommand::new(
+            $this->constants_service,
             $this
         )
             ->deleteObjectByImportId(
@@ -278,6 +284,7 @@ class ObjectService
     public function deleteObjectByRefId(int $ref_id, bool $force = false) : ?ObjectIdDto
     {
         return DeleteObjectCommand::new(
+            $this->constants_service,
             $this
         )
             ->deleteObjectByRefId(
@@ -734,8 +741,9 @@ class ObjectService
     public function updateObjectById(int $id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return UpdateObjectCommand::new(
-            $this,
-            $this->ilias_database
+            $this->constants_service,
+            $this->ilias_database,
+            $this
         )
             ->updateObjectById(
                 $id,
@@ -747,8 +755,9 @@ class ObjectService
     public function updateObjectByImportId(string $import_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return UpdateObjectCommand::new(
-            $this,
-            $this->ilias_database
+            $this->constants_service,
+            $this->ilias_database,
+            $this
         )
             ->updateObjectByImportId(
                 $import_id,
@@ -760,8 +769,9 @@ class ObjectService
     public function updateObjectByRefId(int $ref_id, ObjectDiffDto $diff) : ?ObjectIdDto
     {
         return UpdateObjectCommand::new(
-            $this,
-            $this->ilias_database
+            $this->constants_service,
+            $this->ilias_database,
+            $this
         )
             ->updateObjectByRefId(
                 $ref_id,

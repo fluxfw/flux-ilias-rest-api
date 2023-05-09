@@ -196,7 +196,7 @@ class CloneObjectCommand
 
     private function cloneObject(?ObjectDto $object, ?ObjectDto $parent_object, bool $link = false, bool $prefer_link = false) : ?ObjectIdDto
     {
-        if ($object === null || $parent_object === null || $parent_object->ref_id === null) {
+        if ($object === null || $parent_object === null || $object->ref_id === null || $parent_object->ref_id === null) {
             return null;
         }
 

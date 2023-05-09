@@ -61,7 +61,9 @@ class UpdateUserCommand
 
     private function updateUser(?UserDto $user, UserDiffDto $diff) : ?UserIdDto
     {
-        if ($user === null || $user->id === $this->constants_service->getConstants()->root_user_id) {
+        $constants = $this->constants_service->getConstants();
+
+        if ($user === null || $user->id === $constants->root_user_id || $user->id === $constants->rest_user_user_id) {
             return null;
         }
 

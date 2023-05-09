@@ -170,7 +170,7 @@ class MoveObjectCommand
 
     private function moveObject(?ObjectDto $object, ?ObjectDto $parent_object) : ?ObjectIdDto
     {
-        if ($object === null || $parent_object === null || $parent_object->ref_id === null) {
+        if ($object === null || $parent_object === null || $object->ref_id === null || $parent_object->ref_id === null) {
             return null;
         }
 

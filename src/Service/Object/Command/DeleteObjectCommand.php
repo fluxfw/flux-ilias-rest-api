@@ -4,6 +4,7 @@ namespace FluxIliasRestApi\Service\Object\Command;
 
 use FluxIliasRestApi\Adapter\Object\ObjectDto;
 use FluxIliasRestApi\Adapter\Object\ObjectIdDto;
+use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
 use ilObjOrgUnit;
@@ -17,6 +18,7 @@ class DeleteObjectCommand
     use ObjectQuery;
 
     private function __construct(
+        private readonly ConstantsService $constants_service,
         private readonly ObjectService $object_service
     ) {
 
@@ -24,9 +26,11 @@ class DeleteObjectCommand
 
 
     public static function new(
+        ConstantsService $constants_service,
         ObjectService $object_service
     ) : static {
         return new static(
+            $constants_service,
             $object_service
         );
     }
@@ -70,7 +74,9 @@ class DeleteObjectCommand
 
     private function deleteObject(?ObjectDto $object, bool $force = false) : ?ObjectIdDto
     {
-        if ($object === null) {
+        $constants = $this->constants_service->getConstants();
+
+        if ($object === null || $object->id === $constants->root_user_id || $object->id === $constants->rest_user_user_id) {
             return null;
         }
 

@@ -2869,7 +2869,9 @@ class IliasRestApi
 
     private function getConstantsService() : ConstantsService
     {
-        return ConstantsService::new();
+        return ConstantsService::new(
+            $this->getIliasUser()
+        );
     }
 
 
@@ -3067,11 +3069,12 @@ class IliasRestApi
     private function getObjectService() : ObjectService
     {
         return ObjectService::new(
+            $this->getConstantsService(),
+            $this->getIliasAccess(),
             $this->getIliasDatabase(),
-            $this->getIliasTree(),
-            $this->getIliasUser(),
             $this->getIliasObjectDefinition(),
-            $this->getIliasAccess()
+            $this->getIliasTree(),
+            $this->getIliasUser()
         );
     }
 

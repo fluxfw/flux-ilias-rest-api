@@ -6,6 +6,12 @@ Changes:
 
 \-
 
+## v2023-05-09-2
+
+Changes:
+
+- Disable update/delete root/rest user
+
 ## v2023-05-09-1
 
 Changes:
