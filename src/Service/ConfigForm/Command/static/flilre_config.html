@@ -23,19 +23,11 @@
 					</div>
 					<div class="form_field"></div>
 					<div>
-						<em>You need to prefix the ILIAS client to the user</em>
+						<em>You need to prefix the ILIAS client to the user. The <code>Authorization</code> header looks like <code>Basic %client%/%user%:%password%</code> (Base64 encoded)</em>
 					</div>
 					<div class="form_field"></div>
 					<div>
-						<em>The <code>Authorization</code> header looks like <code>Basic %client%/%user%:%password%</code> (Base64 encoded)</em>
-					</div>
-					<div class="form_field"></div>
-					<div>
-						<em>Only ILIAS admin users (expect root) can use the api</em>
-					</div>
-					<div class="form_field"></div>
-					<div>
-						<em>You should create/use a separate ILIAS user</em>
+						<em>You need to create an ILIAS user with the <code>Administrator</code> role (Default assumed to <code>rest</code>). The <code>root</code> user can't be used</em>
 					</div>
 					<div class="form_field"></div>
 					<div>
@@ -49,6 +41,12 @@
 				<div class="form_field_label">Enable</div>
 				<div class="form_field_field">
 					<input name="enable_rest_api" type="checkbox">
+				</div>
+			</div>
+			<div class="form_field">
+				<div class="form_field_label">User login</div>
+				<div class="form_field_field">
+					<input name="rest_api_user_login" required type="text">
 				</div>
 			</div>
 			<h2>Proxy</h2>
@@ -78,7 +76,7 @@
 					</div>
 					<div class="form_field"></div>
 					<div>
-						<em>If you use menu item and restrict it only for user with administrator role, the user needs to be logged in ILIAS and need to have the administrator role to see the menu item or call the web proxy url, but be familiar, your iframe url is not protected and can be called directly for public without this permission check (Even you don't use the menu item, the iframe url is still accessible directly for non-administrator users or public). And your backend needs to check it too</em>
+						<em>If you use menu item and restrict it only for user with <code>Administrator</code> role, the user needs to be logged in ILIAS and need to have the <code>Administrator</code> role to see the menu item or call the web proxy url, but be familiar, your iframe url is not protected and can be called directly for public without this permission check (Even you don't use the menu item, the iframe url is still accessible directly for non-<code>Administrator</code> users or public). And your backend needs to check it too</em>
 					</div>
 					<div class="form_field"></div>
 					<div>
@@ -173,7 +171,7 @@
 								</div>
 								<div class="form_field">
 									<div class="form_field_button"></div>
-									<div class="form_field_label">Visible menu item only for users with administrator role</div>
+									<div class="form_field_label">Visible menu item only for users with <code>Administrator</code> role</div>
 									<div class="form_field_field">
 										<input data-entry-visible_administrator_role_only_menu_item type="checkbox">
 										<div>

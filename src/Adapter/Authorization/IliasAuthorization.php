@@ -111,7 +111,7 @@ class IliasAuthorization implements Authorization
         $constants = $this->ilias_rest_api->getConstants();
 
         $user = $this->ilias_rest_api->getCurrentApiUser();
-        if ($user === null || $user->id === $constants->root_user_id) {
+        if ($user === null || $user->id === $constants->root_user_id || $user->login !== $this->ilias_rest_api->getRestApiUserLogin()) {
             return ServerResponseDto::new(
                 TextBodyDto::new(
                     "No access"

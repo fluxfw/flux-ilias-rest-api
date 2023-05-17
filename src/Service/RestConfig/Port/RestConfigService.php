@@ -3,8 +3,10 @@
 namespace FluxIliasRestApi\Service\RestConfig\Port;
 
 use FluxIliasRestApi\Service\Config\Port\ConfigService;
+use FluxIliasRestApi\Service\RestConfig\Command\GetRestApiUserLoginCommand;
 use FluxIliasRestApi\Service\RestConfig\Command\IsEnableRestApiCommand;
 use FluxIliasRestApi\Service\RestConfig\Command\SetEnableRestApiCommand;
+use FluxIliasRestApi\Service\RestConfig\Command\SetRestApiUserLoginCommand;
 
 class RestConfigService
 {
@@ -25,6 +27,15 @@ class RestConfigService
     }
 
 
+    public function getRestApiUserLogin() : string
+    {
+        return GetRestApiUserLoginCommand::new(
+            $this->config_service
+        )
+            ->getRestApiUserLogin();
+    }
+
+
     public function isEnableRestApi() : bool
     {
         return IsEnableRestApiCommand::new(
@@ -41,6 +52,17 @@ class RestConfigService
         )
             ->setEnableRestApi(
                 $enable_rest_api
+            );
+    }
+
+
+    public function setRestApiUserLogin(?string $rest_api_user_login) : void
+    {
+        SetRestApiUserLoginCommand::new(
+            $this->config_service
+        )
+            ->setRestApiUserLogin(
+                $rest_api_user_login
             );
     }
 }

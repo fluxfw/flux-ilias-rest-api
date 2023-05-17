@@ -94,6 +94,10 @@ class StoreConfigFormValuesCommand
             ($interval = $values->{ConfigKey::PURGE_CHANGES_SCHEDULE->value}->interval ?? null) !== null ? intval($interval) : null
         );
 
+        $this->rest_config_service->setRestApiUserLogin(
+            ($values->{ConfigKey::REST_API_USER_LOGIN->value} ?? null) ?: null
+        );
+
         $this->change_service->setTransferChangesPassword(
             ($values->{ConfigKey::TRANSFER_CHANGES_PASSWORD->value} ?? null) ?: null
         );

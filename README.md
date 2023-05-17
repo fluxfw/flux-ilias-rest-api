@@ -51,7 +51,7 @@ You need to install [flux-ilias-rest-helper-plugin](https://github.com/fluxfw/fl
 
 ### Config
 
-Open `Administration` > `flux-ilias-rest-config` in ILIAS
+Open `Administration` > `flux-ilias-rest-config` in ILIAS for get more informations (Only accessible with the `root` user)
 
 ### Example
 

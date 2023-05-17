@@ -18,6 +18,7 @@ export function initForm(form_template_el, action, values) {
     form_el.elements.flux_ilias_rest_object_multiple_type_title.value = values.flux_ilias_rest_object_multiple_type_title;
     form_el.elements.flux_ilias_rest_object_type_title.value = values.flux_ilias_rest_object_type_title;
     form_el.elements.keep_changes_inside_days.valueAsNumber = values.keep_changes_inside_days;
+    form_el.elements.rest_api_user_login.value = values.rest_api_user_login;
     form_el.elements.transfer_changes_password.value = values.transfer_changes_password;
     form_el.elements.transfer_changes_post_url.value = values.transfer_changes_post_url;
     form_el.elements.transfer_changes_user.value = values.transfer_changes_user;
@@ -48,7 +49,7 @@ export function initForm(form_template_el, action, values) {
         function changedMenuItem() {
             const old_disabled = menu_title_el.disabled;
 
-            menu_title_el.disabled = menu_icon_url_el.disabled = visible_public_menu_item_el.disabled = visible_public_menu_item_el.disabled = !menu_item_el.checked;
+            menu_title_el.disabled = menu_icon_url_el.disabled = visible_public_menu_item_el.disabled = visible_public_menu_item_el.disabled = visible_administrator_role_only_menu_item_el.disabled = !menu_item_el.checked;
 
             if (old_disabled !== menu_title_el.disabled) {
                 menu_title_el.value = menu_icon_url_el.value = "";

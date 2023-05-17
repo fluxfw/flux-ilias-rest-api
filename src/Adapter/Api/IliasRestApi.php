@@ -1515,6 +1515,13 @@ class IliasRestApi
     }
 
 
+    public function getRestApiUserLogin() : string
+    {
+        return $this->getRestConfigService()
+            ->getRestApiUserLogin();
+    }
+
+
     public function getRoleById(int $id) : ?RoleDto
     {
         return $this->getRoleService()

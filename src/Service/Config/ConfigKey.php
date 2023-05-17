@@ -18,6 +18,7 @@ enum ConfigKey: string
     case KEEP_CHANGES_INSIDE_DAYS = "keep_changes_inside_days";
     case LAST_TRANSFERRED_CHANGE_TIME = "last_transferred_change_time";
     case PURGE_CHANGES_SCHEDULE = "purge_changes_schedule";
+    case REST_API_USER_LOGIN = "rest_api_user_login";
     case TRANSFER_CHANGES_PASSWORD = "transfer_changes_password";
     case TRANSFER_CHANGES_POST_URL = "transfer_changes_post_url";
     case TRANSFER_CHANGES_SCHEDULE = "transfer_changes_schedule";
