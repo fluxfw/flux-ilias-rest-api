@@ -2,14 +2,14 @@
 
 namespace FluxIliasRestApi\Adapter\Route\ConfigForm;
 
+use FluxIliasRestApi\Adapter\Body\HtmlBodyDto;
+use FluxIliasRestApi\Adapter\Method\DefaultMethod;
+use FluxIliasRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Adapter\Server\ServerResponseDto;
 use FluxIliasRestApi\Service\Proxy\Port\ProxyService;
-use FluxRestApi\Adapter\Body\HtmlBodyDto;
-use FluxRestApi\Adapter\Method\DefaultMethod;
-use FluxRestApi\Adapter\Method\Method;
-use FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
-use FluxRestApi\Adapter\Route\Route;
-use FluxRestApi\Adapter\Server\ServerRequestDto;
-use FluxRestApi\Adapter\Server\ServerResponseDto;
 use ilGlobalTemplateInterface;
 
 class ConfigFormRoute implements Route
@@ -62,7 +62,7 @@ class ConfigFormRoute implements Route
                     "flux-ilias-rest-config",
                     "flux-ilias-rest",
                     "config",
-                    "/static/flilre_config.html",
+                    "/ui/flilre_config.html",
                     null,
                     $request->original_route,
                     "flux-ilias-rest-config"

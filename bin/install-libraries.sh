@@ -35,8 +35,6 @@ installLibrary flux-loading-spinner https://github.com/fluxfw/flux-loading-spinn
 
 installLibrary flux-php-backport https://github.com/fluxfw/flux-php-backport/archive/refs/tags/v2023-02-09-1.tar.gz
 
-installLibrary flux-rest-api https://github.com/fluxfw/flux-rest-api/archive/refs/tags/v2023-04-26-1.tar.gz
-
 installComposerLibrary polyfill-php80 symfony/polyfill-php80:v1.27.0
 
 installComposerLibrary polyfill-php81 symfony/polyfill-php81:v1.27.0

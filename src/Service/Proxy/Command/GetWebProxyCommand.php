@@ -77,7 +77,7 @@ class GetWebProxyCommand
         $src = htmlspecialchars($url);
 
         return str_replace("%CONTENT%", <<<EOL
-            <link href="flux-ilias-rest-web-proxy/static/css/flilre_web_proxy.css" rel="stylesheet">
+            <link href="flux-ilias-rest-web-proxy/ui/css/flilre_web_proxy.css" rel="stylesheet">
             <iframe id="flilre_web_proxy_iframe" src="$src" style="--FLUX_ILIAS_REST_WEB_PROXY_IFRAME_HEIGHT_OFFSET:$iframe_offset_height"></iframe>
             EOL, $html);
     }

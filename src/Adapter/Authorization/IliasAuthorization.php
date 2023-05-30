@@ -3,13 +3,12 @@
 namespace FluxIliasRestApi\Adapter\Authorization;
 
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization;
 use FluxIliasRestApi\Adapter\Autoload\IliasAutoload;
-use FluxRestApi\Adapter\Authorization\Authorization;
-use FluxRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization;
-use FluxRestApi\Adapter\Body\TextBodyDto;
-use FluxRestApi\Adapter\Server\ServerRawRequestDto;
-use FluxRestApi\Adapter\Server\ServerResponseDto;
-use FluxRestApi\Adapter\Status\DefaultStatus;
+use FluxIliasRestApi\Adapter\Body\TextBodyDto;
+use FluxIliasRestApi\Adapter\Server\ServerRawRequestDto;
+use FluxIliasRestApi\Adapter\Server\ServerResponseDto;
+use FluxIliasRestApi\Adapter\Status\DefaultStatus;
 use ilBrowser;
 use ilCronException;
 use ilCronStartUp;

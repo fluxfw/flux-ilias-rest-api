@@ -6,6 +6,13 @@ Changes:
 
 \-
 
+## v2023-05-30-1
+
+Changes:
+
+- Include `flux-rest-api`
+- Remove apache support
+
 ## v2023-05-17-1
 
 Changes:

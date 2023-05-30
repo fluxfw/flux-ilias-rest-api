@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>routes</title>
+	<link href="ui/css/routes.css" rel="stylesheet">
+</head>
+<body>
+<div id="routes">
+	<template data-routes-template>
+		<div>
+			<template data-route-template>
+				<div>
+					<details>
+						<summary>
+							<div class="route_summary">
+								<code data-method></code> <code data-route></code> <em data-title></em>
+							</div>
+						</summary>
+						<div class="route_details">
+							<em data-description></em>
+							<h4>Route params</h4>
+							<ul data-route-params></ul>
+							<h4>Query params</h4>
+							<ul data-query-params></ul>
+							<h4>Content types</h4>
+							<ul data-content-types></ul>
+							<h4>Responses</h4>
+							<ul data-responses></ul>
+						</div>
+					</details>
+				</div>
+			</template>
+			<template data-param-template>
+				<li>
+					<div class="route_param">
+						<code data-name></code> <code data-type></code> <em data-description></em>
+					</div>
+				</li>
+			</template>
+			<template data-content-type-template>
+				<li>
+					<div class="route_content_type">
+						<code data-content-type></code> <code data-type></code> <em data-description></em>
+					</div>
+				</li>
+			</template>
+			<template data-response-template>
+				<li>
+					<div class="route_response">
+						<code data-status></code> <code data-content-type></code> <code data-type></code> <em data-description></em>
+					</div>
+				</li>
+			</template>
+		</div>
+	</template>
+</div>
+<script src="ui/js/routes.mjs" type="module"></script>
+</body>
+</html>

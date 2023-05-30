@@ -2,6 +2,7 @@
 
 namespace FluxIliasRestApi\Adapter\Api;
 
+use FluxIliasRestApi\Adapter\Authorization\IliasAuthorization;
 use FluxIliasRestApi\Adapter\Category\CategoryDiffDto;
 use FluxIliasRestApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Adapter\Change\ChangeDto;
@@ -42,6 +43,7 @@ use FluxIliasRestApi\Adapter\OrganisationalUnitStaff\OrganisationalUnitStaffDto;
 use FluxIliasRestApi\Adapter\Permission\Permission;
 use FluxIliasRestApi\Adapter\Role\RoleDiffDto;
 use FluxIliasRestApi\Adapter\Role\RoleDto;
+use FluxIliasRestApi\Adapter\Route\Collector\IliasRestApiRouteCollector;
 use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDiffDto;
 use FluxIliasRestApi\Adapter\ScormLearningModule\ScormLearningModuleDto;
 use FluxIliasRestApi\Adapter\User\UserDiffDto;
@@ -71,6 +73,7 @@ use FluxIliasRestApi\Service\OrganisationalUnitPosition\Port\OrganisationalUnitP
 use FluxIliasRestApi\Service\OrganisationalUnitStaff\Port\OrganisationalUnitStaffService;
 use FluxIliasRestApi\Service\Proxy\Port\ProxyService;
 use FluxIliasRestApi\Service\ProxyConfig\Port\ProxyConfigService;
+use FluxIliasRestApi\Service\Rest\Port\RestService;
 use FluxIliasRestApi\Service\RestConfig\Port\RestConfigService;
 use FluxIliasRestApi\Service\Role\Port\RoleService;
 use FluxIliasRestApi\Service\ScormLearningModule\Port\ScormLearningModuleService;
@@ -79,7 +82,6 @@ use FluxIliasRestApi\Service\User\Port\UserService;
 use FluxIliasRestApi\Service\UserFavourite\Port\UserFavouriteService;
 use FluxIliasRestApi\Service\UserMail\Port\UserMailService;
 use FluxIliasRestApi\Service\UserRole\Port\UserRoleService;
-use FluxRestApi\Adapter\Api\RestApi;
 use ilAccessHandler;
 use ilCronJob;
 use ilCronServices;
@@ -1722,6 +1724,19 @@ class IliasRestApi
     }
 
 
+    public function handleRequest() : void {
+        $this->getRestService()
+            ->handleDefaultRequest(
+                IliasRestApiRouteCollector::new(
+                    $this
+                ),
+                IliasAuthorization::new(
+                    $this
+                )
+            );
+    }
+
+
     public function hasAccessByRefIdByUserId(int $ref_id, int $user_id, Permission $permission) : bool
     {
         return $this->getObjectService()
@@ -2849,7 +2864,7 @@ class IliasRestApi
             $this->getScormLearningModuleService(),
             $this->getUserService(),
             $this->getUserRoleService(),
-            $this->getRestApi(),
+            $this->getRestService(),
             $this->getCronConfigService()
         );
     }
@@ -3124,7 +3139,7 @@ class IliasRestApi
     private function getProxyService() : ProxyService
     {
         return ProxyService::new(
-            $this->getRestApi(),
+            $this->getRestService(),
             $this->getConfigFormService(),
             $this->getProxyConfigService(),
             $this->getFluxIliasRestObjectService(),
@@ -3135,17 +3150,17 @@ class IliasRestApi
     }
 
 
-    private function getRestApi() : RestApi
-    {
-        return RestApi::new();
-    }
-
-
     private function getRestConfigService() : RestConfigService
     {
         return RestConfigService::new(
             $this->getConfigService()
         );
+    }
+
+
+    private function getRestService() : RestService
+    {
+        return RestService::new();
     }
 
 

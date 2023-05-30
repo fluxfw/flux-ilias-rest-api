@@ -1,0 +1,86 @@
+code,
+em {
+	display: inline-block;
+	padding: 5px;
+	white-space: pre-line;
+	word-wrap: break-word;
+}
+
+.route_summary,
+.route_param,
+.route_content_type,
+.route_response {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: 5px;
+}
+
+.route_summary > *,
+.route_param > *,
+.route_content_type > *,
+.route_response > * {
+	flex-grow: 1;
+	flex-shrink: 1;
+	width: 0;
+}
+
+.route_summary > *:last-child,
+.route_param > *:last-child,
+.route_content_type > *:last-child,
+.route_response > *:last-child {
+	text-align: right;
+}
+
+.route_param,
+.route_content_type,
+.route_response {
+	display: flex;
+}
+
+.route_param > *,
+.route_content_type > *,
+.route_response > * {
+	width: 0;
+}
+
+.route_summary {
+	background-color: #EEEEEE;
+	margin-bottom: 10px;
+	min-height: 30px;
+	width: calc(100% - 30px);
+}
+
+details[open] .route_summary {
+	background-color: #CCCCCC;
+}
+
+.route_summary > [data-method] {
+	background-color: #1F0844;
+	color: #FFFFFF;
+	height: 15px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-top: 2px;
+	text-align: center;
+	width: 50px;
+}
+
+.route_response > [data-status] {
+	flex-grow: 0;
+	flex-shrink: 0;
+	width: 30px;
+}
+
+.route_details {
+	margin-bottom: 10px;
+	margin-left: 30px;
+}
+
+flux-loading-spinner {
+	width: calc(var(--flux-loading-spinner-size) * 2);
+}
+
+.error {
+	color: red;
+}

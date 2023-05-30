@@ -3,23 +3,23 @@
 namespace FluxIliasRestApi\Service\Proxy\Command;
 
 use FluxIliasRestApi\Service\Proxy\ProxyTarget;
-use FluxRestApi\Adapter\Api\RestApi;
+use FluxIliasRestApi\Service\Rest\Port\RestService;
 
 class HandleIliasRedirectCommand
 {
 
     private function __construct(
-        private readonly RestApi $rest_api
+        private readonly RestService $rest_service
     ) {
 
     }
 
 
     public static function new(
-        RestApi $rest_api
+        RestService $rest_service
     ) : static {
         return new static(
-            $rest_api
+            $rest_service
         );
     }
 
@@ -30,7 +30,7 @@ class HandleIliasRedirectCommand
             return null;
         }
 
-        $request = $this->rest_api->getDefaultRequest();
+        $request = $this->rest_service->getDefaultRequest();
 
         $target = $request->getQueryParam(
             "target"

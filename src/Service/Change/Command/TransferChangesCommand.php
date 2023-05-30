@@ -2,16 +2,16 @@
 
 namespace FluxIliasRestApi\Service\Change\Command;
 
+use FluxIliasRestApi\Adapter\Authorization\ParseHttp\ParseHttpAuthorization_;
+use FluxIliasRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization_;
+use FluxIliasRestApi\Adapter\Authorization\Schema\DefaultAuthorizationSchema;
+use FluxIliasRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Adapter\Client\ClientRequestDto;
+use FluxIliasRestApi\Adapter\Header\DefaultHeaderKey;
+use FluxIliasRestApi\Adapter\Method\DefaultMethod;
 use FluxIliasRestApi\Service\Change\ChangeQuery;
 use FluxIliasRestApi\Service\Change\Port\ChangeService;
-use FluxRestApi\Adapter\Api\RestApi;
-use FluxRestApi\Adapter\Authorization\ParseHttp\ParseHttpAuthorization_;
-use FluxRestApi\Adapter\Authorization\ParseHttpBasic\ParseHttpBasicAuthorization_;
-use FluxRestApi\Adapter\Authorization\Schema\DefaultAuthorizationSchema;
-use FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxRestApi\Adapter\Client\ClientRequestDto;
-use FluxRestApi\Adapter\Header\DefaultHeaderKey;
-use FluxRestApi\Adapter\Method\DefaultMethod;
+use FluxIliasRestApi\Service\Rest\Port\RestService;
 use ilDBInterface;
 
 class TransferChangesCommand
@@ -22,7 +22,7 @@ class TransferChangesCommand
     private function __construct(
         private readonly ilDBInterface $ilias_database,
         private readonly ChangeService $change_service,
-        private readonly RestApi $rest_api
+        private readonly RestService $rest_service
     ) {
 
     }
@@ -31,12 +31,12 @@ class TransferChangesCommand
     public static function new(
         ilDBInterface $ilias_database,
         ChangeService $change_service,
-        RestApi $rest_api
+        RestService $rest_service
     ) : static {
         return new static(
             $ilias_database,
             $change_service,
-            $rest_api
+            $rest_service
         );
     }
 
@@ -61,7 +61,7 @@ class TransferChangesCommand
             $user = $this->change_service->getTransferChangesUser();
             $password = $this->change_service->getTransferChangesPassword();
 
-            $this->rest_api->makeRequest(
+            $this->rest_service->makeRequest(
                 ClientRequestDto::new(
                     $post_url,
                     DefaultMethod::POST,

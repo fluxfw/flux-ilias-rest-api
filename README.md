@@ -35,14 +35,7 @@ RUN /flux-ilias-nginx-base/bin/install-flux-ilias-rest-api.sh
 #### Other
 
 ```nginx
-include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/nginx.conf
-```
-
-### apache
-
-```apache
-RewriteEngine On
-Include %web_root%/Customizing/global/flux-ilias-rest-api/src/Adapter/Server/Config/apache.conf
+include %web_root%/Customizing/global/flux-ilias-rest-api/src/nginx.conf
 ```
 
 ### Helper Plugin

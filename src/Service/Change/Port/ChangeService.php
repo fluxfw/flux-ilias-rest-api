@@ -49,11 +49,11 @@ use FluxIliasRestApi\Service\Object\Port\ObjectService;
 use FluxIliasRestApi\Service\ObjectLearningProgress\Port\ObjectLearningProgressService;
 use FluxIliasRestApi\Service\OrganisationalUnit\Port\OrganisationalUnitService;
 use FluxIliasRestApi\Service\OrganisationalUnitStaff\Port\OrganisationalUnitStaffService;
+use FluxIliasRestApi\Service\Rest\Port\RestService;
 use FluxIliasRestApi\Service\Role\Port\RoleService;
 use FluxIliasRestApi\Service\ScormLearningModule\Port\ScormLearningModuleService;
 use FluxIliasRestApi\Service\User\Port\UserService;
 use FluxIliasRestApi\Service\UserRole\Port\UserRoleService;
-use FluxRestApi\Adapter\Api\RestApi;
 use ilCronJob;
 use ilDBInterface;
 
@@ -78,7 +78,7 @@ class ChangeService
         private readonly ScormLearningModuleService $scorm_learning_module_service,
         private readonly UserService $user_service,
         private readonly UserRoleService $user_role_service,
-        private readonly RestApi $rest_api,
+        private readonly RestService $rest_service,
         private readonly CronConfigService $cron_config_service
     ) {
 
@@ -103,7 +103,7 @@ class ChangeService
         ScormLearningModuleService $scorm_learning_module_service,
         UserService $user_service,
         UserRoleService $user_role_service,
-        RestApi $rest_api,
+        RestService $rest_service,
         CronConfigService $cron_config_service
     ) : static {
         return new static(
@@ -124,7 +124,7 @@ class ChangeService
             $scorm_learning_module_service,
             $user_service,
             $user_role_service,
-            $rest_api,
+            $rest_service,
             $cron_config_service
         );
     }
@@ -450,7 +450,7 @@ class ChangeService
         return TransferChangesCommand::new(
             $this->ilias_database,
             $this,
-            $this->rest_api
+            $this->rest_service
         )
             ->transferChanges();
     }

@@ -13,8 +13,8 @@ use FluxIliasRestApi\Service\Proxy\Command\HandleIliasGotoCommand;
 use FluxIliasRestApi\Service\Proxy\Command\HandleIliasRedirectCommand;
 use FluxIliasRestApi\Service\Proxy\Command\IsWebProxyMenuVisibleCommand;
 use FluxIliasRestApi\Service\ProxyConfig\Port\ProxyConfigService;
+use FluxIliasRestApi\Service\Rest\Port\RestService;
 use FluxIliasRestApi\Service\UserRole\Port\UserRoleService;
-use FluxRestApi\Adapter\Api\RestApi;
 use ilGlobalTemplateInterface;
 use ILIAS\DI\Container;
 use ILIAS\GlobalScreen\Identification\IdentificationProviderInterface;
@@ -24,7 +24,7 @@ class ProxyService
 {
 
     private function __construct(
-        private readonly RestApi $rest_api,
+        private readonly RestService $rest_service,
         private readonly ConfigFormService $config_form_service,
         private readonly ProxyConfigService $proxy_config_service,
         private readonly FluxIliasRestObjectService $flux_ilias_rest_object_service,
@@ -37,7 +37,7 @@ class ProxyService
 
 
     public static function new(
-        RestApi $rest_api,
+        RestService $rest_service,
         ConfigFormService $config_form_service,
         ProxyConfigService $proxy_config_service,
         FluxIliasRestObjectService $flux_ilias_rest_object_service,
@@ -46,7 +46,7 @@ class ProxyService
         Container $ilias_dic
     ) : static {
         return new static(
-            $rest_api,
+            $rest_service,
             $config_form_service,
             $proxy_config_service,
             $flux_ilias_rest_object_service,
@@ -104,7 +104,7 @@ class ProxyService
         HandleIliasGotoCommand::new(
             $this,
             $this->proxy_config_service,
-            $this->rest_api,
+            $this->rest_service,
             $this->config_form_service,
             $this->flux_ilias_rest_object_service,
             $ilias_global_template,
@@ -119,7 +119,7 @@ class ProxyService
     public function handleIliasRedirect(string $url) : ?string
     {
         return HandleIliasRedirectCommand::new(
-            $this->rest_api
+            $this->rest_service
         )
             ->handleIliasRedirect(
                 $url

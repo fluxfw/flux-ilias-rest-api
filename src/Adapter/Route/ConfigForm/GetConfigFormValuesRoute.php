@@ -2,14 +2,14 @@
 
 namespace FluxIliasRestApi\Adapter\Route\ConfigForm;
 
+use FluxIliasRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Adapter\Method\DefaultMethod;
+use FluxIliasRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Adapter\Server\ServerResponseDto;
 use FluxIliasRestApi\Service\ConfigForm\Port\ConfigFormService;
-use FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxRestApi\Adapter\Method\DefaultMethod;
-use FluxRestApi\Adapter\Method\Method;
-use FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
-use FluxRestApi\Adapter\Route\Route;
-use FluxRestApi\Adapter\Server\ServerRequestDto;
-use FluxRestApi\Adapter\Server\ServerResponseDto;
 
 class GetConfigFormValuesRoute implements Route
 {

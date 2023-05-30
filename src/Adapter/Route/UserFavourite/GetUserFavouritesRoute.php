@@ -3,17 +3,17 @@
 namespace FluxIliasRestApi\Adapter\Route\UserFavourite;
 
 use FluxIliasRestApi\Adapter\Api\IliasRestApi;
+use FluxIliasRestApi\Adapter\Body\JsonBodyDto;
+use FluxIliasRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxIliasRestApi\Adapter\Method\DefaultMethod;
+use FluxIliasRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
+use FluxIliasRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
+use FluxIliasRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Adapter\Server\ServerResponseDto;
 use FluxIliasRestApi\Adapter\UserFavourite\UserFavouriteDto;
-use FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
-use FluxRestApi\Adapter\Method\DefaultMethod;
-use FluxRestApi\Adapter\Method\Method;
-use FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
-use FluxRestApi\Adapter\Route\Documentation\RouteParamDocumentationDto;
-use FluxRestApi\Adapter\Route\Documentation\RouteResponseDocumentationDto;
-use FluxRestApi\Adapter\Route\Route;
-use FluxRestApi\Adapter\Server\ServerRequestDto;
-use FluxRestApi\Adapter\Server\ServerResponseDto;
 
 class GetUserFavouritesRoute implements Route
 {

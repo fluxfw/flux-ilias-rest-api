@@ -2,16 +2,16 @@
 
 namespace FluxIliasRestApi\Adapter\Route\FluxIliasRestObjectForm;
 
+use FluxIliasRestApi\Adapter\Body\HtmlBodyDto;
 use FluxIliasRestApi\Adapter\FluxIliasRestObject\FluxIliasRestObjectDto;
+use FluxIliasRestApi\Adapter\Method\DefaultMethod;
+use FluxIliasRestApi\Adapter\Method\Method;
+use FluxIliasRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
+use FluxIliasRestApi\Adapter\Route\Route;
+use FluxIliasRestApi\Adapter\Server\ServerRequestDto;
+use FluxIliasRestApi\Adapter\Server\ServerResponseDto;
 use FluxIliasRestApi\Service\FluxIliasRestObject\Port\FluxIliasRestObjectService;
 use FluxIliasRestApi\Service\Proxy\Port\ProxyService;
-use FluxRestApi\Adapter\Body\HtmlBodyDto;
-use FluxRestApi\Adapter\Method\DefaultMethod;
-use FluxRestApi\Adapter\Method\Method;
-use FluxRestApi\Adapter\Route\Documentation\RouteDocumentationDto;
-use FluxRestApi\Adapter\Route\Route;
-use FluxRestApi\Adapter\Server\ServerRequestDto;
-use FluxRestApi\Adapter\Server\ServerResponseDto;
 use ilGlobalTemplateInterface;
 use ilLocatorGUI;
 
@@ -79,7 +79,7 @@ class FluxIliasRestObjectConfigFormRoute implements Route
                     "flux-ilias-rest-object-config",
                     "flux-ilias-rest",
                     "object-config",
-                    "/static/flilre_object_config.html",
+                    "/ui/flilre_object_config.html",
                     [
                         "ref_id" => $this->object->ref_id
                     ],
