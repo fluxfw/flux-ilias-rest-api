@@ -902,14 +902,15 @@ class IliasRestApi
     /**
      * @return ChangeDto[]
      */
-    public function getChanges(?float $from = null, ?float $to = null, ?float $after = null, ?float $before = null) : array
+    public function getChanges(?float $time = null, ?float $time_from = null, ?float $time_to = null, ?float $time_after = null, ?float $time_before = null) : array
     {
         return $this->getChangeService()
             ->getChanges(
-                $from,
-                $to,
-                $after,
-                $before
+                $time,
+                $time_from,
+                $time_to,
+                $time_after,
+                $time_before
             );
     }
 
@@ -918,7 +919,7 @@ class IliasRestApi
      * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenById(int $id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenById(int $id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?float $children_created = null, ?float $children_created_from = null, ?float $children_created_to = null, ?float $children_created_after = null, ?float $children_created_before = null, ?float $children_updated = null, ?float $children_updated_from = null, ?float $children_updated_to = null, ?float $children_updated_after = null, ?float $children_updated_before = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObjectService()
             ->getChildrenById(
@@ -927,6 +928,16 @@ class IliasRestApi
                 $children_import_id,
                 $children_ref_id,
                 $children_types,
+                $children_created,
+                $children_created_from,
+                $children_created_to,
+                $children_created_after,
+                $children_created_before,
+                $children_updated,
+                $children_updated_from,
+                $children_updated_to,
+                $children_updated_after,
+                $children_updated_before,
                 $children_title,
                 $ref_ids,
                 $in_trash
@@ -938,7 +949,7 @@ class IliasRestApi
      * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByImportId(string $import_id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByImportId(string $import_id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?float $children_created = null, ?float $children_created_from = null, ?float $children_created_to = null, ?float $children_created_after = null, ?float $children_created_before = null, ?float $children_updated = null, ?float $children_updated_from = null, ?float $children_updated_to = null, ?float $children_updated_after = null, ?float $children_updated_before = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObjectService()
             ->getChildrenByImportId(
@@ -947,6 +958,16 @@ class IliasRestApi
                 $children_import_id,
                 $children_ref_id,
                 $children_types,
+                $children_created,
+                $children_created_from,
+                $children_created_to,
+                $children_created_after,
+                $children_created_before,
+                $children_updated,
+                $children_updated_from,
+                $children_updated_to,
+                $children_updated_after,
+                $children_updated_before,
                 $children_title,
                 $ref_ids,
                 $in_trash
@@ -958,7 +979,7 @@ class IliasRestApi
      * @param ObjectType[]|null $types
      * @return ObjectDto[]|null
      */
-    public function getChildrenByRefId(int $ref_id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
+    public function getChildrenByRefId(int $ref_id, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?float $children_created = null, ?float $children_created_from = null, ?float $children_created_to = null, ?float $children_created_after = null, ?float $children_created_before = null, ?float $children_updated = null, ?float $children_updated_from = null, ?float $children_updated_to = null, ?float $children_updated_after = null, ?float $children_updated_before = null, ?string $children_title = null, bool $ref_ids = false, ?bool $in_trash = null) : ?array
     {
         return $this->getObjectService()
             ->getChildrenByRefId(
@@ -967,6 +988,16 @@ class IliasRestApi
                 $children_import_id,
                 $children_ref_id,
                 $children_types,
+                $children_created,
+                $children_created_from,
+                $children_created_to,
+                $children_created_after,
+                $children_created_before,
+                $children_updated,
+                $children_updated_from,
+                $children_updated_to,
+                $children_updated_after,
+                $children_updated_before,
                 $children_title,
                 $ref_ids,
                 $in_trash
@@ -1370,7 +1401,7 @@ class IliasRestApi
      * @param ObjectType[]|null $types
      * @return ObjectDto[]
      */
-    public function getObjects(?int $id = null, ?string $import_id = null, int $ref_id = null, ?array $types = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
+    public function getObjects(?int $id = null, ?string $import_id = null, int $ref_id = null, ?array $types = null, ?float $created = null, ?float $created_from = null, ?float $created_to = null, ?float $created_after = null, ?float $created_before = null, ?float $updated = null, ?float $updated_from = null, ?float $updated_to = null, ?float $updated_after = null, ?float $updated_before = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         return $this->getObjectService()
             ->getObjects(
@@ -1378,6 +1409,16 @@ class IliasRestApi
                 $import_id,
                 $ref_id,
                 $types,
+                $created,
+                $created_from,
+                $created_to,
+                $created_after,
+                $created_before,
+                $updated,
+                $updated_from,
+                $updated_to,
+                $updated_after,
+                $updated_before,
                 $title,
                 $ref_ids,
                 $in_trash

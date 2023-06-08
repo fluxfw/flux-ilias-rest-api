@@ -6,6 +6,13 @@ Changes:
 
 \-
 
+## v2023-06-08-1
+
+Changes:
+
+- Objects created and updated filter
+- Fix timestamps are not UTC
+
 ## v2023-05-30-1
 
 Changes:

@@ -8,6 +8,7 @@ use FluxIliasRestApi\Service\FluxIliasRestObject\FluxIliasRestObjectQuery;
 use FluxIliasRestApi\Service\FluxIliasRestObject\Port\FluxIliasRestObjectService;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
 use FluxIliasRestApi\Service\ObjectConfig\ObjectConfigQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 
 class GetFluxIliasRestObjectsCommand
@@ -17,6 +18,7 @@ class GetFluxIliasRestObjectsCommand
     use FluxIliasRestObjectQuery;
     use ObjectConfigQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly FluxIliasRestObjectService $flux_ilias_rest_object_service,

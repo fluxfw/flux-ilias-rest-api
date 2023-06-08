@@ -7,12 +7,14 @@ use FluxIliasRestApi\Adapter\User\UserDto;
 use FluxIliasRestApi\Adapter\User\UserIdDto;
 use FluxIliasRestApi\Service\Constants\Port\ConstantsService;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use FluxIliasRestApi\Service\User\Port\UserService;
 use FluxIliasRestApi\Service\User\UserQuery;
 
 class UpdateUserCommand
 {
 
+    use TimestampQuery;
     use UserQuery;
 
     private function __construct(

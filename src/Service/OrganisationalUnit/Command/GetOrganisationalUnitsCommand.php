@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\OrganisationalUnit\Command;
 use FluxIliasRestApi\Adapter\OrganisationalUnit\OrganisationalUnitDto;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
 use FluxIliasRestApi\Service\OrganisationalUnit\OrganisationalUnitQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 
 class GetOrganisationalUnitsCommand
@@ -12,6 +13,7 @@ class GetOrganisationalUnitsCommand
 
     use ObjectQuery;
     use OrganisationalUnitQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

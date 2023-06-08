@@ -28,24 +28,28 @@ WHERE time<" . $this->ilias_database->quote(time() - ($keep_changes_inside_days 
     }
 
 
-    private function getChangeQuery(?float $from = null, ?float $to = null, ?float $after = null, ?float $before = null) : string
+    private function getChangeQuery(?float $time = null, ?float $time_from = null, ?float $time_to = null, ?float $time_after = null, ?float $time_before = null) : string
     {
         $wheres = [];
 
-        if ($from !== null) {
-            $wheres[] = "time>=" . $this->ilias_database->quote($from, ilDBConstants::T_FLOAT);
+        if ($time !== null) {
+            $wheres[] = "time=" . $this->ilias_database->quote($time, ilDBConstants::T_FLOAT);
         }
 
-        if ($to !== null) {
-            $wheres[] = "time<=" . $this->ilias_database->quote($to, ilDBConstants::T_FLOAT);
+        if ($time_from !== null) {
+            $wheres[] = "time>=" . $this->ilias_database->quote($time_from, ilDBConstants::T_FLOAT);
         }
 
-        if ($after !== null) {
-            $wheres[] = "time>" . $this->ilias_database->quote($after, ilDBConstants::T_FLOAT);
+        if ($time_to !== null) {
+            $wheres[] = "time<=" . $this->ilias_database->quote($time_to, ilDBConstants::T_FLOAT);
         }
 
-        if ($before !== null) {
-            $wheres[] = "time<" . $this->ilias_database->quote($before, ilDBConstants::T_FLOAT);
+        if ($time_after !== null) {
+            $wheres[] = "time>" . $this->ilias_database->quote($time_after, ilDBConstants::T_FLOAT);
+        }
+
+        if ($time_before !== null) {
+            $wheres[] = "time<" . $this->ilias_database->quote($time_before, ilDBConstants::T_FLOAT);
         }
 
         return "SELECT *

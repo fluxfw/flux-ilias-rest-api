@@ -84,7 +84,7 @@ trait ObjectQuery
      * @param ObjectType[]|null $types
      * @param int[]|null $children_ref_ids
      */
-    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?string $children_title = null, ?array $children_ref_ids = null, ?bool $in_trash = null) : string {
+    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?float $children_created = null, ?float $children_created_from = null, ?float $children_created_to = null, ?float $children_created_after = null, ?float $children_created_before = null, ?float $children_updated = null, ?float $children_updated_from = null, ?float $children_updated_to = null, ?float $children_updated_after = null, ?float $children_updated_before = null, ?string $children_title = null, ?array $children_ref_ids = null, ?bool $in_trash = null) : string {
         $wheres = [];
 
         if ($id !== null) {
@@ -113,6 +113,66 @@ trait ObjectQuery
 
         if ($children_types !== null) {
             $wheres[] = $this->ilias_database->in("object_data_child.type", array_map(fn(ObjectType $type) : string => ObjectTypeMapping::mapExternalToInternal($type)->value, $children_types), false, ilDBConstants::T_TEXT);
+        } 
+
+        if ($children_created !== null) {
+            $wheres[] = "object_data_child.create_date=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_created
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_created_from !== null) {
+            $wheres[] = "object_data_child.create_date>=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_created_from
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_created_to !== null) {
+            $wheres[] = "object_data_child.create_date<=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_created_to
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_created_after !== null) {
+            $wheres[] = "object_data_child.create_date>" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_created_after
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_created_before !== null) {
+            $wheres[] = "object_data_child.create_date<" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_created_before
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_updated !== null) {
+            $wheres[] = "object_data_child.last_update=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_updated
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_updated_from !== null) {
+            $wheres[] = "object_data_child.last_update>=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_updated_from
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_updated_to !== null) {
+            $wheres[] = "object_data_child.last_update<=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_updated_to
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_updated_after !== null) {
+            $wheres[] = "object_data_child.last_update>" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_updated_after
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($children_updated_before !== null) {
+            $wheres[] = "object_data_child.last_update<" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $children_updated_before
+            ), ilDBConstants::T_TEXT);
         }
 
         if ($children_title !== null) {
@@ -160,7 +220,7 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
      * @param ObjectType[]|null $types
      * @param int[]|null $ref_ids
      */
-    private function getObjectQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $types = null, ?string $title = null, ?array $ref_ids = null, ?bool $in_trash = null) : string {
+    private function getObjectQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $types = null, ?float $created = null, ?float $created_from = null, ?float $created_to = null, ?float $created_after = null, ?float $created_before = null, ?float $updated = null, ?float $updated_from = null, ?float $updated_to = null, ?float $updated_after = null, ?float $updated_before = null, ?string $title = null, ?array $ref_ids = null, ?bool $in_trash = null) : string {
         $wheres = [];
 
         if ($id !== null) {
@@ -177,6 +237,66 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
 
         if ($types !== null) {
             $wheres[] = $this->ilias_database->in("object_data.type", array_map(fn(ObjectType $type) : string => ObjectTypeMapping::mapExternalToInternal($type)->value, $types), false, ilDBConstants::T_TEXT);
+        }
+
+        if ($created !== null) {
+            $wheres[] = "object_data.create_date=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $created
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($created_from !== null) {
+            $wheres[] = "object_data.create_date>=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $created_from
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($created_to !== null) {
+            $wheres[] = "object_data.create_date<=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $created_to
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($created_after !== null) {
+            $wheres[] = "object_data.create_date>" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $created_after
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($created_before !== null) {
+            $wheres[] = "object_data.create_date<" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $created_before
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($updated !== null) {
+            $wheres[] = "object_data.last_update=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $updated
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($updated_from !== null) {
+            $wheres[] = "object_data.last_update>=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $updated_from
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($updated_to !== null) {
+            $wheres[] = "object_data.last_update<=" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $updated_to
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($updated_after !== null) {
+            $wheres[] = "object_data.last_update>" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $updated_after
+            ), ilDBConstants::T_TEXT);
+        }
+
+        if ($updated_before !== null) {
+            $wheres[] = "object_data.last_update<" . $this->ilias_database->quote($this->convertTimestampToDateTimeString(
+                $updated_before
+            ), ilDBConstants::T_TEXT);
         }
 
         if ($title !== null) {
@@ -268,8 +388,12 @@ ORDER BY object_reference.ref_id ASC";
             $ref_ids !== null ? array_values(array_map(fn(array $object_ref_id) : int => $object_ref_id["ref_id"] ?: null,
                 array_filter($ref_ids, fn(array $object_ref_id) : bool => $object_ref_id["obj_id"] === $object["obj_id"]))) : null,
             $type !== null ? ObjectTypeMapping::mapInternalToExternal($type) : null,
-            strtotime($object["create_date"] ?? null) ?: null,
-            strtotime($object["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $object["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $object["last_update"] ?? null
+            ),
             $object["parent_obj_id"] ?: null,
             $object["parent_import_id"] ?: null,
             $object["parent_ref_id"] ?: null,

@@ -113,8 +113,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $object["obj_id"] ?: null,
             $object["import_id"] ?: null,
             $object["ref_id"] ?: null,
-            strtotime($object["create_date"] ?? null) ?: null,
-            strtotime($object["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $object["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $object["last_update"] ?? null
+            ),
             $object["parent_obj_id"] ?: null,
             $object["parent_import_id"] ?: null,
             $object["parent_ref_id"] ?: null,

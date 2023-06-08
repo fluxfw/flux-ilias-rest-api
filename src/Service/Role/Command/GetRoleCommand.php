@@ -4,6 +4,7 @@ namespace FluxIliasRestApi\Service\Role\Command;
 
 use FluxIliasRestApi\Adapter\Role\RoleDto;
 use FluxIliasRestApi\Service\Role\RoleQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 use LogicException;
 
@@ -11,6 +12,7 @@ class GetRoleCommand
 {
 
     use RoleQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

@@ -6,6 +6,7 @@ use FluxIliasRestApi\Adapter\Group\GroupDto;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Group\GroupQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 use LogicException;
 
@@ -15,6 +16,7 @@ class GetGroupCommand
     use CustomMetadataQuery;
     use GroupQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

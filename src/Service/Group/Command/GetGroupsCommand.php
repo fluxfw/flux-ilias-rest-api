@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\Group\Command;
 use FluxIliasRestApi\Adapter\Group\GroupDto;
 use FluxIliasRestApi\Service\Group\GroupQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 
 class GetGroupsCommand
@@ -12,6 +13,7 @@ class GetGroupsCommand
 
     use GroupQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

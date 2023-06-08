@@ -5,12 +5,14 @@ namespace FluxIliasRestApi\Service\User\Command;
 use FluxIliasRestApi\Adapter\User\UserDiffDto;
 use FluxIliasRestApi\Adapter\User\UserIdDto;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use FluxIliasRestApi\Service\User\UserQuery;
 use ILIAS\DI\RBACServices;
 
 class CreateUserCommand
 {
 
+    use TimestampQuery;
     use UserQuery;
 
     private function __construct(

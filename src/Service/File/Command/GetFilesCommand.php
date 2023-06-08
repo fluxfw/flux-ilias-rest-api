@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\File\Command;
 use FluxIliasRestApi\Adapter\File\FileDto;
 use FluxIliasRestApi\Service\File\FileQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 
 class GetFilesCommand
@@ -12,6 +13,7 @@ class GetFilesCommand
 
     use FileQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

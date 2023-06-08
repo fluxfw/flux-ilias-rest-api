@@ -52,6 +52,7 @@ class TransferChangesCommand
         $changes = $this->change_service->getChanges(
             null,
             null,
+            null,
             $this->change_service->getLastTransferredChangeTime()
         );
 

@@ -74,6 +74,56 @@ class GetChildrenByRefIdRoute implements Route
                     "Filter by object types split by ,"
                 ),
                 RouteParamDocumentationDto::new(
+                    "created",
+                    "float",
+                    "Only objects created on timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "created_from",
+                    "float",
+                    "Only objects created from timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "created_to",
+                    "float",
+                    "Only objects created to timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "created_after",
+                    "float",
+                    "Only objects created after timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "created_before",
+                    "float",
+                    "Only objects created before timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "updated",
+                    "float",
+                    "Only objects updated on timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "updated_from",
+                    "float",
+                    "Only objects updated from timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "updated_to",
+                    "float",
+                    "Only objects updated to timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "updated_after",
+                    "float",
+                    "Only objects updated after timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "updated_before",
+                    "float",
+                    "Only objects updated before timestamp"
+                ),
+                RouteParamDocumentationDto::new(
                     "title",
                     "string",
                     "Filter by title"
@@ -135,6 +185,36 @@ class GetChildrenByRefIdRoute implements Route
             )) !== null ? array_map(fn(string $type) : ObjectType => CustomObjectType::factory(
                 $type
             ), explode(",", $types)) : null,
+            $request->getQueryParam(
+                "created"
+            ),
+            $request->getQueryParam(
+                "created_from"
+            ),
+            $request->getQueryParam(
+                "created_to"
+            ),
+            $request->getQueryParam(
+                "created_after"
+            ),
+            $request->getQueryParam(
+                "created_before"
+            ),
+            $request->getQueryParam(
+                "updated"
+            ),
+            $request->getQueryParam(
+                "updated_from"
+            ),
+            $request->getQueryParam(
+                "updated_to"
+            ),
+            $request->getQueryParam(
+                "updated_after"
+            ),
+            $request->getQueryParam(
+                "updated_before"
+            ),
             $request->getQueryParam(
                 "title"
             ),

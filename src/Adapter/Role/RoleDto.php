@@ -8,8 +8,8 @@ class RoleDto
     private function __construct(
         public readonly ?int $id,
         public readonly ?string $import_id,
-        public readonly ?int $created,
-        public readonly ?int $updated,
+        public readonly ?float $created,
+        public readonly ?float $updated,
         public readonly ?int $object_id,
         public readonly ?string $object_import_id,
         public readonly ?int $object_ref_id,
@@ -23,8 +23,8 @@ class RoleDto
     public static function new(
         ?int $id = null,
         ?string $import_id = null,
-        ?int $created = null,
-        ?int $updated = null,
+        ?float $created = null,
+        ?float $updated = null,
         ?int $object_id = null,
         ?string $object_import_id = null,
         ?int $object_ref_id = null,

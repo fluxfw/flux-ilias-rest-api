@@ -8,8 +8,8 @@ class OrganisationalUnitDto
     private function __construct(
         public readonly ?int $id,
         public readonly ?int $ref_id,
-        public readonly ?int $created,
-        public readonly ?int $updated,
+        public readonly ?float $created,
+        public readonly ?float $updated,
         public readonly ?int $parent_id,
         public readonly ?string $parent_external_id,
         public readonly ?int $parent_ref_id,
@@ -27,8 +27,8 @@ class OrganisationalUnitDto
     public static function new(
         ?int $id = null,
         ?int $ref_id = null,
-        ?int $created = null,
-        ?int $updated = null,
+        ?float $created = null,
+        ?float $updated = null,
         ?int $parent_id = null,
         ?string $parent_external_id = null,
         ?int $parent_ref_id = null,

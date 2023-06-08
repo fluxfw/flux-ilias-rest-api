@@ -87,8 +87,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
         return OrganisationalUnitDto::new(
             $organisational_unit["obj_id"] ?: null,
             $organisational_unit["ref_id"] ?: null,
-            strtotime($organisational_unit["create_date"] ?? null) ?: null,
-            strtotime($organisational_unit["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $organisational_unit["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $organisational_unit["last_update"] ?? null
+            ),
             $organisational_unit["parent_obj_id"] ?: null,
             $organisational_unit["parent_external_id"] ?? "",
             $organisational_unit["parent_ref_id"] ?: null,

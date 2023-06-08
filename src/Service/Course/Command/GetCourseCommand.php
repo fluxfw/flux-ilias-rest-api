@@ -6,6 +6,7 @@ use FluxIliasRestApi\Adapter\Course\CourseDto;
 use FluxIliasRestApi\Service\Course\CourseQuery;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 use LogicException;
 
@@ -15,6 +16,7 @@ class GetCourseCommand
     use CourseQuery;
     use CustomMetadataQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

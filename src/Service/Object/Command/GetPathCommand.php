@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\Object\Command;
 use FluxIliasRestApi\Adapter\Object\ObjectDto;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
 use FluxIliasRestApi\Service\Object\Port\ObjectService;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 use ilTree;
 
@@ -12,6 +13,7 @@ class GetPathCommand
 {
 
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ObjectService $object_service,
@@ -94,6 +96,16 @@ class GetPathCommand
 
         $path_ref_ids = $this->ilias_tree->getPathId($object->ref_id);
         $objects = $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectQuery(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
             null,
             null,
             null,

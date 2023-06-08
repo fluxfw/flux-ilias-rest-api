@@ -94,8 +94,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $group["obj_id"] ?: null,
             $group["import_id"] ?: null,
             $group["ref_id"] ?: null,
-            strtotime($group["create_date"] ?? null) ?: null,
-            strtotime($group["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $group["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $group["last_update"] ?? null
+            ),
             $group["parent_obj_id"] ?: null,
             $group["parent_import_id"] ?: null,
             $group["parent_ref_id"] ?: null,

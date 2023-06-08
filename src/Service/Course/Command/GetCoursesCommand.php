@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\Course\Command;
 use FluxIliasRestApi\Adapter\Course\CourseDto;
 use FluxIliasRestApi\Service\Course\CourseQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 
 class GetCoursesCommand
@@ -12,6 +13,7 @@ class GetCoursesCommand
 
     use CourseQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

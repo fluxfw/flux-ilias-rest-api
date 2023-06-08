@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\Category\Command;
 use FluxIliasRestApi\Adapter\Category\CategoryDto;
 use FluxIliasRestApi\Service\Category\CategoryQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 
 class GetCategoriesCommand
@@ -12,6 +13,7 @@ class GetCategoriesCommand
 
     use CategoryQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database

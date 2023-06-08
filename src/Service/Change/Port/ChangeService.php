@@ -163,16 +163,17 @@ class ChangeService
     /**
      * @return ChangeDto[]
      */
-    public function getChanges(?float $from = null, ?float $to = null, ?float $after = null, ?float $before = null) : array
+    public function getChanges(?float $time = null, ?float $time_from = null, ?float $time_to = null, ?float $time_after = null, ?float $time_before = null) : array
     {
         return GetChangesCommand::new(
             $this->ilias_database
         )
             ->getChanges(
-                $from,
-                $to,
-                $after,
-                $before
+                $time,
+                $time_from,
+                $time_to,
+                $time_after,
+                $time_before
             );
     }
 

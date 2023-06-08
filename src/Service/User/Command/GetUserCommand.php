@@ -3,6 +3,7 @@
 namespace FluxIliasRestApi\Service\User\Command;
 
 use FluxIliasRestApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use FluxIliasRestApi\Service\User\UserQuery;
 use ilDBInterface;
 use LogicException;
@@ -10,6 +11,7 @@ use LogicException;
 class GetUserCommand
 {
 
+    use TimestampQuery;
     use UserQuery;
 
     private function __construct(

@@ -44,24 +44,29 @@ class GetChangesRoute implements Route
             null,
             [
                 RouteParamDocumentationDto::new(
-                    "after",
+                    "time",
                     "float",
-                    "Only changes after timestamp"
+                    "Only changes on timestamp"
                 ),
                 RouteParamDocumentationDto::new(
-                    "before",
-                    "float",
-                    "Only changes before timestamp"
-                ),
-                RouteParamDocumentationDto::new(
-                    "from",
+                    "time_from",
                     "float",
                     "Only changes from timestamp"
                 ),
                 RouteParamDocumentationDto::new(
-                    "to",
+                    "time_to",
                     "float",
                     "Only changes to timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "time_after",
+                    "float",
+                    "Only changes after timestamp"
+                ),
+                RouteParamDocumentationDto::new(
+                    "time_before",
+                    "float",
+                    "Only changes before timestamp"
                 )
             ],
             null,
@@ -95,16 +100,19 @@ class GetChangesRoute implements Route
             JsonBodyDto::new(
                 $this->ilias_rest_api->getChanges(
                     $request->getQueryParam(
-                        "from"
+                        "time"
                     ),
                     $request->getQueryParam(
-                        "to"
+                        "time_from"
                     ),
                     $request->getQueryParam(
-                        "after"
+                        "time_to"
                     ),
                     $request->getQueryParam(
-                        "before"
+                        "time_after"
+                    ),
+                    $request->getQueryParam(
+                        "time_before"
                     )
                 )
             )

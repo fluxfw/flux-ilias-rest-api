@@ -95,8 +95,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $file["obj_id"] ?: null,
             $file["import_id"] ?: null,
             $file["ref_id"] ?: null,
-            strtotime($file["create_date"] ?? null) ?: null,
-            strtotime($file["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $file["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $file["last_update"] ?? null
+            ),
             $file["parent_obj_id"] ?: null,
             $file["parent_import_id"] ?: null,
             $file["parent_ref_id"] ?: null,

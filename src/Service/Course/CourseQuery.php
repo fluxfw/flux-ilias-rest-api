@@ -240,8 +240,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $course["obj_id"] ?: null,
             $course["import_id"] ?: null,
             $course["ref_id"] ?: null,
-            strtotime($course["create_date"] ?? null) ?: null,
-            strtotime($course["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $course["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $course["last_update"] ?? null
+            ),
             $course["parent_obj_id"] ?: null,
             $course["parent_import_id"] ?: null,
             $course["parent_ref_id"] ?: null,
@@ -255,8 +259,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             ),
             $course["title"] ?? "",
             $course["description"] ?? "",
-            strtotime($course["period_start"]) ?: null,
-            strtotime($course["period_end"]) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $course["period_start"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $course["period_end"] ?? null
+            ),
             $course["period_time_indication"] ?? false,
             !($course["offline"] ?? null),
             $course["timing_start"] ?: null,

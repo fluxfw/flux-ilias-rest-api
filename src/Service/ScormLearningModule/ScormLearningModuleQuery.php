@@ -114,8 +114,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_reference.ref_
             $scorm_learning_module["obj_id"] ?: null,
             $scorm_learning_module["import_id"] ?: null,
             $scorm_learning_module["ref_id"] ?: null,
-            strtotime($scorm_learning_module["create_date"] ?? null) ?: null,
-            strtotime($scorm_learning_module["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $scorm_learning_module["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $scorm_learning_module["last_update"] ?? null
+            ),
             $scorm_learning_module["parent_obj_id"] ?: null,
             $scorm_learning_module["parent_import_id"] ?: null,
             $scorm_learning_module["parent_ref_id"] ?: null,

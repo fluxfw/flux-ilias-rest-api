@@ -63,8 +63,12 @@ ORDER BY object_data.title ASC,object_data.create_date ASC,object_data_parent.ob
         return RoleDto::new(
             $role["obj_id"] ?: null,
             $role["import_id"] ?: null,
-            strtotime($role["create_date"] ?? null) ?: null,
-            strtotime($role["last_update"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $role["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $role["last_update"] ?? null
+            ),
             $role["parent_obj_id"] ?: null,
             $role["parent_import_id"] ?: null,
             $role["parent_ref_id"] ?: null,

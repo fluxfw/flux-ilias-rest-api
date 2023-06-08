@@ -155,8 +155,28 @@ WHERE session_id=" . $this->ilias_database->quote($session_id,
             $ilias_user->setTimeLimitFrom($diff->access_limited_from);
         }
 
+        if ($diff->access_limited_from_unset !== null) {
+            if ($diff->access_limited_from !== null) {
+                throw new LogicException("Can't both set and unset access limited from");
+            }
+
+            if ($diff->access_limited_from_unset) {
+                $ilias_user->setTimeLimitFrom(null);
+            }
+        }
+
         if ($diff->access_limited_until !== null) {
             $ilias_user->setTimeLimitUntil($diff->access_limited_until);
+        }
+
+        if ($diff->access_limited_unitl_unset !== null) {
+            if ($diff->access_limited_until !== null) {
+                throw new LogicException("Can't both set and unset access limited until");
+            }
+
+            if ($diff->access_limited_unitl_unset) {
+                $ilias_user->setTimeLimitUntil(null);
+            }
         }
 
         if ($diff->access_limited_object_id !== null) {
@@ -227,7 +247,9 @@ WHERE session_id=" . $this->ilias_database->quote($session_id,
         }
 
         if ($diff->birthday !== null) {
-            $ilias_user->setBirthday(date("Y-m-d", $diff->birthday));
+            $ilias_user->setBirthday($this->convertTimestampToDateTimeString(
+                $diff->birthday
+            ));
         }
 
         if ($diff->birthday_unset !== null) {
@@ -395,15 +417,25 @@ WHERE session_id=" . $this->ilias_database->quote($session_id,
             ($authentication_mode = $user["auth_mode"] ?: null) !== null ? UserAuthenticationModeMapping::mapInternalToExternal(InternalUserAuthenticationMode::from($authentication_mode))
                 : UserAuthenticationMode::DEFAULT,
             $user["login"] ?? "",
-            strtotime($user["create_date"] ?? null) ?: null,
-            strtotime($user["last_update"] ?? null) ?: null,
-            strtotime($user["approve_date"] ?? null) ?: null,
-            strtotime($user["agree_date"] ?? null) ?: null,
-            strtotime($user["last_login"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $user["create_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $user["last_update"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $user["approve_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $user["agree_date"] ?? null
+            ),
+            $this->convertDateTimeStringToTimestamp(
+                $user["last_login"] ?? null
+            ),
             $user["active"] ?? false,
             $user["time_limit_unlimited"] ?? false,
-            strtotime($user["time_limit_from"] ?? null) ?: null,
-            strtotime($user["time_limit_until"] ?? null) ?: null,
+            $user["time_limit_from"] ?? null,
+            $user["time_limit_until"] ?? null,
             $getUserAccessLimitedObjectId(
                 "obj_id"
             ),
@@ -421,7 +453,9 @@ WHERE session_id=" . $this->ilias_database->quote($session_id,
                     "profile_image"
                 )
             ),
-            strtotime($user["birthday"] ?? null) ?: null,
+            $this->convertDateTimeStringToTimestamp(
+                $user["birthday"] ?? null
+            ),
             $user["institution"] ?? "",
             $user["department"] ?? "",
             $user["street"] ?? "",

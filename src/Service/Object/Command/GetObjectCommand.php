@@ -5,6 +5,7 @@ namespace FluxIliasRestApi\Service\Object\Command;
 use FluxIliasRestApi\Adapter\Object\ObjectDto;
 use FluxIliasRestApi\Service\CustomMetadata\CustomMetadataQuery;
 use FluxIliasRestApi\Service\Object\ObjectQuery;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use ilDBInterface;
 use LogicException;
 
@@ -13,6 +14,7 @@ class GetObjectCommand
 
     use CustomMetadataQuery;
     use ObjectQuery;
+    use TimestampQuery;
 
     private function __construct(
         private readonly ilDBInterface $ilias_database
@@ -35,6 +37,16 @@ class GetObjectCommand
         $object = null;
         while (($object_ = $this->ilias_database->fetchAssoc($result ??= $this->ilias_database->query($this->getObjectQuery(
                 $id,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -66,6 +78,16 @@ class GetObjectCommand
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 $in_trash
             )))) !== null) {
             if ($object !== null) {
@@ -89,6 +111,16 @@ class GetObjectCommand
                 null,
                 null,
                 $ref_id,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,

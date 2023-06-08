@@ -3,12 +3,14 @@
 namespace FluxIliasRestApi\Service\User\Command;
 
 use FluxIliasRestApi\Adapter\User\UserDto;
+use FluxIliasRestApi\Service\Timestamp\TimestampQuery;
 use FluxIliasRestApi\Service\User\UserQuery;
 use ilDBInterface;
 
 class GetUsersCommand
 {
 
+    use TimestampQuery;
     use UserQuery;
 
     private function __construct(
