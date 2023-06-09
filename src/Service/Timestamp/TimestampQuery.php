@@ -24,6 +24,6 @@ trait TimestampQuery
             return null;
         }
 
-        return DateTime::createFromFormat("U.u", number_format($timestamp, 6, ".", ""), new DateTimeZone("UTC"))->format("Y-m-d H:i:s.u");
+        return DateTime::createFromFormat("U.u", number_format($timestamp, 6, ".", ""), new DateTimeZone("UTC"))->format("Y-m-d\TH:i:s.u\Z");
     }
 }
