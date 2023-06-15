@@ -129,6 +129,11 @@ class GetChildrenByRefIdRoute implements Route
                     "Filter by title"
                 ),
                 RouteParamDocumentationDto::new(
+                    "title_contains",
+                    "string",
+                    "Filter title contains"
+                ),
+                RouteParamDocumentationDto::new(
                     "ref_ids",
                     "bool",
                     "Include ref ids"
@@ -217,6 +222,9 @@ class GetChildrenByRefIdRoute implements Route
             ),
             $request->getQueryParam(
                 "title"
+            ),
+            $request->getQueryParam(
+                "title_contains"
             ),
             $request->getQueryParam(
                 "ref_ids"

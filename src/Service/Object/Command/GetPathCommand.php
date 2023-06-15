@@ -111,6 +111,7 @@ class GetPathCommand
             null,
             null,
             null,
+            null,
             $path_ref_ids,
             $in_trash
         )));

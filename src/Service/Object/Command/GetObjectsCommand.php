@@ -34,7 +34,7 @@ class GetObjectsCommand
      * @param ObjectType[]|null $types
      * @return ObjectDto[]
      */
-    public function getObjects(?int $id = null, ?string $import_id = null, int $ref_id = null, ?array $types = null, ?float $created = null, ?float $created_from = null, ?float $created_to = null, ?float $created_after = null, ?float $created_before = null, ?float $updated = null, ?float $updated_from = null, ?float $updated_to = null, ?float $updated_after = null, ?float $updated_before = null, ?string $title = null, bool $ref_ids = false, ?bool $in_trash = null) : array
+    public function getObjects(?int $id = null, ?string $import_id = null, int $ref_id = null, ?array $types = null, ?float $created = null, ?float $created_from = null, ?float $created_to = null, ?float $created_after = null, ?float $created_before = null, ?float $updated = null, ?float $updated_from = null, ?float $updated_to = null, ?float $updated_after = null, ?float $updated_before = null, ?string $title = null, ?string $title_contains = null, bool $ref_ids = false, ?bool $in_trash = null) : array
     {
         $objects = $this->ilias_database->fetchAll($this->ilias_database->query($this->getObjectQuery(
             $id,
@@ -52,6 +52,7 @@ class GetObjectsCommand
             $updated_after,
             $updated_before,
             $title,
+            $title_contains,
             null,
             $in_trash
         )));

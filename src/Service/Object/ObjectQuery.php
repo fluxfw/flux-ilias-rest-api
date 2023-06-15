@@ -84,7 +84,7 @@ trait ObjectQuery
      * @param ObjectType[]|null $types
      * @param int[]|null $children_ref_ids
      */
-    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?float $children_created = null, ?float $children_created_from = null, ?float $children_created_to = null, ?float $children_created_after = null, ?float $children_created_before = null, ?float $children_updated = null, ?float $children_updated_from = null, ?float $children_updated_to = null, ?float $children_updated_after = null, ?float $children_updated_before = null, ?string $children_title = null, ?array $children_ref_ids = null, ?bool $in_trash = null) : string {
+    private function getObjectChildrenQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?int $children_id = null, ?string $children_import_id = null, ?int $children_ref_id = null, ?array $children_types = null, ?float $children_created = null, ?float $children_created_from = null, ?float $children_created_to = null, ?float $children_created_after = null, ?float $children_created_before = null, ?float $children_updated = null, ?float $children_updated_from = null, ?float $children_updated_to = null, ?float $children_updated_after = null, ?float $children_updated_before = null, ?string $children_title = null, ?string $children_title_contains = null, ?array $children_ref_ids = null, ?bool $in_trash = null) : string {
         $wheres = [];
 
         if ($id !== null) {
@@ -176,7 +176,11 @@ trait ObjectQuery
         }
 
         if ($children_title !== null) {
-            $wheres[] = $this->ilias_database->like("object_data_child.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $children_title) . "%");
+            $wheres[] = "object_data_child.title=" . $this->ilias_database->quote($children_title, ilDBConstants::T_TEXT);
+        }
+
+        if ($children_title_contains !== null) {
+            $wheres[] = $this->ilias_database->like("object_data_child.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $children_title_contains) . "%");
         }
 
         if ($children_ref_ids !== null) {
@@ -220,7 +224,7 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
      * @param ObjectType[]|null $types
      * @param int[]|null $ref_ids
      */
-    private function getObjectQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $types = null, ?float $created = null, ?float $created_from = null, ?float $created_to = null, ?float $created_after = null, ?float $created_before = null, ?float $updated = null, ?float $updated_from = null, ?float $updated_to = null, ?float $updated_after = null, ?float $updated_before = null, ?string $title = null, ?array $ref_ids = null, ?bool $in_trash = null) : string {
+    private function getObjectQuery(?int $id = null, ?string $import_id = null, ?int $ref_id = null, ?array $types = null, ?float $created = null, ?float $created_from = null, ?float $created_to = null, ?float $created_after = null, ?float $created_before = null, ?float $updated = null, ?float $updated_from = null, ?float $updated_to = null, ?float $updated_after = null, ?float $updated_before = null, ?string $title = null, ?string $title_contains = null, ?array $ref_ids = null, ?bool $in_trash = null) : string {
         $wheres = [];
 
         if ($id !== null) {
@@ -300,7 +304,11 @@ ORDER BY object_data_child.title ASC,object_data_child.create_date ASC,object_re
         }
 
         if ($title !== null) {
-            $wheres[] = $this->ilias_database->like("object_data.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $title) . "%");
+            $wheres[] = "object_data.title=" . $this->ilias_database->quote($title, ilDBConstants::T_TEXT);
+        }
+
+        if ($title_contains !== null) {
+            $wheres[] = $this->ilias_database->like("object_data.title", ilDBConstants::T_TEXT, "%" . str_replace(["\\", "%", "_"], ["\\\\", "\\%", "\\_"], $title_contains) . "%");
         }
 
         if ($ref_ids !== null) {

@@ -6,6 +6,13 @@ Changes:
 
 \-
 
+## v2023-06-15-1
+
+Changes:
+
+- Rename objects `title` to `title_contains` filter
+- Objects `title` filter
+
 ## v2023-06-08-1
 
 Changes:
