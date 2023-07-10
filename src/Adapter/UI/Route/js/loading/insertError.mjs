@@ -1,4 +1,4 @@
-import {UserError} from "../fetch/UserError.mjs";
+import { UserError } from "../fetch/UserError.mjs";
 
 export function insertError(err, fallback_text, parent_el) {
     console.error(err);
@@ -12,7 +12,7 @@ export function insertError(err, fallback_text, parent_el) {
         error_el.innerText = fallback_text;
     }
 
-    parent_el.appendChild(error_el);
+    parent_el.append(error_el);
 
     return error_el;
 }

@@ -9,7 +9,7 @@ async function routes() {
     const el = document.getElementById("routes");
 
     const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
-    el.appendChild(flux_loading_spinner_element);
+    el.append(flux_loading_spinner_element);
 
     let routes;
     try {
@@ -62,7 +62,7 @@ async function routes() {
             }
         });
 
-        routes_el.appendChild(route_el);
+        routes_el.append(route_el);
     }
 
     routes_template_el.replaceWith(routes_el);

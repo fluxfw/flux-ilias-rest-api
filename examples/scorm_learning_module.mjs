@@ -31,7 +31,7 @@ const scorm_learning_module = await (await fetch(`/flux-ilias-rest-api/scorm-lea
         });
         selector.click();
     });
-    document.body.appendChild(button);
+    document.body.append(button);
 }
 
 await (await fetch(`/flux-ilias-rest-api/scorm-learning-module/by-id/${scorm_learning_module.id}`)).json();

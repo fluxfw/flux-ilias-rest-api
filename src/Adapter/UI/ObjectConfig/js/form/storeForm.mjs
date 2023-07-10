@@ -20,7 +20,7 @@ export async function storeForm(ref_id, form_el) {
     };
 
     const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
-    form_el.appendChild(flux_loading_spinner_element);
+    form_el.append(flux_loading_spinner_element);
 
     try {
         await storeValues(ref_id, values);

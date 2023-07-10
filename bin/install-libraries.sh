@@ -31,7 +31,7 @@ installLibrary flux-http-api https://github.com/fluxfw/flux-http-api/archive/ref
 
 installLibrary flux-legacy-enum https://github.com/fluxfw/flux-legacy-enum/archive/refs/tags/v2023-02-09-1.tar.gz
 
-installLibrary flux-loading-spinner https://github.com/fluxfw/flux-loading-spinner/archive/refs/tags/v2023-05-30-1.tar.gz
+installLibrary flux-loading-spinner https://github.com/fluxfw/flux-loading-spinner/archive/refs/tags/v2023-07-10-1.tar.gz
 
 installLibrary flux-php-backport https://github.com/fluxfw/flux-php-backport/archive/refs/tags/v2023-02-09-1.tar.gz
 

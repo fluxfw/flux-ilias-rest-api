@@ -50,13 +50,13 @@ await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update`, {
         });
         selector.click();
     });
-    document.body.appendChild(button);
+    document.body.append(button);
 }
 
 {
     const image = document.createElement("img");
     image.src = `?/user/by-id/${user.id}/avatar`;
-    document.body.appendChild(image);
+    document.body.append(image);
 }
 
 await (await fetch(`/flux-ilias-rest-api/user/by-id/${user.id}/update/avatar`, {

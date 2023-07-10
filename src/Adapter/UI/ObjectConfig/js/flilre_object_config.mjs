@@ -10,7 +10,7 @@ async function flilre_object_config() {
     const ref_id = new URL(location).searchParams.get("ref_id");
 
     const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
-    el.appendChild(flux_loading_spinner_element);
+    el.append(flux_loading_spinner_element);
 
     let values;
     try {

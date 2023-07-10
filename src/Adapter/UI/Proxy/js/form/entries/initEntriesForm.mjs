@@ -68,7 +68,7 @@ export function initEntriesForm(name, entries_template_el, keys, values, form_el
             });
         }
 
-        entries_el.appendChild(entry_el);
+        entries_el.append(entry_el);
 
         if (update_buttons) {
             updateButtons();

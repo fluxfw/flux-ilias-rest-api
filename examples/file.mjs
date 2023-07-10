@@ -17,11 +17,11 @@ const file = await (await fetch(`/flux-ilias-rest-api/file/create/to-ref-id/${co
     const title = document.createElement("input");
     title.type = "text";
     title.placeholder = "Title";
-    document.body.appendChild(title);
+    document.body.append(title);
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.title = "Replace";
-    document.body.appendChild(checkbox);
+    document.body.append(checkbox);
     const button = document.createElement("button");
     button.type = "button";
     button.innerText = "Upload file";
@@ -40,7 +40,7 @@ const file = await (await fetch(`/flux-ilias-rest-api/file/create/to-ref-id/${co
         });
         selector.click();
     });
-    document.body.appendChild(button);
+    document.body.append(button);
 }
 
 await (await fetch(`/flux-ilias-rest-api/file/by-id/${file.id}`)).json();

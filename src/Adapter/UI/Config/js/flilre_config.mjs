@@ -8,7 +8,7 @@ async function flilre_config() {
     const el = document.getElementById("flilre_config");
 
     const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
-    el.appendChild(flux_loading_spinner_element);
+    el.append(flux_loading_spinner_element);
 
     let values;
     try {
