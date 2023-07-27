@@ -19,7 +19,7 @@ export async function storeForm(ref_id, form_el) {
         web_proxy_map_key: form_el.elements.web_proxy_map_key.value
     };
 
-    const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
+    const flux_loading_spinner_element = await FluxLoadingSpinnerElement.new();
     form_el.append(flux_loading_spinner_element);
 
     try {

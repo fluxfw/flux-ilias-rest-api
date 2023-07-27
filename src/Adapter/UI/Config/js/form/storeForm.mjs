@@ -40,7 +40,7 @@ export async function storeForm(form_el) {
         web_proxy_map: getEntriesFormValue("web_proxy_map", ["iframe_url", "menu_icon_url", "menu_item", "menu_title", "page_title", "rewrite_url", "short_title", "target_key", "view_title", "visible_public_menu_item", "visible_administrator_role_only_menu_item"], form_el)
     };
 
-    const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
+    const flux_loading_spinner_element = await FluxLoadingSpinnerElement.new();
     form_el.append(flux_loading_spinner_element);
 
     try {

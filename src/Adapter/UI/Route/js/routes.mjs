@@ -8,7 +8,7 @@ import { insertError } from "./loading/insertError.mjs";
 async function routes() {
     const el = document.getElementById("routes");
 
-    const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
+    const flux_loading_spinner_element = await FluxLoadingSpinnerElement.new();
     el.append(flux_loading_spinner_element);
 
     let routes;

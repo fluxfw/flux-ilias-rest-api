@@ -7,7 +7,7 @@ import { storeForm } from "./form/storeForm.mjs";
 async function flilre_config() {
     const el = document.getElementById("flilre_config");
 
-    const flux_loading_spinner_element = FluxLoadingSpinnerElement.new();
+    const flux_loading_spinner_element = await FluxLoadingSpinnerElement.new();
     el.append(flux_loading_spinner_element);
 
     let values;
